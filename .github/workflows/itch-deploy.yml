@@ -1,0 +1,121 @@
+# Builds the game and pushes it to itch.io.
+#   push to `stable`   -> channels windows-stable, linux-stable, mac-stable
+#   push to `playtest` -> channels windows-playtest, linux-playtest, mac-playtest
+#
+# Required repo settings (Settings -> Secrets and variables -> Actions):
+#   secret   BUTLER_API_KEY  - from https://itch.io/user/settings/api-keys
+#   variable ITCH_USER       - your itch.io username
+#   variable ITCH_GAME       - the game's url slug on itch.io
+
+name: Build & deploy to itch.io
+
+on:
+  push:
+    branches: [stable, playtest]
+  workflow_dispatch:
+
+concurrency:
+  group: itch-${{ github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  GODOT_VERSION: 4.7.2
+  CHANNEL_SUFFIX: ${{ github.ref_name }}
+
+jobs:
+  export:
+    name: Export ${{ matrix.preset }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - preset: Windows
+            platform: windows
+            output: build/windows/Spongija2026.exe
+          - preset: Linux
+            platform: linux
+            output: build/linux/Spongija2026.x86_64
+          - preset: macOS
+            platform: mac
+            output: build/mac/Spongija2026.zip
+    steps:
+      - uses: actions/checkout@v4
+
+      # LFS objects are cached so repeated builds don't burn LFS bandwidth.
+      - name: List LFS objects
+        run: git lfs ls-files --long | cut -d ' ' -f1 | sort > .lfs-assets-id
+
+      - name: Cache LFS objects
+        uses: actions/cache@v4
+        with:
+          path: .git/lfs
+          key: lfs-${{ hashFiles('.lfs-assets-id') }}
+          restore-keys: lfs-
+
+      - name: Pull LFS objects
+        run: git lfs pull
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Cache Godot
+        id: cache-godot
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/godot
+            ~/.local/share/godot/export_templates
+          key: godot-mono-${{ env.GODOT_VERSION }}
+
+      - name: Install Godot and export templates
+        if: steps.cache-godot.outputs.cache-hit != 'true'
+        run: |
+          base="https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable"
+          mkdir -p ~/godot
+          wget -q "$base/Godot_v${GODOT_VERSION}-stable_mono_linux_x86_64.zip" -O godot.zip
+          unzip -q godot.zip -d ~/godot
+          wget -q "$base/Godot_v${GODOT_VERSION}-stable_mono_export_templates.tpz" -O templates.tpz
+          unzip -q templates.tpz
+          dest=~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono
+          mkdir -p "$dest"
+          mv templates/* "$dest"
+
+      - name: Export
+        run: |
+          godot=$(find ~/godot -type f -name 'Godot_v*_mono_linux.x86_64')
+          mkdir -p "$(dirname '${{ matrix.output }}')"
+          "$godot" --headless --import
+          "$godot" --headless --export-release "${{ matrix.preset }}" "${{ matrix.output }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.platform }}
+          path: build/${{ matrix.platform }}
+
+  deploy:
+    name: Push to itch.io (${{ github.ref_name }})
+    needs: export
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: build
+
+      - name: Install butler
+        run: |
+          curl -sL -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
+          unzip -q butler.zip -d ~/butler
+          chmod +x ~/butler/butler
+          echo "$HOME/butler" >> "$GITHUB_PATH"
+
+      - name: Push builds
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+          TARGET: ${{ vars.ITCH_USER }}/${{ vars.ITCH_GAME }}
+          VERSION: ${{ github.ref_name }}-${{ github.run_number }}-${{ github.sha }}
+        run: |
+          butler push build/windows        "$TARGET:windows-$CHANNEL_SUFFIX" --userversion "$VERSION"
+          butler push build/linux          "$TARGET:linux-$CHANNEL_SUFFIX"   --userversion "$VERSION"
+          butler push build/mac/Spongija2026.zip "$TARGET:mac-$CHANNEL_SUFFIX" --userversion "$VERSION"

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dx28no73prvtv"]
+
+[ext_resource type="VideoStream" uid="uid://dywthbfxa70ts" path="res://assets/video/0001-0192.ogv" id="1_jjbkj"]
+[ext_resource type="Script" uid="uid://c80yh8l55ku1" path="res://src/ui/SplashScreen.cs" id="2_78rce"]
+[ext_resource type="PackedScene" uid="uid://jdn6epct1ip1" path="res://scenes/test.tscn" id="3_dxoqs"]
+
+[node name="StartingScene" type="Control" unique_id=1203815951]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1142386901]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_jjbkj")
+autoplay = true
+script = ExtResource("2_78rce")
+BeginningScene = ExtResource("3_dxoqs")

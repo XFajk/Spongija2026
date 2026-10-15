@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://jdn6epct1ip1"]
+
+[ext_resource type="PackedScene" uid="uid://bc4xglchw8qpu" path="res://scenes/player/Player.tscn" id="1_errlg"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mes6x"]
+size = Vector3(12.572891, 0.17626953, 12.003052)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bl13t"]
+size = Vector3(12.572891, 0.17626953, 12.003052)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fkeho"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8utch"]
+material = SubResource("StandardMaterial3D_fkeho")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iyx0m"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Test" type="Node3D" unique_id=1765263705]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=579013496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25667572, -0.41186523, -1.013855)
+mesh = SubResource("BoxMesh_mes6x")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=226290587]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=973019745]
+shape = SubResource("BoxShape3D_bl13t")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1625725946]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3314581, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1099865150]
+mesh = SubResource("BoxMesh_8utch")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1030945799]
+shape = SubResource("BoxShape3D_iyx0m")
+
+[node name="Player" parent="." unique_id=1087659960 instance=ExtResource("1_errlg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1403329923]
+transform = Transform3D(1, 0, 0, 0, 0.5976669, 0.8017446, 0, -0.8017446, 0.5976669, 0, 3.2752337, 0)
+shadow_enabled = true
