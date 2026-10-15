@@ -4,8 +4,8 @@
 #
 # Required repo settings (Settings -> Secrets and variables -> Actions):
 #   secret   BUTLER_API_KEY  - from https://itch.io/user/settings/api-keys
-#   variable ITCH_USER       - your itch.io username
-#   variable ITCH_GAME       - the game's url slug on itch.io
+#   ITCH_USER  (variable or secret) - your itch.io username
+#   ITCH_GAME  (variable or secret) - the game's url slug on itch.io
 
 name: Build & deploy to itch.io
 
@@ -113,9 +113,15 @@ jobs:
       - name: Push builds
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
-          TARGET: ${{ vars.ITCH_USER }}/${{ vars.ITCH_GAME }}
+          ITCH_USER: ${{ vars.ITCH_USER || secrets.ITCH_USER }}
+          ITCH_GAME: ${{ vars.ITCH_GAME || secrets.ITCH_GAME }}
           VERSION: ${{ github.ref_name }}-${{ github.run_number }}-${{ github.sha }}
         run: |
+          if [ -z "$ITCH_USER" ] || [ -z "$ITCH_GAME" ]; then
+            echo "::error::ITCH_USER and ITCH_GAME must be set as repo variables or secrets"
+            exit 1
+          fi
+          TARGET="$ITCH_USER/$ITCH_GAME"
           butler push build/windows        "$TARGET:windows-$CHANNEL_SUFFIX" --userversion "$VERSION"
           butler push build/linux          "$TARGET:linux-$CHANNEL_SUFFIX"   --userversion "$VERSION"
           butler push build/mac/Spongija2026.zip "$TARGET:mac-$CHANNEL_SUFFIX" --userversion "$VERSION"
