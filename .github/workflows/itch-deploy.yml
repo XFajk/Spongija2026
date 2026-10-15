@@ -1,4 +1,4 @@
-# Builds the game and pushes it to itch.io.
+# Builds the game and pushes it to itch.io. PRs into stable/playtest only build.
 #   push to `stable`   -> channels windows-stable, linux-stable, mac-stable
 #   push to `playtest` -> channels windows-playtest, linux-playtest, mac-playtest
 #
@@ -12,10 +12,13 @@ name: Build & deploy to itch.io
 on:
   push:
     branches: [stable, playtest]
+  # PRs into stable/playtest only build (required status check), they never deploy.
+  pull_request:
+    branches: [stable, playtest]
   workflow_dispatch:
 
 concurrency:
-  group: itch-${{ github.ref_name }}
+  group: itch-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 env:
@@ -97,6 +100,7 @@ jobs:
   deploy:
     name: Push to itch.io (${{ github.ref_name }})
     needs: export
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
