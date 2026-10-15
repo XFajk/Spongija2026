@@ -1,11 +1,17 @@
+# Godot 4.2+ specific ignores
+~*.dll
+
 # Godot 4+ specific ignores
 .godot/
+.nomedia
 /android/
 
 # Godot-specific ignores
 .import/
 export.cfg
 export_presets.cfg
+export_credentials.cfg
+*.tmp
 
 # Imported translations (automatically generated from CSV files)
 *.translation
@@ -19,6 +25,9 @@ mono_crash.*.json
 .vscode/
 /build/
 /builds/
+*.exe
+# Uncomment if your project does not version PCK files as runtime dependencies.
+# *.pck
 
 # OS-generated files
 .DS_Store
