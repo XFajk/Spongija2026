@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://d2vdux1r2w61k"]
+
+[ext_resource type="Script" uid="uid://7axoaninfoyr" path="res://src/player/ViewportRect.cs" id="1_20d6i"]
+
+[node name="ViewportRect" type="TextureRect" unique_id=434109989]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_20d6i")
+metadata/_edit_use_anchors_ = true

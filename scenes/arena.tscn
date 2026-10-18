@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dlub2l8df1s83"]
+
+[ext_resource type="PackedScene" uid="uid://d3siemxsgpj3l" path="res://scenes/player/player_camera.tscn" id="1_e05a3"]
+[ext_resource type="Script" uid="uid://ci7aabyrlpeu6" path="res://src/arena/Arena.cs" id="1_olpmc"]
+[ext_resource type="PackedScene" uid="uid://d2vdux1r2w61k" path="res://scenes/player/viewport_rect.tscn" id="2_wl4x5"]
+[ext_resource type="PackedScene" uid="uid://fahq2oemfim8" path="res://scenes/arena/double_tile.tscn" id="3_7ft05"]
+[ext_resource type="PackedScene" uid="uid://c16eba65w4ptq" path="res://scenes/arena/small_tile.tscn" id="4_xdvfk"]
+
+[node name="Arena" type="Node3D" unique_id=911541987]
+script = ExtResource("1_olpmc")
+SmallTile = ExtResource("4_xdvfk")
+DoubleTile = ExtResource("3_7ft05")
+AreaWidth = 20
+AreaHeight = 12
+TileWidthOffset = -10
+TileHeightOffset = -6
+
+[node name="ViewportRect" parent="." unique_id=434109989 node_paths=PackedStringArray("GameViewport") instance=ExtResource("2_wl4x5")]
+GameViewport = NodePath("../SubViewport")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=253654758]
+size = Vector2i(1393, 729)
+
+[node name="PlayerCamera" parent="SubViewport" unique_id=534837738 instance=ExtResource("1_e05a3")]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 3.75, 5.4330134)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=426126724]
+transform = Transform3D(0.8660254, -0.3535534, 0.3535534, 0, 0.7071068, 0.7071068, -0.5, -0.61237246, 0.61237246, 0, 4, 0)
