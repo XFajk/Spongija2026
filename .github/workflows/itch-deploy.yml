@@ -28,7 +28,7 @@ env:
 jobs:
   export:
     name: Export ${{ matrix.preset }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -43,14 +43,14 @@ jobs:
             platform: mac
             output: build/mac/Spongija2026.zip
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # LFS objects are cached so repeated builds don't burn LFS bandwidth.
       - name: List LFS objects
         run: git lfs ls-files --long | cut -d ' ' -f1 | sort > .lfs-assets-id
 
       - name: Cache LFS objects
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .git/lfs
           key: lfs-${{ hashFiles('.lfs-assets-id') }}
@@ -59,13 +59,13 @@ jobs:
       - name: Pull LFS objects
         run: git lfs pull
 
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: 8.0.x
 
       - name: Cache Godot
         id: cache-godot
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/godot
@@ -92,7 +92,7 @@ jobs:
           "$godot" --headless --import
           "$godot" --headless --export-release "${{ matrix.preset }}" "${{ matrix.output }}"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.platform }}
           path: build/${{ matrix.platform }}
@@ -104,7 +104,7 @@ jobs:
     needs: export
     runs-on: macos-latest
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: mac
           path: build/mac
@@ -123,7 +123,7 @@ jobs:
           mkdir -p build/mac-signed
           ditto -c -k --keepParent out/Spongija2026.app build/mac-signed/Spongija2026.zip
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: mac-signed
           path: build/mac-signed
@@ -132,9 +132,9 @@ jobs:
     name: Push to itch.io (${{ github.ref_name }})
     needs: [export, sign-macos]
     if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: build
 
