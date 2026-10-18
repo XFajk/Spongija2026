@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://d3siemxsgpj3l"]
+
+[ext_resource type="Script" uid="uid://dgxv3h1dlkce" path="res://src/player/PlayerCamera.cs" id="1_1hb71"]
+
+[node name="PlayerCamera" type="Camera3D" unique_id=118941473]
+script = ExtResource("1_1hb71")
+InteractionDistance = 100.0
+
+[node name="InteractionRayCast" type="RayCast3D" parent="." unique_id=1437896311]
+collision_mask = 8
+collide_with_areas = true

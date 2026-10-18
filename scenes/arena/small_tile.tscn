@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://c16eba65w4ptq"]
+
+[ext_resource type="Script" uid="uid://bluobf33br53m" path="res://src/arena/SmallTile.cs" id="1_8nspj"]
+[ext_resource type="Script" uid="uid://c1so6sg2p5nqy" path="res://src/interaction_system/Interactable.cs" id="2_ixjko"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dpxgc"]
+transparency = 1
+albedo_color = Color(0, 1, 0, 0.34901962)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ixjko"]
+size = Vector2(0.45, 0.45)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oexds"]
+transparency = 1
+albedo_color = Color(0, 1, 0.85105014, 0.384)
+
+[sub_resource type="QuadMesh" id="QuadMesh_4ag8t"]
+size = Vector2(0.4, 0.4)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_olpmc"]
+data = PackedVector3Array(0.225, -0.225, 0, -0.225, -0.225, 0, 0.225, 0.225, 0, -0.225, -0.225, 0, -0.225, 0.225, 0, 0.225, 0.225, 0)
+
+[node name="SmallTile" type="Area3D" unique_id=1718173335]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_8nspj")
+
+[node name="SmallTileMesh" type="MeshInstance3D" parent="." unique_id=1638452494]
+material_override = SubResource("StandardMaterial3D_dpxgc")
+mesh = SubResource("QuadMesh_ixjko")
+
+[node name="InnerSquareMesh" type="MeshInstance3D" parent="SmallTileMesh" unique_id=1458711987]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.3711387e-10, 0.01)
+material_override = SubResource("StandardMaterial3D_oexds")
+mesh = SubResource("QuadMesh_4ag8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=829519301]
+shape = SubResource("ConcavePolygonShape3D_olpmc")
+
+[node name="Interactable" type="Node" parent="." unique_id=537068741]
+script = ExtResource("2_ixjko")
+metadata/_custom_type_script = "uid://c1so6sg2p5nqy"
