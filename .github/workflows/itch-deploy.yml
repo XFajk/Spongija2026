@@ -97,9 +97,40 @@ jobs:
           name: ${{ matrix.platform }}
           path: build/${{ matrix.platform }}
 
+  # Godot's built-in signer on Linux produces a hardened-runtime signature that
+  # macOS kills at launch, so the app is ad-hoc signed here with Apple's codesign.
+  sign-macos:
+    name: Sign macOS
+    needs: export
+    runs-on: macos-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: mac
+          path: build/mac
+
+      - name: Ad-hoc sign
+        run: |
+          ditto -x -k build/mac/Spongija2026.zip out
+          codesign --force --deep --sign - out/Spongija2026.app
+          codesign --verify --deep --strict out/Spongija2026.app
+
+      - name: Smoke test (launch headless)
+        run: out/Spongija2026.app/Contents/MacOS/Spongija2026 --headless --quit-after 120
+
+      - name: Repackage
+        run: |
+          mkdir -p build/mac-signed
+          ditto -c -k --keepParent out/Spongija2026.app build/mac-signed/Spongija2026.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mac-signed
+          path: build/mac-signed
+
   deploy:
     name: Push to itch.io (${{ github.ref_name }})
-    needs: export
+    needs: [export, sign-macos]
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
@@ -128,4 +159,4 @@ jobs:
           TARGET="$ITCH_USER/$ITCH_GAME"
           butler push build/windows        "$TARGET:windows-$CHANNEL_SUFFIX" --userversion "$VERSION"
           butler push build/linux          "$TARGET:linux-$CHANNEL_SUFFIX"   --userversion "$VERSION"
-          butler push build/mac/Spongija2026.zip "$TARGET:mac-$CHANNEL_SUFFIX" --userversion "$VERSION"
+          butler push build/mac-signed/Spongija2026.zip "$TARGET:mac-$CHANNEL_SUFFIX" --userversion "$VERSION"
