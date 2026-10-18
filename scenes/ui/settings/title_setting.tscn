@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d27vlxv52ybnw"]
+
+[ext_resource type="Script" uid="uid://n1bcf11f3unw" path="res://src/ui/Settings/TitleSettingsUI.cs" id="1_30nw6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y2y4e"]
+content_margin_left = 25.0
+
+[node name="Label" type="Label" unique_id=1499866345]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_y2y4e")
+text = "Title"
+script = ExtResource("1_30nw6")

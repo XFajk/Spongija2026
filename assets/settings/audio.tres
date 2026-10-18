@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="SettingsPageResource" format=3 uid="uid://7db8pyme20tx"]
+
+[ext_resource type="Script" uid="uid://t6w8bg8dy7a1" path="res://src/resources/SettingsPageResource.cs" id="1_1o5hj"]
+[ext_resource type="PackedScene" uid="uid://d27vlxv52ybnw" path="res://scenes/ui/settings/title_setting.tscn" id="2_53yag"]
+[ext_resource type="Script" uid="uid://c63oacn1bhp0n" path="res://src/resources/TitleSetting.cs" id="3_k4uhu"]
+[ext_resource type="PackedScene" uid="uid://bp8o1xh6bd1f1" path="res://scenes/ui/settings/slider_setting.tscn" id="8_drrdw"]
+[ext_resource type="Script" uid="uid://kqcg47axafo5" path="res://src/resources/SliderSetting.cs" id="9_hurm1"]
+
+[sub_resource type="Resource" id="Resource_x5cif"]
+script = ExtResource("3_k4uhu")
+name = "Audio"
+SceneTemplate = ExtResource("2_53yag")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[sub_resource type="Resource" id="Resource_cg6v2"]
+script = ExtResource("9_hurm1")
+maxValue = 100.0
+step = 1.0
+name = "Master Volume"
+SceneTemplate = ExtResource("8_drrdw")
+metadata/_custom_type_script = "uid://kqcg47axafo5"
+
+[resource]
+script = ExtResource("1_1o5hj")
+settings = Array[Object]([SubResource("Resource_x5cif"), SubResource("Resource_cg6v2")])
+metadata/_custom_type_script = "uid://t6w8bg8dy7a1"

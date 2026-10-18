@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://ps0nlivurnvy"]
+
+[ext_resource type="Script" uid="uid://c1j6gmelfpkjr" path="res://src/ui/Settings/ToggleSettingUI.cs" id="1_12xqk"]
+[ext_resource type="Theme" uid="uid://bsblrvfn2nnnb" path="res://assets/ui_themes/settings_menu_ui_theme.tres" id="2_hgt6x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hgt6x"]
+
+[node name="ToggleSetting" type="HBoxContainer" unique_id=1495270588 node_paths=PackedStringArray("_label", "_checkBox")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_12xqk")
+_label = NodePath("Label")
+_checkBox = NodePath("CheckBox")
+
+[node name="Label" type="Label" parent="." unique_id=731628267]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hgt6x")
+
+[node name="CheckBox" type="CheckBox" parent="." unique_id=661041268]
+layout_mode = 2
+theme = ExtResource("2_hgt6x")

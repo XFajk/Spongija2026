@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SettingsPageResource" format=3 uid="uid://mm5wijfsiwhe"]
+
+[ext_resource type="Script" uid="uid://t6w8bg8dy7a1" path="res://src/resources/SettingsPageResource.cs" id="1_c5mx7"]
+[ext_resource type="PackedScene" uid="uid://d27vlxv52ybnw" path="res://scenes/ui/settings/title_setting.tscn" id="2_lpqf6"]
+[ext_resource type="Script" uid="uid://c63oacn1bhp0n" path="res://src/resources/TitleSetting.cs" id="3_0twgn"]
+
+[sub_resource type="Resource" id="Resource_x5cif"]
+script = ExtResource("3_0twgn")
+name = "Input"
+SceneTemplate = ExtResource("2_lpqf6")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[resource]
+script = ExtResource("1_c5mx7")
+settings = Array[Object]([SubResource("Resource_x5cif")])
+metadata/_custom_type_script = "uid://t6w8bg8dy7a1"
