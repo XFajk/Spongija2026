@@ -1,0 +1,427 @@
+[gd_scene format=3 uid="uid://1cwqotqa3spu"]
+
+[ext_resource type="Script" uid="uid://trwdn7gc4m2u" path="res://src/ui/MainMenu.cs" id="1_g0mf2"]
+[ext_resource type="Theme" uid="uid://brqf071jtaftc" path="res://assets/ui_themes/main_menu_ui_theme.tres" id="1_xsbw3"]
+[ext_resource type="Script" uid="uid://cjev6goupr6st" path="res://src/ui/SettingsBuilder.cs" id="3_e5b5k"]
+[ext_resource type="Resource" uid="uid://ch16y2n442y74" path="res://assets/settings/video.tres" id="4_8t0lc"]
+[ext_resource type="Theme" uid="uid://bsblrvfn2nnnb" path="res://assets/ui_themes/settings_menu_ui_theme.tres" id="4_a3bfj"]
+[ext_resource type="Resource" uid="uid://mm5wijfsiwhe" path="res://assets/settings/input.tres" id="5_3ngc3"]
+[ext_resource type="Resource" uid="uid://7db8pyme20tx" path="res://assets/settings/audio.tres" id="6_fefxt"]
+[ext_resource type="Resource" uid="uid://diqv13xtgj5eb" path="res://assets/settings/mysc.tres" id="7_1sjpa"]
+
+[sub_resource type="Gradient" id="Gradient_xsbw3"]
+colors = PackedColorArray(0.2801254, 0.03864867, 0.05847299, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sk6ys"]
+gradient = SubResource("Gradient_xsbw3")
+fill = 1
+fill_from = Vector2(0.53744495, 0.5726872)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x5cif"]
+texture = SubResource("GradientTexture2D_sk6ys")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsomr"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1109196, 0.0067062946, 0.008779497, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.66604537, 0.08673792, 0.11216498, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0mf2"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1sjpa"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uqnd"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.06518926, 6.2607576e-08, 0.003256598, 0.6)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rihwg"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.14329344, 0.008185875, 0.005366362, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.7465903, 0, 0.008818997, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[node name="MainMenu" type="Control" unique_id=2050550028]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g0mf2")
+
+[node name="Panel" type="Panel" parent="." unique_id=1708157144]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_x5cif")
+
+[node name="TitleMenu" type="Control" parent="." unique_id=1368377317]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="TitleMenu" unique_id=282420577]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -435.5
+offset_top = -62.0
+offset_right = 435.5
+offset_bottom = -398.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 90
+text = "ŠPONGIA 67"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="TitleMenu" unique_id=305564055]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -19.0
+offset_right = 240.0
+offset_bottom = 149.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("1_xsbw3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gsomr")
+
+[node name="MarginContainer" type="MarginContainer" parent="TitleMenu/PanelContainer" unique_id=589374300]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleMenu/PanelContainer/MarginContainer" unique_id=136238241]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PLAY" type="Button" parent="TitleMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=161310095]
+custom_minimum_size = Vector2(350, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "PLAY"
+
+[node name="SETTINGS" type="Button" parent="TitleMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=1746939519]
+custom_minimum_size = Vector2(400, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "SETTINGS"
+
+[node name="QUIT" type="Button" parent="TitleMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=604053133]
+custom_minimum_size = Vector2(450, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "EXIT TO DESKTOP"
+
+[node name="SettingsMenu" type="Control" parent="." unique_id=1007258281 node_paths=PackedStringArray("Container")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_e5b5k")
+VideoSettings = ExtResource("4_8t0lc")
+InputSettings = ExtResource("5_3ngc3")
+AudioSettings = ExtResource("6_fefxt")
+MyscSettings = ExtResource("7_1sjpa")
+Container = NodePath("Background/Settings/MarginContainer/VBoxContainer")
+
+[node name="Background" type="Panel" parent="SettingsMenu" unique_id=659317318]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = -30.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g0mf2")
+
+[node name="Buttons" type="Panel" parent="SettingsMenu/Background" unique_id=697584398]
+custom_minimum_size = Vector2(200, 0)
+clip_contents = true
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1sjpa")
+
+[node name="Backgrounds" type="MarginContainer" parent="SettingsMenu/Background/Buttons" unique_id=1252534950]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMenu/Background/Buttons/Backgrounds" unique_id=1586672426]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VideoBg" type="ColorRect" parent="SettingsMenu/Background/Buttons/Backgrounds/VBoxContainer" unique_id=1241411162]
+custom_minimum_size = Vector2(150, 55)
+layout_mode = 2
+color = Color(0.25750613, 0.0039624963, 0.035445843, 1)
+
+[node name="InputBg" type="ColorRect" parent="SettingsMenu/Background/Buttons/Backgrounds/VBoxContainer" unique_id=1342897023]
+custom_minimum_size = Vector2(150, 55)
+layout_mode = 2
+color = Color(0.25750613, 0.0039624963, 0.035445843, 1)
+
+[node name="AudioBg" type="ColorRect" parent="SettingsMenu/Background/Buttons/Backgrounds/VBoxContainer" unique_id=531804755]
+custom_minimum_size = Vector2(150, 55)
+layout_mode = 2
+color = Color(0.25750613, 0.0039624963, 0.035445843, 1)
+
+[node name="MyscBg" type="ColorRect" parent="SettingsMenu/Background/Buttons/Backgrounds/VBoxContainer" unique_id=2003557904]
+custom_minimum_size = Vector2(150, 55)
+layout_mode = 2
+color = Color(0.25750613, 0.0039624963, 0.035445843, 1)
+
+[node name="Buttons" type="MarginContainer" parent="SettingsMenu/Background/Buttons" unique_id=581679864]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMenu/Background/Buttons/Buttons" unique_id=983328844]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Video" type="Button" parent="SettingsMenu/Background/Buttons/Buttons/VBoxContainer" unique_id=69486231]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme = ExtResource("4_a3bfj")
+theme_override_font_sizes/font_size = 40
+text = "VIDEO"
+
+[node name="Input" type="Button" parent="SettingsMenu/Background/Buttons/Buttons/VBoxContainer" unique_id=768312584]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme = ExtResource("4_a3bfj")
+theme_override_font_sizes/font_size = 40
+text = "INPUT"
+
+[node name="Audio" type="Button" parent="SettingsMenu/Background/Buttons/Buttons/VBoxContainer" unique_id=661998834]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme = ExtResource("4_a3bfj")
+theme_override_font_sizes/font_size = 40
+text = "AUDIO"
+
+[node name="Mysc" type="Button" parent="SettingsMenu/Background/Buttons/Buttons/VBoxContainer" unique_id=1388530152]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme = ExtResource("4_a3bfj")
+theme_override_font_sizes/font_size = 40
+text = "MYSC"
+
+[node name="BACK" type="Button" parent="SettingsMenu/Background/Buttons" unique_id=1389252810]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -100.0
+offset_right = 155.0
+offset_bottom = -45.0
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0, 1)
+theme = ExtResource("4_a3bfj")
+theme_override_font_sizes/font_size = 40
+text = "BACK"
+
+[node name="Settings" type="Panel" parent="SettingsMenu/Background" unique_id=1906293049]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 281.0
+offset_top = 20.0
+offset_right = -35.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5uqnd")
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsMenu/Background/Settings" unique_id=1072661261]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMenu/Background/Settings/MarginContainer" unique_id=355398298]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="QuitMenu" type="Control" parent="." unique_id=569124868]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="QuitMenu" unique_id=1594029091]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -19.0
+offset_right = 240.0
+offset_bottom = 149.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("1_xsbw3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rihwg")
+
+[node name="MarginContainer" type="MarginContainer" parent="QuitMenu/PanelContainer" unique_id=962899055]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuitMenu/PanelContainer/MarginContainer" unique_id=427828631]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="QuitMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=641923117]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Are you sure you want to QUIT?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BACK" type="Button" parent="QuitMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=750223884]
+custom_minimum_size = Vector2(400, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "BACK"
+
+[node name="QUIT" type="Button" parent="QuitMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=2106075575]
+custom_minimum_size = Vector2(450, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "EXIT TO DESKTOP"

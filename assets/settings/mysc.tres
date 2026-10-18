@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SettingsPageResource" format=3 uid="uid://diqv13xtgj5eb"]
+
+[ext_resource type="Script" uid="uid://t6w8bg8dy7a1" path="res://src/resources/SettingsPageResource.cs" id="1_75bmp"]
+[ext_resource type="PackedScene" uid="uid://d27vlxv52ybnw" path="res://scenes/ui/settings/title_setting.tscn" id="2_5ikt2"]
+[ext_resource type="Script" uid="uid://c63oacn1bhp0n" path="res://src/resources/TitleSetting.cs" id="3_wx4rq"]
+[ext_resource type="Script" uid="uid://ckynlennwfn7v" path="res://src/resources/ToggleSetting.cs" id="5_xgliq"]
+
+[sub_resource type="Resource" id="Resource_x5cif"]
+script = ExtResource("3_wx4rq")
+name = "Mysc"
+SceneTemplate = ExtResource("2_5ikt2")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[sub_resource type="Resource" id="Resource_wyxh4"]
+script = ExtResource("5_xgliq")
+name = "Head Bobbing"
+metadata/_custom_type_script = "uid://ckynlennwfn7v"
+
+[resource]
+script = ExtResource("1_75bmp")
+settings = Array[Object]([SubResource("Resource_x5cif"), SubResource("Resource_wyxh4")])
+metadata/_custom_type_script = "uid://t6w8bg8dy7a1"

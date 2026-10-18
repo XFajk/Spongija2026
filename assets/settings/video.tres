@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="SettingsPageResource" format=3 uid="uid://ch16y2n442y74"]
+
+[ext_resource type="Script" uid="uid://t6w8bg8dy7a1" path="res://src/resources/SettingsPageResource.cs" id="1_onpoo"]
+[ext_resource type="Script" uid="uid://c63oacn1bhp0n" path="res://src/resources/TitleSetting.cs" id="2_3aabb"]
+[ext_resource type="PackedScene" uid="uid://d27vlxv52ybnw" path="res://scenes/ui/settings/title_setting.tscn" id="2_hl0pj"]
+[ext_resource type="PackedScene" uid="uid://ps0nlivurnvy" path="res://scenes/ui/settings/toggle_setting.tscn" id="4_0ijnh"]
+[ext_resource type="Script" uid="uid://ckynlennwfn7v" path="res://src/resources/ToggleSetting.cs" id="4_3n1ax"]
+[ext_resource type="PackedScene" uid="uid://bp8o1xh6bd1f1" path="res://scenes/ui/settings/slider_setting.tscn" id="6_0ijnh"]
+[ext_resource type="PackedScene" uid="uid://cs5hchmjglrwr" path="res://scenes/ui/settings/dropdown_setting.tscn" id="6_0tpu0"]
+[ext_resource type="Script" uid="uid://kqcg47axafo5" path="res://src/resources/SliderSetting.cs" id="7_bw6f4"]
+[ext_resource type="Script" uid="uid://j5vcvwh2jtdf" path="res://src/resources/Dropdown.cs" id="7_w7tr1"]
+
+[sub_resource type="Resource" id="Resource_x5cif"]
+script = ExtResource("2_3aabb")
+name = "Display"
+SceneTemplate = ExtResource("2_hl0pj")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[sub_resource type="Resource" id="Resource_4n641"]
+script = ExtResource("4_3n1ax")
+name = "Fullscreen"
+SceneTemplate = ExtResource("4_0ijnh")
+metadata/_custom_type_script = "uid://ckynlennwfn7v"
+
+[sub_resource type="Resource" id="Resource_jxyc0"]
+script = ExtResource("2_3aabb")
+name = "Graphics"
+SceneTemplate = ExtResource("2_hl0pj")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[sub_resource type="Resource" id="Resource_e1ve6"]
+script = ExtResource("7_w7tr1")
+options = PackedStringArray("1920x1080", "1920x1200")
+name = "Graphics Quality"
+SceneTemplate = ExtResource("6_0tpu0")
+metadata/_custom_type_script = "uid://j5vcvwh2jtdf"
+
+[sub_resource type="Resource" id="Resource_m04ob"]
+script = ExtResource("7_bw6f4")
+maxValue = 120.0
+minValue = 70.0
+step = 1.0
+name = "FOV"
+SceneTemplate = ExtResource("6_0ijnh")
+metadata/_custom_type_script = "uid://kqcg47axafo5"
+
+[resource]
+script = ExtResource("1_onpoo")
+settings = Array[Object]([SubResource("Resource_x5cif"), SubResource("Resource_4n641"), SubResource("Resource_jxyc0"), SubResource("Resource_e1ve6"), SubResource("Resource_m04ob")])
+metadata/_custom_type_script = "uid://t6w8bg8dy7a1"
