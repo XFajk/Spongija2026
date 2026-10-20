@@ -4,7 +4,49 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Spongija2026 is a 3D turn-based strategy game in the style of Heroes of Might and Magic V (free mouse cursor, clickable 3D objects), built with **Godot 4.7.2 (.NET / C#)**. The current FPS player controller and test scene are placeholder code reused to test the CI/CD pipeline, not the intended gameplay. It targets .NET 8 (`Godot.NET.Sdk/4.7.2`, pinned in `global.json`). All gameplay code is C# in `src/`; scenes live in `scenes/`; art/media in `assets/`. There are no tests and no linter configured.
+Spongija2026 is a 3D turn-based strategy game based on Heroes of Might and Magic III (mechanics are added to or cut from it), with inspiration from HoMM IV and V (free mouse cursor, clickable 3D objects). It is built with **Godot 4.7.2 (.NET / C#)**. The current FPS player controller and test scene are placeholder code reused to test the CI/CD pipeline, not the intended gameplay. It targets .NET 8 (`Godot.NET.Sdk/4.7.2`, pinned in `global.json`). All gameplay code is C# in `src/`; scenes live in `scenes/`; art/media in `assets/`. There are no tests and no linter configured.
+
+## Game design
+
+Agreed design. Values without a number yet are TBD.
+
+### Setting and scope
+
+- LOTR, Years of the Trees: the Elves' Great Journey from Cuiviénen toward Aman.
+- The game covers only the Great Forest (later Mirkwood), ending at Atyamar in the Anduin Vale. A second part (crossing the Anduin and the Misty Mountains) is optional, only if time allows.
+- The player is Oromë (the Vala). The story starts at the Elves' settlement in front of the forest, where they waited after being slaughtered by dark creatures in the forest, until Oromë came.
+- A tutorial in front of the forest teaches movement, combat, artifacts and camps.
+
+### Adventure map
+
+- One large 3D map. The hero is a `NavigationAgent3D`: click a point and he walks there along the navmesh.
+- No days, weeks, seasons or movement points (movement is unlimited). No towns.
+- Areas (east to west): the start, Eastern Woods, the Meadow (centre hub, camp, wild horses), then two routes: the Deep Thicket (north, spiders) or Shadow Hill (south, shadows and spirits, ruins of a Melkor stronghold, optional boss that drops the Valaróma artifact). The Mere/swamp has ore, a mana spring and the strongest scroll. The end is Atyamar (west). The map sketch is not in the repo; ask the user for it.
+- Scale: 1 Godot unit = 1 m. Hero ~2.5 m, trees 5–8 m, mountains 15–35 m, camp 15–20 m, paths at least 6–10 m wide. Camera ~35 m up, pitched 50–55°. Sizes follow gameplay importance, not realism.
+
+### Army
+
+- Starting army: ~30 pilgrim elves and 5 warrior elves.
+- 5 army slots with no stack cap. Stacks can be split across slots as in HoMM: an attack hits only one stack, so splitting limits losses but uses slots.
+- Ways to get units:
+  1. Camps: on every hero move, each camp measures the navmesh path distance to the hero and stores the maximum ever reached (`max_ever`). A visit pays out only new progress: `max_ever - already_paid` is converted to units (X distance = 1 pilgrim, Y pilgrims = 1 warrior; X and Y TBD), then `already_paid = max_ever`. This prevents farming by walking back and forth.
+  2. Found on the map (e.g. lost elves).
+  3. Surrender: if the player's army is much stronger, the fight can be skipped and beasts (wolves, spiders) offer to join; the player accepts or refuses. Demons and shadows never surrender.
+  4. Crafting with found resources: horses + pilgrims → cavalry, silk + pilgrims → archers, ore + pilgrims → warriors (ratios TBD).
+
+### Hero, artifacts, spells
+
+- As in HoMM3, the hero doesn't fight. His stats (Attack, Defense, Power, Knowledge) boost the army, and Knowledge sets max mana.
+- 3 artifact slots: neck, left hand, right hand. Artifacts boost hero stats. One artifact per significant forest area (~6).
+- Mana works as in HoMM3. Hero mana refills at mana springs, which work like camps. Unit mana refills on its own.
+- Spells are learned in exactly 2 ways:
+  1. From an enemy caster unit that surrenders and joins: the hero learns its spell, castable on that unit's turn or as a hero spell. The hero keeps the spell even if the unit dies later.
+  2. From scrolls with a Knowledge requirement. A spell is usable only while current Knowledge >= its requirement; recheck whenever artifacts change. Strong spells need artifact-boosted Knowledge, and removing the artifact locks the spell again.
+- Combat: HoMM3-style turn-based battles with stacks (details TBD).
+
+### UI still needed
+
+- army management (slots, splitting), artifact equipment, spellbook.
 
 ## Commands
 
