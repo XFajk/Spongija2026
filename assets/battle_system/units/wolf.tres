@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Unit" format=3 uid="uid://bgr46lxfl1n2m"]
+
+[ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="1_7ouuy"]
+[ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_8j5ci"]
+[ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_l58po"]
+
+[resource]
+script = ExtResource("3_l58po")
+Name = "Wolf"
+MaxHealth = 159
+Strength = 10
+Defense = 2
+metadata/_custom_type_script = "uid://cj3g6btx1kotr"

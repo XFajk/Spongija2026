@@ -50,7 +50,7 @@ Agreed design. Values without a number yet are TBD.
 
 ## Commands
 
-`godot` is not on PATH locally; use the Godot .NET (mono) editor binary.
+`godot` is not on PATH locally; use the Godot .NET (mono) editor binary, installed at `~/godot-versions/4.7.2-stable-mono/Godot_mono.app/Contents/MacOS/Godot`. To run a scene headless as a quick check, e.g. the battle test: `<godot> --headless --path . res://scenes/battle_test.tscn --quit-after 120`.
 
 ```sh
 dotnet build                                   # compile C# only (fast check for errors)
@@ -92,7 +92,49 @@ Player (CharacterBody3D, FpsController)
 
 **UI:** `src/ui/custom_controls/PieBar.cs` is a `[GlobalClass][Tool]` `Range` control that draws a radial fill, so it runs in the editor too.
 
+### Battle system (`src/battle_system/`, `src/arena/`)
+
+HoMM3-style turn-based battles on a square grid. Two layers, and the split matters:
+
+- **`Battle`** (`Battle.cs`, plain C#, no nodes) owns state and rules: the round queue, board occupancy, every query (reachability, melee/ranged targets, retaliation, spells) and mutation (`TryPlaceStack`, mana, `RemoveDeadStacks`). Player input and AI both go through it.
+- **`Arena`** (`src/arena/Arena.cs`, `Node3D`) owns visuals and execution. It asks `Battle` and displays the answers; it never re-implements rules.
+
+**Data** (`army/`):
+
+- `Unit` (`Resource`): read-only stat sheet shared through `.tres` files. Never mutate it at runtime. `Size` is 1 (one tile) or 2 (2x2). `Model` is the unit's scene; its root must be a `UnitNode`, which Godot can't type-check, so check it when spawning.
+- `Stack` (plain class): runtime state per stack: `Quantity`, `TopHealth`, `Mana`, `Effects`, `Anchor`, `Retaliated`, `NodeRepresentation`. Stat getters like `GetDefense(includeHero)` apply effect modifiers and the hero bonus (`Hero.ApplyBonus`, +10% per point, TBD).
+- `Army`: optional `Hero` plus up to 5 `Stacks`. `AddStack` sets `Stack.Army`.
+- `Hero` (plain class): Mana, Strength, Knowledge, Defense; `Spells` is a `List<SpellAbility>`. Spell availability is computed on every call (Knowledge >= `MinKnowledge`), so artifact changes apply immediately. One hero cast per round.
+- `UnitNode` (`Node3D`): root of each unit's model scene. Being designed by the user; plan is that it exposes signals the abilities await. Subscribe to a signal *before* triggering the action, and make sure freed nodes don't leave an await hanging.
+
+**Abilities and effects** (`abilities/`, `effects/`), all abstract `[GlobalClass]` Resources; concrete ones are subclasses:
+
+- `IAbility.Use(user, target, arena)` returns a `Task`. Bases: `MeleeAttackAbility`, `LongRangeAttackAbility`, `SpellAbility` (`ManaCost`, `MinKnowledge`; used for both unit and hero spells), `PassiveAbility` → `RoundPassiveAbility` / `TurnPassiveAbility`. Change game state first, then await the animation.
+- `IEffect.Apply(target, arena)`: `RoundEffect` / `TurnEffect` with stat modifiers and `Duration`. `Stack.AddEffect` duplicates the Resource, because runtime state must never live on a shared `.tres`.
+
+**Board:**
+
+- Grid of `Arena.AreaWidth` x `Arena.AreaHeight` (static, 20x12). `Stack.Anchor` is the top-left tile of the stack's footprint; the other tiles come from `Size`. Occupancy maps every covered tile to the same `Stack`, so `GetStackAt` works on any of them, and turns stay one per stack.
+- `Battle.GetReachability(stack)` is a breadth-first search over anchors: 8 directions, up to `SpeedTier` steps, and a step is allowed only if the whole footprint `Fits` (in bounds, not on another stack; own tiles count as free). That stops 2x2 stacks squeezing through 1-wide gaps. It returns a `Reachability`: reachable anchors with where each was first reached from, so `GetPath(anchor)` gives a shortest path without searching again. `GetTiles()` gives tiles to highlight, `GetAnchorsCovering(tile)` the valid 2x2 squares under the mouse.
+- Search once per turn: `Arena` stores it as `CurrentReachability` and passes it to the queries' optional `reachability` parameter. It's stale once the board changes.
+- Adjacency compares whole footprints (`AreAdjacent(Stack, Stack)`).
+
+**Turn flow** (`Arena.RunBattle`):
+
+1. Before the battle: `SceneTransitions.EnterArena(tree, player, computer)` (`src/helpers/`) creates the arena and calls `SetArmies`. `BeginBattle()` creates the `Battle`; until the placement phase exists, `AutoBeginBattle` does this in `_Ready`, and the `Battle` constructor auto-places stacks (`PlaceArmy`).
+2. Round queue order: `SpeedTier` descending, then Defense ascending (effects included, hero excluded), then `Quantity` ascending. Rebuilt every round.
+3. Each turn waits one frame first (otherwise instantly finished turns freeze the game). Player stacks wait on a `TaskCompletionSource` completed by `SubmitPlayerTurn(TurnOutput)`; computer stacks use the AI stub.
+4. `TurnOutput`: `MoveTo` (an anchor) runs first, then `HeroSpell`, then `Entries` grouped by wave. Entries in one wave run in parallel (`Task.WhenAll`); waves run in order. `TurnOutput.Add(ability, target)` sets the wave to the number of earlier entries on the same target.
+5. After a melee hit, the target retaliates in the next wave if `Battle.CanRetaliate` (`Unit.CanRetaliate`, not `Stack.Retaliated` this round, alive, has melee). Retaliations don't trigger retaliations.
+6. End of turn: turn passives, turn effects, expired effects removed, dead stacks removed. End of round: round passives and effects, then `StartNewRound` resets `Retaliated` and the hero's cast.
+
+**Testing:** run `scenes/battle_test.tscn` (F6). `src/test/BattleTest.cs` builds two armies in code and enters the arena.
+
+**Not built yet:** player input (cursors, clicks, spellbook), AI, spawning `UnitNode`s and animations (`Arena.AnimateMove` is a stub), the placement phase, concrete abilities and effects, the damage formula.
+
 ## Conventions
+
+- **Keep this file current.** When a change makes anything in this file out of date (architecture, battle system, design decisions), update this file in the same change.
 
 - Godot C# scripts are `public partial class` with the same name as the file. Each `.cs` file has a committed `.cs.uid` sidecar. Scenes reference scripts and resources by `uid://`, so keep uid files when moving or renaming files.
 - Tunables are exposed via `[Export]` (grouped with `[ExportGroup]`/`[ExportSubgroup]`) rather than hardcoded.

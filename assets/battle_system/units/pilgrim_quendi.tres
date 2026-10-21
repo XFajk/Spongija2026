@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Unit" format=3 uid="uid://c8oxpgxg86v8r"]
+
+[ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="1_ndf43"]
+[ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_njrqm"]
+[ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_qqub5"]
+
+[resource]
+script = ExtResource("3_qqub5")
+Name = "Pilgrim Quendi"
+metadata/_custom_type_script = "uid://cj3g6btx1kotr"

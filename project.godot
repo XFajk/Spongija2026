@@ -31,6 +31,9 @@ project/assembly_name="Spongija2026"
 
 folder_colors={
 "res://assets/": "green",
+"res://assets/battle_system/abilities/": "orange",
+"res://assets/battle_system/effects/": "teal",
+"res://assets/battle_system/units/": "gray",
 "res://src/": "red"
 }
 
@@ -76,6 +79,10 @@ interact={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_physics/layer_4="Interaction"
 
 [rendering]
 

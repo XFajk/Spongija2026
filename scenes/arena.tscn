@@ -10,8 +10,6 @@
 script = ExtResource("1_olpmc")
 SmallTile = ExtResource("4_xdvfk")
 DoubleTile = ExtResource("3_7ft05")
-AreaWidth = 20
-AreaHeight = 12
 TileWidthOffset = -10
 TileHeightOffset = -6
 
