@@ -3,16 +3,16 @@ using System;
 
 public partial class MainMenu : Control
 {
-	private Control _titleMenu;
-	private Control _settingsMenu;
-	private Control _quitMenu;
+	private Control? _titleMenu;
+	private Control? _settingsMenu;
+	private Control? _quitMenu;
 
-	private Button _playButton;
-	private Button _settingsButton;
-	private Button _quitButton;
+	private Button? _playButton;
+	private Button? _settingsButton;
+	private Button? _quitButton;
 
-	private Button _settingsBackButton;
-	private Button _quitBackButton;
+	private Button? _settingsBackButton;
+	private Button? _quitBackButton;
 
 	public override void _Ready()
 	{
@@ -50,12 +50,12 @@ public partial class MainMenu : Control
 			GD.PrintErr("QUIT Menu Back Button not found in QuitMenu");
 		}
 
-		_playButton.Pressed += OnPlayButtonPressed;
-		_settingsButton.Pressed += OnSettingsButtonPressed;
-		_quitButton.Pressed += OnQuitButtonPressed;
+		_playButton!.Pressed += OnPlayButtonPressed;
+		_settingsButton!.Pressed += OnSettingsButtonPressed;
+		_quitButton!.Pressed += OnQuitButtonPressed;
 
-		_settingsBackButton.Pressed += OnSettingsBackButtonPressed;
-		_quitBackButton.Pressed += OnQuitBackButtonPressed;
+		_settingsBackButton!.Pressed += OnSettingsBackButtonPressed;
+		_quitBackButton!.Pressed += OnQuitBackButtonPressed;
 	}
 
 	public override void _Process(double delta)
@@ -69,25 +69,25 @@ public partial class MainMenu : Control
 
 	private void OnSettingsButtonPressed()
 	{
-		_titleMenu.Hide();
-		_settingsMenu.Show();
+		_titleMenu!.Hide();
+		_settingsMenu!.Show();
 	}
 
 	private void OnQuitButtonPressed()
 	{
-		_titleMenu.Hide();
-		_quitMenu.Show();
+		_titleMenu!.Hide();
+		_quitMenu!.Show();
 	}
 
 	private void OnSettingsBackButtonPressed()
 	{
-		_titleMenu.Show();
-		_settingsMenu.Hide();
+		_titleMenu!.Show();
+		_settingsMenu!.Hide();
 	}
 
 	private void OnQuitBackButtonPressed()
 	{
-		_titleMenu.Show();
-		_quitMenu.Hide();
+		_titleMenu!.Show();
+		_quitMenu!.Hide();
 	}
 }

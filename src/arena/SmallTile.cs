@@ -5,13 +5,17 @@ using System.Diagnostics;
 public partial class SmallTile : Area3D, IInteractable
 {
 
-	private Interactable _interactable;
+	private Interactable? _interactable;
 
-	private MeshInstance3D _innerSquare;
+	private MeshInstance3D? _innerSquare;
 
 	public override void _Ready()
 	{
 		_interactable = GetNode<Interactable>("Interactable");
+		Debug.Assert(_interactable != null);
+		_innerSquare = GetNode<MeshInstance3D>("SmallTileMesh/InnerSquareMesh");
+		Debug.Assert(_innerSquare != null);
+
 		_interactable.InteractionStarted += (Node n) =>
 		{
 			_innerSquare.Position = new Vector3(0, 0, 1f);
@@ -37,16 +41,16 @@ public partial class SmallTile : Area3D, IInteractable
 
     public void Focus(Node u)
 	{
-		_interactable.Focus(u);
+		_interactable!.Focus(u);
 	}
 
 	public void FocusLost(Node u)
 	{
-		_interactable.FocusLost(u);
+		_interactable!.FocusLost(u);
 	}
 
     public void Interact(Node u)
     {
-		_interactable.Interact(u);
+		_interactable!.Interact(u);
     }
 }

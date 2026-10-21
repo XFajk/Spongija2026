@@ -1,14 +1,15 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class PlayerCamera : Camera3D
 {	
 	[Export]
 	public float InteractionDistance;
 
-	private RayCast3D _interactionRayCast;
+	private RayCast3D? _interactionRayCast;
 
-	private IInteractable _currentFocusedNode;
+	private IInteractable? _currentFocusedNode;
 
 	public override void _Ready()
 	{
@@ -17,6 +18,7 @@ public partial class PlayerCamera : Camera3D
 
 	public override void _Process(double delta)
 	{
+		Debug.Assert(_interactionRayCast != null);
 		var mousePosition = GetViewport().GetMousePosition();	
 		var rayOrigin = ProjectRayOrigin(mousePosition);
 		var rayNormal = ProjectRayNormal(mousePosition);

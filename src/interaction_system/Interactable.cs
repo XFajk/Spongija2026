@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Reflection.Metadata;
 using Godot;
 
@@ -32,7 +33,7 @@ public partial class Interactable : Node
 	private bool _interactionGate = false;
 	private bool _interactionFinishedGate = false;
 	private bool _physicsInteractionGate = false;
-	private Node _savedUser = null;	
+	private Node? _savedUser = null;	
 
 	public override void _Ready()
 	{
@@ -45,6 +46,7 @@ public partial class Interactable : Node
 		if (InteractionExitFlag)
 		{
 			InteractionExitFlag = false;
+			Debug.Assert(_savedUser != null);
 			EmitSignal(SignalName.InteractionFinished, _savedUser);
 			_savedUser = null;
 			_interactionGate = false;
@@ -55,6 +57,7 @@ public partial class Interactable : Node
 		if (_interactionFinishedGate)
 		{
 			_interactionFinishedGate = false;
+			Debug.Assert(_savedUser != null);
 			EmitSignal(SignalName.Interacting, _savedUser);
 		}
 		else
@@ -62,6 +65,7 @@ public partial class Interactable : Node
 			if (_interactionGate)
 			{
 				_interactionGate = false;
+				Debug.Assert(_savedUser != null);
 				EmitSignal(SignalName.InteractionFinished, _savedUser);
 				_savedUser = null;
 			}
@@ -74,6 +78,7 @@ public partial class Interactable : Node
 		if (_physicsInteractionGate)
 		{
 			_physicsInteractionGate = false;
+			Debug.Assert(_savedUser != null);
 			EmitSignal(SignalName.PhysicsInteracting, _savedUser);
 		}
 	}
