@@ -1,6 +1,33 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://jhkodsinnpky"]
 
-[ext_resource type="Script" path="res://src/test/BattleTest.cs" id="1_battletest"]
+[ext_resource type="Script" uid="uid://820bax3xdhbu" path="res://src/test/BattleTest.cs" id="1_battletest"]
+[ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="2_stackres"]
+[ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="3_8ajim"]
+[ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="4_7bjbe"]
 
-[node name="BattleTest" type="Node"]
+[sub_resource type="Resource" id="Resource_d1jsn"]
+script = ExtResource("2_stackres")
+Unit = ExtResource("3_8ajim")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Resource_26d8k"]
+script = ExtResource("2_stackres")
+Unit = ExtResource("3_8ajim")
+Quantity = 15
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Resource_l58po"]
+script = ExtResource("2_stackres")
+Unit = ExtResource("4_7bjbe")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Resource_cj8pm"]
+script = ExtResource("2_stackres")
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[node name="BattleTest" type="Node" unique_id=1175393641]
 script = ExtResource("1_battletest")
+PlayerUnits = Array[ExtResource("2_stackres")]([SubResource("Resource_d1jsn"), SubResource("Resource_26d8k"), SubResource("Resource_l58po")])
+ComputerUnits = Array[ExtResource("2_stackres")]([SubResource("Resource_cj8pm")])
