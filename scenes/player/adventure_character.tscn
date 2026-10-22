@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://3fhavcdsavfw"]
+
+[ext_resource type="Script" uid="uid://cmr0gv6cm6tvp" path="res://src/player/AdventureCharacter.cs" id="1_f37vf"]
+[ext_resource type="PackedScene" uid="uid://brsn37q6tj7lh" path="res://scenes/arena/path_point.tscn" id="2_8turh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0cso3"]
+albedo_color = Color(0.3500733, 0.54419804, 0.23764646, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_iopsf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2klcf"]
+albedo_color = Color(0.61030936, 0.06484933, 0.09677585, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iopsf"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ao2lr"]
+
+[node name="AdventureCharacter" type="CharacterBody3D" unique_id=590468899]
+script = ExtResource("1_f37vf")
+point = ExtResource("2_8turh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2141599649]
+material_override = SubResource("StandardMaterial3D_0cso3")
+mesh = SubResource("CapsuleMesh_iopsf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=577418466]
+transform = Transform3D(0.5, 0, 0, 0, 0.1, 0, 0, 0, 0.2, 0, 0.5, 0.5)
+material_override = SubResource("StandardMaterial3D_2klcf")
+mesh = SubResource("BoxMesh_iopsf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1698459459]
+shape = SubResource("CapsuleShape3D_ao2lr")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=512623960]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_height_offset = 0.25
+debug_path_custom_color = Color(0.2784467, 0.6038251, 0, 1)

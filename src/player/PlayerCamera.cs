@@ -6,7 +6,7 @@ public partial class PlayerCamera : Camera3D
 	[Export]
 	public float InteractionDistance;
 
-	private RayCast3D _interactionRayCast;
+	protected RayCast3D _interactionRayCast;
 
 	private IInteractable _currentFocusedNode;
 

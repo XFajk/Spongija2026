@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://brsn37q6tj7lh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyjbk"]
+albedo_color = Color(0.18115184, 0.9275787, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_iopsf"]
+
+[node name="PathPoint" type="Node3D" unique_id=859322924]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=344365163]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_gyjbk")
+mesh = SubResource("SphereMesh_iopsf")
