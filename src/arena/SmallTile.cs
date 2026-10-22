@@ -9,6 +9,20 @@ public partial class SmallTile : Area3D, IInteractable
 
 	private MeshInstance3D? _innerSquare;
 
+	public Vector2I GridPosition { get; set; }
+
+	// Hiding alone keeps the collision, so a hidden tile could still be hovered and focused by the ray
+	public bool Enabled
+	{
+		get => Visible;
+		set
+		{
+			Visible = value;
+			// Looked up here rather than in _Ready, because Arena disables tiles before adding them to the tree
+			GetNode<CollisionShape3D>("CollisionShape3D").Disabled = !value;
+		}
+	}
+
 	public override void _Ready()
 	{
 		_interactable = GetNode<Interactable>("Interactable");
@@ -16,28 +30,30 @@ public partial class SmallTile : Area3D, IInteractable
 		_innerSquare = GetNode<MeshInstance3D>("SmallTileMesh/InnerSquareMesh");
 		Debug.Assert(_innerSquare != null);
 
-		_interactable.InteractionStarted += (Node n) =>
-		{
-			_innerSquare.Position = new Vector3(0, 0, 1f);
-		};
+		_interactable.InteractionStarted += OnInteractionStarted;
 
-		_interactable.InteractionFinished += (Node n) =>
-		{
-			_innerSquare.Position = new Vector3(0, 0, 0.01f);
-		};
 
-		_interactable.Focused += (Node _) =>
-		{
-			_innerSquare.Position = new Vector3(0, 0, 0.06f);	
-		};	
+		_interactable.Focused += OnFocused;
 
-		_interactable.Unfocused += (Node _) =>
-		{
-			_innerSquare.Position = new Vector3(0, 0, 0.01f);
-		};
+		_interactable.Unfocused += OnUnfocused;
 
 		_innerSquare = GetNode<MeshInstance3D>("SmallTileMesh/InnerSquareMesh");
 	}
+
+	private void OnInteractionStarted(Node n)
+	{
+		_innerSquare!.Position = new Vector3(0, 0, 0.01f);
+	}	
+
+	private void OnFocused(Node n)
+	{
+		_innerSquare!.Position = new Vector3(0, 0, 0.06f);
+	}
+
+	private void OnUnfocused(Node n)
+	{
+		_innerSquare!.Position = new Vector3(0, 0, 0.01f);
+	}	
 
     public void Focus(Node u)
 	{
