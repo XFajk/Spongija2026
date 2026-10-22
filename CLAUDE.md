@@ -77,18 +77,12 @@ Binary assets (images, audio, video, 3D models, fonts, zips) are stored with **G
 
 **Scene flow:** `scenes/starting_scene.tscn` is the main scene. It plays an intro video via `SplashScreen` (a `VideoStreamPlayer`), which on `Finished` switches to its exported `BeginningScene` (currently `scenes/test.tscn`, a greybox level containing the player).
 
-**Player** (`scenes/player/player.tscn`): the scripts depend on this exact node hierarchy and look each other up through `GetParent`/`GetNode` by name:
+**Player and interaction** (`src/player/`, `src/interaction_system/`):
 
-```text
-Player (CharacterBody3D, FpsController)
-├── MeshInstance3D   (CapsuleMesh)    ┐ heights tweened on crouch/stand
-├── CollisionShape3D (CapsuleShape3D) ┘
-└── Head (Node3D, LookAround)          - mouse yaw rotates Player, pitch rotates Head; Esc toggles mouse capture
-    └── Eyes (Camera3D, EyesBobing)    - TopLevel camera that follows Head with slerp smoothing and adds a roll bob while walking
-```
-
-- `FpsController` runs two independent state machines in `_PhysicsProcess`. `BodyState` (Standing/Crouching) is driven by the `crouch` action and tweens the capsule mesh, collision shape and Head position. `MovementState` (Standing/Walking/Jumping/Falling) handles movement. Speed depends on body state plus `sprint`. Other scripts read state through `GetMovementState()`, `GetBodyState()` and `SprintKeyPressed()`.
-- Input actions are defined in `project.godot`: `forward`/`backward`/`left`/`right` (WASD), `jump` (Space), `sprint` (Shift), `crouch` (C), plus the built-in `ui_cancel`.
+- `PlayerCamera` (`Camera3D`) casts a ray from the mouse every frame against collision layer 4 (areas included). A hit that implements `IInteractable` (`Interact`, `Focus`, `FocusLost`) gets focus; `Focus`/`FocusLost` are sent only when the focus changes. A click starts an interaction, which continues while `interact` (left mouse) is held and the ray stays on the object; the object loses focus meanwhile. `ArenaCamera` is the arena's subclass.
+- `Interactable` (a `Node` child of the object, which forwards its `IInteractable` calls to it) turns the calls into signals: `InteractionStarted`, then `Interacting`/`PhysicsInteracting` every frame, and `InteractionFinished` on the first frame without an `Interact` call. Don't add members to `IInteractable` for this; put them on `Interactable`.
+- `InteractionLock` keeps a running interaction going (signals still every frame) even when the ray misses or the button is released, until it's lifted. Meanwhile the static `Interactable.LockedInteractable` is set and the camera interacts with nothing else, but focus still follows the mouse unless `FocusLock` is set too. `InteractionExitFlag` ends an interaction right away.
+- Hidden nodes still collide, so the ray would still hit them: tiles use `Enabled` (visibility and collision shape together) instead of `Show`/`Hide`.
 
 **UI:** `src/ui/custom_controls/PieBar.cs` is a `[GlobalClass][Tool]` `Range` control that draws a radial fill, so it runs in the editor too.
 
@@ -105,7 +99,7 @@ HoMM3-style turn-based battles on a square grid. Two layers, and the split matte
 - `Stack` (plain class): runtime state per stack: `Quantity`, `TopHealth`, `Mana`, `Effects`, `Anchor`, `Retaliated`, `NodeRepresentation`. Stat getters like `GetDefense(includeHero)` apply effect modifiers and the hero bonus (`Hero.ApplyBonus`, +10% per point, TBD).
 - `Army`: optional `Hero` plus up to 5 `Stacks`. `AddStack` sets `Stack.Army`.
 - `Hero` (plain class): Mana, Strength, Knowledge, Defense; `Spells` is a `List<SpellAbility>`. Spell availability is computed on every call (Knowledge >= `MinKnowledge`), so artifact changes apply immediately. One hero cast per round.
-- `UnitNode` (`Node3D`): root of each unit's model scene. Being designed by the user; plan is that it exposes signals the abilities await. Subscribe to a signal *before* triggering the action, and make sure freed nodes don't leave an await hanging.
+- `UnitNode` (`Area3D`, `IInteractable`): root of each unit's model scene, on collision layer 4 so the camera ray hits it. It duplicates its materials in `_Ready`, so the outline (`StandardMaterial3D` stencil outline) and ghost effects apply per unit. Being designed by the user; plan is that it exposes signals the abilities await. Subscribe to a signal *before* triggering the action, and make sure freed nodes don't leave an await hanging.
 
 **Abilities and effects** (`abilities/`, `effects/`), all abstract `[GlobalClass]` Resources; concrete ones are subclasses:
 
@@ -114,23 +108,25 @@ HoMM3-style turn-based battles on a square grid. Two layers, and the split matte
 
 **Board:**
 
-- Grid of `Arena.AreaWidth` x `Arena.AreaHeight` (static, 20x12). `Stack.Anchor` is the top-left tile of the stack's footprint; the other tiles come from `Size`. Occupancy maps every covered tile to the same `Stack`, so `GetStackAt` works on any of them, and turns stay one per stack.
+- Grid of `Arena.AreaWidth` x `Arena.AreaHeight` (static, 20x12), tiles `Arena.TileSize` (0.5 m), centered on the Arena's origin. Convert grid to Arena-local positions only with `Arena.GridToWorld` (tile center, any grid point, or a stack's footprint center); the tile generation uses it too, so tiles and units stay aligned. `Stack.Anchor` is the top-left tile of the stack's footprint; the other tiles come from `Size`. Occupancy maps every covered tile to the same `Stack`, so `GetStackAt` works on any of them, and turns stay one per stack.
 - `Battle.GetReachability(stack)` is a breadth-first search over anchors: 8 directions, up to `SpeedTier` steps, and a step is allowed only if the whole footprint `Fits` (in bounds, not on another stack; own tiles count as free). That stops 2x2 stacks squeezing through 1-wide gaps. It returns a `Reachability`: reachable anchors with where each was first reached from, so `GetPath(anchor)` gives a shortest path without searching again. `GetTiles()` gives tiles to highlight, `GetAnchorsCovering(tile)` the valid 2x2 squares under the mouse.
 - Search once per turn: `Arena` stores it as `CurrentReachability` and passes it to the queries' optional `reachability` parameter. It's stale once the board changes.
 - Adjacency compares whole footprints (`AreAdjacent(Stack, Stack)`).
 
 **Turn flow** (`Arena.RunBattle`):
 
-1. Before the battle: `SceneTransitions.EnterArena(tree, player, computer)` (`src/helpers/`) creates the arena and calls `SetArmies`. `BeginBattle()` creates the `Battle`; until the placement phase exists, `AutoBeginBattle` does this in `_Ready`, and the `Battle` constructor auto-places stacks (`PlaceArmy`).
+1. Before the battle: `SceneTransitions.EnterArena(tree, player, computer)` (`src/helpers/`) creates the arena and calls `SetArmies`. `BeginBattle()` creates the `Battle`; until the placement phase exists, `AutoBeginBattle` does this in `_Ready`, and the `Battle` constructor auto-places stacks (`PlaceArmy`) at the anchors from the static `Battle.GetStartingAnchors(stacks, leftSide, width, height)`, whose result is index-aligned with `stacks`.
 2. Round queue order: `SpeedTier` descending, then Defense ascending (effects included, hero excluded), then `Quantity` ascending. Rebuilt every round.
 3. Each turn waits one frame first (otherwise instantly finished turns freeze the game). Player stacks wait on a `TaskCompletionSource` completed by `SubmitPlayerTurn(TurnOutput)`; computer stacks use the AI stub.
 4. `TurnOutput`: `MoveTo` (an anchor) runs first, then `HeroSpell`, then `Entries` grouped by wave. Entries in one wave run in parallel (`Task.WhenAll`); waves run in order. `TurnOutput.Add(ability, target)` sets the wave to the number of earlier entries on the same target.
 5. After a melee hit, the target retaliates in the next wave if `Battle.CanRetaliate` (`Unit.CanRetaliate`, not `Stack.Retaliated` this round, alive, has melee). Retaliations don't trigger retaliations.
 6. End of turn: turn passives, turn effects, expired effects removed, dead stacks removed. End of round: round passives and effects, then `StartNewRound` resets `Retaliated` and the hero's cast.
 
-**Testing:** run `scenes/battle_test.tscn` (F6). `src/test/BattleTest.cs` builds two armies in code and enters the arena.
+**Placement phase** (`Arena.SetupPlacementPhase`, used when `AutoBeginBattle` is off): spawns the player's `UnitNode`s at `GetStartingAnchors` and enables the first `Arena.PlacementColumns` (2) columns of tiles. The player drags stacks: pressing on a unit locks the interaction, the stack follows the focused tile, and releasing drops it. `Battle` doesn't exist yet, so `Arena.CanPlaceDuringSetup` checks placement instead of `Battle.Fits`, and `Stack.Anchor` follows the model. `FindSetupAnchorCovering` moves a 2x2 stack as little as needed to cover the hovered tile. A 2x2 stack stands on a `DoubleTile` that is a child of its `UnitNode` (`GroundTile`), and the 4 small tiles under it are disabled. Not connected to the battle yet: the `Battle` constructor still re-places every stack with `PlaceArmy`.
 
-**Not built yet:** player input (cursors, clicks, spellbook), AI, spawning `UnitNode`s and animations (`Arena.AnimateMove` is a stub), the placement phase, concrete abilities and effects, the damage formula.
+**Testing:** run `scenes/battle_test.tscn` (F6). `src/test/BattleTest.cs` builds the two armies from its exported `StackResource` arrays and enters the arena.
+
+**Not built yet:** player input (cursors, clicks, spellbook), AI, spawning the computer's `UnitNode`s and animations (`Arena.AnimateMove` is a stub), the transition from the placement phase to the battle, concrete abilities and effects, the damage formula.
 
 ## Conventions
 
