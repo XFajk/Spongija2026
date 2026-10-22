@@ -304,26 +304,47 @@ public class Battle
     // TODO: replace with the placement phase where the player arranges the first two columns.
     private void PlaceArmy(Army army, bool leftSide)
     {
-        int count = army.Stacks.Count;
+        List<Vector2I> anchors = GetStartingAnchors(army.Stacks, leftSide, Width, Height);
+        for (int i = 0; i < army.Stacks.Count; i++)
+            if (!TryPlaceStack(army.Stacks[i], anchors[i]))
+                GD.PushError($"No room to place {army.Stacks[i].Unit.Name}.");
+    }
+
+    // Default starting anchors for one side, without touching any board. anchors[i] belongs to stacks[i].
+    // Stacks are spread evenly along the edge column; a stack that doesn't fit at its preferred row tries
+    // the other rows of that column (0, +1, -1, +2, -2...), then moves one column inward.
+    public static List<Vector2I> GetStartingAnchors(IReadOnlyList<Stack> stacks, bool leftSide, int width, int height)
+    {
+        var anchors = new List<Vector2I>(stacks.Count);
+        var taken = new HashSet<Vector2I>();
+        int count = stacks.Count;
         for (int i = 0; i < count; i++)
         {
-            Stack stack = army.Stacks[i];
-            int edge = leftSide ? 0 : Width - stack.Size;
-            int row = Math.Clamp((2 * i + 1) * Height / (2 * count) - stack.Size / 2, 0, Height - stack.Size);
+            Stack stack = stacks[i];
+            int edge = leftSide ? 0 : width - stack.Size;
+            int row = Math.Clamp((2 * i + 1) * height / (2 * count) - stack.Size / 2, 0, height - stack.Size);
 
             bool placed = false;
-            for (int inward = 0; !placed && inward < Width; inward++)
+            for (int inward = 0; !placed && inward < width; inward++)
             {
                 int column = leftSide ? edge + inward : edge - inward;
-                for (int offset = 0; !placed && offset < 2 * Height; offset++)
+                for (int offset = 0; !placed && offset < 2 * height; offset++)
                 {
-                    // 0, +1, -1, +2, -2... around the preferred row.
                     int y = row + (offset % 2 == 0 ? offset / 2 : -(offset / 2 + 1));
-                    placed = TryPlaceStack(stack, new Vector2I(column, y));
+                    var anchor = new Vector2I(column, y);
+                    List<Vector2I> tiles = stack.GetTilesAt(anchor);
+                    if (tiles.All(t => t.X >= 0 && t.Y >= 0 && t.X < width && t.Y < height && !taken.Contains(t)))
+                    {
+                        anchors.Add(anchor);
+                        taken.UnionWith(tiles);
+                        placed = true;
+                    }
                 }
             }
+            // Can't happen within the 5-stack limit on a normal board, and a gap would shift every later index.
             if (!placed)
-                GD.PushError($"No room to place {stack.Unit.Name}.");
+                throw new InvalidOperationException($"No room to place {stack.Unit.Name}.");
         }
+        return anchors;
     }
 }
