@@ -9,19 +9,7 @@ public static class SceneTransitions
     {
         Arena arena = GD.Load<PackedScene>(ArenaScene).Instantiate<Arena>();
         arena.SetArmies(playerArmy, computerArmy);
-        ChangeSceneToNode(tree, arena);
-    }
-
-    // Like SceneTree.ChangeSceneToPacked, but with an instance that was set up before entering the tree.
-    // Deferred, so it's safe to call from _Ready.
-    public static void ChangeSceneToNode(SceneTree tree, Node scene)
-    {
-        Callable.From(() =>
-        {
-            Node? old = tree.CurrentScene;
-            tree.Root.AddChild(scene);
-            tree.CurrentScene = scene;
-            old?.QueueFree();
-        }).CallDeferred();
+        // Deferred: ChangeSceneToNode removes the current scene right away, which fails if we're called from its _Ready.
+        tree.CallDeferred(SceneTree.MethodName.ChangeSceneToNode, arena);
     }
 }
