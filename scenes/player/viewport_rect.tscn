@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://7axoaninfoyr" path="res://src/player/ViewportRect.cs" id="1_20d6i"]
 
 [node name="ViewportRect" type="TextureRect" unique_id=434109989]
+z_index = -1
 texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
