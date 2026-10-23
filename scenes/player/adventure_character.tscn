@@ -17,7 +17,9 @@ albedo_color = Color(0.61030936, 0.06484933, 0.09677585, 1)
 
 [node name="AdventureCharacter" type="CharacterBody3D" unique_id=590468899]
 script = ExtResource("1_f37vf")
+stopDistance = 0.5
 point = ExtResource("2_8turh")
+pointsMinDistance = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2141599649]
 material_override = SubResource("StandardMaterial3D_0cso3")

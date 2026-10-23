@@ -28,16 +28,22 @@ public partial class AdventureCamera : PlayerCamera
 		{
 			if (Input.IsActionJustPressed("interact"))
 			{
-				Vector3 hitPosition = _interactionRayCast.GetCollisionPoint();
-				
-				Vector3 navPoint =
-				NavigationServer3D.MapGetClosestPoint(map, hitPosition);
-
-				if (IsOnNavMesh(hitPosition))
+				if (_interactionRayCast.GetCollider() is CollisionObject3D obj)
 				{
-					if (hasPath(hitPosition))
+					if ((obj.CollisionLayer & (1u << 2)) != 0)
 					{
-						agent.SetTarget(hitPosition);
+						Vector3 hitPosition = _interactionRayCast.GetCollisionPoint();
+				
+						Vector3 navPoint =
+						NavigationServer3D.MapGetClosestPoint(map, hitPosition);
+
+						if (IsOnNavMesh(hitPosition))
+						{
+							if (hasPath(hitPosition))
+							{
+								agent.SetTarget(hitPosition);
+							}
+						}
 					}
 				}
 			}

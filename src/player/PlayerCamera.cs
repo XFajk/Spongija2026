@@ -41,6 +41,22 @@ public partial class PlayerCamera : Camera3D
 				if (Input.IsActionJustPressed("interact"))
 					interactable.Interact(this);
 			}
+			else
+			{
+				if (_currentFocusedNode != null)
+				{
+					_currentFocusedNode?.FocusLost(this);
+					_currentFocusedNode = null;
+				}
+			}
+		}
+		else
+		{
+			if (_currentFocusedNode != null)
+			{
+				_currentFocusedNode?.FocusLost(this);
+				_currentFocusedNode = null;
+			}
 		}
 	}
 }

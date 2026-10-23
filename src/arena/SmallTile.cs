@@ -35,7 +35,7 @@ public partial class SmallTile : Area3D, IInteractable
 		_innerSquare = GetNode<MeshInstance3D>("SmallTileMesh/InnerSquareMesh");
 	}
 
-    public void Focus(Node u)
+	public void Focus(Node u)
 	{
 		_interactable.Focus(u);
 	}
@@ -45,8 +45,8 @@ public partial class SmallTile : Area3D, IInteractable
 		_interactable.FocusLost(u);
 	}
 
-    public void Interact(Node u)
-    {
+	public void Interact(Node u)
+	{
 		_interactable.Interact(u);
-    }
+	}
 }

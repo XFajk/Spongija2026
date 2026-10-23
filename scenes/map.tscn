@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://cfsvco3a36qfu"]
 
 [ext_resource type="PackedScene" uid="uid://d2vdux1r2w61k" path="res://scenes/player/viewport_rect.tscn" id="1_gldc4"]
+[ext_resource type="Script" uid="uid://c1so6sg2p5nqy" path="res://src/interaction_system/Interactable.cs" id="2_2klcf"]
+[ext_resource type="Script" uid="uid://856gdeetf6ag" path="res://src/arena/PointOfInterest.cs" id="2_2lpho"]
 [ext_resource type="PackedScene" uid="uid://d3siemxsgpj3l" path="res://scenes/player/player_camera.tscn" id="2_paxxb"]
 [ext_resource type="Script" uid="uid://bknow4djldqy" path="res://src/player/AdventureCamera.cs" id="4_0cso3"]
 [ext_resource type="PackedScene" uid="uid://3fhavcdsavfw" path="res://scenes/player/adventure_character.tscn" id="4_2klcf"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_gldc4"]
-vertices = PackedVector3Array(0, 1, 4.5000005, 0, 1, 3.5000005, -1, 1, 3.0000005, -4.5, 1, 4.5000005, -1, 1, -2.9999995, 0, 1, -3.4999995, 0, 1, -4.4999995, -4.5, 1, -4.4999995, 1, 1, 3.0000005, 4.5, 1, 4.5000005, 1, 1, -2.9999995, 4.5, 1, -4.4999995, 6, 1, -1.4999995, 6, 1, 1.5000005, 9, 1, 1.5000005, 9, 1, -1.4999995)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(2, 3, 4), PackedInt32Array(4, 3, 7), PackedInt32Array(1, 8, 0), PackedInt32Array(0, 8, 9), PackedInt32Array(5, 6, 10), PackedInt32Array(10, 6, 11), PackedInt32Array(10, 11, 8), PackedInt32Array(8, 11, 9), PackedInt32Array(15, 14, 12), PackedInt32Array(12, 14, 13)]
+vertices = PackedVector3Array(-1, 1, -2.999999, 0, 1, -3.499999, 0, 1, -14.499999, -14.5, 1, -14.499999, -14.5, 1, 9.536743e-07, -1, 1, 9.536743e-07, 1, 1, -2.999999, 14.5, 1, 9.536743e-07, 14.5, 1, -14.499999, 1, 1, 9.536743e-07, 17, 1, -1.499999, 17, 1, 1.500001, 20.5, 1, 1.500001, 20.5, 1, -1.499999, 0, 1, 14.500001, 0, 1, 3.500001, -1, 1, 3.000001, -14.5, 1, 14.500001, 1, 1, 3.000001, 14.5, 1, 14.500001)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(0, 5, 4), PackedInt32Array(1, 2, 6), PackedInt32Array(6, 2, 8), PackedInt32Array(6, 8, 7), PackedInt32Array(7, 9, 6), PackedInt32Array(13, 12, 10), PackedInt32Array(10, 12, 11), PackedInt32Array(15, 14, 16), PackedInt32Array(16, 14, 17), PackedInt32Array(16, 17, 4), PackedInt32Array(4, 5, 16), PackedInt32Array(15, 18, 14), PackedInt32Array(14, 18, 19), PackedInt32Array(19, 18, 7), PackedInt32Array(18, 9, 7)]
 cell_size = 0.5
 cell_height = 0.5
 agent_height = 1.0
@@ -17,7 +19,7 @@ albedo_color = Color(0.61323816, 0.3103279, 0.092108764, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4xvhx"]
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gldc4"]
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2klcf"]
 data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0cso3"]
@@ -30,6 +32,19 @@ albedo_color = Color(0.28034124, 0, 0.02063417, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0cso3"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2lpho"]
+albedo_color = Color(0.1620417, 0.31105772, 0.3087925, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gyjbk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jclro"]
+transparency = 1
+albedo_color = Color(0.74509805, 0.69411767, 0, 0.39215687)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4xvhx"]
+
 [node name="Map" type="Node3D" unique_id=1745784945]
 
 [node name="ViewportRect" parent="." unique_id=434109989 node_paths=PackedStringArray("GameViewport") instance=ExtResource("1_gldc4")]
@@ -40,20 +55,20 @@ navigation_mesh = SubResource("NavigationMesh_gldc4")
 
 [node name="Ground" type="Area3D" parent="NavigationRegion3D" unique_id=1645217045]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
-collision_layer = 8
+collision_layer = 12
 collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Ground" unique_id=397325567]
-transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
+transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 15, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_0cso3")
 mesh = SubResource("PlaneMesh_4xvhx")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground" unique_id=1582251402]
-transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
-shape = SubResource("ConcavePolygonShape3D_gldc4")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground" unique_id=1998171768]
+transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 15, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_2klcf")
 
 [node name="Ground2" type="Area3D" parent="NavigationRegion3D" unique_id=364351231]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 9.390053, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 20.537575, 0, 0)
 collision_layer = 8
 collision_mask = 0
 
@@ -66,6 +81,7 @@ transform = Transform3D(2, 0, 0, 0, 0.99999976, 0, 0, 0, 1.9999993, -1.7686081, 
 shape = SubResource("ConcavePolygonShape3D_0cso3")
 
 [node name="Wall" type="Area3D" parent="NavigationRegion3D" unique_id=1088053575]
+collision_layer = 9
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Wall" unique_id=1029974805]
 transform = Transform3D(0.6, 0, 0, 0, 2, 0, 0, 0, 5.4, 0, 1, 0)
@@ -75,6 +91,31 @@ mesh = SubResource("BoxMesh_iopsf")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Wall" unique_id=323171640]
 transform = Transform3D(0.6, 0, 0, 0, 2, 0, 0, 0, 5.4, 0, 1, 0)
 shape = SubResource("BoxShape3D_0cso3")
+
+[node name="PointsOfInterest" type="Node3D" parent="." unique_id=810958568]
+
+[node name="Point" type="Area3D" parent="PointsOfInterest" unique_id=1697003178]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.832, 1, 10.344)
+collision_layer = 9
+script = ExtResource("2_2lpho")
+stopDistance = 1.5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PointsOfInterest/Point" unique_id=1650774580]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2lpho")
+mesh = SubResource("BoxMesh_gyjbk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PointsOfInterest/Point" unique_id=1320244243]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_2klcf")
+
+[node name="Highlight" type="MeshInstance3D" parent="PointsOfInterest/Point" unique_id=1305999579]
+transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
+material_override = SubResource("StandardMaterial3D_jclro")
+mesh = SubResource("BoxMesh_4xvhx")
+
+[node name="Interactable" type="Node" parent="PointsOfInterest/Point" unique_id=558007941]
+script = ExtResource("2_2klcf")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=2116964362]
 size = Vector2i(1393, 729)

@@ -23,7 +23,7 @@ public partial class Interactable : Node
 
 	[Signal]
 	public delegate void FocusedEventHandler(Node user);
-    [Signal]
+	[Signal]
 	public delegate void UnfocusedEventHandler(Node user);
 
 	public bool InteractionLock = false;
@@ -90,13 +90,13 @@ public partial class Interactable : Node
 		}
 	}
 
-    public void Focus(Node user)
-    {
+	public void Focus(Node user)
+	{
 		EmitSignal(SignalName.Focused, user);
-    }
+	}
 
-    public void FocusLost(Node user)
-    {
+	public void FocusLost(Node user)
+	{
 		EmitSignal(SignalName.Unfocused, user);
-    }
+	}
 }
