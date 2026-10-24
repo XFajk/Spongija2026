@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cd3eg1hleix2"]
 
 [ext_resource type="Script" uid="uid://dhgyikkofw01c" path="res://src/ui/ArenaUserInterface.cs" id="1_bxfrx"]
+[ext_resource type="SpriteFrames" uid="uid://ccufku72ig3ug" path="res://assets/ui/book/book_animations.tres" id="2_fhxv5"]
 
 [node name="ArenaUserInterface" type="Control" unique_id=1667931475]
 layout_mode = 3
@@ -21,7 +22,57 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="BattleActions" type="HBoxContainer" parent="BattleInterface" unique_id=1352895512]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -226.0
+offset_top = -123.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="UseHeroSpell" type="Button" parent="BattleInterface/BattleActions" unique_id=1202560528]
+layout_mode = 2
+text = "Use Hero's Spell"
+
+[node name="UnitActions" type="VBoxContainer" parent="BattleInterface/BattleActions" unique_id=1551648117]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="UseSpell" type="Button" parent="BattleInterface/BattleActions/UnitActions" unique_id=2028156616]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Use Spell"
+metadata/_edit_use_anchors_ = true
+
+[node name="Wait" type="Button" parent="BattleInterface/BattleActions/UnitActions" unique_id=205508570]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Wait"
+
+[node name="BookSprite" type="Control" parent="BattleInterface" unique_id=2074826025]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BattleInterface/BookSprite" unique_id=898163662]
+visible = false
+sprite_frames = ExtResource("2_fhxv5")
+animation = &"open"
+
 [node name="SetupInterface" type="Control" parent="." unique_id=366185374]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
