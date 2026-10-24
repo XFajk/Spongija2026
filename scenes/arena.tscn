@@ -15,18 +15,17 @@ AutoBeginBattle = false
 GameViewport = NodePath("../SubViewport")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=253654758]
-size = Vector2i(480, 270)
+size = Vector2i(640, 360)
 
 [node name="ArenaCamera" type="Camera3D" parent="SubViewport" unique_id=547754814]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 3.75, 5.4330134)
 script = ExtResource("6_4ag8t")
 InteractionDistance = 100.0
 
+[node name="BoardOverviewPosition" type="Marker3D" parent="SubViewport" unique_id=337750130]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.8660254, 0, -0.8660254, 0.5, 0, 4.59266, 3.6515741)
+
 [node name="SetupBoardPosition" type="Marker3D" parent="SubViewport" unique_id=1169227394]
 transform = Transform3D(-4.371139e-08, 0.25881904, -0.9659258, 0, 0.9659258, 0.25881904, 1, 1.131334e-08, -4.222196e-08, -7.1650634, 2.25, 0)
-
-[node name="BoardOverviewPosition" type="Marker3D" parent="SubViewport" unique_id=337750130]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 3.75, 5.4330134)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=426126724]
 transform = Transform3D(0.8660254, -0.3535534, 0.3535534, 0, 0.7071068, 0.7071068, -0.5, -0.61237246, 0.61237246, 0, 4, 0)
