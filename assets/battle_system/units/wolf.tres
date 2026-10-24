@@ -16,6 +16,7 @@ Name = "Wolf"
 MaxHealth = 75
 Strength = 10
 Defense = 2
+SpeedTier = 6
 Size = 2
 MeleeAttack = SubResource("Resource_q2am2")
 Model = ExtResource("2_l58po")
