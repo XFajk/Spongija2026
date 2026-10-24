@@ -25,6 +25,10 @@ public partial class Arena : Node3D
     [Export]
     public ArenaCamera? PlayerCamera { get; set; } = null;
 
+    // Shows the camera's SubViewport on screen; converts projected points to where UI is drawn over them.
+    [Export]
+    public ViewportRect? GameViewportRect { get; set; } = null;
+
     // Seconds the camera takes to move from the setup view to the battle view.
     [Export]
     public float CameraTransitionDuration { get; set; } = 1.5f;
@@ -63,6 +67,9 @@ public partial class Arena : Node3D
     private readonly SmallTile[] _smallTiles = new SmallTile[AreaWidth * AreaHeight];
 
     private TaskCompletionSource<TurnOutput>? _playerTurn;
+
+    // Created by SetupPlacementPhase.
+    private ArenaUserInterface? _userInterface;
 
     public bool IsPlayerTurn => CurrentStack?.Army == PlayerArmy && _playerTurn != null;
 
@@ -186,6 +193,7 @@ public partial class Arena : Node3D
         arenaUI.arena = this;
         arenaUI.arenaCamera = PlayerCamera;
         AddChild(arenaUI);
+        _userInterface = arenaUI;
 
         PlayerCamera.arena = this;
         PlayerCamera.GlobalPosition = SetupBoardCameraPosition.GlobalPosition;
@@ -542,6 +550,8 @@ public partial class Arena : Node3D
     {
         if (IsPlayerTurn)
             UpdateTurnHover();
+        // Every frame, not only when the pick changes, so it follows the camera
+        UpdateMeleeCursor();
     }
 
     // Every frame on the player's turn: picks the attack position for the hovered melee target (red and raised),
@@ -693,6 +703,42 @@ public partial class Arena : Node3D
         output.Add(melee, target);
         SubmitPlayerTurn(output);
         return true;
+    }
+
+    // While an attack position is picked on the player's turn, the mouse is replaced by the sword: drawn at the
+    // picked footprint's center projected onto the screen, pointing at the target as seen through the camera.
+    private void UpdateMeleeCursor()
+    {
+        if (_userInterface == null)
+            return;
+        if (!IsPlayerTurn || _pickedMeleeAttack is not { } picked || CurrentStack == null
+            || PlayerCamera == null || GameViewportRect == null)
+        {
+            _userInterface.HideMeleeCursor();
+            return;
+        }
+
+        // Arena-local, on the board: the picked position and one meter from it toward the target
+        Vector3 from = GridToWorld(CurrentStack, picked.Anchor);
+        Vector3 toTarget = GridToWorld(picked.Target, picked.Target.Anchor) - from;
+        toTarget.Y = 0;
+        Vector3 towards = from + toTarget.Normalized();
+
+        Vector3 globalFrom = ToGlobal(from);
+        if (PlayerCamera.IsPositionBehind(globalFrom))
+        {
+            _userInterface.HideMeleeCursor();
+            return;
+        }
+
+        // Projected with the battle camera into SubViewport pixels, then onto the screen where the UI draws.
+        // Both points go through the same projection, so the 2D direction matches the 3D one with perspective.
+        Vector2 screenFrom = GameViewportRect.ViewportToCanvas(PlayerCamera.UnprojectPosition(globalFrom));
+        Vector2 screenTowards = GameViewportRect.ViewportToCanvas(PlayerCamera.UnprojectPosition(ToGlobal(towards)));
+
+        // Screen Y points down, so up is Vector2.Up (0, -1); AngleTo is clockwise-positive, like 2D rotation
+        float rotation = Vector2.Up.AngleTo(screenTowards - screenFrom);
+        _userInterface.ShowMeleeCursor(screenFrom, rotation);
     }
 
     #endregion

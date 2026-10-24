@@ -4,11 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://d2vdux1r2w61k" path="res://scenes/player/viewport_rect.tscn" id="2_wl4x5"]
 [ext_resource type="Script" uid="uid://cqsc8sf8w7m2x" path="res://src/player/ArenaCamera.cs" id="6_4ag8t"]
 
-[node name="Arena" type="Node3D" unique_id=911541987 node_paths=PackedStringArray("SetupBoardCameraPosition", "BoardOverviewCameraPosition", "PlayerCamera")]
+[node name="Arena" type="Node3D" unique_id=911541987 node_paths=PackedStringArray("SetupBoardCameraPosition", "BoardOverviewCameraPosition", "PlayerCamera", "GameViewportRect")]
 script = ExtResource("1_olpmc")
 SetupBoardCameraPosition = NodePath("SubViewport/SetupBoardPosition")
 BoardOverviewCameraPosition = NodePath("SubViewport/BoardOverviewPosition")
 PlayerCamera = NodePath("SubViewport/ArenaCamera")
+GameViewportRect = NodePath("ViewportRect")
 AutoBeginBattle = false
 
 [node name="ViewportRect" parent="." unique_id=434109989 node_paths=PackedStringArray("GameViewport") instance=ExtResource("2_wl4x5")]
