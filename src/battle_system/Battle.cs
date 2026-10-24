@@ -7,11 +7,11 @@ using System.Linq;
 // so the player and the AI go through the same checks.
 public class Battle
 {
+    #region State
+
     private static readonly Vector2I[] Directions =
     [
-        new(-1, -1), new(0, -1), new(1, -1),
-        new(-1, 0),              new(1, 0),
-        new(-1, 1),  new(0, 1),  new(1, 1),
+        new(0, -1), new(-1, 0), new(1, 0), new(0, 1)
     ];
 
     public Army PlayerArmy { get; }
@@ -27,22 +27,34 @@ public class Battle
 
     private readonly Dictionary<Vector2I, Stack> _occupancy = new();
 
-    public Battle(Army playerArmy, Army computerArmy, int width, int height)
+    // keepAnchors: place the stacks at the anchors they already have (set by the placement phase)
+    // instead of the default starting anchors.
+    public Battle(Army playerArmy, Army computerArmy, int width, int height, bool keepAnchors = false)
     {
         PlayerArmy = playerArmy;
         ComputerArmy = computerArmy;
         Width = width;
         Height = height;
 
-        PlaceArmy(playerArmy, leftSide: true);
-        PlaceArmy(computerArmy, leftSide: false);
+        if (keepAnchors)
+        {
+            PlaceAtCurrentAnchors(playerArmy);
+            PlaceAtCurrentAnchors(computerArmy);
+        }
+        else
+        {
+            PlaceArmy(playerArmy, leftSide: true);
+            PlaceArmy(computerArmy, leftSide: false);
+        }
 
         StartNewRound();
     }
 
     public IEnumerable<Stack> AllStacks => PlayerArmy.Stacks.Concat(ComputerArmy.Stacks).Where(s => !s.IsDead);
 
-    // Turn order
+    #endregion
+
+    #region Turn order
 
     // Speed tier descending, then Defense ascending (without the hero), then Quantity ascending.
     public void BuildRoundQueue()
@@ -103,7 +115,9 @@ public class Battle
         }
     }
 
-    // Armies
+    #endregion
+
+    #region Armies
 
     public bool IsPlayerStack(Stack stack) => stack.Army == PlayerArmy;
 
@@ -115,7 +129,9 @@ public class Battle
 
     public List<Stack> GetEnemies(Stack stack) => GetEnemyArmy(stack).Stacks.Where(s => !s.IsDead).ToList();
 
-    // Tiles
+    #endregion
+
+    #region Tiles and movement
 
     public bool IsInBounds(Vector2I tile) => tile.X >= 0 && tile.Y >= 0 && tile.X < Width && tile.Y < Height;
 
@@ -188,7 +204,10 @@ public class Battle
 
     public bool CanMoveTo(Stack stack, Vector2I anchor) => GetReachability(stack).CanReach(anchor);
 
-    // Melee
+    #endregion
+
+    #region Melee
+
     // These take an optional Reachability so a turn can search once and reuse it.
 
     // Anchors the stack can attack the target from: its current anchor or a reachable one next to the target.
@@ -220,7 +239,9 @@ public class Battle
 
     public bool CanRetaliate(Stack stack) => stack.Unit.CanRetaliate && stack.HasMelee && !stack.Retaliated && !stack.IsDead;
 
-    // Long range
+    #endregion
+
+    #region Long range
 
     // Enemies the stack can shoot: all of them, except ones it can reach in melee if it also has melee.
     public List<Stack> GetRangedTargets(Stack stack, Reachability? reachability = null)
@@ -237,7 +258,9 @@ public class Battle
     public bool CanShoot(Stack stack, Stack target, Reachability? reachability = null) =>
         GetRangedTargets(stack, reachability).Contains(target);
 
-    // Spells
+    #endregion
+
+    #region Spells
 
     public bool CanHeroCast(Stack stack)
     {
@@ -265,7 +288,9 @@ public class Battle
         return true;
     }
 
-    // Mutations
+    #endregion
+
+    #region Mutations
 
     // Puts the stack's whole footprint on the anchor. Only checks that it fits, not that it's reachable.
     public bool TryPlaceStack(Stack stack, Vector2I anchor)
@@ -299,9 +324,20 @@ public class Battle
                 _occupancy.Remove(tile);
     }
 
+    #endregion
+
+    #region Placement
+
+    private void PlaceAtCurrentAnchors(Army army)
+    {
+        foreach (Stack stack in army.Stacks)
+            if (!TryPlaceStack(stack, stack.Anchor))
+                GD.PushError($"{stack.Unit.Name} doesn't fit at its anchor {stack.Anchor}.");
+    }
+
     // Spreads the army's stacks evenly down its edge of the board. A stack that doesn't fit at its
     // spot goes to the nearest free row, then further inward.
-    // TODO: replace with the placement phase where the player arranges the first two columns.
+    // Used when the battle starts without the placement phase (Arena.AutoBeginBattle).
     private void PlaceArmy(Army army, bool leftSide)
     {
         List<Vector2I> anchors = GetStartingAnchors(army.Stacks, leftSide, Width, Height);
@@ -347,4 +383,6 @@ public class Battle
         }
         return anchors;
     }
+
+    #endregion
 }
