@@ -77,6 +77,9 @@ public partial class Interactable : Node
 			if (_interactionGate)
 			{
 				_interactionGate = false;
+				// Cleared with the user: at a frame rate above the physics tick rate, a click can start and
+				// finish before _PhysicsProcess runs, which would then emit without a user
+				_physicsInteractionGate = false;
 				Debug.Assert(_savedUser != null);
 				EmitSignal(SignalName.InteractionFinished, _savedUser);
 				_savedUser = null;
