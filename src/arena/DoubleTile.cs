@@ -101,8 +101,8 @@ public partial class DoubleTile : Area3D, IInteractable
 			return;
 		}
 
-		if (ArenaRef.Battle?.GetStackAt(GridPosition) is Stack target)
-			ArenaRef.TrySubmitMeleeAttack(target);
+		if (ArenaRef.Battle?.GetStackAt(GridPosition) is Stack target && !ArenaRef.TrySubmitMeleeAttack(target))
+			ArenaRef.TrySubmitRangedAttack(target);
 	}
 
     public void Interact(Node user)

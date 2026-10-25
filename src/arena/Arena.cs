@@ -82,6 +82,10 @@ public partial class Arena : Node3D
     // The attack position picked by hovering a melee target this turn: red and raised.
     private (Stack Target, Vector2I Anchor)? _pickedMeleeAttack;
 
+    // Enemies the current stack can shoot this player turn (none of them is a melee target). Their tiles are red
+    // too, and hovering one (its unit or its tile) shows the arrow cursor.
+    private readonly List<Stack> _rangedTargets = [];
+
     // On a 2x2 stack's turn: a second double tile showing where the stack would move (or attack from).
     // It follows the hovered tile like the setup drag, moving as little as needed from where it is.
     // Arena's own, not a unit's; it stands in for the small tiles under it like a stack's double tile.
@@ -514,26 +518,28 @@ public partial class Arena : Node3D
 
         // The tiles under every enemy the stack can melee turn red; hovering one picks where to attack it from
         _meleeTargets.AddRange(battle.GetMeleeTargets(stack, reachability));
-        foreach (Stack target in _meleeTargets)
+        // And so do the tiles under every enemy it can shoot; hovering one shows the arrow cursor
+        _rangedTargets.AddRange(battle.GetRangedTargets(stack, reachability));
+        foreach (Stack target in _meleeTargets.Concat(_rangedTargets))
         {
             ShowTiles(target.GetOccupiedTiles());
             SetTilesHighlight(target.GetOccupiedTiles(), red: true, raised: false);
         }
 
-        // TODO: sword cursor over battle.GetMeleeTargets(stack, reachability), arrow cursor over
-        // battle.GetRangedTargets(stack, reachability), spellbook button enabled by battle.CanCastSpell(stack).
+        // TODO: spellbook button enabled by battle.CanCastSpell(stack).
         // Size 2 hover: reachability.GetAnchorsCovering(hoveredTile) gives the valid 2x2 squares under the mouse.
         // Clicks build a TurnOutput (MoveTo is an anchor) and call SubmitPlayerTurn.
         _playerTurn = new TaskCompletionSource<TurnOutput>();
         return _playerTurn.Task;
     }
 
-    // Hides the tiles and forgets the melee targets, the picked attack and the move preview.
+    // Hides the tiles and forgets the melee and ranged targets, the picked attack and the move preview.
     private void ClearTurnInput()
     {
         // While the preview anchor is still set, so HideAllTiles also resets the preview
         HideAllTiles();
         _meleeTargets.Clear();
+        _rangedTargets.Clear();
         _pickedMeleeAttack = null;
         _movePreviewAnchor = null;
         if (MovePreview != null)
@@ -552,6 +558,7 @@ public partial class Arena : Node3D
             UpdateTurnHover();
         // Every frame, not only when the pick changes, so it follows the camera
         UpdateMeleeCursor();
+        UpdateRangedCursor();
     }
 
     // Every frame on the player's turn: picks the attack position for the hovered melee target (red and raised),
@@ -646,18 +653,18 @@ public partial class Arena : Node3D
 
     #region Melee
 
-    // The melee target under the mouse: its unit, or the tile it stands on. Null if the hovered thing isn't one.
-    private Stack? GetFocusedMeleeTarget()
+    // The stack under the mouse: its unit, or the tile it stands on. Null if nothing stands there.
+    private Stack? GetFocusedStack() => PlayerCamera?.CurrentFocusedNode switch
     {
-        Stack? stack = PlayerCamera?.CurrentFocusedNode switch
-        {
-            UnitNode unit => unit.CurrentStack,
-            SmallTile tile => Battle?.GetStackAt(tile.GridPosition),
-            DoubleTile tile => Battle?.GetStackAt(tile.GridPosition),
-            _ => null,
-        };
-        return stack != null && _meleeTargets.Contains(stack) ? stack : null;
-    }
+        UnitNode unit => unit.CurrentStack,
+        SmallTile tile => Battle?.GetStackAt(tile.GridPosition),
+        DoubleTile tile => Battle?.GetStackAt(tile.GridPosition),
+        _ => null,
+    };
+
+    // The melee target under the mouse (its unit or its tile). Null if the hovered thing isn't one.
+    private Stack? GetFocusedMeleeTarget() =>
+        GetFocusedStack() is Stack stack && _meleeTargets.Contains(stack) ? stack : null;
 
     // Of the positions the current stack can melee the target from, the one on the side of the target that the
     // hover point (Arena-local, on the board plane) is on: the smallest angle around the target's footprint center.
@@ -739,6 +746,39 @@ public partial class Arena : Node3D
         // Screen Y points down, so up is Vector2.Up (0, -1); AngleTo is clockwise-positive, like 2D rotation
         float rotation = Vector2.Up.AngleTo(screenTowards - screenFrom);
         _userInterface.ShowMeleeCursor(screenFrom, rotation);
+    }
+
+    #endregion
+
+    #region Long range
+
+    // The ranged target under the mouse (its unit or its tile). Null if the hovered thing isn't one.
+    private Stack? GetFocusedRangedTarget() =>
+        GetFocusedStack() is Stack stack && _rangedTargets.Contains(stack) ? stack : null;
+
+    // Shoots the target from where the current stack stands. False, and nothing submitted,
+    // if it isn't the player's turn or the target can't be shot.
+    public bool TrySubmitRangedAttack(Stack target)
+    {
+        if (!IsPlayerTurn || CurrentStack?.Unit.LongRangeAttack is not LongRangeAttackAbility ranged
+            || !_rangedTargets.Contains(target))
+            return false;
+
+        var output = new TurnOutput();
+        output.Add(ranged, target);
+        SubmitPlayerTurn(output);
+        return true;
+    }
+
+    // While a ranged target is hovered on the player's turn, the mouse is replaced by the arrow.
+    private void UpdateRangedCursor()
+    {
+        if (_userInterface == null)
+            return;
+        if (IsPlayerTurn && GetFocusedRangedTarget() != null)
+            _userInterface.ShowRangedCursor();
+        else
+            _userInterface.HideRangedCursor();
     }
 
     #endregion

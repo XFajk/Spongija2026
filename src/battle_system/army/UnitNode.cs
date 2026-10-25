@@ -224,11 +224,7 @@ public partial class UnitNode : Area3D, IInteractable
         if (ArenaRef.TrySubmitMeleeAttack(CurrentStack))
             return;
 
-        if (ArenaRef.CurrentStack?.HasLongRange ?? false)
-        {
-            // TODO: ranged attack
-            ArenaRef.SubmitPlayerTurn(new TurnOutput());
-        }
+        ArenaRef.TrySubmitRangedAttack(CurrentStack);
     }
 
     private void OnComputerUnitInteracting(Node user)
