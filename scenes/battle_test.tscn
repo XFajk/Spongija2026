@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="2_stackres"]
 [ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="3_8ajim"]
 [ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="4_7bjbe"]
+[ext_resource type="Resource" uid="uid://dmn08fp2i52t3" path="res://assets/battle_system/units/archer_quendi.tres" id="5_2mwd4"]
 
 [sub_resource type="Resource" id="Resource_d1jsn"]
 script = ExtResource("2_stackres")
@@ -23,6 +24,12 @@ Unit = ExtResource("4_7bjbe")
 Quantity = 2
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
+[sub_resource type="Resource" id="Resource_jvnn3"]
+script = ExtResource("2_stackres")
+Unit = ExtResource("5_2mwd4")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
 [sub_resource type="Resource" id="Resource_cj8pm"]
 script = ExtResource("2_stackres")
 Unit = ExtResource("4_7bjbe")
@@ -37,5 +44,5 @@ metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [node name="BattleTest" type="Node" unique_id=1175393641]
 script = ExtResource("1_battletest")
-PlayerUnits = Array[ExtResource("2_stackres")]([SubResource("Resource_d1jsn"), SubResource("Resource_26d8k"), SubResource("Resource_7bjbe")])
+PlayerUnits = Array[ExtResource("2_stackres")]([SubResource("Resource_d1jsn"), SubResource("Resource_26d8k"), SubResource("Resource_7bjbe"), SubResource("Resource_jvnn3")])
 ComputerUnits = Array[ExtResource("2_stackres")]([SubResource("Resource_cj8pm"), SubResource("Resource_2mwd4")])
