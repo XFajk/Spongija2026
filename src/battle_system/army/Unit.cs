@@ -19,7 +19,7 @@ public partial class Unit : Resource
 
     // Decides turn order and how many tiles the stack can move.
     [Export(PropertyHint.Range, "3,8")]
-    public int SpeedTier { get; set; } = 1;
+    public int SpeedTier { get; set; } = 3;
 
     // Starting mana of a new stack.
     [Export]
