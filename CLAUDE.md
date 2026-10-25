@@ -104,6 +104,7 @@ HoMM3-style turn-based battles on a square grid. Two layers, and the split matte
 **Abilities and effects** (`abilities/`, `effects/`), all abstract `[GlobalClass]` Resources; concrete ones are subclasses:
 
 - `IAbility.Use(user, target, arena)` returns a `Task`. Bases: `MeleeAttackAbility`, `LongRangeAttackAbility`, `SpellAbility` (`ManaCost`, `MinKnowledge`; used for both unit and hero spells), `PassiveAbility` → `RoundPassiveAbility` / `TurnPassiveAbility`. Change game state first, then await the animation.
+- `Projectile` (`projectiles/`, `Node3D`): `Projectile.Spawn(parent, scene, start, end, angle)` instantiates a scene whose root must be a `Projectile` and flies it along a parabola from `start` to `end` (global positions), leaving at `angle` degrees above the XZ plane (clamped to 0..85), at the exported `HorizontalSpeed`. It emits `Landed` on arrival (it doesn't free itself). `HeadDirection` is the current flight direction.
 - `IEffect.Apply(target, arena)`: `RoundEffect` / `TurnEffect` with stat modifiers and `Duration`. `Stack.AddEffect` duplicates the Resource, because runtime state must never live on a shared `.tres`.
 
 **Board:**
