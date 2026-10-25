@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dphq6ph1yv1hr" path="res://scenes/units/pilgrim_quendi.tscn" id="2_qqub5"]
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_qqub5"]
 
-[sub_resource type="Resource" id="Resource_43g2w"]
+[sub_resource type="Resource" id="Resource_qqub5"]
 script = ExtResource("1_njrqm")
 metadata/_custom_type_script = "uid://dbehoqcrijunt"
 
@@ -17,6 +17,6 @@ MaxHealth = 50
 Strength = 5
 Defense = 5
 SpeedTier = 5
-MeleeAttack = SubResource("Resource_43g2w")
+MeleeAttack = SubResource("Resource_qqub5")
 Model = ExtResource("2_qqub5")
 metadata/_custom_type_script = "uid://cj3g6btx1kotr"

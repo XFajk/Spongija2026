@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_113b1"]
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_x8p6f"]
 
-[sub_resource type="Resource" id="Resource_jwgyu"]
+[sub_resource type="Resource" id="Resource_113b1"]
 script = ExtResource("1_113b1")
 metadata/_custom_type_script = "uid://dbehoqcrijunt"
 
@@ -16,5 +16,5 @@ MaxHealth = 125
 Strength = 15
 Defense = 15
 SpeedTier = 2
-MeleeAttack = SubResource("Resource_jwgyu")
+MeleeAttack = SubResource("Resource_113b1")
 metadata/_custom_type_script = "uid://cj3g6btx1kotr"
