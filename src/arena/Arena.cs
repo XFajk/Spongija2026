@@ -25,6 +25,10 @@ public partial class Arena : Node3D
     [Export]
     public ArenaCamera? PlayerCamera { get; set; } = null;
 
+    // Where the player's hero stands, off the board: hero spells come from here (SpellAbility.UseFromHero).
+    [Export]
+    public Node3D? HeroSpellCastPosition { get; set; } = null;
+
     // Shows the camera's SubViewport on screen; converts projected points to where UI is drawn over them.
     [Export]
     public ViewportRect? GameViewportRect { get; set; } = null;
@@ -71,7 +75,8 @@ public partial class Arena : Node3D
     // Created by SetupPlacementPhase.
     private ArenaUserInterface? _userInterface;
 
-    public bool IsPlayerTurn => CurrentStack?.Army == PlayerArmy && _playerTurn != null;
+    // False while a hero spell plays in the middle of the turn, so no input is taken meanwhile
+    public bool IsPlayerTurn => CurrentStack?.Army == PlayerArmy && _playerTurn != null && !_castingHeroSpell;
 
     public bool IsInSetupPhase => Battle == null;
 
@@ -85,6 +90,18 @@ public partial class Arena : Node3D
     // Enemies the current stack can shoot this player turn (none of them is a melee target). Their tiles are red
     // too, and hovering one (its unit or its tile) shows the arrow cursor.
     private readonly List<Stack> _rangedTargets = [];
+
+    // The spell picked in the spellbook this player turn, while the player picks its target. Meanwhile the move,
+    // melee and ranged input is off, the targets' tiles show (red for enemies), and hovering a target shows the
+    // spell's icon as the cursor. Right click or Escape cancels it.
+    private SpellAbility? _pickedSpell;
+    private bool _pickedSpellIsHero;
+    private readonly List<Stack> _spellTargets = [];
+
+    public bool IsPickingSpellTarget => _pickedSpell != null;
+
+    // A hero spell is cast right away and the turn goes on after it, as in HoMM; this is true while it plays.
+    private bool _castingHeroSpell;
 
     // On a 2x2 stack's turn: a second double tile showing where the stack would move (or attack from).
     // It follows the hovered tile like the setup drag, moving as little as needed from where it is.
@@ -198,6 +215,7 @@ public partial class Arena : Node3D
         arenaUI.arenaCamera = PlayerCamera;
         AddChild(arenaUI);
         _userInterface = arenaUI;
+        arenaUI.SpellPicked += BeginSpellTargeting;
 
         PlayerCamera.arena = this;
         PlayerCamera.GlobalPosition = SetupBoardCameraPosition.GlobalPosition;
@@ -497,7 +515,8 @@ public partial class Arena : Node3D
                 : GetComputerTurn(battle, stack, reachability);
             ClearTurnInput();
 
-            await ExecuteTurn(battle, stack, output, reachability);
+            // CurrentReachability, not the local: a hero spell cast during the player's turn searches it again
+            await ExecuteTurn(battle, stack, output, CurrentReachability ?? reachability);
             CurrentReachability = null;
             await EndTurn(stack);
             RemoveDeadStacks(battle);
@@ -514,6 +533,17 @@ public partial class Arena : Node3D
 
     private Task<TurnOutput> GetPlayerTurn(Battle battle, Stack stack, Reachability reachability)
     {
+        ShowTurnTargets(battle, stack, reachability);
+        _userInterface?.UpdateSpellButtons(stack);
+        // Size 2 hover: reachability.GetAnchorsCovering(hoveredTile) gives the valid 2x2 squares under the mouse.
+        // Clicks build a TurnOutput (MoveTo is an anchor) and call SubmitPlayerTurn.
+        _playerTurn = new TaskCompletionSource<TurnOutput>();
+        return _playerTurn.Task;
+    }
+
+    // The normal turn input: reachable tiles, and red tiles under the melee and ranged targets.
+    private void ShowTurnTargets(Battle battle, Stack stack, Reachability reachability)
+    {
         ShowTiles(reachability.GetTiles());
 
         // The tiles under every enemy the stack can melee turn red; hovering one picks where to attack it from
@@ -525,16 +555,10 @@ public partial class Arena : Node3D
             ShowTiles(target.GetOccupiedTiles());
             SetTilesHighlight(target.GetOccupiedTiles(), red: true, raised: false);
         }
-
-        // TODO: spellbook button enabled by battle.CanCastSpell(stack).
-        // Size 2 hover: reachability.GetAnchorsCovering(hoveredTile) gives the valid 2x2 squares under the mouse.
-        // Clicks build a TurnOutput (MoveTo is an anchor) and call SubmitPlayerTurn.
-        _playerTurn = new TaskCompletionSource<TurnOutput>();
-        return _playerTurn.Task;
     }
 
     // Hides the tiles and forgets the melee and ranged targets, the picked attack and the move preview.
-    private void ClearTurnInput()
+    private void ClearTurnTargets()
     {
         // While the preview anchor is still set, so HideAllTiles also resets the preview
         HideAllTiles();
@@ -544,6 +568,16 @@ public partial class Arena : Node3D
         _movePreviewAnchor = null;
         if (MovePreview != null)
             MovePreview.Enabled = false;
+    }
+
+    // After the player's turn is decided: also ends spell targeting and disables the spellbook buttons.
+    private void ClearTurnInput()
+    {
+        ClearTurnTargets();
+        _pickedSpell = null;
+        _spellTargets.Clear();
+        _userInterface?.UpdateSpellButtons(null);
+        _userInterface?.SetCancelSpellVisible(false);
     }
 
     // Whether the stack whose turn it is can melee the target this turn: from where it stands, or after moving
@@ -559,12 +593,15 @@ public partial class Arena : Node3D
         // Every frame, not only when the pick changes, so it follows the camera
         UpdateMeleeCursor();
         UpdateRangedCursor();
+        UpdateSpellCursor();
     }
 
     // Every frame on the player's turn: picks the attack position for the hovered melee target (red and raised),
-    // and for a 2x2 stack moves the move preview to it, or else to the hovered tile.
+    // and for a 2x2 stack moves the move preview to it, or else to the hovered tile. Off while picking a spell target.
     private void UpdateTurnHover()
     {
+        if (IsPickingSpellTarget)
+            return;
         Stack stack = CurrentStack!;
         Stack? target = GetFocusedMeleeTarget();
         Vector2I? attackAnchor = null;
@@ -636,7 +673,7 @@ public partial class Arena : Node3D
     // (the clicked tile may be any of the 4 it covers). False if it isn't the player's turn or it can't go there.
     public bool TrySubmitMoveTo(Vector2I tile)
     {
-        if (!IsPlayerTurn || CurrentStack == null || CurrentReachability == null)
+        if (!IsPlayerTurn || IsPickingSpellTarget || CurrentStack == null || CurrentReachability == null)
             return false;
 
         Vector2I anchor = CurrentStack.Size >= 2
@@ -775,10 +812,127 @@ public partial class Arena : Node3D
     {
         if (_userInterface == null)
             return;
-        if (IsPlayerTurn && GetFocusedRangedTarget() != null)
+        if (IsPlayerTurn && !IsPickingSpellTarget && GetFocusedRangedTarget() != null)
             _userInterface.ShowRangedCursor();
         else
             _userInterface.HideRangedCursor();
+    }
+
+    #endregion
+
+    #region Spells
+
+    // Called when a spell is picked in the spellbook: swaps the normal turn input for picking the spell's target.
+    private void BeginSpellTargeting(SpellAbility spell, bool isHeroSpell)
+    {
+        if (!IsPlayerTurn || Battle == null || CurrentStack == null)
+            return;
+
+        ClearTurnTargets();
+        _pickedSpell = spell;
+        _pickedSpellIsHero = isHeroSpell;
+        _spellTargets.Clear();
+        _spellTargets.AddRange(Battle.GetSpellTargets(CurrentStack, spell));
+        foreach (Stack target in _spellTargets)
+        {
+            ShowTiles(target.GetOccupiedTiles());
+            SetTilesHighlight(target.GetOccupiedTiles(), red: Battle.GetEnemies(CurrentStack).Contains(target), raised: false);
+        }
+        _userInterface?.SetCancelSpellVisible(true);
+    }
+
+    // Back to the normal turn input, as at the start of the turn. Used by right click, Escape and the Cancel Spell button.
+    public void CancelSpellTargeting()
+    {
+        if (!IsPlayerTurn || !IsPickingSpellTarget || Battle == null || CurrentStack == null || CurrentReachability == null)
+            return;
+        HideAllTiles();
+        _pickedSpell = null;
+        _spellTargets.Clear();
+        _userInterface?.SetCancelSpellVisible(false);
+        ShowTurnTargets(Battle, CurrentStack, CurrentReachability);
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (!IsPlayerTurn || !IsPickingSpellTarget)
+            return;
+        if (@event is InputEventMouseButton { ButtonIndex: MouseButton.Right, Pressed: true } || @event.IsActionPressed("ui_cancel"))
+        {
+            CancelSpellTargeting();
+            GetViewport().SetInputAsHandled();
+        }
+    }
+
+    // Casts the picked spell on the target: a hero spell right away, with the turn going on after it, a unit spell
+    // as the stack's action for this turn. False if no spell is being targeted or the target isn't valid for it.
+    public bool TrySubmitSpell(Stack target)
+    {
+        if (!IsPlayerTurn || _pickedSpell is not SpellAbility spell || !_spellTargets.Contains(target))
+            return false;
+
+        if (_pickedSpellIsHero)
+        {
+            CastHeroSpell(spell, target);
+            return true;
+        }
+
+        var output = new TurnOutput();
+        output.Add(spell, target);
+        SubmitPlayerTurn(output);
+        return true;
+    }
+
+    // Plays the hero's spell in the middle of the player's turn, then gives the turn back: dead stacks are removed,
+    // the reachability is searched again (the board may have changed) and the turn input is shown again.
+    // If the battle is over or the acting stack died, the turn ends instead.
+    private async void CastHeroSpell(SpellAbility spell, Stack target)
+    {
+        if (Battle is not Battle battle || CurrentStack is not Stack stack)
+            return;
+
+        ClearTurnTargets();
+        _pickedSpell = null;
+        _spellTargets.Clear();
+        _userInterface?.SetCancelSpellVisible(false);
+        _userInterface?.UpdateSpellButtons(null);
+        _castingHeroSpell = true;
+        try
+        {
+            // From where the hero stands; without the marker, from the acting unit
+            Vector3 origin = HeroSpellCastPosition?.GlobalPosition
+                ?? stack.NodeRepresentation?.GlobalPosition ?? GlobalPosition;
+            if (stack.Hero is Hero hero && battle.SpendHeroMana(hero, spell))
+                await spell.UseFromHero(stack, origin, target, this);
+            RemoveDeadStacks(battle);
+        }
+        catch (Exception e)
+        {
+            GD.PushError($"Hero spell failed: {e}");
+        }
+        _castingHeroSpell = false;
+
+        if (battle.IsOver || stack.IsDead)
+        {
+            SubmitPlayerTurn(new TurnOutput());
+            return;
+        }
+
+        CurrentReachability = battle.GetReachability(stack);
+        ShowTurnTargets(battle, stack, CurrentReachability);
+        _userInterface?.UpdateSpellButtons(stack);
+    }
+
+    // While a spell target is hovered, the mouse is replaced by the spell's icon.
+    private void UpdateSpellCursor()
+    {
+        if (_userInterface == null)
+            return;
+        if (IsPlayerTurn && _pickedSpell is SpellAbility spell && GetFocusedStack() is Stack hovered
+            && _spellTargets.Contains(hovered))
+            _userInterface.ShowSpellCursor(spell.Icon);
+        else
+            _userInterface.HideSpellCursor();
     }
 
     #endregion

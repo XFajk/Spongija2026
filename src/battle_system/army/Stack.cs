@@ -121,6 +121,17 @@ public class Stack
         return before - Quantity;
     }
 
+    // Gives health back to the top unit, up to its max; dead units stay dead. Returns how much was healed.
+    public int Heal(int amount)
+    {
+        if (amount <= 0 || IsDead)
+            return 0;
+
+        int before = TopHealth;
+        TopHealth += amount;
+        return TopHealth - before;
+    }
+
     // Effects are Resources shared through .tres files, so every stack gets its own copy.
     public IEffect AddEffect(IEffect effect)
     {

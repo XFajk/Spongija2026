@@ -1,8 +1,14 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 public partial class ArenaUserInterface : Control
 {
+	// A spell was picked in the spellbook: one of the current stack's own spells, or a hero spell.
+	[Signal]
+	public delegate void SpellPickedEventHandler(SpellAbility spell, bool isHeroSpell);
 
 	public Arena? arena;	
 	public ArenaCamera? arenaCamera;
@@ -18,6 +24,33 @@ public partial class ArenaUserInterface : Control
 	private Button? _waitButton;
 
 	private Button? _useHeroSpellButton;
+
+	// Shown while the target of a picked spell is being chosen
+	private Button? _cancelSpellButton;
+
+	// UI elements for the spellbook
+	private Control? _bookInterface;
+	private AnimatedSprite2D? _spellBook;
+	private Control? _spellButtonsRoot;
+	private Button? _nextPageButton;
+	private Button? _backPageButton;
+	private Label? _manaLabel;
+
+	// In reading order: the left page top to bottom, then the right page. One page spread shows this many spells.
+	private readonly List<SpellButton> _spellButtons = [];
+
+	// What the open book shows: the spells, which of them can be cast now (the others are shown disabled),
+	// whether they're hero spells, and the page spread (12 spells per spread).
+	private List<SpellAbility> _bookSpells = [];
+	private Func<SpellAbility, bool> _canCastBookSpell = _ => false;
+	private bool _bookShowsHeroSpells;
+	private int _bookPage;
+
+	// While the book opens or flips a page, closing it and turning pages are ignored
+	private bool _bookAnimating;
+
+	private const string OpenAnimation = "open";
+	private const string FlipPageAnimation = "flip_page";
 
 	public const string MeleeCursorTexture = "uid://c21n6vo2a3nt4";
 
@@ -38,6 +71,12 @@ public partial class ArenaUserInterface : Control
 	public Vector2 RangedCursorHotspot { get; set; } = new(168, 172);
 
 	private Sprite2D? _rangedCursor;
+
+	// Size in pixels of the longer side of the spell's icon when it replaces the mouse cursor over a spell target
+	[Export]
+	public float SpellCursorSize { get; set; } = 64f;
+
+	private Sprite2D? _spellCursor;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -63,6 +102,14 @@ public partial class ArenaUserInterface : Control
 		};
 		AddChild(_rangedCursor);
 
+		// Its texture is the picked spell's icon, set when it's shown
+		_spellCursor = new Sprite2D
+		{
+			Name = "SpellCursor",
+			Visible = false,
+		};
+		AddChild(_spellCursor);
+
 		_setupInterface = GetNode<Control>("SetupInterface");
 		_battleInterface = GetNode<Control>("BattleInterface");
 
@@ -78,6 +125,27 @@ public partial class ArenaUserInterface : Control
 		_useHeroSpellButton = GetNode<Button>("BattleInterface/BattleActions/UseHeroSpell");
 		_useHeroSpellButton!.Pressed += OnUseHeroSpellButtonPressed;
 
+		_cancelSpellButton = GetNode<Button>("BattleInterface/CancelSpell");
+		_cancelSpellButton.Pressed += OnCancelSpellButtonPressed;
+
+		_bookInterface = GetNode<Control>("BookInterface");
+		// Clicks on the book (also between buttons and while it animates) mustn't reach the battle behind it
+		_bookInterface.MouseFilter = MouseFilterEnum.Stop;
+		_spellBook = GetNode<AnimatedSprite2D>("BookInterface/SpellBook");
+		_spellButtonsRoot = GetNode<Control>("BookInterface/SpellButtons");
+		_nextPageButton = GetNode<Button>("BookInterface/Next");
+		_nextPageButton.Pressed += OnNextPageButtonPressed;
+		_backPageButton = GetNode<Button>("BookInterface/Back");
+		_backPageButton.Pressed += OnBackPageButtonPressed;
+		_manaLabel = GetNode<Label>("BookInterface/ManaLable");
+
+		CollectSpellButtons(_spellButtonsRoot);
+		foreach (SpellButton spellButton in _spellButtons)
+			spellButton.SpellPicked += OnSpellButtonPicked;
+
+		// Until Arena enables them at the start of a player turn
+		UpdateSpellButtons(null);
+
 		if (arena is not Arena a)
 		{
 			return;
@@ -89,9 +157,11 @@ public partial class ArenaUserInterface : Control
 
 	public override void _Process(double delta)
 	{
-		// The arrow follows the mouse, unlike the sword, which Arena places on the picked tile
+		// The arrow and the spell icon follow the mouse, unlike the sword, which Arena places on the picked tile
 		if (_rangedCursor != null && _rangedCursor.Visible)
 			_rangedCursor.GlobalPosition = GetGlobalMousePosition();
+		if (_spellCursor != null && _spellCursor.Visible)
+			_spellCursor.GlobalPosition = GetGlobalMousePosition();
 	}
 
 	public override void _ExitTree()
@@ -99,6 +169,7 @@ public partial class ArenaUserInterface : Control
 		// Never leave the game with the mouse hidden
 		HideMeleeCursor();
 		HideRangedCursor();
+		HideSpellCursor();
 	}
 
 	// Replaces the mouse cursor with the sword: the mouse is hidden where it is (it still moves and hovers),
@@ -139,10 +210,41 @@ public partial class ArenaUserInterface : Control
 		UpdateMouseMode();
 	}
 
-	// The mouse is hidden while either cursor stands in for it
+	// Replaces the mouse cursor with the spell's icon, centered on the mouse position and SpellCursorSize big.
+	// Without an icon the normal cursor stays.
+	public void ShowSpellCursor(Texture2D? icon)
+	{
+		if (_spellCursor == null)
+			return;
+		if (icon == null)
+		{
+			HideSpellCursor();
+			return;
+		}
+		if (_spellCursor.Texture != icon)
+		{
+			_spellCursor.Texture = icon;
+			Vector2 size = icon.GetSize();
+			_spellCursor.Scale = Vector2.One * SpellCursorSize / Mathf.Max(1f, Mathf.Max(size.X, size.Y));
+		}
+		_spellCursor.GlobalPosition = GetGlobalMousePosition();
+		_spellCursor.Visible = true;
+		UpdateMouseMode();
+	}
+
+	public void HideSpellCursor()
+	{
+		if (_spellCursor == null || !_spellCursor.Visible)
+			return;
+		_spellCursor.Visible = false;
+		UpdateMouseMode();
+	}
+
+	// The mouse is hidden while any of the cursors stands in for it
 	private void UpdateMouseMode()
 	{
-		bool replaced = (_meleeCursor?.Visible ?? false) || (_rangedCursor?.Visible ?? false);
+		bool replaced = (_meleeCursor?.Visible ?? false) || (_rangedCursor?.Visible ?? false)
+			|| (_spellCursor?.Visible ?? false);
 		Input.MouseMode = replaced ? Input.MouseModeEnum.Hidden : Input.MouseModeEnum.Visible;
 	}
 
@@ -159,17 +261,176 @@ public partial class ArenaUserInterface : Control
 	}
 
 
+	// Enables Use Spell if the stack has spells of its own and Use Hero's Spell if its hero knows any (the ones the
+	// book would show) and hasn't cast this round. Null, between player turns, disables both.
+	public void UpdateSpellButtons(Stack? stack)
+	{
+		if (_useUnitSpellButton == null || _useHeroSpellButton == null)
+			return;
+		_useUnitSpellButton.Disabled = stack == null || stack.Unit.Spells.Count == 0;
+		_useHeroSpellButton.Disabled = stack?.Hero is not Hero hero || hero.HasCastThisRound
+			|| hero.GetKnownSpells().Count == 0;
+	}
+
+	public void SetCancelSpellVisible(bool visible)
+	{
+		if (_cancelSpellButton != null)
+			_cancelSpellButton.Visible = visible;
+	}
+
+	private void OnCancelSpellButtonPressed()
+	{
+		arena?.CancelSpellTargeting();
+	}
+
+	// The current stack's own spells; the ones it lacks the mana for are disabled
 	private void OnUseUnitSpellButtonPressed()
 	{
+		if (arena?.IsPlayerTurn != true || arena.CurrentStack is not Stack stack)
+			return;
+		OpenSpellBook(stack.Unit.Spells.ToList(), spell => stack.Mana >= spell.ManaCost, heroSpells: false,
+			stack.Mana, stack.Unit.MaxMana);
 	}
 
 	private void OnWaitButtonPressed()
 	{
 	}
 
+	// The hero's spells unlocked by Knowledge; the ones it can't cast now (mana, already cast this round) are disabled
 	private void OnUseHeroSpellButtonPressed()
 	{
+		if (arena?.IsPlayerTurn != true || arena.CurrentStack?.Hero is not Hero hero)
+			return;
+		OpenSpellBook(hero.GetKnownSpells(), hero.CanCast, heroSpells: true, hero.Mana, hero.MaxMana);
 	}
+
+	#region Spellbook
+
+	// Depth first, so the order is the reading order of the pages
+	private void CollectSpellButtons(Node parent)
+	{
+		foreach (Node child in parent.GetChildren())
+		{
+			if (child is SpellButton spellButton)
+				_spellButtons.Add(spellButton);
+			else
+				CollectSpellButtons(child);
+		}
+	}
+
+	// Swaps the battle interface for the book, fills the first spread and plays the opening; the spells and
+	// page buttons show when it's open. The mana is the caster's: the hero's, or the stack's for its own spells.
+	private async void OpenSpellBook(List<SpellAbility> spells, Func<SpellAbility, bool> canCast, bool heroSpells,
+		uint mana, uint maxMana)
+	{
+		_bookSpells = spells;
+		_canCastBookSpell = canCast;
+		_bookShowsHeroSpells = heroSpells;
+		_bookPage = 0;
+		// Mana can't change while the book is open, so it's set once
+		_manaLabel!.Text = $"Mana: {mana}/{maxMana}";
+
+		_battleInterface!.Visible = false;
+		_bookInterface!.Visible = true;
+		FillSpellButtons();
+		await PlayBookAnimation(OpenAnimation, backwards: false);
+	}
+
+	private void CloseSpellBook()
+	{
+		_bookInterface!.Visible = false;
+		_battleInterface!.Visible = true;
+	}
+
+	private async void OnNextPageButtonPressed()
+	{
+		if (_bookAnimating)
+			return;
+		_bookPage++;
+		FillSpellButtons();
+		await PlayBookAnimation(FlipPageAnimation, backwards: false);
+	}
+
+	private async void OnBackPageButtonPressed()
+	{
+		if (_bookAnimating || _bookPage == 0)
+			return;
+		_bookPage--;
+		FillSpellButtons();
+		await PlayBookAnimation(FlipPageAnimation, backwards: true);
+	}
+
+	// Gives the buttons the current spread's spells; buttons past the last spell are hidden
+	private void FillSpellButtons()
+	{
+		int first = _bookPage * _spellButtons.Count;
+		for (int i = 0; i < _spellButtons.Count; i++)
+		{
+			SpellButton button = _spellButtons[i];
+			SpellAbility? spell = first + i < _bookSpells.Count ? _bookSpells[first + i] : null;
+			button.Spell = spell;
+			button.Visible = spell != null;
+			button.Disabled = spell == null || !_canCastBookSpell(spell);
+		}
+	}
+
+	// Hides the spells and page buttons while the animation plays (from frame 0, or from the last frame backwards),
+	// then shows the spells, Next if there are more spells after this spread and Back if this isn't the first.
+	private async Task PlayBookAnimation(string animation, bool backwards)
+	{
+		_bookAnimating = true;
+		_spellButtonsRoot!.Visible = false;
+		_nextPageButton!.Visible = false;
+		_backPageButton!.Visible = false;
+
+		// Setting the animation resets the frame to 0, so the frame is set after it
+		_spellBook!.Animation = animation;
+		if (backwards)
+		{
+			_spellBook.Frame = _spellBook.SpriteFrames.GetFrameCount(animation) - 1;
+			_spellBook.PlayBackwards();
+		}
+		else
+		{
+			_spellBook.Frame = 0;
+			_spellBook.Play();
+		}
+		await ToSignal(_spellBook, AnimatedSprite2D.SignalName.AnimationFinished);
+
+		_bookAnimating = false;
+		// Closed while animating is blocked, but the whole UI may be gone (end of the battle)
+		if (!IsInsideTree() || !_bookInterface!.Visible)
+			return;
+		_spellButtonsRoot.Visible = true;
+		_nextPageButton.Visible = (_bookPage + 1) * _spellButtons.Count < _bookSpells.Count;
+		_backPageButton.Visible = _bookPage > 0;
+	}
+
+	private void OnSpellButtonPicked(SpellAbility spell)
+	{
+		if (_bookAnimating)
+			return;
+		CloseSpellBook();
+		EmitSignal(SignalName.SpellPicked, spell, _bookShowsHeroSpells);
+	}
+
+	// A click anywhere off the book closes it, and doesn't reach the battle behind it.
+	// In _Input, before the GUI and the battle view get the click.
+	public override void _Input(InputEvent @event)
+	{
+		if (_bookInterface == null || !_bookInterface.Visible)
+			return;
+		if (@event is not InputEventMouseButton { Pressed: true } click)
+			return;
+		if (_bookInterface.GetGlobalRect().HasPoint(click.Position))
+			return;
+
+		GetViewport().SetInputAsHandled();
+		if (!_bookAnimating)
+			CloseSpellBook();
+	}
+
+	#endregion
 
 	private void OnStartBattleButtonPressed()
 	{

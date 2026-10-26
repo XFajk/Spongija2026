@@ -271,6 +271,14 @@ public class Battle
     // Whether the spellbook should be active on this stack's turn.
     public bool CanCastSpell(Stack stack) => stack.GetCastableSpells().Count > 0 || CanHeroCast(stack);
 
+    // Living stacks the spell can be cast on during this stack's turn (a hero spell is cast from the stack's side).
+    public List<Stack> GetSpellTargets(Stack stack, SpellAbility spell) => spell.Targets switch
+    {
+        SpellAbility.TargetSide.Enemies => GetEnemies(stack),
+        SpellAbility.TargetSide.Allies => GetAllies(stack),
+        _ => GetAllies(stack).Concat(GetEnemies(stack)).ToList(),
+    };
+
     public bool SpendStackMana(Stack stack, SpellAbility spell)
     {
         if (stack.Mana < spell.ManaCost)

@@ -195,6 +195,11 @@ public partial class UnitNode : Area3D, IInteractable
 
     private void OnPlayerUnitInteractionStarted(Node user)
     {
+        if (CurrentStack == null || ArenaRef == null || !ArenaRef.IsPlayerTurn)
+            return;
+
+        // An own unit can only be clicked as the target of a spell for allies
+        ArenaRef.TrySubmitSpell(CurrentStack);
     }
 
     private void OnPlayerUnitInteracting(Node user)
@@ -217,6 +222,10 @@ public partial class UnitNode : Area3D, IInteractable
             return;
 
         if (!ArenaRef.IsPlayerTurn)
+            return;
+
+        // While a spell's target is being picked, a click casts it (the melee and ranged input is off meanwhile)
+        if (ArenaRef.TrySubmitSpell(CurrentStack))
             return;
 
         // Melee comes first: an enemy the current stack can reach in melee can't be shot (Battle.GetRangedTargets).

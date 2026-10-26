@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="FireBallSpell" format=3 uid="uid://ddfgaidqfhbat"]
+
+[ext_resource type="PackedScene" uid="uid://br02cttlef0ed" path="res://scenes/projectiles/fire_ball_projectile.tscn" id="1_3c0sb"]
+[ext_resource type="Texture2D" uid="uid://dndqmhsahycyb" path="res://assets/ui/spell_icons/fireball.svg" id="1_fyjep"]
+[ext_resource type="Script" uid="uid://kaqcq55yms27" path="res://src/battle_system/abilities/specific/FireBallSpell.cs" id="1_mpr6r"]
+
+[resource]
+script = ExtResource("1_mpr6r")
+Damage = 400
+Projectile = ExtResource("1_3c0sb")
+ShootAngle = 10.0
+Name = "Fire Ball"
+Icon = ExtResource("1_fyjep")
+ManaCost = 10
+metadata/_custom_type_script = "uid://kaqcq55yms27"

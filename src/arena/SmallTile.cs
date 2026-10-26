@@ -89,11 +89,11 @@ public partial class SmallTile : Area3D, IInteractable
 		if (!ArenaRef.IsPlayerTurn)
 			return;
 
-		// The red tile under a melee target attacks it from the picked position instead of moving there,
-		// and the one under a ranged target shoots it
+		// The tile under a spell target casts the picked spell on it, the red tile under a melee target attacks it
+		// from the picked position instead of moving there, and the one under a ranged target shoots it
 		if (ArenaRef.Battle?.GetStackAt(GridPosition) is Stack target)
 		{
-			if (!ArenaRef.TrySubmitMeleeAttack(target))
+			if (!ArenaRef.TrySubmitSpell(target) && !ArenaRef.TrySubmitMeleeAttack(target))
 				ArenaRef.TrySubmitRangedAttack(target);
 			return;
 		}

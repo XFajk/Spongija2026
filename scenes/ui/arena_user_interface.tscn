@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhgyikkofw01c" path="res://src/ui/ArenaUserInterface.cs" id="1_bxfrx"]
 [ext_resource type="SpriteFrames" uid="uid://ccufku72ig3ug" path="res://assets/ui/book/book_animations.tres" id="2_fhxv5"]
+[ext_resource type="PackedScene" uid="uid://b011mxkc5of83" path="res://scenes/ui/spell_button.tscn" id="3_cfmi2"]
 
 [node name="ArenaUserInterface" type="Control" unique_id=1667931475]
 layout_mode = 3
@@ -12,6 +13,171 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_bxfrx")
+
+[node name="BookInterface" type="Control" parent="." unique_id=2074826025]
+visible = false
+layout_mode = 1
+anchor_left = 0.20677084
+anchor_top = 0.16574074
+anchor_right = 0.7875
+anchor_bottom = 0.82314813
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SpellBook" type="AnimatedSprite2D" parent="BookInterface" unique_id=898163662]
+position = Vector2(563, 361)
+sprite_frames = ExtResource("2_fhxv5")
+animation = &"open"
+autoplay = "open"
+
+[node name="SpellButtons" type="Control" parent="BookInterface" unique_id=597128237]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftPage" type="VBoxContainer" parent="BookInterface/SpellButtons" unique_id=2141938498]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11121076
+anchor_top = 0.07605634
+anchor_right = 0.46278027
+anchor_bottom = 0.87323946
+grow_vertical = 2
+theme_override_constants/separation = 75
+metadata/_edit_use_anchors_ = true
+
+[node name="Row1" type="HBoxContainer" parent="BookInterface/SpellButtons/LeftPage" unique_id=2027329673]
+custom_minimum_size = Vector2(300, 0)
+custom_maximum_size = Vector2(300, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 45
+
+[node name="SpellButton" parent="BookInterface/SpellButtons/LeftPage/Row1" unique_id=718443876 instance=ExtResource("3_cfmi2")]
+layout_mode = 2
+
+[node name="SpellButton2" parent="BookInterface/SpellButtons/LeftPage/Row1" unique_id=91920712 instance=ExtResource("3_cfmi2")]
+layout_mode = 2
+
+[node name="Row2" type="HBoxContainer" parent="BookInterface/SpellButtons/LeftPage" unique_id=901543048]
+custom_minimum_size = Vector2(300, 0)
+custom_maximum_size = Vector2(300, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 45
+
+[node name="SpellButton" parent="BookInterface/SpellButtons/LeftPage/Row2" unique_id=1835164849 instance=ExtResource("3_cfmi2")]
+layout_mode = 2
+
+[node name="SpellButton2" parent="BookInterface/SpellButtons/LeftPage/Row2" unique_id=1065923833 instance=ExtResource("3_cfmi2")]
+layout_mode = 2
+
+[node name="Row3" type="HBoxContainer" parent="BookInterface/SpellButtons/LeftPage" unique_id=896947709]
+custom_minimum_size = Vector2(300, 0)
+custom_maximum_size = Vector2(300, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 45
+
+[node name="SpellButton" parent="BookInterface/SpellButtons/LeftPage/Row3" unique_id=1551978537 instance=ExtResource("3_cfmi2")]
+layout_mode = 2
+
+[node name="SpellButton2" parent="BookInterface/SpellButtons/LeftPage/Row3" unique_id=687142711 instance=ExtResource("3_cfmi2")]
+layout_mode = 2
+
+[node name="RightPage" type="VBoxContainer" parent="BookInterface/SpellButtons" unique_id=106108187]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5452915
+anchor_top = 0.07605634
+anchor_right = 0.89686096
+anchor_bottom = 0.87323946
+grow_vertical = 2
+theme_override_constants/separation = 75
+metadata/_edit_use_anchors_ = true
+
+[node name="Row1" type="HBoxContainer" parent="BookInterface/SpellButtons/RightPage" unique_id=790692345]
+custom_minimum_size = Vector2(300, 0)
+custom_maximum_size = Vector2(300, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 45
+
+[node name="SpellButton" parent="BookInterface/SpellButtons/RightPage/Row1" unique_id=1390733484 instance=ExtResource("3_cfmi2")]
+layout_mode = 2
+
+[node name="SpellButton2" parent="BookInterface/SpellButtons/RightPage/Row1" unique_id=2092670314 instance=ExtResource("3_cfmi2")]
+layout_mode = 2
+
+[node name="Row2" type="HBoxContainer" parent="BookInterface/SpellButtons/RightPage" unique_id=1556196516]
+custom_minimum_size = Vector2(300, 0)
+custom_maximum_size = Vector2(300, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 45
+
+[node name="SpellButton" parent="BookInterface/SpellButtons/RightPage/Row2" unique_id=1648006477 instance=ExtResource("3_cfmi2")]
+layout_mode = 2
+
+[node name="SpellButton2" parent="BookInterface/SpellButtons/RightPage/Row2" unique_id=1753925575 instance=ExtResource("3_cfmi2")]
+layout_mode = 2
+
+[node name="Row3" type="HBoxContainer" parent="BookInterface/SpellButtons/RightPage" unique_id=1849621924]
+custom_minimum_size = Vector2(300, 0)
+custom_maximum_size = Vector2(300, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 45
+
+[node name="SpellButton" parent="BookInterface/SpellButtons/RightPage/Row3" unique_id=553697085 instance=ExtResource("3_cfmi2")]
+layout_mode = 2
+
+[node name="SpellButton2" parent="BookInterface/SpellButtons/RightPage/Row3" unique_id=1749750526 instance=ExtResource("3_cfmi2")]
+layout_mode = 2
+
+[node name="Next" type="Button" parent="BookInterface" unique_id=230047288]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -64.0
+offset_right = -104.0
+offset_bottom = -28.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Next
+"
+
+[node name="Back" type="Button" parent="BookInterface" unique_id=560932985]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 115.0
+offset_top = -66.0
+offset_right = 203.0
+offset_bottom = -30.0
+grow_vertical = 0
+text = "Back
+"
+
+[node name="ManaLable" type="Label" parent="BookInterface" unique_id=1499223801]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_right = 77.0
+offset_bottom = 23.0
+grow_vertical = 0
+text = "Mana: 0/0"
 
 [node name="BattleInterface" type="Control" parent="." unique_id=1838713581]
 layout_mode = 1
@@ -55,21 +221,21 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Wait"
 
-[node name="BookSprite" type="Control" parent="BattleInterface" unique_id=2074826025]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BattleInterface/BookSprite" unique_id=898163662]
+[node name="CancelSpell" type="Button" parent="BattleInterface" unique_id=1730284561]
 visible = false
-sprite_frames = ExtResource("2_fhxv5")
-animation = &"open"
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -70.0
+offset_top = -80.0
+offset_right = 70.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Cancel Spell"
 
 [node name="SetupInterface" type="Control" parent="." unique_id=366185374]
 visible = false

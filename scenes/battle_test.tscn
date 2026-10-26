@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://jhkodsinnpky"]
 
 [ext_resource type="Script" uid="uid://820bax3xdhbu" path="res://src/test/BattleTest.cs" id="1_battletest"]
+[ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_nxugr"]
 [ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="2_stackres"]
+[ext_resource type="Resource" uid="uid://dseb7o15vd18m" path="res://assets/battle_system/abilities/spells/heal_spell.tres" id="3_0mm7v"]
 [ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="3_8ajim"]
 [ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="4_7bjbe"]
+[ext_resource type="Resource" uid="uid://ddfgaidqfhbat" path="res://assets/battle_system/abilities/spells/fire_ball_spell.tres" id="4_axugm"]
 [ext_resource type="Resource" uid="uid://dmn08fp2i52t3" path="res://assets/battle_system/units/archer_quendi.tres" id="5_2mwd4"]
 
 [sub_resource type="Resource" id="Resource_d1jsn"]
@@ -44,5 +47,6 @@ metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [node name="BattleTest" type="Node" unique_id=1175393641]
 script = ExtResource("1_battletest")
+HeroSpells = Array[ExtResource("2_nxugr")]([ExtResource("3_0mm7v"), ExtResource("4_axugm")])
 PlayerUnits = Array[ExtResource("2_stackres")]([SubResource("Resource_d1jsn"), SubResource("Resource_26d8k"), SubResource("Resource_7bjbe"), SubResource("Resource_jvnn3")])
 ComputerUnits = Array[ExtResource("2_stackres")]([SubResource("Resource_cj8pm"), SubResource("Resource_2mwd4")])
