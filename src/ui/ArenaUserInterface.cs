@@ -145,6 +145,7 @@ public partial class ArenaUserInterface : Control
 
 		// Until Arena enables them at the start of a player turn
 		UpdateSpellButtons(null);
+		SetWaitEnabled(false);
 
 		if (arena is not Arena a)
 		{
@@ -294,6 +295,14 @@ public partial class ArenaUserInterface : Control
 
 	private void OnWaitButtonPressed()
 	{
+		arena?.TryWait();
+	}
+
+	// Enabled on a player turn whose stack hasn't waited this round yet
+	public void SetWaitEnabled(bool enabled)
+	{
+		if (_waitButton != null)
+			_waitButton.Disabled = !enabled;
 	}
 
 	// The hero's spells unlocked by Knowledge; the ones it can't cast now (mana, already cast this round) are disabled

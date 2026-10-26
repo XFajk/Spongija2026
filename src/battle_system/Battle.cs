@@ -78,6 +78,18 @@ public class Battle
         return stack;
     }
 
+    public bool CanWait(Stack stack) => !stack.Waited && !stack.IsDead;
+
+    // Moves the stack's turn to the end of this round. Its turn was already taken off the queue by GetTurnInput.
+    public bool Wait(Stack stack)
+    {
+        if (!CanWait(stack))
+            return false;
+        stack.Waited = true;
+        RoundQueue.Add(stack);
+        return true;
+    }
+
     public void StartNewRound()
     {
         Round++;
@@ -94,7 +106,10 @@ public class Battle
     private void ResetRoundState()
     {
         foreach (Stack stack in PlayerArmy.Stacks.Concat(ComputerArmy.Stacks))
+        {
             stack.Retaliated = false;
+            stack.Waited = false;
+        }
         if (PlayerArmy.Hero != null)
             PlayerArmy.Hero.HasCastThisRound = false;
         if (ComputerArmy.Hero != null)

@@ -16,7 +16,10 @@ public class TurnOutput
 
     public List<TurnEntry> Entries { get; } = new();
 
-    public bool IsEmpty => MoveTo == null && HeroSpell == null && Entries.Count == 0;
+    // The stack waits: its turn moves to the end of the round and nothing else in the output runs.
+    public bool Wait;
+
+    public bool IsEmpty => MoveTo == null && HeroSpell == null && Entries.Count == 0 && !Wait;
 
     // The wave is how many earlier entries already target the same stack,
     // so abilities hitting one stack play one after another.

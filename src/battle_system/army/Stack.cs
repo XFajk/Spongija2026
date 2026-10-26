@@ -36,6 +36,9 @@ public class Stack
     // True once the stack has retaliated this round. Reset at round end and battle end.
     public bool Retaliated;
 
+    // True once the stack has waited this round (it can wait only once). Reset at round end and battle end.
+    public bool Waited;
+
     public UnitNode? NodeRepresentation { get; set; }
 
     public Stack(Unit unit, uint quantity)

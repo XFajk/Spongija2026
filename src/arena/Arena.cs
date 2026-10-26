@@ -515,6 +515,14 @@ public partial class Arena : Node3D
                 : GetComputerTurn(battle, stack, reachability);
             ClearTurnInput();
 
+            // A waiting stack's turn comes again at the end of the round, so its turn doesn't end now
+            // (turn passives and effects run once, after the turn it really takes)
+            if (output.Wait && battle.Wait(stack))
+            {
+                CurrentReachability = null;
+                continue;
+            }
+
             // CurrentReachability, not the local: a hero spell cast during the player's turn searches it again
             await ExecuteTurn(battle, stack, output, CurrentReachability ?? reachability);
             CurrentReachability = null;
@@ -535,6 +543,7 @@ public partial class Arena : Node3D
     {
         ShowTurnTargets(battle, stack, reachability);
         _userInterface?.UpdateSpellButtons(stack);
+        _userInterface?.SetWaitEnabled(battle.CanWait(stack));
         // Size 2 hover: reachability.GetAnchorsCovering(hoveredTile) gives the valid 2x2 squares under the mouse.
         // Clicks build a TurnOutput (MoveTo is an anchor) and call SubmitPlayerTurn.
         _playerTurn = new TaskCompletionSource<TurnOutput>();
@@ -577,6 +586,7 @@ public partial class Arena : Node3D
         _pickedSpell = null;
         _spellTargets.Clear();
         _userInterface?.UpdateSpellButtons(null);
+        _userInterface?.SetWaitEnabled(false);
         _userInterface?.SetCancelSpellVisible(false);
     }
 
@@ -943,6 +953,15 @@ public partial class Arena : Node3D
         TaskCompletionSource<TurnOutput>? turn = _playerTurn;
         _playerTurn = null;
         turn?.TrySetResult(output);
+    }
+
+    // The Wait button: the current stack takes its turn at the end of the round instead. Once per round.
+    public bool TryWait()
+    {
+        if (!IsPlayerTurn || Battle == null || CurrentStack == null || !Battle.CanWait(CurrentStack))
+            return false;
+        SubmitPlayerTurn(new TurnOutput { Wait = true });
+        return true;
     }
 
     private TurnOutput GetComputerTurn(Battle battle, Stack stack, Reachability reachability)
