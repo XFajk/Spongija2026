@@ -4,6 +4,7 @@
 [ext_resource type="Shader" uid="uid://d0s8wiygmlxn8" path="res://addons/GPUTrail/shaders/trail.gdshader" id="2_4850o"]
 [ext_resource type="Shader" uid="uid://bbnrf4slx630h" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="3_yjyyu"]
 [ext_resource type="Script" uid="uid://chokdldst71i5" path="res://addons/GPUTrail/GPUTrail3D.gd" id="4_736wf"]
+[ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://addons/GPUTrail/defaults/texture.tres" id="4_4850o"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_mes6x"]
 radius = 0.1
@@ -12,11 +13,11 @@ height = 0.2
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u7whr"]
 shader = ExtResource("2_4850o")
 
-[sub_resource type="Gradient" id="Gradient_ljejo"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+[sub_resource type="Gradient" id="Gradient_4850o"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_le27v"]
-gradient = SubResource("Gradient_ljejo")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_736wf"]
+gradient = SubResource("Gradient_4850o")
 
 [sub_resource type="Curve" id="Curve_w56fk"]
 bake_resolution = 16
@@ -30,12 +31,13 @@ curve = SubResource("Curve_w56fk")
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("3_yjyyu")
+shader_parameter/tex = ExtResource("4_4850o")
 shader_parameter/mask_strength = 1.0
 shader_parameter/uv_offset = Vector2(0, 0)
-shader_parameter/color_ramp = SubResource("GradientTexture1D_le27v")
+shader_parameter/color_ramp = SubResource("GradientTexture1D_736wf")
 shader_parameter/curve = SubResource("CurveTexture_gcdtq")
 shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/flags = 40
+shader_parameter/flags = 44
 
 [sub_resource type="QuadMesh" id="QuadMesh_kddmf"]
 material = SubResource("ShaderMaterial_2f0yc")
@@ -58,7 +60,8 @@ draw_pass_1 = SubResource("QuadMesh_kddmf")
 script = ExtResource("4_736wf")
 length = 18
 length_seconds = 0.3
-color_ramp = SubResource("GradientTexture1D_le27v")
+color_ramp = SubResource("GradientTexture1D_736wf")
 curve = SubResource("CurveTexture_gcdtq")
+billboard = true
 _defaults_have_been_set = true
 metadata/_custom_type_script = "uid://chokdldst71i5"
