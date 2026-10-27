@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
-public partial class AdventureCharacter : CharacterBody3D
+public partial class AdventureCharacter : CharacterBody3D, IInteractable
 {
 	[Export] public float stopDistance;
 	[Export] public float Speed = 5.0f;
@@ -17,12 +17,21 @@ public partial class AdventureCharacter : CharacterBody3D
 	List<Node3D> points = new List<Node3D>();
 	PointOfInterest poi;
 
+	Panel inventoryPanel;
+	public bool canMove;
+
 	public override void _Ready()
 	{
 		agent = GetNode<NavigationAgent3D>("NavigationAgent3D");
 
 		agent.PathDesiredDistance = 0.5f;
 		agent.TargetDesiredDistance = 0.5f;
+
+		inventoryPanel = GetNode<Panel>("/root/Map/CanvasLayer/Canvas/Character");
+		Button inventoryButtonClose = GetNode<Button>("/root/Map/CanvasLayer/Canvas/Character/Categories/Close");
+		inventoryButtonClose.Pressed += HidePanel;
+
+		canMove = true;
 
 		CallDeferred(nameof(SetupNavigation));
 	}
@@ -37,6 +46,11 @@ public partial class AdventureCharacter : CharacterBody3D
 
 	public void SetTarget(Vector3 pos)
 	{
+		if (poi != null)
+		{
+			poi.UnFocus();
+		}
+
 		poi = null;
 		agent.TargetDesiredDistance = stopDistance;
 		TargetPosition = pos;
@@ -48,6 +62,11 @@ public partial class AdventureCharacter : CharacterBody3D
 
 	public void SetPOITarget(Vector3 pos, float distance, PointOfInterest _point)
 	{
+		if (poi != null && poi != _point)
+		{
+			poi.UnFocus();
+		}
+
 		poi = _point;
 		agent.TargetDesiredDistance = distance;
 		TargetPosition = pos;
@@ -72,7 +91,6 @@ public partial class AdventureCharacter : CharacterBody3D
 			if (poi != null)
 			{
 				poi.Access();
-				poi = null;
 			}
 
 			return;
@@ -160,6 +178,26 @@ public partial class AdventureCharacter : CharacterBody3D
 			}
 
 			distanceToNext -= length;
+
+			if (agent.TargetDesiredDistance == stopDistance)
+			{
+				var endMaterial = new StandardMaterial3D();
+				endMaterial.AlbedoColor = Colors.Yellow;
+
+				if (points[points.Count - 1].GlobalPosition.DistanceTo(path[path.Length - 1]) <= 0.5f)
+				{
+					points[points.Count - 1].GlobalPosition = path[path.Length - 1];
+					points[points.Count - 1].GetNode<MeshInstance3D>("MeshInstance3D").MaterialOverride = endMaterial;
+				}
+				else
+				{
+					Node3D _point = point.Instantiate<Node3D>();
+					_point.GetNode<MeshInstance3D>("MeshInstance3D").MaterialOverride = endMaterial;
+					container.AddChild(_point);
+					_point.GlobalPosition = path[path.Length -1];
+					points.Add(_point);
+				}
+			}
 		}
 	}
 
@@ -184,5 +222,28 @@ public partial class AdventureCharacter : CharacterBody3D
 				i--;
 			}
 		}
+	}
+
+	public void Focus(Node user)
+	{
+		
+   
+	}
+
+	public void FocusLost(Node user)
+	{
+		
+	}
+
+	public void Interact(Node user)
+	{
+		inventoryPanel.Show();
+		canMove = false;
+	}
+
+	public void HidePanel()
+	{
+		inventoryPanel.Hide();
+		canMove = true;
 	}
 }

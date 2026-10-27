@@ -16,6 +16,7 @@ albedo_color = Color(0.61030936, 0.06484933, 0.09677585, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ao2lr"]
 
 [node name="AdventureCharacter" type="CharacterBody3D" unique_id=590468899]
+collision_layer = 9
 script = ExtResource("1_f37vf")
 stopDistance = 0.5
 point = ExtResource("2_8turh")
