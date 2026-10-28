@@ -21,7 +21,7 @@ public partial class FireBallSpell : SpellAbility
 
     public override async Task Use(Stack user, Stack target, Arena arena)
     {
-        target.TakeDamage(Damage);
+        target.TakeDamage(Damage * (int)user.Quantity);
 
         if (user.NodeRepresentation is not UnitNode userNode)
             return;

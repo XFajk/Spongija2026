@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="4_7bjbe"]
 [ext_resource type="Resource" uid="uid://ddfgaidqfhbat" path="res://assets/battle_system/abilities/spells/fire_ball_spell.tres" id="4_axugm"]
 [ext_resource type="Resource" uid="uid://dmn08fp2i52t3" path="res://assets/battle_system/units/archer_quendi.tres" id="5_2mwd4"]
+[ext_resource type="Resource" uid="uid://c72a0ew85gt6u" path="res://assets/battle_system/units/magic_quendi.tres" id="9_0mm7v"]
 
 [sub_resource type="Resource" id="Resource_d1jsn"]
 script = ExtResource("2_stackres")
@@ -33,6 +34,12 @@ Unit = ExtResource("5_2mwd4")
 Quantity = 10
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
+[sub_resource type="Resource" id="Resource_e8vb7"]
+script = ExtResource("2_stackres")
+Unit = ExtResource("9_0mm7v")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
 [sub_resource type="Resource" id="Resource_cj8pm"]
 script = ExtResource("2_stackres")
 Unit = ExtResource("4_7bjbe")
@@ -48,5 +55,5 @@ metadata/_custom_type_script = "uid://fu32st3u88jr"
 [node name="BattleTest" type="Node" unique_id=1175393641]
 script = ExtResource("1_battletest")
 HeroSpells = Array[ExtResource("2_nxugr")]([ExtResource("3_0mm7v"), ExtResource("4_axugm")])
-PlayerUnits = Array[ExtResource("2_stackres")]([SubResource("Resource_d1jsn"), SubResource("Resource_26d8k"), SubResource("Resource_7bjbe"), SubResource("Resource_jvnn3")])
+PlayerUnits = Array[ExtResource("2_stackres")]([SubResource("Resource_d1jsn"), SubResource("Resource_26d8k"), SubResource("Resource_7bjbe"), SubResource("Resource_jvnn3"), SubResource("Resource_e8vb7")])
 ComputerUnits = Array[ExtResource("2_stackres")]([SubResource("Resource_cj8pm"), SubResource("Resource_2mwd4")])
