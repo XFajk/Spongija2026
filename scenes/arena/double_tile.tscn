@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bslaxx3u0wd75" path="res://src/arena/DoubleTile.cs" id="1_uaor7"]
 [ext_resource type="Script" uid="uid://c1so6sg2p5nqy" path="res://src/interaction_system/Interactable.cs" id="2_nwmd7"]
+[ext_resource type="Material" uid="uid://c2bgklc7klv87" path="res://assets/battle_system/tiles/tile_melee_outer.tres" id="3_melee"]
+[ext_resource type="Material" uid="uid://u5op4y07fk5c" path="res://assets/battle_system/tiles/tile_melee_inner.tres" id="4_melee"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dpxgc"]
 transparency = 1
@@ -24,6 +26,8 @@ data = PackedVector3Array(0.45, -0.45, 0, -0.45, -0.45, 0, 0.45, 0.45, 0, -0.45,
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_uaor7")
+MeleeOuterMaterial = ExtResource("3_melee")
+MeleeInnerMaterial = ExtResource("4_melee")
 
 [node name="SmallTileMesh" type="MeshInstance3D" parent="." unique_id=1638452494]
 material_override = SubResource("StandardMaterial3D_dpxgc")

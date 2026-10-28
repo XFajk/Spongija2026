@@ -6,5 +6,5 @@ using System;
 public partial class SettingsPageResource : Resource
 {
 	[Export]
-	public Array<Setting> settings;
+	public Array<Setting> settings = [];
 }

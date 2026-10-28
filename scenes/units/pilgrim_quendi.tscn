@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dphq6ph1yv1hr"]
+
+[ext_resource type="Script" uid="uid://3pe1f0cixbxg" path="res://src/battle_system/army/UnitNode.cs" id="1_h68j4"]
+[ext_resource type="Script" uid="uid://c1so6sg2p5nqy" path="res://src/interaction_system/Interactable.cs" id="2_u7p2d"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mes6x"]
+radius = 0.075
+height = 0.45
+radial_segments = 12
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8utch"]
+albedo_color = Color(0, 1, 0.390048, 1)
+stencil_flags = 2
+stencil_color = Color(1, 1, 1, 1)
+stencil_outline_thickness = 0.005
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h68j4"]
+radius = 0.075
+height = 0.45
+
+[node name="PilgrimQuendi" type="Area3D" unique_id=1260621256]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_h68j4")
+
+[node name="Model" type="MeshInstance3D" parent="." unique_id=553961600]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, 0)
+mesh = SubResource("CapsuleMesh_mes6x")
+surface_material_override/0 = SubResource("StandardMaterial3D_8utch")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=242609765]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, 0)
+shape = SubResource("CapsuleShape3D_h68j4")
+
+[node name="Interactable" type="Node" parent="." unique_id=236869414]
+script = ExtResource("2_u7p2d")
+metadata/_custom_type_script = "uid://c1so6sg2p5nqy"

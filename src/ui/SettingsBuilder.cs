@@ -3,25 +3,25 @@ using System;
 
 public partial class SettingsBuilder : Control
 {
-	[Export] public SettingsPageResource VideoSettings;
-	[Export] public SettingsPageResource InputSettings;
-	[Export] public SettingsPageResource AudioSettings;
-	[Export] public SettingsPageResource MyscSettings;
+	[Export] public SettingsPageResource? VideoSettings;
+	[Export] public SettingsPageResource? InputSettings;
+	[Export] public SettingsPageResource? AudioSettings;
+	[Export] public SettingsPageResource? MyscSettings;
 
 
-	[Export] public VBoxContainer Container;
+	[Export] public VBoxContainer? Container;
 
 	public int TabShown = -1;
 
-	private Button _videoButton;
-	private Button _inputButton;
-	private Button _audioButton;
-	private Button _myscButton;
+	private Button? _videoButton;
+	private Button? _inputButton;
+	private Button? _audioButton;
+	private Button? _myscButton;
 
-	private ColorRect _videoButtonBg;
-	private ColorRect _inputButtonBg;
-	private ColorRect _audioButtonBg;
-	private ColorRect _myscButtonBg;
+	private ColorRect? _videoButtonBg;
+	private ColorRect? _inputButtonBg;
+	private ColorRect? _audioButtonBg;
+	private ColorRect? _myscButtonBg;
 
 	public override void _Ready()
 	{
@@ -56,10 +56,10 @@ public partial class SettingsBuilder : Control
 			GD.PrintErr("MyscButton not found in SettingsMenu");
 		}
 
-		_videoButton.Pressed += BuildVideo;
-		_inputButton.Pressed += BuildInput;
-		_audioButton.Pressed += BuildAudio;
-		_myscButton.Pressed += BuildMysc;
+		_videoButton!.Pressed += BuildVideo;
+		_inputButton!.Pressed += BuildInput;
+		_audioButton!.Pressed += BuildAudio;
+		_myscButton!.Pressed += BuildMysc;
 
 		_videoButtonBg = GetNode<ColorRect>("Background/Buttons/Backgrounds/VBoxContainer/VideoBg");
 		if (_videoButtonBg == null)
@@ -90,15 +90,15 @@ public partial class SettingsBuilder : Control
 
 		TabShown = 0;
 
-		_videoButtonBg.Color = Color.Color8(66, 1, 9, 255);
-		_inputButtonBg.Color = Color.Color8(66, 1, 9, 0);
-		_audioButtonBg.Color = Color.Color8(66, 1, 9, 0);
-		_myscButtonBg.Color = Color.Color8(66, 1, 9, 0);
+		_videoButtonBg!.Color = Color.Color8(66, 1, 9, 255);
+		_inputButtonBg!.Color = Color.Color8(66, 1, 9, 0);
+		_audioButtonBg!.Color = Color.Color8(66, 1, 9, 0);
+		_myscButtonBg!.Color = Color.Color8(66, 1, 9, 0);
 
-		foreach (Node child in Container.GetChildren())
+		foreach (Node child in Container!.GetChildren())
 			child.QueueFree();
 
-		foreach (var setting in VideoSettings.settings)
+		foreach (var setting in VideoSettings!.settings)
 		{
 			if (setting.SceneTemplate == null)
 			{
@@ -108,7 +108,7 @@ public partial class SettingsBuilder : Control
 
 			Node instance = setting.SceneTemplate.Instantiate();
 			BindSetting(setting, instance);
-			Container.AddChild(instance);
+			Container!.AddChild(instance);
 		}
 	}
 
@@ -119,15 +119,15 @@ public partial class SettingsBuilder : Control
 
 		TabShown = 1;
 
-		_inputButtonBg.Color = Color.Color8(66, 1, 9, 255);
-		_videoButtonBg.Color = Color.Color8(66, 1, 9, 0);
-		_audioButtonBg.Color = Color.Color8(66, 1, 9, 0);
-		_myscButtonBg.Color = Color.Color8(66, 1, 9, 0);
+		_inputButtonBg!.Color = Color.Color8(66, 1, 9, 255);
+		_videoButtonBg!.Color = Color.Color8(66, 1, 9, 0);
+		_audioButtonBg!.Color = Color.Color8(66, 1, 9, 0);
+		_myscButtonBg!.Color = Color.Color8(66, 1, 9, 0);
 
-		foreach (Node child in Container.GetChildren())
+		foreach (Node child in Container!.GetChildren())
 			child.QueueFree();
 
-		foreach (var setting in InputSettings.settings)
+		foreach (var setting in InputSettings!.settings)
 		{
 			if (setting.SceneTemplate == null)
 			{
@@ -137,7 +137,7 @@ public partial class SettingsBuilder : Control
 
 			Node instance = setting.SceneTemplate.Instantiate();
 			BindSetting(setting, instance);
-			Container.AddChild(instance);
+			Container!.AddChild(instance);
 		}
 	}
 
@@ -148,15 +148,15 @@ public partial class SettingsBuilder : Control
 
 		TabShown = 2;
 
-		_audioButtonBg.Color = Color.Color8(66, 1, 9, 255);
-		_videoButtonBg.Color = Color.Color8(66, 1, 9, 0);
-		_inputButtonBg.Color = Color.Color8(66, 1, 9, 0);
-		_myscButtonBg.Color = Color.Color8(66, 1, 9, 0);
+		_audioButtonBg!.Color = Color.Color8(66, 1, 9, 255);
+		_videoButtonBg!.Color = Color.Color8(66, 1, 9, 0);
+		_inputButtonBg!.Color = Color.Color8(66, 1, 9, 0);
+		_myscButtonBg!.Color = Color.Color8(66, 1, 9, 0);
 
-		foreach (Node child in Container.GetChildren())
+		foreach (Node child in Container!.GetChildren())
 			child.QueueFree();
 
-		foreach (var setting in AudioSettings.settings)
+		foreach (var setting in AudioSettings!.settings)
 		{
 			if (setting.SceneTemplate == null)
 			{
@@ -166,7 +166,7 @@ public partial class SettingsBuilder : Control
 
 			Node instance = setting.SceneTemplate.Instantiate();
 			BindSetting(setting, instance);
-			Container.AddChild(instance);
+			Container!.AddChild(instance);
 		}
 	}
 
@@ -177,15 +177,15 @@ public partial class SettingsBuilder : Control
 
 		TabShown = 3;
 
-		_myscButtonBg.Color = Color.Color8(66, 1, 9, 255);
-		_inputButtonBg.Color = Color.Color8(66, 1, 9, 0);
-		_audioButtonBg.Color = Color.Color8(66, 1, 9, 0);
-		_videoButtonBg.Color = Color.Color8(66, 1, 9, 0);
+		_myscButtonBg!.Color = Color.Color8(66, 1, 9, 255);
+		_inputButtonBg!.Color = Color.Color8(66, 1, 9, 0);
+		_audioButtonBg!.Color = Color.Color8(66, 1, 9, 0);
+		_videoButtonBg!.Color = Color.Color8(66, 1, 9, 0);
 
-		foreach (Node child in Container.GetChildren())
+		foreach (Node child in Container!.GetChildren())
 			child.QueueFree();
 
-		foreach (var setting in MyscSettings.settings)
+		foreach (var setting in MyscSettings!.settings)
 		{
 			if (setting.SceneTemplate == null)
 			{
@@ -195,7 +195,7 @@ public partial class SettingsBuilder : Control
 
 			Node instance = setting.SceneTemplate.Instantiate();
 			BindSetting(setting, instance);
-			Container.AddChild(instance);
+			Container!.AddChild(instance);
 		}
 	}
 

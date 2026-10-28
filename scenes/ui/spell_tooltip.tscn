@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://c7spltlt4q8nx"]
+
+[ext_resource type="Script" uid="uid://bspltltp6r2vq" path="res://src/ui/SpellTooltip.cs" id="1_spltt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_cantcast"]
+font_color = Color(1, 0.35, 0.3, 1)
+
+[node name="SpellTooltip" type="PanelContainer" unique_id=1418820371]
+custom_minimum_size = Vector2(260, 0)
+script = ExtResource("1_spltt")
+
+[node name="Content" type="VBoxContainer" parent="." unique_id=902117455]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="Content" unique_id=1630548209]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Content/Header" unique_id=377210846]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Content/Header" unique_id=1280936654]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Spell Name"
+label_settings = SubResource("LabelSettings_title")
+
+[node name="HSeparator" type="HSeparator" parent="Content" unique_id=1915404771]
+layout_mode = 2
+
+[node name="Cost" type="Label" parent="Content" unique_id=561807299]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Mana cost: 0"
+
+[node name="Knowledge" type="Label" parent="Content" unique_id=1745022830]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Knowledge needed: 0"
+
+[node name="Targets" type="Label" parent="Content" unique_id=208864017]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Targets: enemies"
+
+[node name="Description" type="Label" parent="Content" unique_id=1093374582]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "Description"
+autowrap_mode = 3
+
+[node name="CantCast" type="Label" parent="Content" unique_id=1488003167]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "Not enough mana"
+label_settings = SubResource("LabelSettings_cantcast")
+autowrap_mode = 3

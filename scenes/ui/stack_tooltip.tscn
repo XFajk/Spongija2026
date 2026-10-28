@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://dstktltp3m7na"]
+
+[ext_resource type="Script" uid="uid://d2stktlt5w3ky" path="res://src/ui/StackTooltip.cs" id="1_stktt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 20
+
+[node name="StackTooltip" type="PanelContainer" unique_id=1306724519]
+custom_minimum_size = Vector2(260, 0)
+mouse_filter = 2
+script = ExtResource("1_stktt")
+
+[node name="Content" type="VBoxContainer" parent="." unique_id=718390642]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Content" unique_id=1977450813]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Unit Name"
+label_settings = SubResource("LabelSettings_title")
+
+[node name="Description" type="Label" parent="Content" unique_id=429816305]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "Description"
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="Content" unique_id=1554072986]
+layout_mode = 2
+
+[node name="Quantity" type="Label" parent="Content" unique_id=1033585127]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Units: 0"
+
+[node name="Health" type="Label" parent="Content" unique_id=1693620484]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Health: 0/0"
+
+[node name="Mana" type="Label" parent="Content" unique_id=847219306]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Mana: 0/0"
+
+[node name="HSeparator2" type="HSeparator" parent="Content" unique_id=1219638745]
+layout_mode = 2
+
+[node name="Strength" type="Label" parent="Content" unique_id=1788304152]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Strength: 0"
+
+[node name="Defense" type="Label" parent="Content" unique_id=360592816]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Defense: 0"
+
+[node name="Speed" type="Label" parent="Content" unique_id=1576209433]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Speed: 0"
+
+[node name="HSeparator3" type="HSeparator" parent="Content" unique_id=2047713958]
+layout_mode = 2
+
+[node name="Attacks" type="Label" parent="Content" unique_id=1146873290]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Melee: yes    Ranged: no"
+
+[node name="Spells" type="Label" parent="Content" unique_id=692453871]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Spells: 0"
+
+[node name="Effects" type="Label" parent="Content" unique_id=1865037741]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Active effects: 0"

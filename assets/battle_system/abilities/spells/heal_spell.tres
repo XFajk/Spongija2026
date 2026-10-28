@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="HealSpell" format=3 uid="uid://dseb7o15vd18m"]
+
+[ext_resource type="Script" uid="uid://f2lhig14isx5" path="res://src/battle_system/abilities/specific/HealSpell.cs" id="1_6sd0w"]
+[ext_resource type="Texture2D" uid="uid://dghmmjc7448aa" path="res://assets/ui/spell_icons/healing.svg" id="1_07xn1"]
+[ext_resource type="PackedScene" uid="uid://d4fletw1suhqx" path="res://scenes/visual_effects/heal_effect.tscn" id="2_lifjy"]
+
+[resource]
+script = ExtResource("1_6sd0w")
+Amount = 1000
+VisualEffect = ExtResource("2_lifjy")
+Name = "Heal Spell"
+Description = "Heal's ally stacks"
+Targets = 1
+Icon = ExtResource("1_07xn1")
+ManaCost = 10
+metadata/_custom_type_script = "uid://f2lhig14isx5"

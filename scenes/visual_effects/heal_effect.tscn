@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://d4fletw1suhqx"]
+
+[ext_resource type="Script" uid="uid://d6vhqgkd2emd" path="res://src/battle_system/visual_effects/AbilityVisualEffect.cs" id="1_6snxr"]
+
+[sub_resource type="Curve" id="Curve_68o1a"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gdhjq"]
+curve = SubResource("Curve_68o1a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mes6x"]
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.5, 0.5)
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+scale_min = 0.29999998
+scale_curve = SubResource("CurveTexture_gdhjq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fkeho"]
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 4.14
+grow = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_8utch"]
+material = SubResource("StandardMaterial3D_fkeho")
+radius = 0.05
+height = 0.1
+
+[node name="HealEffect" type="Node3D" unique_id=630719721]
+script = ExtResource("1_6snxr")
+metadata/_custom_type_script = "uid://d6vhqgkd2emd"
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1989911481]
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_mes6x")
+draw_pass_1 = SubResource("SphereMesh_8utch")
