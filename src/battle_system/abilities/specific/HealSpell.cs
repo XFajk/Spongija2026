@@ -12,12 +12,18 @@ public partial class HealSpell : SpellAbility
     [Export]
     public PackedScene? VisualEffect { get; set; }
 
+    // The same for unit and hero casts. Use and Evaluate both use this.
+    private int GetHealing() => Amount;
+
+    public override SpellEstimate Evaluate(Stack caster, Stack target, Battle battle) =>
+        SpellEstimate.ForHealing(GetHealing(), target);
+
     public override async Task Use(Stack user, Stack target, Arena arena)
     {
 
         if (VisualEffect == null || target.NodeRepresentation is not UnitNode targetNode)
         {
-            target.Heal(Amount);
+            target.Heal(GetHealing());
             return;
         }
 
@@ -28,6 +34,6 @@ public partial class HealSpell : SpellAbility
             effect.QueueFree();
         }
         // Outside the if, so the heal still happens when the effect fails to spawn
-        target.Heal(Amount);
+        target.Heal(GetHealing());
     }
 }

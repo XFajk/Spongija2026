@@ -39,4 +39,11 @@ public abstract partial class SpellAbility : Resource, IAbility
     // so effects can come from there. caster is the stack whose turn it is (for its side and its hero).
     // By default it's cast like the stack's own spell.
     public virtual Task UseFromHero(Stack caster, Vector3 origin, Stack target, Arena arena) => Use(caster, target, arena);
+
+    // What casting it on the target would do, without doing it, for the AI. Must compute the same amounts as Use:
+    // share one method between them (e.g. FireBallSpell.GetDamage) so they can't drift apart.
+    public abstract SpellEstimate Evaluate(Stack caster, Stack target, Battle battle);
+
+    // The same for a hero cast (UseFromHero); by default like the stack's own cast
+    public virtual SpellEstimate EvaluateFromHero(Stack caster, Stack target, Battle battle) => Evaluate(caster, target, battle);
 }
