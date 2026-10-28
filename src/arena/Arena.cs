@@ -58,8 +58,21 @@ public partial class Arena : Node3D
 
     public Battle? Battle { get; private set; }
 
-    // The stack whose turn it is, for the UI.
-    public Stack? CurrentStack { get; private set; }
+    private Stack? _currentStack;
+
+    // The stack whose turn it is, for the UI. Its unit shows the active outline (UnitNode.IsActive).
+    public Stack? CurrentStack
+    {
+        get => _currentStack;
+        private set
+        {
+            if (_currentStack?.NodeRepresentation is UnitNode previous && IsInstanceValid(previous))
+                previous.IsActive = false;
+            _currentStack = value;
+            if (_currentStack?.NodeRepresentation is UnitNode current)
+                current.IsActive = true;
+        }
+    }
 
     // Where CurrentStack can move this turn. Searched once at the start of the turn and reused for
     // highlighting, hover (GetAnchorsCovering), validation and the movement path.
