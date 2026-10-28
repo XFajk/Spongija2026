@@ -177,11 +177,9 @@ public partial class UnitNode : Area3D, IInteractable
         // stands in for, so the old tiles left behind get their small tiles back and the new ones hand over to it
         CurrentStack.Anchor = anchor;
 
+        // The double tile's GridPosition follows CurrentStack.Anchor by itself
         if (GroundTile != null)
-        {
             ArenaRef!.ShowTiles(oldTiles.Concat(CurrentStack.GetOccupiedTiles()));
-            GroundTile.GridPosition = anchor;
-        }
 
         // GridToWorld is Arena-local, and the unit is a child of the Arena
         Position = Arena.GridToWorld(CurrentStack, anchor);
