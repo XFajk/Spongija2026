@@ -6,6 +6,9 @@ public class Army
 
     public Hero? Hero;
 
+    // How this army fights when the computer controls it
+    public EnemyStrategy Strategy = EnemyStrategy.Wild;
+
     public List<Stack> Stacks { get; } = new();
 
     public bool IsDefeated => Stacks.TrueForAll(s => s.IsDead);

@@ -37,6 +37,11 @@ public partial class Arena : Node3D
     [Export]
     public float CameraTransitionDuration { get; set; } = 1.5f;
 
+    // Seconds a computer stack waits, already outlined as active, before it acts, so the player sees who's next.
+    // 0 to act right away.
+    [Export(PropertyHint.Range, "0,2")]
+    public float ComputerTurnDelay { get; set; } = 0.4f;
+
     public const uint AreaWidth = 20;
 
     public const uint AreaHeight = 12;
@@ -57,6 +62,9 @@ public partial class Arena : Node3D
     public Army? ComputerArmy { get; private set; }
 
     public Battle? Battle { get; private set; }
+
+    // Decides the computer's turns, by the computer army's Strategy. Made with the Battle.
+    private BattleAI? _computerAI;
 
     private Stack? _currentStack;
 
@@ -533,6 +541,7 @@ public partial class Arena : Node3D
     {
         // After the placement phase the stacks already have their anchors, so the Battle keeps them
         Battle = new Battle(playerArmy, computerArmy, (int)AreaWidth, (int)AreaHeight, keepAnchors: !AutoBeginBattle);
+        _computerAI = BattleAI.Create(computerArmy.Strategy, Battle);
         try
         {
             await RunBattle(Battle);
@@ -562,7 +571,7 @@ public partial class Arena : Node3D
             CurrentReachability = reachability;
             TurnOutput output = battle.IsPlayerStack(stack)
                 ? await GetPlayerTurn(battle, stack, reachability)
-                : GetComputerTurn(battle, stack, reachability);
+                : await GetComputerTurn(battle, stack, reachability);
             ClearTurnInput();
 
             // A waiting stack's turn comes again at the end of the round, so its turn doesn't end now
@@ -940,6 +949,18 @@ public partial class Arena : Node3D
         return true;
     }
 
+    // Where a hero casts from (global): the player's hero at HeroSpellCastPosition, the computer's at the marker
+    // mirrored to the other side of the board (X flipped, Arena-local). Without the marker, from the acting unit.
+    public Vector3 GetHeroCastOrigin(Stack caster)
+    {
+        if (HeroSpellCastPosition == null)
+            return caster.NodeRepresentation?.GlobalPosition ?? GlobalPosition;
+        if (Battle?.IsPlayerStack(caster) ?? true)
+            return HeroSpellCastPosition.GlobalPosition;
+        Vector3 local = ToLocal(HeroSpellCastPosition.GlobalPosition);
+        return ToGlobal(new Vector3(-local.X, local.Y, local.Z));
+    }
+
     // Plays the hero's spell in the middle of the player's turn, then gives the turn back: dead stacks are removed,
     // the reachability is searched again (the board may have changed) and the turn input is shown again.
     // If the battle is over or the acting stack died, the turn ends instead.
@@ -956,11 +977,8 @@ public partial class Arena : Node3D
         _castingHeroSpell = true;
         try
         {
-            // From where the hero stands; without the marker, from the acting unit
-            Vector3 origin = HeroSpellCastPosition?.GlobalPosition
-                ?? stack.NodeRepresentation?.GlobalPosition ?? GlobalPosition;
             if (stack.Hero is Hero hero && battle.SpendHeroMana(hero, spell))
-                await spell.UseFromHero(stack, origin, target, this);
+                await spell.UseFromHero(stack, GetHeroCastOrigin(stack), target, this);
             RemoveDeadStacks(battle);
         }
         catch (Exception e)
@@ -1011,10 +1029,12 @@ public partial class Arena : Node3D
         return true;
     }
 
-    private TurnOutput GetComputerTurn(Battle battle, Stack stack, Reachability reachability)
+    // Waits ComputerTurnDelay first, so the active outline shows on the stack before it acts
+    private async Task<TurnOutput> GetComputerTurn(Battle battle, Stack stack, Reachability reachability)
     {
-        // TODO: AI. Skips the turn for now.
-        return new TurnOutput();
+        if (ComputerTurnDelay > 0)
+            await ToSignal(GetTree().CreateTimer(ComputerTurnDelay), SceneTreeTimer.SignalName.Timeout);
+        return _computerAI?.DecideTurn(stack, reachability) ?? new TurnOutput();
     }
 
     #endregion
@@ -1035,7 +1055,7 @@ public partial class Arena : Node3D
         {
             Hero? hero = user.Hero;
             if (hero != null && battle.SpendHeroMana(hero, spell))
-                await spell.Use(user, spellTarget, this);
+                await spell.UseFromHero(user, GetHeroCastOrigin(user), spellTarget, this);
         }
 
         var waves = new SortedDictionary<int, List<PendingAbility>>();
@@ -1072,6 +1092,10 @@ public partial class Arena : Node3D
             return;
 
         await pending.Ability.Use(pending.User, pending.Target, this);
+
+        // The AI's stacks remember who attacked them; striking back doesn't count
+        if (!pending.IsRetaliation)
+            _computerAI?.OnStackAttacked(pending.User, pending.Target);
 
         if (pending.Ability is MeleeAttackAbility && !pending.IsRetaliation && battle.CanRetaliate(pending.Target))
         {
