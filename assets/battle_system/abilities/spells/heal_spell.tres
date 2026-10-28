@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_6sd0w")
-Amount = 1000
+Amount = 40
 VisualEffect = ExtResource("2_lifjy")
 Name = "Heal Spell"
 Description = "Heal's ally stacks"
