@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://cs08ys81d0yos"]
+
+[ext_resource type="Script" uid="uid://3pe1f0cixbxg" path="res://src/battle_system/army/UnitNode.cs" id="1_suo6i"]
+[ext_resource type="Script" uid="uid://c1so6sg2p5nqy" path="res://src/interaction_system/Interactable.cs" id="2_m1j70"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fkeho"]
+radius = 0.1
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gdhjq"]
+albedo_color = Color(0.50928617, 0.50928617, 0.50928617, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_suo6i"]
+radius = 0.1
+height = 0.5
+
+[node name="Wolf" type="Area3D" unique_id=1775871991]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_suo6i")
+
+[node name="Model" type="MeshInstance3D" parent="." unique_id=464406197]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.06, 0)
+mesh = SubResource("CapsuleMesh_fkeho")
+surface_material_override/0 = SubResource("StandardMaterial3D_gdhjq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1675610783]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.06, 0)
+shape = SubResource("CapsuleShape3D_suo6i")
+
+[node name="Interactable" type="Node" parent="." unique_id=996336662]
+script = ExtResource("2_m1j70")
+metadata/_custom_type_script = "uid://c1so6sg2p5nqy"

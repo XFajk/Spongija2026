@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://b011mxkc5of83"]
+
+[ext_resource type="Texture2D" uid="uid://dndqmhsahycyb" path="res://assets/ui/spell_icons/fireball.svg" id="1_b5kpl"]
+[ext_resource type="Script" uid="uid://dpextiv72ucw8" path="res://src/ui/SpellButton.cs" id="2_spbtn"]
+
+[node name="SpellButton" type="Button" unique_id=366633442]
+script = ExtResource("2_spbtn")
+custom_minimum_size = Vector2(128, 128)
+custom_maximum_size = Vector2(128, 128)
+offset_right = 128.0
+offset_bottom = 128.0
+icon = ExtResource("1_b5kpl")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SpellName" type="Label" parent="." unique_id=804895359]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -44.0
+offset_right = 44.0
+offset_bottom = 23.000061
+grow_horizontal = 2
+grow_vertical = 0
+text = "Spell Name"

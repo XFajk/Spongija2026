@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bcefw8pb8y3se"]
+
+[ext_resource type="Texture2D" uid="uid://dsiugxguwvrim" path="res://assets/ui/computer_army_number_tag.png" id="1_w2526"]
+[ext_resource type="Script" uid="uid://b4stklbl7q2mx" path="res://src/ui/StackLabel.cs" id="2_stklb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k8wkn"]
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="StackLable" type="Control" unique_id=2094820586]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("2_stklb")
+
+[node name="StackName" type="Label" parent="." unique_id=504194359]
+layout_mode = 0
+offset_right = 97.0
+offset_bottom = 23.0
+text = "Stack Name:"
+label_settings = SubResource("LabelSettings_k8wkn")
+
+[node name="NumberTag" type="TextureRect" parent="StackName" unique_id=1699548043]
+custom_minimum_size = Vector2(0.85, 40)
+custom_maximum_size = Vector2(85, 40)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -19.25
+offset_right = 75.0
+offset_bottom = 20.75
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("1_w2526")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NumberOfUnitsInStack" type="Label" parent="StackName/NumberTag" unique_id=1041539037]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = -12.5
+offset_right = 18.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "9999"

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Unit" format=3 uid="uid://c72a0ew85gt6u"]
+
+[ext_resource type="PackedScene" uid="uid://vj4mqvrlegty" path="res://scenes/units/magic_quendi.tscn" id="1_q5xll"]
+[ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="1_rwne8"]
+[ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_wwugf"]
+[ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_743o3"]
+[ext_resource type="Resource" uid="uid://6lki1oqmls1" path="res://assets/battle_system/abilities/spells/fire_ball_spell_for_units.tres" id="4_q5xll"]
+[ext_resource type="Resource" uid="uid://dseb7o15vd18m" path="res://assets/battle_system/abilities/spells/heal_spell.tres" id="5_e8vb7"]
+
+[resource]
+script = ExtResource("3_743o3")
+Name = "Wizzard Quendi"
+MaxHealth = 25
+StartingMana = 100
+MaxMana = 100
+CanRetaliate = false
+Spells = Array[ExtResource("2_wwugf")]([ExtResource("4_q5xll"), ExtResource("5_e8vb7")])
+Model = ExtResource("1_q5xll")
+metadata/_custom_type_script = "uid://cj3g6btx1kotr"

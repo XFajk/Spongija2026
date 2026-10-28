@@ -5,5 +5,5 @@ using System;
 public partial class Dropdown : Setting
 {
 	[Export]
-	public string[] options;
+	public string[] options = [];
 }
