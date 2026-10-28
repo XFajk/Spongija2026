@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Spongija2026 is a 3D turn-based strategy game based on Heroes of Might and Magic III (mechanics are added to or cut from it), with inspiration from HoMM IV and V (free mouse cursor, clickable 3D objects). It is built with **Godot 4.7.2 (.NET / C#)**. The current FPS player controller and test scene are placeholder code reused to test the CI/CD pipeline, not the intended gameplay. It targets .NET 8 (`Godot.NET.Sdk/4.7.2`, pinned in `global.json`). All gameplay code is C# in `src/`; scenes live in `scenes/`; art/media in `assets/`. There are no tests and no linter configured.
+Spongija2026 is a 3D turn-based strategy game based on Heroes of Might and Magic III (mechanics are added to or cut from it), with inspiration from HoMM IV and V (free mouse cursor, clickable 3D objects). It is built with **Godot 4.7.2 (.NET / C#)**. It targets .NET 8 (`Godot.NET.Sdk/4.7.2`, pinned in `global.json`) with nullable reference types enabled. All gameplay code is C# in `src/`; scenes live in `scenes/`; art/media in `assets/`. There are no tests and no linter configured.
+
+Two parts exist and aren't connected yet: the adventure map (`scenes/map.tscn`, run with F6) and battles (`scenes/battle_test.tscn`). Nothing on the map starts a battle, and the main scene doesn't lead to either.
 
 ## Game design
 
@@ -46,7 +48,7 @@ Agreed design. Values without a number yet are TBD.
 
 ### UI still needed
 
-- army management (slots, splitting), artifact equipment, spellbook.
+- army management (slots, splitting), artifact equipment. The battle spellbook exists; the map's Character panel has empty Inventory and Magic tabs.
 
 ## Commands
 
@@ -75,7 +77,9 @@ Binary assets (images, audio, video, 3D models, fonts, zips) are stored with **G
 
 ## Architecture
 
-**Scene flow:** `scenes/starting_scene.tscn` is the main scene. It plays an intro video via `SplashScreen` (a `VideoStreamPlayer`), which on `Finished` switches to its exported `BeginningScene` (currently `scenes/test.tscn`, a greybox level containing the player).
+**Scene flow:** `scenes/starting_scene.tscn` is the main scene. It plays an intro video via `SplashScreen` (a `VideoStreamPlayer`), which on `Finished` switches to its exported `BeginningScene` (currently `scenes/test.tscn`, a script-less greybox of boxes). `scenes/main_menu.tscn` (`MainMenu`: title, settings and quit screens) isn't in the flow yet, and its Play button does nothing.
+
+**Settings menu** (`src/ui/SettingsBuilder.cs`, in `main_menu.tscn`): builds the Video/Input/Audio/Mysc tabs from `SettingsPageResource`s (`assets/settings/*.tres`), each a list of `Setting` resources (`src/resources/`: `ToggleSetting`, `SliderSetting`, `Dropdown`, `TitleSetting`). Each setting instantiates its `SceneTemplate`, a control from `src/ui/Settings/`. The settings aren't applied or saved anywhere yet.
 
 **Player and interaction** (`src/player/`, `src/interaction_system/`):
 
@@ -83,6 +87,18 @@ Binary assets (images, audio, video, 3D models, fonts, zips) are stored with **G
 - `Interactable` (a `Node` child of the object, which forwards its `IInteractable` calls to it) turns the calls into signals: `InteractionStarted`, then `Interacting`/`PhysicsInteracting` every frame, and `InteractionFinished` on the first frame without an `Interact` call. Don't add members to `IInteractable` for this; put them on `Interactable`.
 - `InteractionLock` keeps a running interaction going (signals still every frame) even when the ray misses or the button is released, until it's lifted. Meanwhile the static `Interactable.LockedInteractable` is set and the camera interacts with nothing else, but focus still follows the mouse unless `FocusLock` is set too. `InteractionExitFlag` ends an interaction right away.
 - Hidden nodes still collide, so the ray would still hit them: tiles use `Enabled` (visibility and collision shape together) instead of `Show`/`Hide`.
+- `PlayerCamera._interactionRayCast` is `protected`, so subclasses (`AdventureCamera`) can read the ray's hit.
+
+**Adventure map** (`scenes/map.tscn`, `src/player/AdventureCharacter.cs`, `AdventureCamera.cs`, `src/arena/PointOfInterest.cs`, written by a teammate; greybox ground, a wall and two points of interest):
+
+- `AdventureCharacter` (`CharacterBody3D`, `scenes/player/adventure_character.tscn`) walks with a `NavigationAgent3D` at `Speed`, turning toward its path. `SetTarget(pos)` walks to a point and stops within `stopDistance`; `SetPOITarget(pos, distance, poi)` walks to a point of interest and stops within its `stopDistance`, then calls `poi.Access()` every physics frame while it stays there. A new target unfocuses the previous point of interest.
+- Path preview: on each new target it gets the path from `NavigationServer3D.MapGetPath` and drops a `scenes/arena/path_point.tscn` every `pointsMinDistance` into `container`; the end point of a plain move is yellow. Points within 0.5 m of the character are freed as it walks.
+- `AdventureCamera` (`PlayerCamera` subclass, in a SubViewport shown by a `ViewportRect`, like the arena) follows the character from `Distance` behind and `Height` up, smoothed by `SmoothSpeed`. Right drag orbits (yaw), middle drag pans, and `jump` (Space) eases the pan back to the character. A left click (`interact`) on collision layer 4 (bit `1 << 2`, the `Ground` areas) moves the character there if `agent.canMove`, the point is on the navmesh and a path reaches it.
+- `PointOfInterest` (`Area3D`, `IInteractable`, layer 1 and 4): focus shows its `Highlight` mesh, a click walks the character to it and keeps the highlight until it's reached (`Access`) or another target is picked (`UnFocus`). `type` (`poiType.resource` / `fight`) and `cursorIcon` aren't used yet. It finds the character at the absolute path `/root/Map/AdventureCharacter`.
+- Clicking the character (`AdventureCharacter.Interact`) opens the Character panel (`CanvasLayer/Canvas/Character`, `CharacterPanel`: Inventory and Magic tabs that slide by tweening their Y to `inventoryYPos`/`magicYPos`; Close hides it) and sets `canMove` false. These scripts look nodes up by absolute `/root/Map/...` paths, so they work only in `map.tscn` as its root.
+- `PopoutManager` (`CanvasLayer/Canvas/PopoutContainer`): `SpawnPopout(title, text)` shows `scenes/ui/popout.tscn`, pauses the tree and stops movement until its button closes it. Nothing calls it yet.
+- UI style: `assets/ui_themes/fantasy.tres` (Cinzel Decorative font, `assets/pics/scroll.png` panels) and `HighlightLabelSettings.tres`.
+- Known leftovers in `map.tscn`: the camera node sets `_canGoIcon`, `_cantGoIcon` and `_inventoryIcon`, which `AdventureCamera` doesn't have, and `PopoutContainer` sets `agent` while `PopoutManager`'s export is `camera`, so `camera` is null and `SpawnPopout` would throw.
 
 **Spellbook** (`ArenaUserInterface`, `BookInterface` in `scenes/ui/arena_user_interface.tscn`): Arena calls `UpdateSpellButtons(stack)` at the start of a player turn: Use Spell is enabled only if the stack has spells of its own, Use Hero's Spell only if its hero knows any (`GetKnownSpells`); `UpdateSpellButtons(null)` in `ClearTurnInput` disables both between player turns. They hide the battle interface and open the book with the current stack's `Unit.Spells` (disabled without the mana) or the hero's `GetKnownSpells()` (disabled unless `Hero.CanCast`). `BookInterface/ManaLable` shows the caster's mana as `Mana: current/max` (the hero's, or the stack's for its own spells), set when the book opens. The `SpellButton`s (`src/ui/SpellButton.cs`, on `scenes/ui/spell_button.tscn`; setting `Spell` shows its `Icon` and `Name`) are collected in reading order, 12 per spread; buttons past the last spell are hidden. The `SpellBook` `AnimatedSprite2D` plays `open` (frames 0 to 47), Next plays `flip_page` forward, Back plays it backwards; the buttons are filled before and shown after each animation, Next only if more spells follow, Back only after the first spread. Input to the book is ignored while it animates. A click off the book closes it (in `_Input`, so it never reaches the battle). Picking a spell closes the book and emits `ArenaUserInterface.SpellPicked(spell, isHeroSpell)`, which starts `Arena.BeginSpellTargeting`: the normal turn input is cleared (`ClearTurnTargets`) and turned off (`IsPickingSpellTarget`), the tiles under the `GetSpellTargets` stacks show (red for enemies), and hovering a target (unit or tile) shows the spell's `Icon` as the cursor (`ShowSpellCursor`, a `Sprite2D` scaled to `SpellCursorSize`). Clicking one calls `TrySubmitSpell`. A unit spell becomes the turn's action (a `TurnOutput` entry; mana is spent when it runs). A hero spell doesn't end the turn, as in HoMM: `CastHeroSpell` plays it right away (`SpendHeroMana`, then `SpellAbility.UseFromHero(caster, origin, target, arena)`: `origin` is the global position of `Arena.HeroSpellCastPosition`, a marker where the hero stands off the board, and `caster` the acting stack; by default it calls `Use`, and `FireBallSpell` overrides it to fly from `origin`; `IsPlayerTurn` is false meanwhile, so no input is taken), removes dead stacks, searches `CurrentReachability` again (`RunBattle` executes the turn with it, not the turn-start one) and shows the turn input again; if the battle is over or the stack died, the turn ends. Use Hero's Spell is disabled once the hero has cast this round. `TurnOutput.HeroSpell` is now only for the computer's turns. Right click, Escape (`Arena._Input`) or the Cancel Spell button (`BattleInterface/CancelSpell`, shown only while targeting) cancel back to the normal input (`CancelSpellTargeting`, `ShowTurnTargets`). The player's own units take clicks only as spell targets.
 
@@ -141,12 +157,13 @@ HoMM3-style turn-based battles on a square grid. Two layers, and the split matte
 
 **Testing:** run `scenes/battle_test.tscn` (F6). `src/test/BattleTest.cs` builds the two armies from its exported `StackResource` arrays and enters the arena.
 
-**Not built yet:** player input (cursors, clicks, spellbook; `UnitNode`'s battle interaction callbacks are empty), AI, animations (`Arena.AnimateMove` is a stub), concrete abilities and effects, the damage formula.
+**Not built yet:** the AI (`GetComputerTurn` skips the turn), animations beyond moving, lunging and projectiles (no death animation), concrete effects and passives (the only concrete abilities are `BasicMeleeAttackAbility`, `BasicLongRangeAttackAbility`, `FireBallSpell` and `HealSpell`), the damage formula, and starting a battle from the adventure map and returning to it.
 
 ## Conventions
 
 - **Keep this file current.** When a change makes anything in this file out of date (architecture, battle system, design decisions), update this file in the same change.
 
+- Nullable reference types are on: node and resource fields filled in `_Ready` or by exports are declared nullable (`Label?`) and dereferenced with `!` or checked.
 - Godot C# scripts are `public partial class` with the same name as the file. Each `.cs` file has a committed `.cs.uid` sidecar. Scenes reference scripts and resources by `uid://`, so keep uid files when moving or renaming files.
 - `Battle`, `Arena` and `UnitNode` are split into `#region`s; put new members in the matching region (or add one).
 - Tunables are exposed via `[Export]` (grouped with `[ExportGroup]`/`[ExportSubgroup]`) rather than hardcoded.
