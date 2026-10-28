@@ -1,0 +1,422 @@
+[gd_scene format=3 uid="uid://cfsvco3a36qfu"]
+
+[ext_resource type="PackedScene" uid="uid://d2vdux1r2w61k" path="res://scenes/player/viewport_rect.tscn" id="1_gldc4"]
+[ext_resource type="Script" uid="uid://856gdeetf6ag" path="res://src/arena/PointOfInterest.cs" id="2_2lpho"]
+[ext_resource type="PackedScene" uid="uid://d3siemxsgpj3l" path="res://scenes/player/player_camera.tscn" id="2_paxxb"]
+[ext_resource type="Script" uid="uid://bknow4djldqy" path="res://src/player/AdventureCamera.cs" id="4_0cso3"]
+[ext_resource type="PackedScene" uid="uid://3fhavcdsavfw" path="res://scenes/player/adventure_character.tscn" id="4_2klcf"]
+[ext_resource type="Theme" uid="uid://bjx58o26db5so" path="res://assets/ui_themes/fantasy.tres" id="6_2lpho"]
+[ext_resource type="Script" uid="uid://drwglebqk0es7" path="res://src/ui/PopoutManager.cs" id="6_mlgqr"]
+[ext_resource type="Script" uid="uid://da8xkfatqgrcb" path="res://src/ui/CharacterPanel.cs" id="7_blm8a"]
+[ext_resource type="LabelSettings" uid="uid://d2yjmolnb3eqi" path="res://assets/ui_themes/HighlightLabelSettings.tres" id="7_nakos"]
+[ext_resource type="PackedScene" uid="uid://3me630kro538" path="res://scenes/ui/popout.tscn" id="7_wslke"]
+[ext_resource type="Texture2D" uid="uid://b8ddb7nxoqbb7" path="res://assets/pics/cantGoIcon.png" id="8_jh32y"]
+[ext_resource type="Texture2D" uid="uid://bpk4t2bqqrf3h" path="res://assets/pics/BookBack.png" id="9_be0no"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_gldc4"]
+vertices = PackedVector3Array(-1, 1, -2.999999, 0, 1, -3.499999, 0, 1, -14.499999, -14.5, 1, -14.499999, -14.5, 1, 9.536743e-07, -1, 1, 9.536743e-07, 1, 1, -2.999999, 14.5, 1, 9.536743e-07, 14.5, 1, -14.499999, 1, 1, 9.536743e-07, 17, 1, -1.499999, 17, 1, 1.500001, 20.5, 1, 1.500001, 20.5, 1, -1.499999, 0, 1, 14.500001, 0, 1, 3.500001, -1, 1, 3.000001, -14.5, 1, 14.500001, 1, 1, 3.000001, 14.5, 1, 14.500001)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(0, 5, 4), PackedInt32Array(1, 2, 6), PackedInt32Array(6, 2, 8), PackedInt32Array(6, 8, 7), PackedInt32Array(7, 9, 6), PackedInt32Array(13, 12, 10), PackedInt32Array(10, 12, 11), PackedInt32Array(15, 14, 16), PackedInt32Array(16, 14, 17), PackedInt32Array(16, 17, 4), PackedInt32Array(4, 5, 16), PackedInt32Array(15, 18, 14), PackedInt32Array(14, 18, 19), PackedInt32Array(19, 18, 7), PackedInt32Array(18, 9, 7)]
+cell_size = 0.5
+cell_height = 0.5
+agent_height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0cso3"]
+albedo_color = Color(0.61323816, 0.3103279, 0.092108764, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4xvhx"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2klcf"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0cso3"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2klcf"]
+albedo_color = Color(0.28034124, 0, 0.02063417, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_iopsf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0cso3"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
+load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2lpho"]
+albedo_color = Color(0.1620417, 0.31105772, 0.3087925, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gyjbk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jclro"]
+transparency = 1
+albedo_color = Color(0.74509805, 0.69411767, 0, 0.39215687)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4xvhx"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jh32y"]
+load_path = "res://.godot/imported/canGoIcon.png-e3d80933a6e7a1f9ce7c30b7cc359df6.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_be0no"]
+load_path = "res://.godot/imported/cantGoIcon.png-836c93ea133488b738fd06ef8d52728b.ctex"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wslke"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_be0no"]
+bg_color = Color(0.54474026, 0.31868562, 0.12448826, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.85769445, 0.40962633, 0.16301936, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gyjbk"]
+bg_color = Color(0.54474026, 0.31868562, 0.12448826, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.48177314, 0.20731443, 0.047696292, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blm8a"]
+bg_color = Color(0.42313677, 0.24115354, 0.08686314, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.48177314, 0.20731443, 0.047696292, 1)
+
+[sub_resource type="Theme" id="Theme_iopsf"]
+Button/styles/hover = SubResource("StyleBoxFlat_be0no")
+Button/styles/normal = SubResource("StyleBoxFlat_gyjbk")
+Button/styles/pressed = SubResource("StyleBoxFlat_blm8a")
+
+[node name="Map" type="Node3D" unique_id=1745784945]
+
+[node name="ViewportRect" parent="." unique_id=434109989 node_paths=PackedStringArray("GameViewport") instance=ExtResource("1_gldc4")]
+GameViewport = NodePath("../SubViewport")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1364628300]
+navigation_mesh = SubResource("NavigationMesh_gldc4")
+
+[node name="Ground" type="Area3D" parent="NavigationRegion3D" unique_id=1645217045]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+collision_layer = 12
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Ground" unique_id=397325567]
+transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 15, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_0cso3")
+mesh = SubResource("PlaneMesh_4xvhx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground" unique_id=1998171768]
+transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 15, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_2klcf")
+
+[node name="Ground2" type="Area3D" parent="NavigationRegion3D" unique_id=364351231]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 20.537575, 0, 0)
+collision_layer = 8
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Ground2" unique_id=1860492925]
+transform = Transform3D(2, 0, 0, 0, 0.99999976, 0, 0, 0, 1.9999993, -1.7686081, 0, 0)
+mesh = SubResource("PlaneMesh_4xvhx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground2" unique_id=90299923]
+transform = Transform3D(2, 0, 0, 0, 0.99999976, 0, 0, 0, 1.9999993, -1.7686081, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_0cso3")
+
+[node name="Wall" type="Area3D" parent="NavigationRegion3D" unique_id=1088053575]
+collision_layer = 9
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Wall" unique_id=1029974805]
+transform = Transform3D(0.6, 0, 0, 0, 2, 0, 0, 0, 5.4, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_2klcf")
+mesh = SubResource("BoxMesh_iopsf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Wall" unique_id=323171640]
+transform = Transform3D(0.6, 0, 0, 0, 2, 0, 0, 0, 5.4, 0, 1, 0)
+shape = SubResource("BoxShape3D_0cso3")
+
+[node name="PointsOfInterest" type="Node3D" parent="." unique_id=810958568]
+
+[node name="Point" type="Area3D" parent="PointsOfInterest" unique_id=1697003178]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.832, 1, 10.344)
+collision_layer = 9
+script = ExtResource("2_2lpho")
+stopDistance = 1.5
+cursorIcon = SubResource("CompressedTexture2D_nakos")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PointsOfInterest/Point" unique_id=1650774580]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2lpho")
+mesh = SubResource("BoxMesh_gyjbk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PointsOfInterest/Point" unique_id=1320244243]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_2klcf")
+
+[node name="Highlight" type="MeshInstance3D" parent="PointsOfInterest/Point" unique_id=1305999579]
+transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
+material_override = SubResource("StandardMaterial3D_jclro")
+mesh = SubResource("BoxMesh_4xvhx")
+
+[node name="Point2" type="Area3D" parent="PointsOfInterest" unique_id=605855154]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.832, 1, 10.344)
+collision_layer = 9
+script = ExtResource("2_2lpho")
+stopDistance = 1.5
+cursorIcon = SubResource("CompressedTexture2D_nakos")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PointsOfInterest/Point2" unique_id=1336537345]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2lpho")
+mesh = SubResource("BoxMesh_gyjbk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PointsOfInterest/Point2" unique_id=195675746]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_2klcf")
+
+[node name="Highlight" type="MeshInstance3D" parent="PointsOfInterest/Point2" unique_id=1309371829]
+transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
+material_override = SubResource("StandardMaterial3D_jclro")
+mesh = SubResource("BoxMesh_4xvhx")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=2116964362]
+size = Vector2i(1393, 729)
+
+[node name="PlayerCamera" parent="SubViewport" unique_id=118941473 node_paths=PackedStringArray("agent") instance=ExtResource("2_paxxb")]
+transform = Transform3D(1, 0, 0, 0, 0.33218208, 0.94321525, 0, -0.94321525, 0.33218208, 0, 6.4965672, 3.1734376)
+script = ExtResource("4_0cso3")
+agent = NodePath("../../AdventureCharacter")
+Distance = 6.0
+Height = 6.0
+MouseSensitivity = 0.005
+SmoothSpeed = 10.0
+_canGoIcon = SubResource("CompressedTexture2D_jh32y")
+_cantGoIcon = SubResource("CompressedTexture2D_be0no")
+_inventoryIcon = null
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=472189251]
+transform = Transform3D(0.8660254, -0.3535534, 0.3535534, 0, 0.7071068, 0.7071068, -0.5, -0.61237246, 0.61237246, 0, 4, 0)
+
+[node name="AdventureCharacter" parent="." unique_id=590468899 node_paths=PackedStringArray("container") instance=ExtResource("4_2klcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.761, 1, 0.033)
+container = NodePath("../PointsContainer")
+
+[node name="PointsContainer" type="Node3D" parent="." unique_id=1683784706]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1062630591]
+
+[node name="Canvas" type="Control" parent="CanvasLayer" unique_id=2030090]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PopoutContainer" type="Control" parent="CanvasLayer/Canvas" unique_id=655575447 node_paths=PackedStringArray("agent")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_mlgqr")
+agent = NodePath("../../../SubViewport/PlayerCamera")
+popoutPrefab = ExtResource("7_wslke")
+
+[node name="Character" type="Panel" parent="CanvasLayer/Canvas" unique_id=1402481781 node_paths=PackedStringArray("inventoryPanel", "magicPanel")]
+visible = false
+custom_minimum_size = Vector2(600, 800)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 150.0
+offset_top = -400.0
+offset_right = 750.0
+offset_bottom = 400.0
+grow_vertical = 2
+theme = ExtResource("6_2lpho")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wslke")
+script = ExtResource("7_blm8a")
+inventoryPanel = NodePath("Viewport/Inventory")
+magicPanel = NodePath("Viewport/Magic")
+inventoryYPos = PackedFloat32Array(0, -750)
+magicYPos = PackedFloat32Array(565.2, 0)
+movingSpeed = 0.5
+
+[node name="Background" type="Panel" parent="CanvasLayer/Canvas/Character" unique_id=107308044]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.055
+anchor_right = 1.055
+anchor_bottom = 1.0
+offset_top = -113.0
+offset_right = 6.1035156e-05
+offset_bottom = 115.82495
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("6_2lpho")
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Character" unique_id=309679576]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.195
+anchor_right = 0.945
+offset_top = 20.0
+offset_right = -6.1035156e-05
+offset_bottom = 120.0
+grow_horizontal = 2
+text = "Inventory"
+label_settings = ExtResource("7_nakos")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Categories" type="Control" parent="CanvasLayer/Canvas/Character" unique_id=1115802203]
+custom_minimum_size = Vector2(100, 650)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = -310.0
+offset_right = 125.0
+offset_bottom = 340.0
+grow_vertical = 2
+pivot_offset_ratio = Vector2(1, 0.5)
+
+[node name="Inventory" type="Button" parent="CanvasLayer/Canvas/Character/Categories" unique_id=257292417]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_iopsf")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Canvas/Character/Categories/Inventory" unique_id=446176708]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("8_jh32y")
+expand_mode = 1
+
+[node name="Magic" type="Button" parent="CanvasLayer/Canvas/Character/Categories" unique_id=717858099]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_top = 100.0
+offset_right = 75.0
+offset_bottom = 175.0
+theme = SubResource("Theme_iopsf")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Canvas/Character/Categories/Magic" unique_id=948932025]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.5
+offset_top = -37.5
+offset_right = 38.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("9_be0no")
+expand_mode = 1
+
+[node name="Close" type="Button" parent="CanvasLayer/Canvas/Character/Categories" unique_id=1109385405]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_top = 200.0
+offset_right = 75.0
+offset_bottom = 275.0
+theme = SubResource("Theme_iopsf")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Canvas/Character/Categories/Close" unique_id=1626921802]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("8_jh32y")
+expand_mode = 1
+
+[node name="Viewport" type="Control" parent="CanvasLayer/Canvas/Character" unique_id=1351900550]
+clip_contents = true
+layout_mode = 1
+anchor_left = 0.195
+anchor_top = 0.121
+anchor_right = 0.945
+anchor_bottom = 0.967
+offset_right = -6.1035156e-05
+offset_bottom = -6.1035156e-05
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Inventory" type="Control" parent="CanvasLayer/Canvas/Character/Viewport" unique_id=172709783]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Canvas/Character/Viewport/Inventory" unique_id=960354946]
+custom_minimum_size = Vector2(150, 5)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+color = Color(0.103743516, 0.10374353, 0.103743516, 1)
+
+[node name="Magic" type="Control" parent="CanvasLayer/Canvas/Character/Viewport" unique_id=235222784]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 565.2
+offset_bottom = 565.2
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1371800355]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 19.999985
+offset_bottom = 119.999985
+grow_horizontal = 2
+text = "Magic"
+label_settings = ExtResource("7_nakos")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1115710996]
+custom_minimum_size = Vector2(150, 5)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 100.2
+offset_bottom = 105.2
+grow_horizontal = 2
+color = Color(0.103743516, 0.10374353, 0.103743516, 1)

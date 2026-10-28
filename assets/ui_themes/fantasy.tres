@@ -1,0 +1,22 @@
+[gd_resource type="Theme" format=3 uid="uid://bjx58o26db5so"]
+
+[ext_resource type="FontFile" uid="uid://cotpgy3uit4mg" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Regular.ttf" id="1_f17mr"]
+[ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="1_qkiyn"]
+[ext_resource type="Texture2D" uid="uid://dkpcd7aiwctgy" path="res://assets/pics/scroll.png" id="3_qkiyn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nakos"]
+bg_color = Color(0.30692264, 0.3069227, 0.30692258, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2klcf"]
+bg_color = Color(0.19076231, 0.19076234, 0.19076222, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nakos"]
+texture = ExtResource("3_qkiyn")
+
+[resource]
+Button/font_sizes/font_size = 30
+Button/fonts/font = ExtResource("1_qkiyn")
+Button/styles/hover = SubResource("StyleBoxFlat_nakos")
+Button/styles/normal = SubResource("StyleBoxFlat_2klcf")
+Label/fonts/font = ExtResource("1_f17mr")
+Panel/styles/panel = SubResource("StyleBoxTexture_nakos")

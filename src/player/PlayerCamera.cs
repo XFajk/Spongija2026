@@ -9,6 +9,7 @@ public partial class PlayerCamera : Camera3D
 
 	private RayCast3D? _interactionRayCast;
 
+
 	public IInteractable? CurrentFocusedNode { get; private set; }
 
 	// Started by a click on it; kept while interact is held and the ray stays on it

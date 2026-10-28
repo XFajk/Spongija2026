@@ -81,6 +81,8 @@ public partial class SmallTile : Area3D, IInteractable
 		_innerSquare = GetNode<MeshInstance3D>("SmallTileMesh/InnerSquareMesh");
 	}
 
+
+
 	private void OnInteractionStarted(Node n)
 	{
 		if (ArenaRef == null)

@@ -24,7 +24,7 @@ public partial class Interactable : Node
 
 	[Signal]
 	public delegate void FocusedEventHandler(Node user);
-    [Signal]
+	[Signal]
 	public delegate void UnfocusedEventHandler(Node user);
 
 	// While true, a running interaction keeps going (Interacting fires every frame) even when
@@ -127,13 +127,13 @@ public partial class Interactable : Node
 			LockedInteractable = null;
 	}
 
-    public void Focus(Node user)
-    {
+	public void Focus(Node user)
+	{
 		EmitSignal(SignalName.Focused, user);
-    }
+	}
 
-    public void FocusLost(Node user)
-    {
+	public void FocusLost(Node user)
+	{
 		EmitSignal(SignalName.Unfocused, user);
-    }
+	}
 }
