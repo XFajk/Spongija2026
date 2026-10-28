@@ -14,10 +14,12 @@ public partial class HealSpell : SpellAbility
 
     public override async Task Use(Stack user, Stack target, Arena arena)
     {
-        target.Heal(Amount);
 
         if (VisualEffect == null || target.NodeRepresentation is not UnitNode targetNode)
+        {
+            target.Heal(Amount);
             return;
+        }
 
         var effect = AbilityVisualEffect.Spawn(arena, VisualEffect, targetNode.GlobalPosition);
         if (effect != null)
@@ -25,5 +27,7 @@ public partial class HealSpell : SpellAbility
             await effect.ToSignal(effect, AbilityVisualEffect.SignalName.Finished);
             effect.QueueFree();
         }
+        // Outside the if, so the heal still happens when the effect fails to spawn
+        target.Heal(Amount);
     }
 }

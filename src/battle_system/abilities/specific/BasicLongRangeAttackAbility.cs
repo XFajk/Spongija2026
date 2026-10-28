@@ -20,10 +20,12 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
 
     public override async Task Use(Stack user, Stack target, Arena arena)
     {
-        target.TakeDamage(user.GetStrength() * (int)user.Quantity);
 
         if (user.NodeRepresentation is not UnitNode userNode || target.NodeRepresentation is not UnitNode targetNode)
+        {
+            target.TakeDamage(user.GetStrength() * (int)user.Quantity);
             return;
+        }
 
         userNode.FaceTowards(target);
 
@@ -37,6 +39,8 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
             await projectile.ToSignal(projectile, Projectile.SignalName.Landed);
             projectile.QueueFree();
         }
+        // Outside the if, so the hit still lands when the projectile fails to spawn
+        target.TakeDamage(user.GetStrength() * (int)user.Quantity);
 
         userNode.FaceEnemySide();
     }

@@ -21,21 +21,25 @@ public partial class FireBallSpell : SpellAbility
 
     public override async Task Use(Stack user, Stack target, Arena arena)
     {
-        target.TakeDamage(Damage * (int)user.Quantity);
 
         if (user.NodeRepresentation is not UnitNode userNode)
+        {
+            target.TakeDamage(Damage * (int)user.Quantity);
             return;
+        }
 
         userNode.FaceTowards(target);
         await FlyFireBall(userNode.GlobalPosition + Vector3.Up * ShootHeight, target, arena);
+        target.TakeDamage(Damage * (int)user.Quantity);
+
         userNode.FaceEnemySide();
     }
 
     // From where the hero stands; the marker is the launch point itself, so no ShootHeight is added to it
     public override async Task UseFromHero(Stack caster, Vector3 origin, Stack target, Arena arena)
     {
-        target.TakeDamage(Damage);
         await FlyFireBall(origin, target, arena);
+        target.TakeDamage(Damage);
     }
 
     private async Task FlyFireBall(Vector3 start, Stack target, Arena arena)
