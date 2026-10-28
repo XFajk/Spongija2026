@@ -308,6 +308,7 @@ public partial class Arena : Node3D
             unit.RotationDegrees = new Vector3(0, playerSide ? -90 : 90, 0);
             stack.NodeRepresentation = unit;
             unit.IsPlayerUnit = playerSide;
+            _userInterface?.AddStackLabel(stack, playerSide);
 
             // A 2x2 stack stands on one double tile instead of the 4 small tiles under it.
             // It's a child of the unit, so it stays under it when the unit moves.
@@ -358,6 +359,42 @@ public partial class Arena : Node3D
             return;
         }
         StartBattle(PlayerArmy, ComputerArmy);
+    }
+
+    #endregion
+
+    #region Screen projection
+
+    // Where a global point shows on the screen, on the canvas the UI draws on: projected with the battle camera
+    // into SubViewport pixels, then mapped by the ViewportRect. Null if it's behind the camera.
+    public Vector2? ProjectToCanvas(Vector3 globalPoint)
+    {
+        if (PlayerCamera == null || GameViewportRect == null || PlayerCamera.IsPositionBehind(globalPoint))
+            return null;
+        return GameViewportRect.ViewportToCanvas(PlayerCamera.UnprojectPosition(globalPoint));
+    }
+
+    // Where the stack's label goes on the screen: under the stack's feet as the camera sees them, at the
+    // footprint's center horizontally and its lowest projected corner vertically. The same for 1x1 and 2x2 stacks
+    // from any camera angle. From the unit's current position, so it follows moves and the setup drag.
+    // Null if the stack has no unit or a corner is behind the camera.
+    public Vector2? GetStackLabelCanvasPoint(Stack stack)
+    {
+        if (stack.NodeRepresentation is not UnitNode unit || !IsInstanceValid(unit))
+            return null;
+        Vector3 center = new(unit.Position.X, 0, unit.Position.Z);
+        if (ProjectToCanvas(ToGlobal(center)) is not Vector2 canvasCenter)
+            return null;
+
+        float half = stack.Size * TileSize / 2f;
+        float bottom = canvasCenter.Y;
+        foreach (Vector3 corner in new Vector3[] { new(-half, 0, -half), new(half, 0, -half), new(-half, 0, half), new(half, 0, half) })
+        {
+            if (ProjectToCanvas(ToGlobal(center + corner)) is not Vector2 canvasCorner)
+                return null;
+            bottom = Mathf.Max(bottom, canvasCorner.Y);
+        }
+        return new Vector2(canvasCenter.X, bottom);
     }
 
     #endregion
@@ -604,6 +641,7 @@ public partial class Arena : Node3D
         UpdateMeleeCursor();
         UpdateRangedCursor();
         UpdateSpellCursor();
+        _userInterface?.SetHoveredStack(GetFocusedStack());
     }
 
     // Every frame on the player's turn: picks the attack position for the hovered melee target (red and raised),
@@ -778,17 +816,13 @@ public partial class Arena : Node3D
         toTarget.Y = 0;
         Vector3 towards = from + toTarget.Normalized();
 
-        Vector3 globalFrom = ToGlobal(from);
-        if (PlayerCamera.IsPositionBehind(globalFrom))
+        // Both points go through the same projection, so the 2D direction matches the 3D one with perspective
+        if (ProjectToCanvas(ToGlobal(from)) is not Vector2 screenFrom
+            || ProjectToCanvas(ToGlobal(towards)) is not Vector2 screenTowards)
         {
             _userInterface.HideMeleeCursor();
             return;
         }
-
-        // Projected with the battle camera into SubViewport pixels, then onto the screen where the UI draws.
-        // Both points go through the same projection, so the 2D direction matches the 3D one with perspective.
-        Vector2 screenFrom = GameViewportRect.ViewportToCanvas(PlayerCamera.UnprojectPosition(globalFrom));
-        Vector2 screenTowards = GameViewportRect.ViewportToCanvas(PlayerCamera.UnprojectPosition(ToGlobal(towards)));
 
         // Screen Y points down, so up is Vector2.Up (0, -1); AngleTo is clockwise-positive, like 2D rotation
         float rotation = Vector2.Up.AngleTo(screenTowards - screenFrom);
@@ -1074,13 +1108,14 @@ public partial class Arena : Node3D
 
     // Removes dead stacks from the battle (armies, round queue, board) and their units from the scene.
     // A 2x2 stack's double tile is a child of its unit, so it goes too.
-    private static void RemoveDeadStacks(Battle battle)
+    private void RemoveDeadStacks(Battle battle)
     {
         foreach (Stack stack in battle.RemoveDeadStacks())
         {
             // TODO: play a death animation and await it before freeing
             stack.NodeRepresentation?.QueueFree();
             stack.NodeRepresentation = null;
+            _userInterface?.RemoveStackLabel(stack);
         }
     }
 

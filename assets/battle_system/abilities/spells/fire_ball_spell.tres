@@ -10,6 +10,7 @@ Damage = 400
 Projectile = ExtResource("1_3c0sb")
 ShootAngle = 10.0
 Name = "Fire Ball"
+Description = "Cast a ball a fire at the enemy stack"
 Icon = ExtResource("1_fyjep")
 ManaCost = 10
 metadata/_custom_type_script = "uid://kaqcq55yms27"

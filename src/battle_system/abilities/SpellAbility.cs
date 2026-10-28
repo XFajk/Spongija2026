@@ -15,6 +15,10 @@ public abstract partial class SpellAbility : Resource, IAbility
     [Export]
     public string Name { get; set; } = "";
 
+    // Shown in the spell's tooltip in the spellbook
+    [Export(PropertyHint.MultilineText)]
+    public string Description { get; set; } = "";
+
     [Export]
     public TargetSide Targets { get; set; } = TargetSide.Enemies;
 

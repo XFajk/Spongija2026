@@ -45,6 +45,8 @@ public partial class ArenaUserInterface : Control
 	private Func<SpellAbility, bool> _canCastBookSpell = _ => false;
 	private bool _bookShowsHeroSpells;
 	private int _bookPage;
+	// The caster's mana, for the spells' tooltips
+	private uint _bookMana;
 
 	// While the book opens or flips a page, closing it and turning pages are ignored
 	private bool _bookAnimating;
@@ -78,6 +80,26 @@ public partial class ArenaUserInterface : Control
 
 	private Sprite2D? _spellCursor;
 
+	public const string StackLabelScene = "uid://bcefw8pb8y3se";
+
+	// Holds the stacks' labels, behind the rest of the interface; hidden while the spellbook is open
+	private Control? _stackLabelsRoot;
+	private readonly Dictionary<Stack, StackLabel> _stackLabels = [];
+
+	public const string StackTooltipScene = "uid://dstktltp3m7na";
+
+	// Seconds the mouse has to rest on a stack before its tooltip shows
+	[Export]
+	public float StackTooltipDelay { get; set; } = 0.5f;
+
+	// From the mouse to the tooltip's top-left corner, in pixels; it's moved to stay on the screen
+	[Export]
+	public Vector2 StackTooltipOffset { get; set; } = new(24, 24);
+
+	private StackTooltip? _stackTooltip;
+	private Stack? _hoveredStack;
+	private double _hoverTime;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -110,6 +132,15 @@ public partial class ArenaUserInterface : Control
 		};
 		AddChild(_spellCursor);
 
+		// First child, so it draws behind the interfaces and the cursors
+		_stackLabelsRoot = new Control
+		{
+			Name = "StackLabels",
+			MouseFilter = MouseFilterEnum.Ignore,
+		};
+		AddChild(_stackLabelsRoot);
+		MoveChild(_stackLabelsRoot, 0);
+
 		_setupInterface = GetNode<Control>("SetupInterface");
 		_battleInterface = GetNode<Control>("BattleInterface");
 
@@ -139,6 +170,16 @@ public partial class ArenaUserInterface : Control
 		_backPageButton.Pressed += OnBackPageButtonPressed;
 		_manaLabel = GetNode<Label>("BookInterface/ManaLable");
 
+		// Last, so it draws over the interfaces
+		_stackTooltip = GD.Load<PackedScene>(StackTooltipScene).Instantiate() as StackTooltip;
+		if (_stackTooltip != null)
+		{
+			_stackTooltip.Visible = false;
+			AddChild(_stackTooltip);
+		}
+		else
+			GD.PushError("The stack tooltip scene's root isn't a StackTooltip.");
+
 		CollectSpellButtons(_spellButtonsRoot);
 		foreach (SpellButton spellButton in _spellButtons)
 			spellButton.SpellPicked += OnSpellButtonPicked;
@@ -163,6 +204,9 @@ public partial class ArenaUserInterface : Control
 			_rangedCursor.GlobalPosition = GetGlobalMousePosition();
 		if (_spellCursor != null && _spellCursor.Visible)
 			_spellCursor.GlobalPosition = GetGlobalMousePosition();
+
+		UpdateStackLabels();
+		UpdateStackTooltip(delta);
 	}
 
 	public override void _ExitTree()
@@ -313,6 +357,109 @@ public partial class ArenaUserInterface : Control
 		OpenSpellBook(hero.GetKnownSpells(), hero.CanCast, heroSpells: true, hero.Mana, hero.MaxMana);
 	}
 
+	#region Stack labels
+
+	// Called by Arena when it spawns the stack's unit. The side picks the tag's image.
+	public void AddStackLabel(Stack stack, bool isPlayerStack)
+	{
+		if (_stackLabelsRoot == null || _stackLabels.ContainsKey(stack))
+			return;
+		if (GD.Load<PackedScene>(StackLabelScene).Instantiate() is not StackLabel label)
+		{
+			GD.PushError("The stack label scene's root isn't a StackLabel.");
+			return;
+		}
+		_stackLabelsRoot.AddChild(label);
+		label.Setup(stack, isPlayerStack);
+		_stackLabels[stack] = label;
+		PlaceStackLabel(label);
+	}
+
+	// Called by Arena when the stack dies
+	public void RemoveStackLabel(Stack stack)
+	{
+		if (_stackLabels.Remove(stack, out StackLabel? label))
+			label.QueueFree();
+	}
+
+	// Every frame, so the labels follow moving units and the camera, and show the current number of units
+	private void UpdateStackLabels()
+	{
+		foreach (StackLabel label in _stackLabels.Values)
+		{
+			label.Refresh();
+			PlaceStackLabel(label);
+		}
+	}
+
+	// Under the stack's feet on the screen; hidden while the stack is behind the camera
+	private void PlaceStackLabel(StackLabel label)
+	{
+		if (arena != null && label.Stack != null && arena.GetStackLabelCanvasPoint(label.Stack) is Vector2 canvasPoint)
+		{
+			label.PlaceAt(canvasPoint);
+			label.Visible = true;
+		}
+		else
+			label.Visible = false;
+	}
+
+	#endregion
+
+	#region Stack tooltip
+
+	// Called by Arena every frame with the stack under the mouse (its unit or its tile), or null
+	public void SetHoveredStack(Stack? stack)
+	{
+		if (stack == _hoveredStack)
+			return;
+		_hoveredStack = stack;
+		_hoverTime = 0;
+		if (_stackTooltip != null)
+			_stackTooltip.Visible = false;
+	}
+
+	// Shows the tooltip once the mouse has rested on the stack for StackTooltipDelay, then keeps it current and next
+	// to the mouse. Not while the spellbook is open.
+	private void UpdateStackTooltip(double delta)
+	{
+		if (_stackTooltip == null)
+			return;
+		if (_hoveredStack == null || _hoveredStack.IsDead || (_bookInterface?.Visible ?? false))
+		{
+			_stackTooltip.Visible = false;
+			return;
+		}
+
+		_hoverTime += delta;
+		if (_hoverTime < StackTooltipDelay)
+			return;
+
+		if (!_stackTooltip.Visible || _stackTooltip.Stack != _hoveredStack)
+			_stackTooltip.ShowStack(_hoveredStack);
+		else
+			_stackTooltip.Refresh();
+		_stackTooltip.Visible = true;
+		// Fits its content, which changes with the stack
+		_stackTooltip.ResetSize();
+		_stackTooltip.GlobalPosition = KeepOnScreen(GetGlobalMousePosition(), StackTooltipOffset, _stackTooltip.Size);
+	}
+
+	// Top-left corner for a popup of the size at the mouse plus the offset, flipped to the other side of the mouse
+	// where it would leave the screen
+	private Vector2 KeepOnScreen(Vector2 mouse, Vector2 offset, Vector2 size)
+	{
+		Rect2 screen = GetViewportRect();
+		Vector2 position = mouse + offset;
+		if (position.X + size.X > screen.End.X)
+			position.X = mouse.X - offset.X - size.X;
+		if (position.Y + size.Y > screen.End.Y)
+			position.Y = mouse.Y - offset.Y - size.Y;
+		return position.Clamp(screen.Position, (screen.End - size).Max(screen.Position));
+	}
+
+	#endregion
+
 	#region Spellbook
 
 	// Depth first, so the order is the reading order of the pages
@@ -336,10 +483,12 @@ public partial class ArenaUserInterface : Control
 		_canCastBookSpell = canCast;
 		_bookShowsHeroSpells = heroSpells;
 		_bookPage = 0;
+		_bookMana = mana;
 		// Mana can't change while the book is open, so it's set once
 		_manaLabel!.Text = $"Mana: {mana}/{maxMana}";
 
 		_battleInterface!.Visible = false;
+		_stackLabelsRoot!.Visible = false;
 		_bookInterface!.Visible = true;
 		FillSpellButtons();
 		await PlayBookAnimation(OpenAnimation, backwards: false);
@@ -349,6 +498,7 @@ public partial class ArenaUserInterface : Control
 	{
 		_bookInterface!.Visible = false;
 		_battleInterface!.Visible = true;
+		_stackLabelsRoot!.Visible = true;
 	}
 
 	private async void OnNextPageButtonPressed()
@@ -380,7 +530,21 @@ public partial class ArenaUserInterface : Control
 			button.Spell = spell;
 			button.Visible = spell != null;
 			button.Disabled = spell == null || !_canCastBookSpell(spell);
+			button.IsHeroSpell = _bookShowsHeroSpells;
+			button.CantCastReason = spell != null ? GetCantCastReason(spell) : null;
 		}
+	}
+
+	// For the spell's tooltip. Null if it can be cast now.
+	private string? GetCantCastReason(SpellAbility spell)
+	{
+		if (_canCastBookSpell(spell))
+			return null;
+		if (_bookMana < spell.ManaCost)
+			return "Not enough mana";
+		if (_bookShowsHeroSpells && arena?.CurrentStack?.Hero?.HasCastThisRound == true)
+			return "The hero has already cast a spell this round";
+		return "Can't be cast now";
 	}
 
 	// Hides the spells and page buttons while the animation plays (from frame 0, or from the last frame backwards),

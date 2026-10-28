@@ -7,6 +7,10 @@ public partial class Unit : Resource
     [Export]
     public string Name { get; set; } = "";
 
+    // Shown in the stack's tooltip
+    [Export(PropertyHint.MultilineText)]
+    public string Description { get; set; } = "";
+
     [ExportGroup("Stats")]
     [Export]
     public int MaxHealth { get; set; } = 1;
