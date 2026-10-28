@@ -3,10 +3,10 @@ using System;
 
 public partial class CharacterPanel : Panel
 {
-	[Export] Control inventoryPanel;
-	[Export] Control magicPanel;
-	[Export] public float[] inventoryYPos;
-	[Export] public float[] magicYPos;
+	[Export] Control? inventoryPanel;
+	[Export] Control? magicPanel;
+	[Export] public float[]? inventoryYPos;
+	[Export] public float[]? magicYPos;
 	[Export] public float movingSpeed;
 
 	public override void _Ready()
@@ -36,7 +36,7 @@ public partial class CharacterPanel : Panel
 		tweenI.TweenProperty(
 			inventoryPanel,
 			"position",
-			new Vector2(inventoryPanel.Position.X, inventoryYPos[0]),
+			new Vector2(inventoryPanel!.Position.X, inventoryYPos![0]),
 			movingSpeed
 		);
 
@@ -48,7 +48,7 @@ public partial class CharacterPanel : Panel
 		tweenM.TweenProperty(
 			magicPanel,
 			"position",
-			new Vector2(magicPanel.Position.X, magicYPos[0]),
+			new Vector2(magicPanel!.Position.X, magicYPos![0]),
 			movingSpeed
 		);
 	}
@@ -63,7 +63,7 @@ public partial class CharacterPanel : Panel
 		tweenI.TweenProperty(
 			inventoryPanel,
 			"position",
-			new Vector2(inventoryPanel.Position.X, inventoryYPos[1]),
+			new Vector2(inventoryPanel!.Position.X, inventoryYPos![1]),
 			movingSpeed
 		);
 
@@ -75,7 +75,7 @@ public partial class CharacterPanel : Panel
 		tweenM.TweenProperty(
 			magicPanel,
 			"position",
-			new Vector2(magicPanel.Position.X, magicYPos[1]),
+			new Vector2(magicPanel!.Position.X, magicYPos![1]),
 			movingSpeed
 		);
 	}

@@ -1,10 +1,11 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class AdventureCamera : PlayerCamera
 {
 	Rid map;
-	[Export] public AdventureCharacter agent; 
+	[Export] public AdventureCharacter? agent;
 
 	[Export] public float Distance = 6.0f;
 	[Export] public float Height = 3.0f;
@@ -18,34 +19,30 @@ public partial class AdventureCamera : PlayerCamera
 	private bool _panningChanged;
 	Vector3 rotatingCenter;
 
-	[Export] Texture2D _canGoIcon;
-	[Export] Texture2D _cantGoIcon;
-	[Export] Texture2D _inventoryIcon;
-	Texture2D _currentCursor;
-
 	public override void _Ready()
 	{
 		base._Ready();
 
 		map = GetWorld3D().NavigationMap;
-		rotatingCenter = agent.GlobalPosition;
+		rotatingCenter = agent!.GlobalPosition;
 	}
 
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
+		Debug.Assert(_interactionRayCast != null);
 		if (_interactionRayCast.IsColliding())
-		{	
+		{
 			if (_interactionRayCast.GetCollider() is CollisionObject3D obj)
 			{
 				if ((obj.CollisionLayer & (1u << 2)) != 0)
 				{
 					Vector3 hitPosition = _interactionRayCast.GetCollisionPoint();
-				
+
 					/*Vector3 navPoint =
 					NavigationServer3D.MapGetClosestPoint(map, hitPosition);*/
 
-					if (agent.canMove)
+					if (agent!.canMove)
 					{
 						if (IsOnNavMesh(hitPosition))
 						{
@@ -71,7 +68,7 @@ public partial class AdventureCamera : PlayerCamera
 		}
 		else
 		{
-			rotatingCenter = agent.GlobalPosition;
+			rotatingCenter = agent!.GlobalPosition;
 		}
 
 		CameraFollow(delta);
@@ -80,29 +77,29 @@ public partial class AdventureCamera : PlayerCamera
 	void CameraFollow(double delta)
 	{
 		if (!_panning)
-			{
-				Vector3 offset = new Vector3(
-					Mathf.Sin(_yaw) * Distance,
-					0,
-					Mathf.Cos(_yaw) * Distance
-				);
+		{
+			Vector3 offset = new Vector3(
+				Mathf.Sin(_yaw) * Distance,
+				0,
+				Mathf.Cos(_yaw) * Distance
+			);
 
-				Vector3 desiredPosition = (rotatingCenter + Vector3.Up * Height) + offset;
+			Vector3 desiredPosition = (rotatingCenter + Vector3.Up * Height) + offset;
 
-				float t = 1.0f - Mathf.Exp(-SmoothSpeed * (float)delta);
+			float t = 1.0f - Mathf.Exp(-SmoothSpeed * (float)delta);
 
-				GlobalPosition = GlobalPosition.Lerp(desiredPosition, t);
-				
-				LookAt(rotatingCenter, Vector3.Up);
-			}
+			GlobalPosition = GlobalPosition.Lerp(desiredPosition, t);
+
+			LookAt(rotatingCenter, Vector3.Up);
+		}
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (@event is InputEventMouseButton rightButon &&
-			rightButon.ButtonIndex == MouseButton.Right)
+		if (@event is InputEventMouseButton rightButton &&
+			rightButton.ButtonIndex == MouseButton.Right)
 		{
-			_rotating = rightButon.Pressed;
+			_rotating = rightButton.Pressed;
 		}
 
 		if (@event is InputEventMouseMotion mouseMotionRight && _rotating)
@@ -148,7 +145,7 @@ public partial class AdventureCamera : PlayerCamera
 	{
 		Vector3[] path = NavigationServer3D.MapGetPath(
 			map,
-			agent.GlobalPosition,
+			agent!.GlobalPosition,
 			pos,
 			true
 		);
@@ -162,12 +159,12 @@ public partial class AdventureCamera : PlayerCamera
 		_panning = false;
 
 		Tween tween = CreateTween();
-			tween.TweenMethod(
-			Callable.From<Vector3>(v => rotatingCenter = v),
-			rotatingCenter,
-			agent.GlobalPosition,
-			0.2f
-		);
+		tween.TweenMethod(
+		Callable.From<Vector3>(v => rotatingCenter = v),
+		rotatingCenter,
+		agent!.GlobalPosition,
+		0.2f
+	);
 
 		await ToSignal(tween, Tween.SignalName.Finished);
 

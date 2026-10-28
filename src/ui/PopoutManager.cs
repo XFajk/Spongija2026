@@ -3,16 +3,16 @@ using System;
 
 public partial class PopoutManager : Control
 {
-	[Export] AdventureCamera agent;
-	[Export] PackedScene popoutPrefab;
-	Control currentPopout;
+	[Export] AdventureCamera? camera;
+	[Export] PackedScene? popoutPrefab;
+	Control? currentPopout;
 
 	public void SpawnPopout(string _title, string _text)
 	{
-		currentPopout = popoutPrefab.Instantiate<Control>();
+		currentPopout = popoutPrefab?.Instantiate<Control>();
 		AddChild(currentPopout);
-		currentPopout.SetAnchorsPreset(Control.LayoutPreset.Center);
-		agent.agent.canMove = false;
+		currentPopout!.SetAnchorsPreset(Control.LayoutPreset.Center);
+		camera!.agent!.canMove = false;
 
 		Label label = currentPopout.GetNode<Label>("Label");
 		Label text = currentPopout.GetNode<Label>("Text");
@@ -28,9 +28,9 @@ public partial class PopoutManager : Control
 
 	public void ClosePopout()
 	{
-		currentPopout.QueueFree();
+		currentPopout?.QueueFree();
 		currentPopout = null;
-		agent.agent.canMove = true;
+		camera!.agent!.canMove = true;
 
 		GetTree().Paused = false;
 	}

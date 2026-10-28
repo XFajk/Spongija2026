@@ -10,14 +10,14 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 	[Export] public float Speed = 5.0f;
 	[Export] public float RotationSpeed = 5.0f;
 	public Vector3 TargetPosition;
-	private NavigationAgent3D agent;
-	[Export] PackedScene point;
-	[Export] Node3D container;
+	private NavigationAgent3D? agent;
+	[Export] PackedScene? point;
+	[Export] Node3D? container;
 	[Export] float pointsMinDistance;
 	List<Node3D> points = new List<Node3D>();
-	PointOfInterest poi;
+	PointOfInterest? poi;
 
-	Panel inventoryPanel;
+	Panel? inventoryPanel;
 	public bool canMove;
 
 	public override void _Ready()
@@ -52,7 +52,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 		}
 
 		poi = null;
-		agent.TargetDesiredDistance = stopDistance;
+		agent!.TargetDesiredDistance = stopDistance;
 		TargetPosition = pos;
 		agent.TargetPosition = TargetPosition;
 		ResetPoints();
@@ -68,7 +68,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 		}
 
 		poi = _point;
-		agent.TargetDesiredDistance = distance;
+		agent!.TargetDesiredDistance = distance;
 		TargetPosition = pos;
 		agent.TargetPosition = TargetPosition;
 		ResetPoints();
@@ -78,7 +78,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (agent.IsNavigationFinished())
+		if (agent!.IsNavigationFinished())
 		{
 			Velocity = Vector3.Zero;
 			MoveAndSlide();
@@ -159,12 +159,12 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 				float t = distanceToNext / length;
 				Vector3 position = start.Lerp(end, t);
 
-				Node3D _point = point.Instantiate<Node3D>();
+				Node3D _point = point!.Instantiate<Node3D>();
 				_point.Hide();
-				container.AddChild(_point);
+				container!.AddChild(_point);
 				_point.GlobalPosition = position;
 
-				if (_point.GlobalPosition.DistanceTo(TargetPosition) < agent.TargetDesiredDistance && agent.TargetDesiredDistance != stopDistance)
+				if (_point.GlobalPosition.DistanceTo(TargetPosition) < agent!.TargetDesiredDistance && agent!.TargetDesiredDistance != stopDistance)
 				{
 					_point.QueueFree();
 				}
@@ -179,7 +179,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 
 			distanceToNext -= length;
 
-			if (agent.TargetDesiredDistance == stopDistance)
+			if (agent!.TargetDesiredDistance == stopDistance)
 			{
 				var endMaterial = new StandardMaterial3D();
 				endMaterial.AlbedoColor = Colors.Yellow;
@@ -191,9 +191,9 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 				}
 				else
 				{
-					Node3D _point = point.Instantiate<Node3D>();
+					Node3D _point = point!.Instantiate<Node3D>();
 					_point.GetNode<MeshInstance3D>("MeshInstance3D").MaterialOverride = endMaterial;
-					container.AddChild(_point);
+					container!.AddChild(_point);
 					_point.GlobalPosition = path[path.Length -1];
 					points.Add(_point);
 				}
@@ -237,13 +237,13 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 
 	public void Interact(Node user)
 	{
-		inventoryPanel.Show();
+		inventoryPanel!.Show();
 		canMove = false;
 	}
 
 	public void HidePanel()
 	{
-		inventoryPanel.Hide();
+		inventoryPanel!.Hide();
 		canMove = true;
 	}
 }
