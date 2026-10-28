@@ -170,7 +170,6 @@ public partial class ArenaUserInterface : Control
 		_backPageButton.Pressed += OnBackPageButtonPressed;
 		_manaLabel = GetNode<Label>("BookInterface/ManaLable");
 
-		// Last, so it draws over the interfaces
 		_stackTooltip = GD.Load<PackedScene>(StackTooltipScene).Instantiate() as StackTooltip;
 		if (_stackTooltip != null)
 		{
@@ -179,6 +178,8 @@ public partial class ArenaUserInterface : Control
 		}
 		else
 			GD.PushError("The stack tooltip scene's root isn't a StackTooltip.");
+
+		SetDrawOrder();
 
 		CollectSpellButtons(_spellButtonsRoot);
 		foreach (SpellButton spellButton in _spellButtons)
@@ -195,6 +196,22 @@ public partial class ArenaUserInterface : Control
 
 		ShowSetupInterface();
 		a.SetupPlacementPhaseCompleted += ShowBattleInterface;
+	}
+
+	// Bottom to top: stack names (0), their number tags (StackLabel.TagZIndex), the interfaces, the stack tooltip,
+	// then the cursors. Z index rather than child order, because the tags have to draw above every label's name,
+	// not only their own.
+	private void SetDrawOrder()
+	{
+		const int interfaces = StackLabel.TagZIndex + 1;
+		_setupInterface!.ZIndex = interfaces;
+		_battleInterface!.ZIndex = interfaces;
+		_bookInterface!.ZIndex = interfaces;
+		if (_stackTooltip != null)
+			_stackTooltip.ZIndex = interfaces + 1;
+		_meleeCursor!.ZIndex = interfaces + 2;
+		_rangedCursor!.ZIndex = interfaces + 2;
+		_spellCursor!.ZIndex = interfaces + 2;
 	}
 
 	public override void _Process(double delta)

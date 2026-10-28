@@ -14,6 +14,9 @@ public partial class StackLabel : Control
 	[Export]
 	public Vector2 ScreenOffset { get; set; } = new(0, 4);
 
+	// Relative to the label (names are at 0); ArenaUserInterface puts its other layers above it
+	public const int TagZIndex = 1;
+
 	public Stack? Stack { get; private set; }
 
 	private Label? _nameLabel;
@@ -28,6 +31,8 @@ public partial class StackLabel : Control
 		_nameLabel = GetNode<Label>("StackName");
 		_numberTag = GetNode<TextureRect>("StackName/NumberTag");
 		_quantityLabel = GetNode<Label>("StackName/NumberTag/NumberOfUnitsInStack");
+		// Every tag draws over every stack's name, so overlapping labels never hide a number
+		_numberTag.ZIndex = TagZIndex;
 		// The labels lie over the battle, so clicks and hovers must go through them to the units and tiles
 		IgnoreMouse(this);
 	}
