@@ -313,6 +313,20 @@ public class Battle
 
     #endregion
 
+    #region Damage
+
+    // Damage of an attack: the attacker's Strength per unit, scaled by the ability's multiplier, minus a tenth of
+    // the target's Defense per unit. Never negative. Both stats include effects and the hero bonus.
+    // Spells don't use it: they ignore Defense.
+    public static int CalculateDamage(Stack attacker, Stack target, float multiplier = 1f)
+    {
+        float attack = multiplier * attacker.GetStrength() * attacker.Quantity;
+        float defense = target.GetDefense() * target.Quantity / 10f;
+        return Math.Max(0, (int)(attack - defense));
+    }
+
+    #endregion
+
     #region Mutations
 
     // Puts the stack's whole footprint on the anchor. Only checks that it fits, not that it's reachable.

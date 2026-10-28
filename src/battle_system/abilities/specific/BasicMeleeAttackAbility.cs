@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -26,7 +25,7 @@ public partial class BasicMeleeAttackAbility : MeleeAttackAbility
 
         if (maybeUserNode is not UnitNode userNode || maybeTargetNode is not UnitNode targetNode)
         {
-            target.TakeDamage(user.GetStrength() * (int)user.Quantity);
+            target.TakeDamage(Battle.CalculateDamage(user, target, BasicAttackMultiplier));
             return;
         }
 
@@ -44,7 +43,7 @@ public partial class BasicMeleeAttackAbility : MeleeAttackAbility
             0f, 1f, LungeDuration);
         tween.TweenCallback(Callable.From(() =>
         {
-            target.TakeDamage(user.GetStrength() * (int)user.Quantity);
+            target.TakeDamage(Battle.CalculateDamage(user, target, BasicAttackMultiplier));
             userNode.Position = start;
             userNode.FaceEnemySide();
             tcs.SetResult();

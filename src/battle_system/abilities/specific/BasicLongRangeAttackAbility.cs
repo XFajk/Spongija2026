@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -23,7 +22,7 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
 
         if (user.NodeRepresentation is not UnitNode userNode || target.NodeRepresentation is not UnitNode targetNode)
         {
-            target.TakeDamage(user.GetStrength() * (int)user.Quantity);
+            target.TakeDamage(Battle.CalculateDamage(user, target, BasicAttackMultiplier));
             return;
         }
 
@@ -40,7 +39,7 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
             projectile.QueueFree();
         }
         // Outside the if, so the hit still lands when the projectile fails to spawn
-        target.TakeDamage(user.GetStrength() * (int)user.Quantity);
+        target.TakeDamage(Battle.CalculateDamage(user, target, BasicAttackMultiplier));
 
         userNode.FaceEnemySide();
     }
