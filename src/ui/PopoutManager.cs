@@ -12,7 +12,6 @@ public partial class PopoutManager : Control
 		currentPopout = popoutPrefab?.Instantiate<Control>();
 		AddChild(currentPopout);
 		currentPopout!.SetAnchorsPreset(Control.LayoutPreset.Center);
-		camera!.agent!.canMove = false;
 
 		Label label = currentPopout.GetNode<Label>("Label");
 		Label text = currentPopout.GetNode<Label>("Text");
@@ -30,7 +29,6 @@ public partial class PopoutManager : Control
 	{
 		currentPopout?.QueueFree();
 		currentPopout = null;
-		camera!.agent!.canMove = true;
 
 		GetTree().Paused = false;
 	}

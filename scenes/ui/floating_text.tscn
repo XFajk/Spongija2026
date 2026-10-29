@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://ck6iumkck1gpp"]
+
+[ext_resource type="LabelSettings" uid="uid://d2yjmolnb3eqi" path="res://assets/ui_themes/HighlightLabelSettings.tres" id="1_0qskq"]
+[ext_resource type="Script" uid="uid://bawv3j5aol4y7" path="res://src/ui/FloatingText.cs" id="2_x405i"]
+
+[node name="FloatingText" type="Label" unique_id=306500270]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "+30"
+label_settings = ExtResource("1_0qskq")
+script = ExtResource("2_x405i")

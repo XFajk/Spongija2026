@@ -18,6 +18,7 @@ public partial class AdventureCamera : PlayerCamera
 	private bool _panning;
 	private bool _panningChanged;
 	Vector3 rotatingCenter;
+	RayCast3D? _groundRaycast;
 
 	public override void _Ready()
 	{
@@ -25,6 +26,10 @@ public partial class AdventureCamera : PlayerCamera
 
 		map = GetWorld3D().NavigationMap;
 		rotatingCenter = agent!.GlobalPosition;
+		_groundRaycast = GetNode<RayCast3D>("/root/Map/SubViewport/RayCast3D");
+		_groundRaycast.CollisionMask = (1u << 2) | (1u << 3);
+		_groundRaycast.CollideWithAreas = true;
+		_groundRaycast.CollideWithBodies = true;
 	}
 
 	public override void _Process(double delta)
@@ -72,6 +77,34 @@ public partial class AdventureCamera : PlayerCamera
 		}
 
 		CameraFollow(delta);
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (_panningChanged)
+		{
+			_groundRaycast!.GlobalPosition = new Vector3(GlobalPosition.X, GlobalPosition.Y + 1000, GlobalPosition.Z);
+			UpdateCenterHeight(delta);
+		}
+	}
+
+
+	void UpdateCenterHeight(double delta)
+	{
+		_groundRaycast!.TargetPosition = new Vector3(0, -2000, 0);
+
+		_groundRaycast.ForceRaycastUpdate();
+
+		if (_groundRaycast.IsColliding())
+		{
+			Vector3 hit = _groundRaycast.GetCollisionPoint();
+
+			rotatingCenter.Y = (float)Mathf.Lerp(
+				rotatingCenter.Y,
+				hit.Y,
+				1.0 - Mathf.Exp(-10.0 * delta)
+			);
+		}
 	}
 
 	void CameraFollow(double delta)

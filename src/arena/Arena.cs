@@ -37,7 +37,7 @@ public partial class Arena : Node3D
 	[Export]
 	public float CameraTransitionDuration { get; set; } = 1.5f;
 
-    // Seconds a computer stack waits, already outlined as active, before it acts, so the player sees who's next.
+	// Seconds a computer stack waits, already outlined as active, before it acts, so the player sees who's next.
     // 0 to act right away.
     [Export(PropertyHint.Range, "0,2")]
     public float ComputerTurnDelay { get; set; } = 0.4f;
@@ -63,24 +63,24 @@ public partial class Arena : Node3D
 
 	public Battle? Battle { get; private set; }
 
-    // Decides the computer's turns, by the computer army's Strategy. Made with the Battle.
-    private BattleAI? _computerAI;
+	// Decides the computer's turns, by the computer army's Strategy. Made with the Battle.
+	private BattleAI? _computerAI;
 
-    private Stack? _currentStack;
+	private Stack? _currentStack;
 
-    // The stack whose turn it is, for the UI. Its unit shows the active outline (UnitNode.IsActive).
-    public Stack? CurrentStack
-    {
-        get => _currentStack;
-        private set
-        {
-            if (_currentStack?.NodeRepresentation is UnitNode previous && IsInstanceValid(previous))
-                previous.IsActive = false;
-            _currentStack = value;
-            if (_currentStack?.NodeRepresentation is UnitNode current)
-                current.IsActive = true;
-        }
-    }
+	// The stack whose turn it is, for the UI. Its unit shows the active outline (UnitNode.IsActive).
+	public Stack? CurrentStack
+	{
+		get => _currentStack;
+		private set
+		{
+			if (_currentStack?.NodeRepresentation is UnitNode previous && IsInstanceValid(previous))
+				previous.IsActive = false;
+			_currentStack = value;
+			if (_currentStack?.NodeRepresentation is UnitNode current)
+				current.IsActive = true;
+		}
+	}
 
 	// Where CurrentStack can move this turn. Searched once at the start of the turn and reused for
 	// highlighting, hover (GetAnchorsCovering), validation and the movement path.
@@ -121,202 +121,202 @@ public partial class Arena : Node3D
 
 	public bool IsPickingSpellTarget => _pickedSpell != null;
 
-    // A hero spell is cast right away and the turn goes on after it, as in HoMM; this is true while it plays.
-    private bool _castingHeroSpell;
+	// A hero spell is cast right away and the turn goes on after it, as in HoMM; this is true while it plays.
+	private bool _castingHeroSpell;
 
-    // On a 2x2 stack's turn: a second double tile showing where the stack would move (or attack from).
+	// On a 2x2 stack's turn: a second double tile showing where the stack would move (or attack from).
     // It follows the hovered tile like the setup drag, moving as little as needed from where it is.
-    // Arena's own, not a unit's; it stands in for the small tiles under it like a stack's double tile.
-    public DoubleTile? MovePreview { get; private set; }
+	// Arena's own, not a unit's; it stands in for the small tiles under it like a stack's double tile.
+	public DoubleTile? MovePreview { get; private set; }
 
-    // The preview's anchor; null while it's on the stack's own position, where it's hidden and the stack's
+	// The preview's anchor; null while it's on the stack's own position, where it's hidden and the stack's
     // own double tile acts as the preview (two quads in one spot would flicker).
     private Vector2I? _movePreviewAnchor;
 
-    // Lifts the preview just above the stack's own double tile where they overlap.
-    private const float MovePreviewLift = 0.005f;
+	// Lifts the preview just above the stack's own double tile where they overlap.
+	private const float MovePreviewLift = 0.005f;
 
-    // An ability waiting to run in ExecuteTurn. Unlike TurnEntry it knows its user,
-    // because retaliations are used by the target, not by the acting stack.
-    private readonly record struct PendingAbility(Stack User, IAbility Ability, Stack Target, bool IsRetaliation);
+	// An ability waiting to run in ExecuteTurn. Unlike TurnEntry it knows its user,
+	// because retaliations are used by the target, not by the acting stack.
+	private readonly record struct PendingAbility(Stack User, IAbility Ability, Stack Target, bool IsRetaliation);
 
-    #endregion
+	#endregion
 
-    #region Lifecycle
+	#region Lifecycle
 
-    public override void _Ready()
-    {
-        var smallTile = GD.Load<PackedScene>(SmallTileScene);
+	public override void _Ready()
+	{
+		var smallTile = GD.Load<PackedScene>(SmallTileScene);
 
-        Node3D smallTileBoard = new Node3D()
-        {
-            Name = "SmallTileBoard"
-        };
+		Node3D smallTileBoard = new Node3D()
+		{
+			Name = "SmallTileBoard"
+		};
 
-        AddChild(smallTileBoard);
+		AddChild(smallTileBoard);
 
-        // Instantiate small tiles and arrange them in a grid within the smallTileBoard
-        for (int x = 0; x < AreaWidth; x++)
-        {
-            Node3D row = new Node3D()
-            {
-                Name = $"Row{x}"
-            };
-            smallTileBoard.AddChild(row);
-            for (int y = 0; y < AreaHeight; y++)
-            {
-                var tileInstance = smallTile.Instantiate() as SmallTile;
-                Debug.Assert(tileInstance != null);
-                tileInstance.ArenaRef = this;
-                tileInstance.GridPosition = new Vector2I(x, y); 
-                tileInstance.Position = GridToWorld(new Vector2I(x, y));
-                tileInstance.RotationDegrees = new Vector3(-90, 0, 0);
-                tileInstance.Enabled = false;
-                row.AddChild(tileInstance);
-                _smallTiles[x * (int)AreaHeight + y] = tileInstance;
-            }
-        }
+		// Instantiate small tiles and arrange them in a grid within the smallTileBoard
+		for (int x = 0; x < AreaWidth; x++)
+		{
+			Node3D row = new Node3D()
+			{
+				Name = $"Row{x}"
+			};
+			smallTileBoard.AddChild(row);
+			for (int y = 0; y < AreaHeight; y++)
+			{
+				var tileInstance = smallTile.Instantiate() as SmallTile;
+				Debug.Assert(tileInstance != null);
+				tileInstance.ArenaRef = this;
+				tileInstance.GridPosition = new Vector2I(x, y); 
+				tileInstance.Position = GridToWorld(new Vector2I(x, y));
+				tileInstance.RotationDegrees = new Vector3(-90, 0, 0);
+				tileInstance.Enabled = false;
+				row.AddChild(tileInstance);
+				_smallTiles[x * (int)AreaHeight + y] = tileInstance;
+			}
+		}
 
-        MovePreview = GD.Load<PackedScene>(DoubleTileScene).Instantiate<DoubleTile>();
-        MovePreview.Name = "MovePreview";
-        MovePreview.ArenaRef = this;
-        MovePreview.RotationDegrees = new Vector3(-90, 0, 0);
-        MovePreview.Enabled = false;
-        AddChild(MovePreview);
+		MovePreview = GD.Load<PackedScene>(DoubleTileScene).Instantiate<DoubleTile>();
+		MovePreview.Name = "MovePreview";
+		MovePreview.ArenaRef = this;
+		MovePreview.RotationDegrees = new Vector3(-90, 0, 0);
+		MovePreview.Enabled = false;
+		AddChild(MovePreview);
 
-        if (SetupBoardCameraPosition == null)
-        {
-            GD.PrintErr("SetupBoardCameraPosition is not assigned.");
-            return;
-        }
+		if (SetupBoardCameraPosition == null)
+		{
+			GD.PrintErr("SetupBoardCameraPosition is not assigned.");
+			return;
+		}
 
-        if (BoardOverviewCameraPosition == null)
-        {
-            GD.PrintErr("BoardOverviewCameraPosition is not assigned.");
-            return;
-        }
+		if (BoardOverviewCameraPosition == null)
+		{
+			GD.PrintErr("BoardOverviewCameraPosition is not assigned.");
+			return;
+		}
 
-        if (PlayerCamera == null)
-        {
-            GD.PrintErr("PlayerCamera is not assigned.");
-            return;
-        }
+		if (PlayerCamera == null)
+		{
+			GD.PrintErr("PlayerCamera is not assigned.");
+			return;
+		}
 
-        if (!AutoBeginBattle)
-        {
-            SetupPlacementPhase();
-        }
-    }
+		if (!AutoBeginBattle)
+		{
+			SetupPlacementPhase();
+		}
+	}
 
-    #endregion
+	#endregion
 
-    #region Placement phase and transition
+	#region Placement phase and transition
 
-    public void SetArmies(Army playerArmy, Army computerArmy)
-    {
-        PlayerArmy = playerArmy;
-        ComputerArmy = computerArmy;
-    }
+	public void SetArmies(Army playerArmy, Army computerArmy)
+	{
+		PlayerArmy = playerArmy;
+		ComputerArmy = computerArmy;
+	}
 
-    // Setup the Scene to let the player place their units before the battle begins.
-    public async void SetupPlacementPhase()
-    {
-        if (PlayerCamera == null || SetupBoardCameraPosition == null)
-        {
-            GD.PrintErr("Cannot setup placement phase: PlayerCamera or SetupBoardCameraPosition is not assigned.");
-            return;
-        }
-        var arenaUI = GD.Load<PackedScene>(ArenaUserInterfaceScene).Instantiate() as ArenaUserInterface;
-        if (arenaUI == null)
-        {
-            GD.PrintErr("Failed to instantiate ArenaUserInterface.");
-            return;
-        }
-        arenaUI.arena = this;
-        arenaUI.arenaCamera = PlayerCamera;
-        AddChild(arenaUI);
-        _userInterface = arenaUI;
-        arenaUI.SpellPicked += BeginSpellTargeting;
+	// Setup the Scene to let the player place their units before the battle begins.
+	public async void SetupPlacementPhase()
+	{
+		if (PlayerCamera == null || SetupBoardCameraPosition == null)
+		{
+			GD.PrintErr("Cannot setup placement phase: PlayerCamera or SetupBoardCameraPosition is not assigned.");
+			return;
+		}
+		var arenaUI = GD.Load<PackedScene>(ArenaUserInterfaceScene).Instantiate() as ArenaUserInterface;
+		if (arenaUI == null)
+		{
+			GD.PrintErr("Failed to instantiate ArenaUserInterface.");
+			return;
+		}
+		arenaUI.arena = this;
+		arenaUI.arenaCamera = PlayerCamera;
+		AddChild(arenaUI);
+		_userInterface = arenaUI;
+		arenaUI.SpellPicked += BeginSpellTargeting;
 
-        PlayerCamera.arena = this;
-        PlayerCamera.GlobalPosition = SetupBoardCameraPosition.GlobalPosition;
-        PlayerCamera.Rotation = SetupBoardCameraPosition.Rotation;
-        ShowPlayerFirst2Columns();
+		PlayerCamera.arena = this;
+		PlayerCamera.GlobalPosition = SetupBoardCameraPosition.GlobalPosition;
+		PlayerCamera.Rotation = SetupBoardCameraPosition.Rotation;
+		ShowPlayerFirst2Columns();
 
-        var stackGridInstantiationAnchors = Battle.GetStartingAnchors(PlayerArmy!.Stacks, true, (int)AreaWidth, (int)AreaHeight);
-        foreach (var (stack, anchor) in PlayerArmy!.Stacks.Zip(stackGridInstantiationAnchors, (s, a) => (s, a)))
-        {
-            SpawnUnitNode(stack, anchor, playerSide: true);
-        }
+		var stackGridInstantiationAnchors = Battle.GetStartingAnchors(PlayerArmy!.Stacks, true, (int)AreaWidth, (int)AreaHeight);
+		foreach (var (stack, anchor) in PlayerArmy!.Stacks.Zip(stackGridInstantiationAnchors, (s, a) => (s, a)))
+		{
+			SpawnUnitNode(stack, anchor, playerSide: true);
+		}
 
-        await ToSignal(this, SignalName.SetupPlacementPhaseCompleted);
+		await ToSignal(this, SignalName.SetupPlacementPhaseCompleted);
 
-        await TransitionToBattle();
+		await TransitionToBattle();
 
-        BeginBattle();
-    }
+		BeginBattle();
+	}
 
-    // Whether the stack can go with its anchor on the tile during the placement phase: its whole footprint
-    // inside the placement columns and not on another player stack. Battle doesn't exist yet, so this can't use Battle.Fits.
-    public bool CanPlaceDuringSetup(Stack stack, Vector2I anchor)
-    {
-        foreach (Vector2I tile in stack.GetTilesAt(anchor))
-        {
-            if (tile.X < 0 || tile.X >= PlacementColumns || tile.Y < 0 || tile.Y >= AreaHeight)
-                return false;
-            if (PlayerArmy!.Stacks.Any(other => other != stack && other.GetOccupiedTiles().Contains(tile)))
-                return false;
-        }
-        return true;
-    }
+	// Whether the stack can go with its anchor on the tile during the placement phase: its whole footprint
+	// inside the placement columns and not on another player stack. Battle doesn't exist yet, so this can't use Battle.Fits.
+	public bool CanPlaceDuringSetup(Stack stack, Vector2I anchor)
+	{
+		foreach (Vector2I tile in stack.GetTilesAt(anchor))
+		{
+			if (tile.X < 0 || tile.X >= PlacementColumns || tile.Y < 0 || tile.Y >= AreaHeight)
+				return false;
+			if (PlayerArmy!.Stacks.Any(other => other != stack && other.GetOccupiedTiles().Contains(tile)))
+				return false;
+		}
+		return true;
+	}
 
-    // For dragging during the placement phase: of the anchors whose footprint covers the tile and that
-    // CanPlaceDuringSetup, the one closest to the stack's current anchor, so the stack moves as little as it
-    // needs to cover the tile. For a 1x1 stack that's the tile itself. Null if none fits.
-    public Vector2I? FindSetupAnchorCovering(Stack stack, Vector2I tile)
-    {
-        var candidates = new List<Vector2I>();
-        for (int dx = 0; dx < stack.Size; dx++)
-            for (int dy = 0; dy < stack.Size; dy++)
-                candidates.Add(tile - new Vector2I(dx, dy));
-        return ClosestAnchor(candidates.Where(a => CanPlaceDuringSetup(stack, a)), stack.Anchor);
-    }
+	// For dragging during the placement phase: of the anchors whose footprint covers the tile and that
+	// CanPlaceDuringSetup, the one closest to the stack's current anchor, so the stack moves as little as it
+	// needs to cover the tile. For a 1x1 stack that's the tile itself. Null if none fits.
+	public Vector2I? FindSetupAnchorCovering(Stack stack, Vector2I tile)
+	{
+		var candidates = new List<Vector2I>();
+		for (int dx = 0; dx < stack.Size; dx++)
+			for (int dy = 0; dy < stack.Size; dy++)
+				candidates.Add(tile - new Vector2I(dx, dy));
+		return ClosestAnchor(candidates.Where(a => CanPlaceDuringSetup(stack, a)), stack.Anchor);
+	}
 
-    // The candidate with the smallest step distance (Manhattan) from the given anchor; null if there are none.
-    private static Vector2I? ClosestAnchor(IEnumerable<Vector2I> candidates, Vector2I from)
-    {
-        Vector2I? best = null;
-        int bestDistance = int.MaxValue;
-        foreach (Vector2I anchor in candidates)
-        {
-            Vector2I offset = (anchor - from).Abs();
-            int distance = offset.X + offset.Y;
-            if (distance < bestDistance)
-            {
-                best = anchor;
-                bestDistance = distance;
-            }
-        }
-        return best;
-    }
+	// The candidate with the smallest step distance (Manhattan) from the given anchor; null if there are none.
+	private static Vector2I? ClosestAnchor(IEnumerable<Vector2I> candidates, Vector2I from)
+	{
+		Vector2I? best = null;
+		int bestDistance = int.MaxValue;
+		foreach (Vector2I anchor in candidates)
+		{
+			Vector2I offset = (anchor - from).Abs();
+			int distance = offset.X + offset.Y;
+			if (distance < bestDistance)
+			{
+				best = anchor;
+				bestDistance = distance;
+			}
+		}
+		return best;
+	}
 
-    private void ShowPlayerFirst2Columns()
-    {
-        var columns = new List<Vector2I>();
-        for (int x = 0; x < PlacementColumns; x++)
-            for (int y = 0; y < AreaHeight; y++)
-                columns.Add(new Vector2I(x, y));
-        ShowTiles(columns);
-    }
+	private void ShowPlayerFirst2Columns()
+	{
+		var columns = new List<Vector2I>();
+		for (int x = 0; x < PlacementColumns; x++)
+			for (int y = 0; y < AreaHeight; y++)
+				columns.Add(new Vector2I(x, y));
+		ShowTiles(columns);
+	}
 
-    // Spawns the stack's model at the anchor, facing the other side, and links it as Stack.NodeRepresentation.
+	// Spawns the stack's model at the anchor, facing the other side, and links it as Stack.NodeRepresentation.
     private UnitNode? SpawnUnitNode(Stack stack, Vector2I anchor, bool playerSide)
     {
         Node? stackInstance = stack?.Unit?.Model?.Instantiate();
         Unit? type = stack?.Unit;
 
         if (type == null)
-            throw new ArgumentNullException(nameof(stack), "Stack's unit type is null.");
+			throw new ArgumentNullException(nameof(stack), "Stack's unit type is null.");
 
         if (stackInstance is UnitNode unit)
         {
@@ -348,46 +348,46 @@ public partial class Arena : Node3D
             return unit;
         }
 
-        GD.PrintErr("Failed to instantiate stack's unit model.");
+		GD.PrintErr("Failed to instantiate stack's unit model.");
         if (stackInstance != null)
             stackInstance.QueueFree();
         return null;
     }
 
-    // From the placement phase to the battle: spawns the computer's units, switches every unit to its battle
-    // interactions, hides the placement tiles and moves the camera to the battle view.
-    public async Task TransitionToBattle()
-    {
-        var computerAnchors = Battle.GetStartingAnchors(ComputerArmy!.Stacks, false, (int)AreaWidth, (int)AreaHeight);
-        foreach (var (stack, anchor) in ComputerArmy.Stacks.Zip(computerAnchors, (s, a) => (s, a)))
-            SpawnUnitNode(stack, anchor, playerSide: false);
+	// From the placement phase to the battle: spawns the computer's units, switches every unit to its battle
+	// interactions, hides the placement tiles and moves the camera to the battle view.
+	public async Task TransitionToBattle()
+	{
+		var computerAnchors = Battle.GetStartingAnchors(ComputerArmy!.Stacks, false, (int)AreaWidth, (int)AreaHeight);
+		foreach (var (stack, anchor) in ComputerArmy.Stacks.Zip(computerAnchors, (s, a) => (s, a)))
+			SpawnUnitNode(stack, anchor, playerSide: false);
 
-        foreach (Stack stack in PlayerArmy!.Stacks.Concat(ComputerArmy.Stacks))
-            stack.NodeRepresentation?.SwitchToBattleInteractions();
+		foreach (Stack stack in PlayerArmy!.Stacks.Concat(ComputerArmy.Stacks))
+			stack.NodeRepresentation?.SwitchToBattleInteractions();
 
-        // Tiles are shown per turn from now on. Double tiles stay under their units.
-        HideAllTiles();
+		// Tiles are shown per turn from now on. Double tiles stay under their units.
+		HideAllTiles();
 
-        await PlayerCamera!.MoveTo(BoardOverviewCameraPosition!, CameraTransitionDuration);
-    }
+		await PlayerCamera!.MoveTo(BoardOverviewCameraPosition!, CameraTransitionDuration);
+	}
 
-    // Starts the battle with the stored armies. Called after the placement phase.
-    public void BeginBattle()
-    {
-        if (PlayerArmy == null || ComputerArmy == null)
-        {
-            GD.PushError("BeginBattle called before SetArmies.");
-            return;
-        }
-        StartBattle(PlayerArmy, ComputerArmy);
-    }
+	// Starts the battle with the stored armies. Called after the placement phase.
+	public void BeginBattle()
+	{
+		if (PlayerArmy == null || ComputerArmy == null)
+		{
+			GD.PushError("BeginBattle called before SetArmies.");
+			return;
+		}
+		StartBattle(PlayerArmy, ComputerArmy);
+	}
 
-    #endregion
+	#endregion
 
-    #region Screen projection
+	#region Screen projection
 
-    // Where a global point shows on the screen, on the canvas the UI draws on: projected with the battle camera
-    // into SubViewport pixels, then mapped by the ViewportRect. Null if it's behind the camera.
+	// Where a global point shows on the screen, on the canvas the UI draws on: projected with the battle camera
+	// into SubViewport pixels, then mapped by the ViewportRect. Null if it's behind the camera.
     public Vector2? ProjectToCanvas(Vector3 globalPoint)
     {
         if (PlayerCamera == null || GameViewportRect == null || PlayerCamera.IsPositionBehind(globalPoint))
@@ -395,9 +395,9 @@ public partial class Arena : Node3D
         return GameViewportRect.ViewportToCanvas(PlayerCamera.UnprojectPosition(globalPoint));
     }
 
-    // Where the stack's label goes on the screen: the near edge of its footprint as the camera sees it (the
-    // footprint center's projected X, its lowest projected corner's Y). A 1x1 stack's tag stays at its feet, and a
-    // 2x2 one's sits in front of the model instead of covering it (wolves lie flat). From the unit's current
+	// Where the stack's label goes on the screen: the near edge of its footprint as the camera sees it (the
+	// footprint center's projected X, its lowest projected corner's Y). A 1x1 stack's tag stays at its feet, and a
+	// 2x2 one's sits in front of the model instead of covering it (wolves lie flat). From the unit's current
     // position, so it follows moves and the setup drag. Null if the stack has no unit or a corner is behind the camera.
     public Vector2? GetStackLabelCanvasPoint(Stack stack)
     {
@@ -423,17 +423,17 @@ public partial class Arena : Node3D
     #region Tiles
 
     // Position relative to the Arena of a point on the grid, in tile units: (0, 0) is the outer corner
-    // of tile (0, 0) and (0.5, 0.5) its center. The grid is centered on the Arena's origin.
-    // For a global position use arena.ToGlobal(GridToWorld(...)).
-    public static Vector3 GridToWorld(Vector2 gridPoint)
-    {
-        return new Vector3((gridPoint.X - AreaWidth / 2f) * TileSize, 0, (gridPoint.Y - AreaHeight / 2f) * TileSize);
-    }
+	// of tile (0, 0) and (0.5, 0.5) its center. The grid is centered on the Arena's origin.
+	// For a global position use arena.ToGlobal(GridToWorld(...)).
+	public static Vector3 GridToWorld(Vector2 gridPoint)
+	{
+		return new Vector3((gridPoint.X - AreaWidth / 2f) * TileSize, 0, (gridPoint.Y - AreaHeight / 2f) * TileSize);
+	}
 
-    // Center of a tile.
-    public static Vector3 GridToWorld(Vector2I tile) => GridToWorld((Vector2)tile + new Vector2(0.5f, 0.5f));
+	// Center of a tile.
+	public static Vector3 GridToWorld(Vector2I tile) => GridToWorld((Vector2)tile + new Vector2(0.5f, 0.5f));
 
-    // Center of a stack's footprint with its anchor on the given tile; works for 1x1 and 2x2 stacks.
+	// Center of a stack's footprint with its anchor on the given tile; works for 1x1 and 2x2 stacks.
     public static Vector3 GridToWorld(Stack stack, Vector2I anchor) =>
         GridToWorld((Vector2)anchor + new Vector2(stack.Size, stack.Size) / 2f);
 
@@ -486,39 +486,39 @@ public partial class Arena : Node3D
         }
     }
 
-    // A tile under a 2x2 stack is stood in for by the stack's double tile: its small tile stays disabled,
-    // so it never shows through, and the double tile is shown or hidden in its place.
-    private void SetTilesShown(IEnumerable<Vector2I> tiles, bool shown)
-    {
-        Dictionary<Vector2I, DoubleTile> doubleTiles = GetDoubleTilesByTile();
-        foreach (Vector2I tile in tiles)
-        {
-            SmallTile smallTile = GetSmallTile(tile);
-            if (doubleTiles.TryGetValue(tile, out DoubleTile? doubleTile))
-            {
-                smallTile.Enabled = false;
-                doubleTile.Enabled = shown;
-                if (!shown)
-                {
-                    doubleTile.IsMeleeAttackTile = false;
-                    doubleTile.Raised = false;
-                }
-            }
-            else
-            {
-                smallTile.Enabled = shown;
-            }
-            if (!shown)
-            {
-                smallTile.IsMeleeAttackTile = false;
-                smallTile.Raised = false;
-            }
-        }
-    }
+	// A tile under a 2x2 stack is stood in for by the stack's double tile: its small tile stays disabled,
+	// so it never shows through, and the double tile is shown or hidden in its place.
+	private void SetTilesShown(IEnumerable<Vector2I> tiles, bool shown)
+	{
+		Dictionary<Vector2I, DoubleTile> doubleTiles = GetDoubleTilesByTile();
+		foreach (Vector2I tile in tiles)
+		{
+			SmallTile smallTile = GetSmallTile(tile);
+			if (doubleTiles.TryGetValue(tile, out DoubleTile? doubleTile))
+			{
+				smallTile.Enabled = false;
+				doubleTile.Enabled = shown;
+				if (!shown)
+				{
+					doubleTile.IsMeleeAttackTile = false;
+					doubleTile.Raised = false;
+				}
+			}
+			else
+			{
+				smallTile.Enabled = shown;
+			}
+			if (!shown)
+			{
+				smallTile.IsMeleeAttackTile = false;
+				smallTile.Raised = false;
+			}
+		}
+	}
 
-    // The double tile covering each tile, for every spawned 2x2 stack, by the stack's current anchor,
-    // and the move preview while it's shown. The preview comes last, so it wins where it overlaps the
-    // current stack's own double tile.
+	// The double tile covering each tile, for every spawned 2x2 stack, by the stack's current anchor,
+	// and the move preview while it's shown. The preview comes last, so it wins where it overlaps the
+	// current stack's own double tile.
     private Dictionary<Vector2I, DoubleTile> GetDoubleTilesByTile()
     {
         var doubleTiles = new Dictionary<Vector2I, DoubleTile>();
@@ -556,33 +556,33 @@ public partial class Arena : Node3D
     {
         while (!battle.IsOver)
         {
-            // Wait a frame per turn, so turns that finish instantly (like a skipped AI turn) can't freeze the game.
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+			// Wait a frame per turn, so turns that finish instantly (like a skipped AI turn) can't freeze the game.
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
-            Stack? stack = battle.GetTurnInput();
-            if (stack == null)
-            {
-                await EndRound(battle);
-                continue;
-            }
+			Stack? stack = battle.GetTurnInput();
+			if (stack == null)
+			{
+				await EndRound(battle);
+				continue;
+			}
 
-            CurrentStack = stack;
-            Reachability reachability = battle.GetReachability(stack);
-            CurrentReachability = reachability;
-            TurnOutput output = battle.IsPlayerStack(stack)
-                ? await GetPlayerTurn(battle, stack, reachability)
-                : await GetComputerTurn(battle, stack, reachability);
-            ClearTurnInput();
+			CurrentStack = stack;
+			Reachability reachability = battle.GetReachability(stack);
+			CurrentReachability = reachability;
+			TurnOutput output = battle.IsPlayerStack(stack)
+				? await GetPlayerTurn(battle, stack, reachability)
+				: await GetComputerTurn(battle, stack, reachability);
+			ClearTurnInput();
 
-            // A waiting stack's turn comes again at the end of the round, so its turn doesn't end now
-            // (turn passives and effects run once, after the turn it really takes)
-            if (output.Wait && battle.Wait(stack))
-            {
-                CurrentReachability = null;
-                continue;
-            }
+			// A waiting stack's turn comes again at the end of the round, so its turn doesn't end now
+			// (turn passives and effects run once, after the turn it really takes)
+			if (output.Wait && battle.Wait(stack))
+			{
+				CurrentReachability = null;
+				continue;
+			}
 
-            // CurrentReachability, not the local: a hero spell cast during the player's turn searches it again
+			// CurrentReachability, not the local: a hero spell cast during the player's turn searches it again
             await ExecuteTurn(battle, stack, output, CurrentReachability ?? reachability);
             CurrentReachability = null;
             await EndTurn(stack);
@@ -638,19 +638,19 @@ public partial class Arena : Node3D
             MovePreview.Enabled = false;
     }
 
-    // After the player's turn is decided: also ends spell targeting and disables the spellbook buttons.
-    private void ClearTurnInput()
-    {
-        ClearTurnTargets();
-        _pickedSpell = null;
-        _spellTargets.Clear();
-        _userInterface?.UpdateSpellButtons(null);
-        _userInterface?.SetWaitEnabled(false);
-        _userInterface?.SetCancelSpellVisible(false);
-    }
+	// After the player's turn is decided: also ends spell targeting and disables the spellbook buttons.
+	private void ClearTurnInput()
+	{
+		ClearTurnTargets();
+		_pickedSpell = null;
+		_spellTargets.Clear();
+		_userInterface?.UpdateSpellButtons(null);
+		_userInterface?.SetWaitEnabled(false);
+		_userInterface?.SetCancelSpellVisible(false);
+	}
 
-    // Whether the stack whose turn it is can melee the target this turn: from where it stands, or after moving
-    // to a reachable anchor next to it. False outside a turn. Doesn't check sides.
+	// Whether the stack whose turn it is can melee the target this turn: from where it stands, or after moving
+	// to a reachable anchor next to it. False outside a turn. Doesn't check sides.
     public bool CanCurrentStackMelee(Stack target) =>
         Battle != null && CurrentStack != null && CurrentReachability != null
         && Battle.CanMelee(CurrentStack, target, CurrentReachability);
@@ -668,8 +668,8 @@ public partial class Arena : Node3D
     }
 
     // Shows under the hovered target what the action would do to it: units killed (or revived, by a spell).
-    // From the same amounts the abilities deal (GetDamage, SpellAbility.Evaluate), so it's what really happens.
-    // Retaliation isn't included.
+	// From the same amounts the abilities deal (GetDamage, SpellAbility.Evaluate), so it's what really happens.
+	// Retaliation isn't included.
     private void UpdateActionPreview()
     {
         if (_userInterface == null)
@@ -703,127 +703,127 @@ public partial class Arena : Node3D
         _userInterface.SetActionPreview(target, killed, revived);
     }
 
-    // Every frame on the player's turn: picks the attack position for the hovered melee target (red and raised),
-    // and for a 2x2 stack moves the move preview to it, or else to the hovered tile. Off while picking a spell target.
-    private void UpdateTurnHover()
-    {
-        if (IsPickingSpellTarget)
-            return;
-        Stack stack = CurrentStack!;
-        Stack? target = GetFocusedMeleeTarget();
-        Vector2I? attackAnchor = null;
-        if (target != null && PlayerCamera?.GetBoardHoverPoint() is Vector3 hoverPoint)
-            attackAnchor = PickMeleeAttackAnchor(target, ToLocal(hoverPoint));
-        (Stack Target, Vector2I Anchor)? picked = attackAnchor is Vector2I a ? (target!, a) : null;
+	// Every frame on the player's turn: picks the attack position for the hovered melee target (red and raised),
+	// and for a 2x2 stack moves the move preview to it, or else to the hovered tile. Off while picking a spell target.
+	private void UpdateTurnHover()
+	{
+		if (IsPickingSpellTarget)
+			return;
+		Stack stack = CurrentStack!;
+		Stack? target = GetFocusedMeleeTarget();
+		Vector2I? attackAnchor = null;
+		if (target != null && PlayerCamera?.GetBoardHoverPoint() is Vector3 hoverPoint)
+			attackAnchor = PickMeleeAttackAnchor(target, ToLocal(hoverPoint));
+		(Stack Target, Vector2I Anchor)? picked = attackAnchor is Vector2I a ? (target!, a) : null;
 
-        Vector2I previewAnchor = _movePreviewAnchor ?? stack.Anchor;
-        Vector2I newPreviewAnchor = stack.Size >= 2 ? attackAnchor ?? GetHoveredMovePreviewAnchor(previewAnchor) : previewAnchor;
+		Vector2I previewAnchor = _movePreviewAnchor ?? stack.Anchor;
+		Vector2I newPreviewAnchor = stack.Size >= 2 ? attackAnchor ?? GetHoveredMovePreviewAnchor(previewAnchor) : previewAnchor;
 
-        if (picked == _pickedMeleeAttack && newPreviewAnchor == previewAnchor)
-            return;
+		if (picked == _pickedMeleeAttack && newPreviewAnchor == previewAnchor)
+			return;
 
-        // Unmarked before the preview moves, since a 2x2 pick is shown on the preview
-        if (_pickedMeleeAttack is { } previous)
-            SetTilesHighlight(stack.GetTilesAt(previous.Anchor), red: false, raised: false);
-        if (newPreviewAnchor != previewAnchor)
-            MoveMovePreview(newPreviewAnchor);
-        _pickedMeleeAttack = picked;
-        if (picked is { } current)
-            SetTilesHighlight(stack.GetTilesAt(current.Anchor), red: true, raised: true);
-    }
+		// Unmarked before the preview moves, since a 2x2 pick is shown on the preview
+		if (_pickedMeleeAttack is { } previous)
+			SetTilesHighlight(stack.GetTilesAt(previous.Anchor), red: false, raised: false);
+		if (newPreviewAnchor != previewAnchor)
+			MoveMovePreview(newPreviewAnchor);
+		_pickedMeleeAttack = picked;
+		if (picked is { } current)
+			SetTilesHighlight(stack.GetTilesAt(current.Anchor), red: true, raised: true);
+	}
 
-    #region Move preview (2x2 stacks)
+	#region Move preview (2x2 stacks)
 
-    // Where the move preview goes for what's hovered: a reachable small tile pulls it as little as needed to
-    // cover it (like the setup drag), the stack's own double tile resets it, anything else keeps it in place.
-    private Vector2I GetHoveredMovePreviewAnchor(Vector2I previewAnchor)
-    {
-        Stack stack = CurrentStack!;
-        return PlayerCamera?.CurrentFocusedNode switch
-        {
-            SmallTile tile when CurrentReachability != null =>
-                ClosestAnchor(CurrentReachability.GetAnchorsCovering(tile.GridPosition), previewAnchor) ?? previewAnchor,
-            DoubleTile tile when tile == stack.NodeRepresentation?.GroundTile => stack.Anchor,
-            _ => previewAnchor,
-        };
-    }
+	// Where the move preview goes for what's hovered: a reachable small tile pulls it as little as needed to
+	// cover it (like the setup drag), the stack's own double tile resets it, anything else keeps it in place.
+	private Vector2I GetHoveredMovePreviewAnchor(Vector2I previewAnchor)
+	{
+		Stack stack = CurrentStack!;
+		return PlayerCamera?.CurrentFocusedNode switch
+		{
+			SmallTile tile when CurrentReachability != null =>
+				ClosestAnchor(CurrentReachability.GetAnchorsCovering(tile.GridPosition), previewAnchor) ?? previewAnchor,
+			DoubleTile tile when tile == stack.NodeRepresentation?.GroundTile => stack.Anchor,
+			_ => previewAnchor,
+		};
+	}
 
-    // Moves the move preview to the anchor, or hides it on the stack's own position. The small tiles it leaves
-    // get shown again and the new ones hand over to it, as with a stack's double tile.
-    private void MoveMovePreview(Vector2I anchor)
-    {
-        Stack stack = CurrentStack!;
-        List<Vector2I> oldTiles = _movePreviewAnchor is Vector2I old ? stack.GetTilesAt(old) : [];
-        if (_movePreviewAnchor != null)
-        {
-            MovePreview!.IsMeleeAttackTile = false;
-            MovePreview.Raised = false;
-        }
+	// Moves the move preview to the anchor, or hides it on the stack's own position. The small tiles it leaves
+	// get shown again and the new ones hand over to it, as with a stack's double tile.
+	private void MoveMovePreview(Vector2I anchor)
+	{
+		Stack stack = CurrentStack!;
+		List<Vector2I> oldTiles = _movePreviewAnchor is Vector2I old ? stack.GetTilesAt(old) : [];
+		if (_movePreviewAnchor != null)
+		{
+			MovePreview!.IsMeleeAttackTile = false;
+			MovePreview.Raised = false;
+		}
 
-        _movePreviewAnchor = anchor == stack.Anchor ? null : anchor;
-        if (_movePreviewAnchor is Vector2I newAnchor)
-        {
-            MovePreview!.GridPosition = newAnchor;
-            MovePreview.Position = GridToWorld(stack, newAnchor) + Vector3.Up * MovePreviewLift;
-        }
-        else
-        {
-            MovePreview!.Enabled = false;
-        }
+		_movePreviewAnchor = anchor == stack.Anchor ? null : anchor;
+		if (_movePreviewAnchor is Vector2I newAnchor)
+		{
+			MovePreview!.GridPosition = newAnchor;
+			MovePreview.Position = GridToWorld(stack, newAnchor) + Vector3.Up * MovePreviewLift;
+		}
+		else
+		{
+			MovePreview!.Enabled = false;
+		}
 
-        // Shown by the current anchors: tiles under the preview enable it, the others their small tile
-        // or the stack's own double tile
+		// Shown by the current anchors: tiles under the preview enable it, the others their small tile
+		// or the stack's own double tile
         ShowTiles(oldTiles.Concat(stack.GetTilesAt(anchor)));
     }
 
     // Moves the current stack: to the clicked tile for a 1x1 stack, to the move preview for a 2x2 stack
-    // (the clicked tile may be any of the 4 it covers). False if it isn't the player's turn or it can't go there.
-    public bool TrySubmitMoveTo(Vector2I tile)
-    {
-        if (!IsPlayerTurn || IsPickingSpellTarget || CurrentStack == null || CurrentReachability == null)
-            return false;
+	// (the clicked tile may be any of the 4 it covers). False if it isn't the player's turn or it can't go there.
+	public bool TrySubmitMoveTo(Vector2I tile)
+	{
+		if (!IsPlayerTurn || IsPickingSpellTarget || CurrentStack == null || CurrentReachability == null)
+			return false;
 
-        Vector2I anchor = CurrentStack.Size >= 2
-            ? _movePreviewAnchor ?? ClosestAnchor(CurrentReachability.GetAnchorsCovering(tile), CurrentStack.Anchor) ?? CurrentStack.Anchor
-            : tile;
-        if (anchor == CurrentStack.Anchor || !CurrentReachability.CanReach(anchor))
-            return false;
+		Vector2I anchor = CurrentStack.Size >= 2
+			? _movePreviewAnchor ?? ClosestAnchor(CurrentReachability.GetAnchorsCovering(tile), CurrentStack.Anchor) ?? CurrentStack.Anchor
+			: tile;
+		if (anchor == CurrentStack.Anchor || !CurrentReachability.CanReach(anchor))
+			return false;
 
-        SubmitPlayerTurn(new TurnOutput { MoveTo = anchor });
-        return true;
-    }
+		SubmitPlayerTurn(new TurnOutput { MoveTo = anchor });
+		return true;
+	}
 
-    #endregion
+	#endregion
 
-    #region Melee
+	#region Melee
 
-    // The stack under the mouse: its unit, or the tile it stands on. Null if nothing stands there.
-    private Stack? GetFocusedStack() => PlayerCamera?.CurrentFocusedNode switch
-    {
-        UnitNode unit => unit.CurrentStack,
-        SmallTile tile => Battle?.GetStackAt(tile.GridPosition),
-        DoubleTile tile => Battle?.GetStackAt(tile.GridPosition),
-        _ => null,
-    };
+	// The stack under the mouse: its unit, or the tile it stands on. Null if nothing stands there.
+	private Stack? GetFocusedStack() => PlayerCamera?.CurrentFocusedNode switch
+	{
+		UnitNode unit => unit.CurrentStack,
+		SmallTile tile => Battle?.GetStackAt(tile.GridPosition),
+		DoubleTile tile => Battle?.GetStackAt(tile.GridPosition),
+		_ => null,
+	};
 
-    // The melee target under the mouse (its unit or its tile). Null if the hovered thing isn't one.
+	// The melee target under the mouse (its unit or its tile). Null if the hovered thing isn't one.
     private Stack? GetFocusedMeleeTarget() =>
         GetFocusedStack() is Stack stack && _meleeTargets.Contains(stack) ? stack : null;
 
     // Of the positions the current stack can melee the target from, the one on the side of the target that the
-    // hover point (Arena-local, on the board plane) is on: the smallest angle around the target's footprint center.
-    public Vector2I? PickMeleeAttackAnchor(Stack target, Vector3 hoverPoint)
-    {
-        if (Battle == null || CurrentStack == null || CurrentReachability == null)
-            return null;
-        List<Vector2I> anchors = Battle.GetMeleeAttackAnchors(CurrentStack, target, CurrentReachability);
-        if (anchors.Count == 0)
-            return null;
+	// hover point (Arena-local, on the board plane) is on: the smallest angle around the target's footprint center.
+	public Vector2I? PickMeleeAttackAnchor(Stack target, Vector3 hoverPoint)
+	{
+		if (Battle == null || CurrentStack == null || CurrentReachability == null)
+			return null;
+		List<Vector2I> anchors = Battle.GetMeleeAttackAnchors(CurrentStack, target, CurrentReachability);
+		if (anchors.Count == 0)
+			return null;
 
-        Vector3 center = GridToWorld(target, target.Anchor);
-        Vector3 toMouse = hoverPoint - center;
-        toMouse.Y = 0;
-        // Right on the center there's no direction; keep the previous pick
+		Vector3 center = GridToWorld(target, target.Anchor);
+		Vector3 toMouse = hoverPoint - center;
+		toMouse.Y = 0;
+		// Right on the center there's no direction; keep the previous pick
         if (toMouse.LengthSquared() < 1e-6f)
             return _pickedMeleeAttack is { } p && p.Target == target ? p.Anchor : anchors[0];
         toMouse = toMouse.Normalized();
@@ -837,80 +837,80 @@ public partial class Arena : Node3D
     }
 
     // Melee attack on the target from the picked position, moving there first if needed.
-    // False, and nothing submitted, if it isn't the player's turn or the target can't be meleed.
-    public bool TrySubmitMeleeAttack(Stack target)
-    {
-        if (!IsPlayerTurn || Battle == null || CurrentStack?.Unit.MeleeAttack is not MeleeAttackAbility melee
-            || !_meleeTargets.Contains(target))
-            return false;
+	// False, and nothing submitted, if it isn't the player's turn or the target can't be meleed.
+	public bool TrySubmitMeleeAttack(Stack target)
+	{
+		if (!IsPlayerTurn || Battle == null || CurrentStack?.Unit.MeleeAttack is not MeleeAttackAbility melee
+			|| !_meleeTargets.Contains(target))
+			return false;
 
-        Vector2I anchor = _pickedMeleeAttack is { } picked && picked.Target == target
-            ? picked.Anchor
-            : Battle.GetMeleeAttackAnchors(CurrentStack, target, CurrentReachability)[0];
+		Vector2I anchor = _pickedMeleeAttack is { } picked && picked.Target == target
+			? picked.Anchor
+			: Battle.GetMeleeAttackAnchors(CurrentStack, target, CurrentReachability)[0];
 
-        var output = new TurnOutput();
-        if (anchor != CurrentStack.Anchor)
-            output.MoveTo = anchor;
-        output.Add(melee, target);
-        SubmitPlayerTurn(output);
-        return true;
-    }
+		var output = new TurnOutput();
+		if (anchor != CurrentStack.Anchor)
+			output.MoveTo = anchor;
+		output.Add(melee, target);
+		SubmitPlayerTurn(output);
+		return true;
+	}
 
-    // While an attack position is picked on the player's turn, the mouse is replaced by the sword: drawn at the
-    // picked footprint's center projected onto the screen, pointing at the target as seen through the camera.
-    private void UpdateMeleeCursor()
-    {
-        if (_userInterface == null)
-            return;
-        if (!IsPlayerTurn || _pickedMeleeAttack is not { } picked || CurrentStack == null
-            || PlayerCamera == null || GameViewportRect == null)
-        {
-            _userInterface.HideMeleeCursor();
-            return;
-        }
+	// While an attack position is picked on the player's turn, the mouse is replaced by the sword: drawn at the
+	// picked footprint's center projected onto the screen, pointing at the target as seen through the camera.
+	private void UpdateMeleeCursor()
+	{
+		if (_userInterface == null)
+			return;
+		if (!IsPlayerTurn || _pickedMeleeAttack is not { } picked || CurrentStack == null
+			|| PlayerCamera == null || GameViewportRect == null)
+		{
+			_userInterface.HideMeleeCursor();
+			return;
+		}
 
-        // Arena-local, on the board: the picked position and one meter from it toward the target
-        Vector3 from = GridToWorld(CurrentStack, picked.Anchor);
-        Vector3 toTarget = GridToWorld(picked.Target, picked.Target.Anchor) - from;
-        toTarget.Y = 0;
-        Vector3 towards = from + toTarget.Normalized();
+		// Arena-local, on the board: the picked position and one meter from it toward the target
+		Vector3 from = GridToWorld(CurrentStack, picked.Anchor);
+		Vector3 toTarget = GridToWorld(picked.Target, picked.Target.Anchor) - from;
+		toTarget.Y = 0;
+		Vector3 towards = from + toTarget.Normalized();
 
-        // Both points go through the same projection, so the 2D direction matches the 3D one with perspective
-        if (ProjectToCanvas(ToGlobal(from)) is not Vector2 screenFrom
-            || ProjectToCanvas(ToGlobal(towards)) is not Vector2 screenTowards)
-        {
-            _userInterface.HideMeleeCursor();
-            return;
-        }
+		// Both points go through the same projection, so the 2D direction matches the 3D one with perspective
+		if (ProjectToCanvas(ToGlobal(from)) is not Vector2 screenFrom
+			|| ProjectToCanvas(ToGlobal(towards)) is not Vector2 screenTowards)
+		{
+			_userInterface.HideMeleeCursor();
+			return;
+		}
 
-        // Screen Y points down, so up is Vector2.Up (0, -1); AngleTo is clockwise-positive, like 2D rotation
-        float rotation = Vector2.Up.AngleTo(screenTowards - screenFrom);
-        _userInterface.ShowMeleeCursor(screenFrom, rotation);
-    }
+		// Screen Y points down, so up is Vector2.Up (0, -1); AngleTo is clockwise-positive, like 2D rotation
+		float rotation = Vector2.Up.AngleTo(screenTowards - screenFrom);
+		_userInterface.ShowMeleeCursor(screenFrom, rotation);
+	}
 
-    #endregion
+	#endregion
 
-    #region Long range
+	#region Long range
 
-    // The ranged target under the mouse (its unit or its tile). Null if the hovered thing isn't one.
+	// The ranged target under the mouse (its unit or its tile). Null if the hovered thing isn't one.
     private Stack? GetFocusedRangedTarget() =>
         GetFocusedStack() is Stack stack && _rangedTargets.Contains(stack) ? stack : null;
 
     // Shoots the target from where the current stack stands. False, and nothing submitted,
-    // if it isn't the player's turn or the target can't be shot.
-    public bool TrySubmitRangedAttack(Stack target)
-    {
-        if (!IsPlayerTurn || CurrentStack?.Unit.LongRangeAttack is not LongRangeAttackAbility ranged
-            || !_rangedTargets.Contains(target))
-            return false;
+	// if it isn't the player's turn or the target can't be shot.
+	public bool TrySubmitRangedAttack(Stack target)
+	{
+		if (!IsPlayerTurn || CurrentStack?.Unit.LongRangeAttack is not LongRangeAttackAbility ranged
+			|| !_rangedTargets.Contains(target))
+			return false;
 
-        var output = new TurnOutput();
-        output.Add(ranged, target);
-        SubmitPlayerTurn(output);
-        return true;
-    }
+		var output = new TurnOutput();
+		output.Add(ranged, target);
+		SubmitPlayerTurn(output);
+		return true;
+	}
 
-    // While a ranged target is hovered on the player's turn, the mouse is replaced by the arrow.
+	// While a ranged target is hovered on the player's turn, the mouse is replaced by the arrow.
     private void UpdateRangedCursor()
     {
         if (_userInterface == null)
@@ -925,117 +925,117 @@ public partial class Arena : Node3D
 
     #region Spells
 
-    // Called when a spell is picked in the spellbook: swaps the normal turn input for picking the spell's target.
-    private void BeginSpellTargeting(SpellAbility spell, bool isHeroSpell)
-    {
-        if (!IsPlayerTurn || Battle == null || CurrentStack == null)
-            return;
+	// Called when a spell is picked in the spellbook: swaps the normal turn input for picking the spell's target.
+	private void BeginSpellTargeting(SpellAbility spell, bool isHeroSpell)
+	{
+		if (!IsPlayerTurn || Battle == null || CurrentStack == null)
+			return;
 
-        ClearTurnTargets();
-        _pickedSpell = spell;
-        _pickedSpellIsHero = isHeroSpell;
-        _spellTargets.Clear();
-        _spellTargets.AddRange(Battle.GetSpellTargets(CurrentStack, spell));
-        foreach (Stack target in _spellTargets)
-        {
-            ShowTiles(target.GetOccupiedTiles());
-            SetTilesHighlight(target.GetOccupiedTiles(), red: Battle.GetEnemies(CurrentStack).Contains(target), raised: false);
-        }
-        _userInterface?.SetCancelSpellVisible(true);
-    }
+		ClearTurnTargets();
+		_pickedSpell = spell;
+		_pickedSpellIsHero = isHeroSpell;
+		_spellTargets.Clear();
+		_spellTargets.AddRange(Battle.GetSpellTargets(CurrentStack, spell));
+		foreach (Stack target in _spellTargets)
+		{
+			ShowTiles(target.GetOccupiedTiles());
+			SetTilesHighlight(target.GetOccupiedTiles(), red: Battle.GetEnemies(CurrentStack).Contains(target), raised: false);
+		}
+		_userInterface?.SetCancelSpellVisible(true);
+	}
 
-    // Back to the normal turn input, as at the start of the turn. Used by right click, Escape and the Cancel Spell button.
-    public void CancelSpellTargeting()
-    {
-        if (!IsPlayerTurn || !IsPickingSpellTarget || Battle == null || CurrentStack == null || CurrentReachability == null)
-            return;
-        HideAllTiles();
-        _pickedSpell = null;
-        _spellTargets.Clear();
-        _userInterface?.SetCancelSpellVisible(false);
-        ShowTurnTargets(Battle, CurrentStack, CurrentReachability);
-    }
+	// Back to the normal turn input, as at the start of the turn. Used by right click, Escape and the Cancel Spell button.
+	public void CancelSpellTargeting()
+	{
+		if (!IsPlayerTurn || !IsPickingSpellTarget || Battle == null || CurrentStack == null || CurrentReachability == null)
+			return;
+		HideAllTiles();
+		_pickedSpell = null;
+		_spellTargets.Clear();
+		_userInterface?.SetCancelSpellVisible(false);
+		ShowTurnTargets(Battle, CurrentStack, CurrentReachability);
+	}
 
-    public override void _Input(InputEvent @event)
-    {
-        if (!IsPlayerTurn || !IsPickingSpellTarget)
-            return;
-        if (@event is InputEventMouseButton { ButtonIndex: MouseButton.Right, Pressed: true } || @event.IsActionPressed("ui_cancel"))
-        {
-            CancelSpellTargeting();
-            GetViewport().SetInputAsHandled();
-        }
-    }
+	public override void _Input(InputEvent @event)
+	{
+		if (!IsPlayerTurn || !IsPickingSpellTarget)
+			return;
+		if (@event is InputEventMouseButton { ButtonIndex: MouseButton.Right, Pressed: true } || @event.IsActionPressed("ui_cancel"))
+		{
+			CancelSpellTargeting();
+			GetViewport().SetInputAsHandled();
+		}
+	}
 
-    // Casts the picked spell on the target: a hero spell right away, with the turn going on after it, a unit spell
-    // as the stack's action for this turn. False if no spell is being targeted or the target isn't valid for it.
-    public bool TrySubmitSpell(Stack target)
-    {
-        if (!IsPlayerTurn || _pickedSpell is not SpellAbility spell || !_spellTargets.Contains(target))
-            return false;
+	// Casts the picked spell on the target: a hero spell right away, with the turn going on after it, a unit spell
+	// as the stack's action for this turn. False if no spell is being targeted or the target isn't valid for it.
+	public bool TrySubmitSpell(Stack target)
+	{
+		if (!IsPlayerTurn || _pickedSpell is not SpellAbility spell || !_spellTargets.Contains(target))
+			return false;
 
-        if (_pickedSpellIsHero)
-        {
-            CastHeroSpell(spell, target);
-            return true;
-        }
+		if (_pickedSpellIsHero)
+		{
+			CastHeroSpell(spell, target);
+			return true;
+		}
 
-        var output = new TurnOutput();
-        output.Add(spell, target);
-        SubmitPlayerTurn(output);
-        return true;
-    }
+		var output = new TurnOutput();
+		output.Add(spell, target);
+		SubmitPlayerTurn(output);
+		return true;
+	}
 
-    // Where a hero casts from (global): the player's hero at HeroSpellCastPosition, the computer's at the marker
-    // mirrored to the other side of the board (X flipped, Arena-local). Without the marker, from the acting unit.
-    public Vector3 GetHeroCastOrigin(Stack caster)
-    {
-        if (HeroSpellCastPosition == null)
-            return caster.NodeRepresentation?.GlobalPosition ?? GlobalPosition;
-        if (Battle?.IsPlayerStack(caster) ?? true)
-            return HeroSpellCastPosition.GlobalPosition;
-        Vector3 local = ToLocal(HeroSpellCastPosition.GlobalPosition);
-        return ToGlobal(new Vector3(-local.X, local.Y, local.Z));
-    }
+	// Where a hero casts from (global): the player's hero at HeroSpellCastPosition, the computer's at the marker
+	// mirrored to the other side of the board (X flipped, Arena-local). Without the marker, from the acting unit.
+	public Vector3 GetHeroCastOrigin(Stack caster)
+	{
+		if (HeroSpellCastPosition == null)
+			return caster.NodeRepresentation?.GlobalPosition ?? GlobalPosition;
+		if (Battle?.IsPlayerStack(caster) ?? true)
+			return HeroSpellCastPosition.GlobalPosition;
+		Vector3 local = ToLocal(HeroSpellCastPosition.GlobalPosition);
+		return ToGlobal(new Vector3(-local.X, local.Y, local.Z));
+	}
 
-    // Plays the hero's spell in the middle of the player's turn, then gives the turn back: dead stacks are removed,
-    // the reachability is searched again (the board may have changed) and the turn input is shown again.
-    // If the battle is over or the acting stack died, the turn ends instead.
-    private async void CastHeroSpell(SpellAbility spell, Stack target)
-    {
-        if (Battle is not Battle battle || CurrentStack is not Stack stack)
-            return;
+	// Plays the hero's spell in the middle of the player's turn, then gives the turn back: dead stacks are removed,
+	// the reachability is searched again (the board may have changed) and the turn input is shown again.
+	// If the battle is over or the acting stack died, the turn ends instead.
+	private async void CastHeroSpell(SpellAbility spell, Stack target)
+	{
+		if (Battle is not Battle battle || CurrentStack is not Stack stack)
+			return;
 
-        ClearTurnTargets();
-        _pickedSpell = null;
-        _spellTargets.Clear();
-        _userInterface?.SetCancelSpellVisible(false);
-        _userInterface?.UpdateSpellButtons(null);
-        _castingHeroSpell = true;
-        try
-        {
-            if (stack.Hero is Hero hero && battle.SpendHeroMana(hero, spell))
-                await spell.UseFromHero(stack, GetHeroCastOrigin(stack), target, this);
-            RemoveDeadStacks(battle);
-        }
-        catch (Exception e)
-        {
-            GD.PushError($"Hero spell failed: {e}");
-        }
-        _castingHeroSpell = false;
+		ClearTurnTargets();
+		_pickedSpell = null;
+		_spellTargets.Clear();
+		_userInterface?.SetCancelSpellVisible(false);
+		_userInterface?.UpdateSpellButtons(null);
+		_castingHeroSpell = true;
+		try
+		{
+			if (stack.Hero is Hero hero && battle.SpendHeroMana(hero, spell))
+				await spell.UseFromHero(stack, GetHeroCastOrigin(stack), target, this);
+			RemoveDeadStacks(battle);
+		}
+		catch (Exception e)
+		{
+			GD.PushError($"Hero spell failed: {e}");
+		}
+		_castingHeroSpell = false;
 
-        if (battle.IsOver || stack.IsDead)
-        {
-            SubmitPlayerTurn(new TurnOutput());
-            return;
-        }
+		if (battle.IsOver || stack.IsDead)
+		{
+			SubmitPlayerTurn(new TurnOutput());
+			return;
+		}
 
-        CurrentReachability = battle.GetReachability(stack);
-        ShowTurnTargets(battle, stack, CurrentReachability);
-        _userInterface?.UpdateSpellButtons(stack);
-    }
+		CurrentReachability = battle.GetReachability(stack);
+		ShowTurnTargets(battle, stack, CurrentReachability);
+		_userInterface?.UpdateSpellButtons(stack);
+	}
 
-    // While a spell target is hovered, the mouse is replaced by the spell's hovered icon.
+	// While a spell target is hovered, the mouse is replaced by the spell's hovered icon.
     private void UpdateSpellCursor()
     {
         if (_userInterface == null)
@@ -1085,7 +1085,7 @@ public partial class Arena : Node3D
             if (reachability.CanReach(moveTo) && battle.TryPlaceStack(user, moveTo))
                 await AnimateMove(user, reachability.GetPath(moveTo));
             else
-                GD.PushWarning($"{user.Unit.Name} can't move to {moveTo}.");
+				GD.PushWarning($"{user.Unit.Name} can't move to {moveTo}.");
         }
 
         if (output.HeroSpell is var (spell, spellTarget))

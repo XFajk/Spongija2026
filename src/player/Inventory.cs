@@ -4,9 +4,10 @@ using System.Security.AccessControl;
 
 public partial class Inventory : Node
 {
-	AdventureCharacter? character;
+	public AdventureCharacter? character;
 
 	[Export] public StackResource[]? units;
+	[Export] public SpellAbility[]? spells;
 	[Export] public CraftingUnit[]? recipes;
 	public StackResource[]? unitsToSwap;
 
@@ -163,8 +164,11 @@ public partial class Inventory : Node
 		}
 
 		CraftingUnit _recipe = new CraftingUnit();
-		_recipe.Unit = units?[index].Unit;
-		_recipe.Resource = type;
+		if (units?[index] != null)
+		{
+			_recipe.Unit = units?[index].Unit;
+			_recipe.Resource = type;
+		}
 
 		foreach (CraftingUnit recipe in recipes!)
 		{
@@ -196,8 +200,8 @@ public partial class Inventory : Node
 				if (resourceAmount >= units?[index].Quantity)
 				{
 					units![indexInInventory].Quantity += (uint)units![index].Quantity;
-					units![index] = null!;
 					RemoveResource(type, (int)units![index].Quantity);
+					units![index] = null!;
 				}
 				else
 				{
@@ -246,6 +250,7 @@ public partial class Inventory : Node
 		}
 
 		character?.inventoryPanel?.ResetCombining();
+		character?.inventoryPanel?.UpdateUI(this);
 	}
 
 	public void CancelCombining()

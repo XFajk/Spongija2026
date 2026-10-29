@@ -41,6 +41,11 @@ public partial class CharacterPanel : Panel
 		horseB.Pressed += ClickHorse;
 		silkB.Pressed += ClickSilk;
 		ironB.Pressed += ClickIron;
+
+		//Spells
+		Button spellB = GetNode<Button>("/root/Map/CanvasLayer/Canvas/Character/Viewport/Magic/Spells");
+		SpellDisplay _display = GetNode<SpellDisplay>("/root/Map/CanvasLayer/Canvas/Spells");
+		spellB!.Pressed += _display.OpenBook;
 	}
 
 	public void OnVisible()
