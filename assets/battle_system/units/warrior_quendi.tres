@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="1_pmt3w"]
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_113b1"]
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_x8p6f"]
+[ext_resource type="Texture2D" uid="uid://c21n6vo2a3nt4" path="res://assets/ui/sword.png" id="5_x8p6f"]
 
 [sub_resource type="Resource" id="Resource_113b1"]
 script = ExtResource("1_113b1")
@@ -12,6 +13,7 @@ metadata/_custom_type_script = "uid://dbehoqcrijunt"
 [resource]
 script = ExtResource("3_x8p6f")
 Name = "Warrior Quendi"
+texture = ExtResource("5_x8p6f")
 MaxHealth = 125
 Strength = 15
 Defense = 15

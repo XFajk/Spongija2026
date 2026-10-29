@@ -4,10 +4,9 @@ using System.Diagnostics;
 
 public partial class PointOfInterest : Area3D, IInteractable
 {
-	[Export] public poiType type;
 	[Export] public float stopDistance;
 	[Export] public Texture2D? cursorIcon;
-	AdventureCharacter? _character;
+	protected AdventureCharacter? _character;
 	private MeshInstance3D? highlight;
 	bool _keepHighlighted;
 	bool accessed;
@@ -53,16 +52,10 @@ public partial class PointOfInterest : Area3D, IInteractable
 		accessed = false;
 	}
 
-	public void Access()
+	public virtual void Access()
 	{
 		_keepHighlighted = false;
 		highlight?.Hide();
 		accessed = true;
 	}
-}
-
-public enum poiType
-{
-	resource,
-	fight
 }
