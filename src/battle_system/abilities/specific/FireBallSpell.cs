@@ -19,24 +19,37 @@ public partial class FireBallSpell : SpellAbility
     [Export(PropertyHint.Range, "0,3")]
     public float ShootHeight { get; set; } = 0.5f;
 
+    // Spells ignore Defense. A unit's cast scales with its quantity, a hero's doesn't. Use and Evaluate both use this.
+    private int GetDamage(Stack caster, bool fromHero) => fromHero ? Damage : Damage * (int)caster.Quantity;
+
     public override async Task Use(Stack user, Stack target, Arena arena)
     {
-        target.TakeDamage(Damage * (int)user.Quantity);
 
         if (user.NodeRepresentation is not UnitNode userNode)
+        {
+            target.TakeDamage(GetDamage(user, fromHero: false));
             return;
+        }
 
         userNode.FaceTowards(target);
         await FlyFireBall(userNode.GlobalPosition + Vector3.Up * ShootHeight, target, arena);
+        target.TakeDamage(GetDamage(user, fromHero: false));
+
         userNode.FaceEnemySide();
     }
 
     // From where the hero stands; the marker is the launch point itself, so no ShootHeight is added to it
     public override async Task UseFromHero(Stack caster, Vector3 origin, Stack target, Arena arena)
     {
-        target.TakeDamage(Damage);
         await FlyFireBall(origin, target, arena);
+        target.TakeDamage(GetDamage(caster, fromHero: true));
     }
+
+    public override SpellEstimate Evaluate(Stack caster, Stack target, Battle battle) =>
+        SpellEstimate.ForDamage(GetDamage(caster, fromHero: false), target);
+
+    public override SpellEstimate EvaluateFromHero(Stack caster, Stack target, Battle battle) =>
+        SpellEstimate.ForDamage(GetDamage(caster, fromHero: true), target);
 
     private async Task FlyFireBall(Vector3 start, Stack target, Arena arena)
     {

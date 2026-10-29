@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -16,9 +15,10 @@ public partial class BasicMeleeAttackAbility : MeleeAttackAbility
     [Export(PropertyHint.Range, "0.1,3")]
     public float LungeDuration { get; set; } = 0.7f;
 
-    public override Task Use(Stack user, Stack target, Arena arena)
+    public override int GetDamage(Stack user, Stack target) => Battle.CalculateDamage(user, target, BasicAttackMultiplier);
+
+    public override async Task Use(Stack user, Stack target, Arena arena)
     {
-        target.TakeDamage(user.GetStrength() * (int)user.Quantity);
 
         var tcs = new TaskCompletionSource();
 
@@ -26,7 +26,10 @@ public partial class BasicMeleeAttackAbility : MeleeAttackAbility
         var maybeTargetNode = target.NodeRepresentation;
 
         if (maybeUserNode is not UnitNode userNode || maybeTargetNode is not UnitNode targetNode)
-            return Task.CompletedTask;
+        {
+            target.TakeDamage(GetDamage(user, target));
+            return;
+        }
 
         // Local positions: both units are children of the Arena, so this works wherever the Arena is
         Vector3 start = userNode.Position;
@@ -42,12 +45,13 @@ public partial class BasicMeleeAttackAbility : MeleeAttackAbility
             0f, 1f, LungeDuration);
         tween.TweenCallback(Callable.From(() =>
         {
+            target.TakeDamage(GetDamage(user, target));
             userNode.Position = start;
             userNode.FaceEnemySide();
             tcs.SetResult();
         }));
 
-        return tcs.Task;
+        await tcs.Task;
     }
 
     // A damped spring over t = 0..1: 0 at the start, a full swing out (peak 1 at t ~ 0.12), a small recoil behind

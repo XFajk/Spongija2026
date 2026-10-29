@@ -10,7 +10,15 @@ public partial class DoubleTile : Area3D, IInteractable
 
 	private MeshInstance3D? _innerSquare;
 
-	public Vector2I GridPosition { get; set; }
+	private Vector2I _gridPosition;
+
+	// Under a unit (its GroundTile) it's always the stack's current anchor, like UnitNode.GridPosition, so it stays
+	// right however the stack moves. The move preview isn't under a unit and keeps the value it's given.
+	public Vector2I GridPosition
+	{
+		get => GetParentOrNull<UnitNode>()?.CurrentStack?.Anchor ?? _gridPosition;
+		set => _gridPosition = value;
+	}
 
 	// Set by Arena right after instantiating, before the tile enters the tree, so it's valid in _Ready
 	public Arena? ArenaRef { get; set; } = null;

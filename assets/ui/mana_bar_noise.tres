@@ -1,0 +1,11 @@
+[gd_resource type="NoiseTexture2D" format=3 uid="uid://dmnbarn07x2kq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mana"]
+frequency = 0.015
+fractal_octaves = 4
+
+[resource]
+width = 256
+height = 256
+seamless = true
+noise = SubResource("FastNoiseLite_mana")

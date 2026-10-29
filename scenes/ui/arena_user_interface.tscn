@@ -3,6 +3,42 @@
 [ext_resource type="Script" uid="uid://dhgyikkofw01c" path="res://src/ui/ArenaUserInterface.cs" id="1_bxfrx"]
 [ext_resource type="SpriteFrames" uid="uid://ccufku72ig3ug" path="res://assets/ui/book/book_animations.tres" id="2_fhxv5"]
 [ext_resource type="PackedScene" uid="uid://b011mxkc5of83" path="res://scenes/ui/spell_button.tscn" id="3_cfmi2"]
+[ext_resource type="Shader" uid="uid://bmnbarsh4d3rq" path="res://src/shaders/mana_bar.gdshader" id="4_hqvwm"]
+[ext_resource type="Theme" uid="uid://dekw64qwcbodv" path="res://assets/ui_themes/mana_bar_theme.tres" id="4_qid0r"]
+[ext_resource type="Texture2D" uid="uid://d0ae0e4vsrswn" path="res://assets/ui/BookBackBlack.png" id="4_xa27q"]
+[ext_resource type="Texture2D" uid="uid://du4etjdsm44wv" path="res://assets/ui/BookBackGrey.png" id="5_ncjia"]
+[ext_resource type="Texture2D" uid="uid://cjbbowotiud7j" path="res://assets/ui/BookBackWhite.png" id="6_thlac"]
+[ext_resource type="Texture2D" uid="uid://vqirrrtpjhrt" path="res://assets/ui/scroll_rolled_upblack.png" id="7_b56hx"]
+[ext_resource type="LabelSettings" uid="uid://cc2gqaoowh1kc" path="res://assets/misc/arena_ui_button_lables.tres" id="7_hqokx"]
+[ext_resource type="Texture2D" uid="uid://bmgturlbrvhxn" path="res://assets/ui/hour_glass_2black.png" id="7_pgh8d"]
+[ext_resource type="Texture2D" uid="uid://c48xfgvfr6cmt" path="res://assets/ui/hour_glass_2grey.png" id="8_582pd"]
+[ext_resource type="Texture2D" uid="uid://ccee2qphu6vfy" path="res://assets/ui/scroll_rolled_upgray.png" id="8_hqokx"]
+[ext_resource type="Texture2D" uid="uid://clx8cx7gf8m70" path="res://assets/ui/hour_glass_2white.png" id="9_ulqsd"]
+[ext_resource type="Texture2D" uid="uid://blq6l7k4u7vec" path="res://assets/ui/scroll_rolled_upblackwhite.png" id="9_ylwlb"]
+[ext_resource type="Texture2D" uid="uid://eekwpb3iyv1q" path="res://assets/ui/flag_black.png" id="14_8tybg"]
+[ext_resource type="Texture2D" uid="uid://uoo2ehkal24i" path="res://assets/ui/flag_gray.png" id="15_qid0r"]
+[ext_resource type="Texture2D" uid="uid://dtnw4shtptmgd" path="res://assets/ui/flag_white.png" id="16_hqvwm"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_08o70"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hqvwm"]
+noise = SubResource("FastNoiseLite_08o70")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qid0r"]
+shader = ExtResource("4_hqvwm")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_hqvwm")
+shader_parameter/fill_key_color = Color(0, 0.014977694, 1, 1)
+shader_parameter/key_tolerance = 0.1
+shader_parameter/deep_color = Color(0, 0.019990107, 0.26653373, 1)
+shader_parameter/bright_color = Color(0.07058823, 0.60082793, 1, 1)
+shader_parameter/spark_color = Color(1, 1, 1, 1)
+shader_parameter/noise_scale = 200.0
+shader_parameter/scroll_speed_a = Vector2(0.08, 0.03)
+shader_parameter/scroll_speed_b = Vector2(-0.05, 0.04)
+shader_parameter/spark_threshold = 0.55
+shader_parameter/brightness = 1.2
 
 [node name="ArenaUserInterface" type="Control" unique_id=1667931475]
 layout_mode = 3
@@ -31,6 +67,7 @@ position = Vector2(563, 361)
 sprite_frames = ExtResource("2_fhxv5")
 animation = &"open"
 autoplay = "open"
+frame = 47
 
 [node name="SpellButtons" type="Control" parent="BookInterface" unique_id=597128237]
 layout_mode = 1
@@ -48,46 +85,21 @@ anchor_top = 0.07605634
 anchor_right = 0.46278027
 anchor_bottom = 0.87323946
 grow_vertical = 2
-theme_override_constants/separation = 75
+theme_override_constants/separation = 60
 metadata/_edit_use_anchors_ = true
 
 [node name="Row1" type="HBoxContainer" parent="BookInterface/SpellButtons/LeftPage" unique_id=2027329673]
-custom_minimum_size = Vector2(300, 0)
-custom_maximum_size = Vector2(300, -1)
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 45
+alignment = 1
 
 [node name="SpellButton" parent="BookInterface/SpellButtons/LeftPage/Row1" unique_id=718443876 instance=ExtResource("3_cfmi2")]
 layout_mode = 2
 
-[node name="SpellButton2" parent="BookInterface/SpellButtons/LeftPage/Row1" unique_id=91920712 instance=ExtResource("3_cfmi2")]
-layout_mode = 2
-
 [node name="Row2" type="HBoxContainer" parent="BookInterface/SpellButtons/LeftPage" unique_id=901543048]
-custom_minimum_size = Vector2(300, 0)
-custom_maximum_size = Vector2(300, -1)
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 45
+alignment = 1
 
 [node name="SpellButton" parent="BookInterface/SpellButtons/LeftPage/Row2" unique_id=1835164849 instance=ExtResource("3_cfmi2")]
-layout_mode = 2
-
-[node name="SpellButton2" parent="BookInterface/SpellButtons/LeftPage/Row2" unique_id=1065923833 instance=ExtResource("3_cfmi2")]
-layout_mode = 2
-
-[node name="Row3" type="HBoxContainer" parent="BookInterface/SpellButtons/LeftPage" unique_id=896947709]
-custom_minimum_size = Vector2(300, 0)
-custom_maximum_size = Vector2(300, -1)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 45
-
-[node name="SpellButton" parent="BookInterface/SpellButtons/LeftPage/Row3" unique_id=1551978537 instance=ExtResource("3_cfmi2")]
-layout_mode = 2
-
-[node name="SpellButton2" parent="BookInterface/SpellButtons/LeftPage/Row3" unique_id=687142711 instance=ExtResource("3_cfmi2")]
 layout_mode = 2
 
 [node name="RightPage" type="VBoxContainer" parent="BookInterface/SpellButtons" unique_id=106108187]
@@ -98,46 +110,21 @@ anchor_top = 0.07605634
 anchor_right = 0.89686096
 anchor_bottom = 0.87323946
 grow_vertical = 2
-theme_override_constants/separation = 75
+theme_override_constants/separation = 60
 metadata/_edit_use_anchors_ = true
 
 [node name="Row1" type="HBoxContainer" parent="BookInterface/SpellButtons/RightPage" unique_id=790692345]
-custom_minimum_size = Vector2(300, 0)
-custom_maximum_size = Vector2(300, -1)
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 45
+alignment = 1
 
 [node name="SpellButton" parent="BookInterface/SpellButtons/RightPage/Row1" unique_id=1390733484 instance=ExtResource("3_cfmi2")]
 layout_mode = 2
 
-[node name="SpellButton2" parent="BookInterface/SpellButtons/RightPage/Row1" unique_id=2092670314 instance=ExtResource("3_cfmi2")]
-layout_mode = 2
-
 [node name="Row2" type="HBoxContainer" parent="BookInterface/SpellButtons/RightPage" unique_id=1556196516]
-custom_minimum_size = Vector2(300, 0)
-custom_maximum_size = Vector2(300, -1)
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 45
+alignment = 1
 
 [node name="SpellButton" parent="BookInterface/SpellButtons/RightPage/Row2" unique_id=1648006477 instance=ExtResource("3_cfmi2")]
-layout_mode = 2
-
-[node name="SpellButton2" parent="BookInterface/SpellButtons/RightPage/Row2" unique_id=1753925575 instance=ExtResource("3_cfmi2")]
-layout_mode = 2
-
-[node name="Row3" type="HBoxContainer" parent="BookInterface/SpellButtons/RightPage" unique_id=1849621924]
-custom_minimum_size = Vector2(300, 0)
-custom_maximum_size = Vector2(300, -1)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 45
-
-[node name="SpellButton" parent="BookInterface/SpellButtons/RightPage/Row3" unique_id=553697085 instance=ExtResource("3_cfmi2")]
-layout_mode = 2
-
-[node name="SpellButton2" parent="BookInterface/SpellButtons/RightPage/Row3" unique_id=1749750526 instance=ExtResource("3_cfmi2")]
 layout_mode = 2
 
 [node name="Next" type="Button" parent="BookInterface" unique_id=230047288]
@@ -169,17 +156,40 @@ grow_vertical = 0
 text = "Back
 "
 
-[node name="ManaLable" type="Label" parent="BookInterface" unique_id=1499223801]
+[node name="ProgressBar" type="ProgressBar" parent="BookInterface" unique_id=2014214221]
+material = SubResource("ShaderMaterial_qid0r")
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_right = 77.0
-offset_bottom = 23.0
+offset_left = -500.0
+offset_right = 500.0
+offset_bottom = 93.0
+grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("4_qid0r")
+show_percentage = false
+
+[node name="ManaLable" type="Label" parent="BookInterface/ProgressBar" unique_id=1499223801]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.5
+offset_top = -11.5
+offset_right = 38.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
 text = "Mana: 0/0"
+label_settings = ExtResource("7_hqokx")
 
 [node name="BattleInterface" type="Control" parent="." unique_id=1838713581]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -190,36 +200,96 @@ mouse_filter = 2
 
 [node name="BattleActions" type="HBoxContainer" parent="BattleInterface" unique_id=1352895512]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -226.0
-offset_top = -123.0
+anchors_preset = -1
+anchor_left = 0.7114583
+anchor_top = 0.71666664
+anchor_right = 0.9739583
+anchor_bottom = 0.9537037
+offset_left = 44.0
 grow_horizontal = 0
 grow_vertical = 0
+metadata/_edit_use_anchors_ = true
 
-[node name="UseHeroSpell" type="Button" parent="BattleInterface/BattleActions" unique_id=1202560528]
+[node name="UseHeroSpell" type="TextureButton" parent="BattleInterface/BattleActions" unique_id=1609891537]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-text = "Use Hero's Spell"
+texture_normal = ExtResource("4_xa27q")
+texture_pressed = ExtResource("5_ncjia")
+texture_hover = ExtResource("6_thlac")
+texture_disabled = ExtResource("5_ncjia")
+texture_focused = ExtResource("6_thlac")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="BattleInterface/BattleActions/UseHeroSpell" unique_id=2048225049]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -41.0
+offset_right = 41.0
+offset_bottom = 32.0
+grow_horizontal = 2
+text = "Use Hero Spell"
+label_settings = ExtResource("7_hqokx")
+horizontal_alignment = 1
 
 [node name="UnitActions" type="VBoxContainer" parent="BattleInterface/BattleActions" unique_id=1551648117]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 51
 alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="UseSpell" type="Button" parent="BattleInterface/BattleActions/UnitActions" unique_id=2028156616]
+[node name="UseSpell" type="TextureButton" parent="BattleInterface/BattleActions/UnitActions" unique_id=1549226023]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Use Spell"
+texture_normal = ExtResource("7_b56hx")
+texture_pressed = ExtResource("8_hqokx")
+texture_hover = ExtResource("9_ylwlb")
+texture_disabled = ExtResource("8_hqokx")
+texture_focused = ExtResource("9_ylwlb")
+ignore_texture_size = true
+stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
-[node name="Wait" type="Button" parent="BattleInterface/BattleActions/UnitActions" unique_id=205508570]
+[node name="Label" type="Label" parent="BattleInterface/BattleActions/UnitActions/UseSpell" unique_id=264754488]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.5
+offset_top = -32.0
+offset_right = 96.5
+grow_horizontal = 2
+text = "Use Unit Spell"
+label_settings = ExtResource("7_hqokx")
+horizontal_alignment = 1
+
+[node name="Wait" type="TextureButton" parent="BattleInterface/BattleActions/UnitActions" unique_id=1806953879]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Wait"
+texture_normal = ExtResource("7_pgh8d")
+texture_pressed = ExtResource("8_582pd")
+texture_hover = ExtResource("9_ulqsd")
+texture_disabled = ExtResource("8_582pd")
+texture_focused = ExtResource("9_ulqsd")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="BattleInterface/BattleActions/UnitActions/Wait" unique_id=678799444]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.5
+offset_top = -32.0
+offset_right = 96.5
+grow_horizontal = 2
+text = "Wait a Turn"
+label_settings = ExtResource("7_hqokx")
+horizontal_alignment = 1
 
 [node name="CancelSpell" type="Button" parent="BattleInterface" unique_id=1730284561]
 visible = false
@@ -243,18 +313,40 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -27.0
+offset_top = -6.0
+offset_right = -27.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="StartBattle" type="Button" parent="SetupInterface" unique_id=1743601271]
+[node name="StartBattle" type="TextureButton" parent="SetupInterface" unique_id=188798127]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.86145836
-anchor_top = 0.8666667
-anchor_right = 0.9578125
-anchor_bottom = 0.91481483
+anchor_left = 0.88854164
+anchor_top = 0.8055556
+anchor_right = 0.97552085
+anchor_bottom = 0.96018517
 grow_horizontal = 0
 grow_vertical = 0
-text = "Start Battle"
+texture_normal = ExtResource("14_8tybg")
+texture_pressed = ExtResource("15_qid0r")
+texture_hover = ExtResource("16_hqvwm")
+texture_focused = ExtResource("16_hqvwm")
+ignore_texture_size = true
+stretch_mode = 5
 metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="SetupInterface/StartBattle" unique_id=1490490490]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.5
+offset_top = -32.0
+offset_right = 96.5
+grow_horizontal = 2
+text = "Start the Battle"
+label_settings = ExtResource("7_hqokx")
+horizontal_alignment = 1
