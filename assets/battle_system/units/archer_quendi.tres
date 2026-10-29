@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_o88ou"]
 [ext_resource type="PackedScene" uid="uid://dh7btewbds0p4" path="res://scenes/units/archer_quendi.tscn" id="3_1ylhy"]
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_j2hvo"]
+[ext_resource type="Texture2D" uid="uid://nidiayrbf26b" path="res://assets/ui/arrow.png" id="7_54xf4"]
 
 [sub_resource type="Resource" id="Resource_4koe0"]
 script = ExtResource("1_j2hvo")
@@ -19,6 +20,7 @@ metadata/_custom_type_script = "uid://dbehoqcrijunt"
 [resource]
 script = ExtResource("3_j2hvo")
 Name = "Archer Quendi"
+texture = ExtResource("7_54xf4")
 MaxHealth = 50
 Strength = 10
 Defense = 5

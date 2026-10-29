@@ -4,55 +4,57 @@ using Godot;
 [GlobalClass]
 public partial class Unit : Resource
 {
-    [Export]
-    public string Name { get; set; } = "";
+	[Export]
+	public string Name { get; set; } = "";
 
-    // Shown in the stack's tooltip
-    [Export(PropertyHint.MultilineText)]
-    public string Description { get; set; } = "";
+	[Export] public Texture2D? texture;
 
-    [ExportGroup("Stats")]
-    [Export]
-    public int MaxHealth { get; set; } = 1;
+	// Shown in the stack's tooltip
+	[Export(PropertyHint.MultilineText)]
+	public string Description { get; set; } = "";
 
-    [Export]
-    public int Strength { get; set; }
+	[ExportGroup("Stats")]
+	[Export]
+	public int MaxHealth { get; set; } = 1;
 
-    [Export]
-    public int Defense { get; set; }
+	[Export]
+	public int Strength { get; set; }
 
-    // Decides turn order and how many tiles the stack can move.
-    [Export(PropertyHint.Range, "3,8")]
-    public int SpeedTier { get; set; } = 3;
+	[Export]
+	public int Defense { get; set; }
 
-    // Starting mana of a new stack.
-    [Export]
-    public uint StartingMana { get; set; }
+	// Decides turn order and how many tiles the stack can move.
+	[Export(PropertyHint.Range, "3,8")]
+	public int SpeedTier { get; set; } = 3;
 
-    [Export]
-    public uint MaxMana { get; set; }
+	// Starting mana of a new stack.
+	[Export]
+	public uint StartingMana { get; set; }
 
-    // Tiles per side: 1 covers one tile, 2 covers a 2x2 square.
-    [Export(PropertyHint.Range, "1,2")]
-    public int Size { get; set; } = 1;
+	[Export]
+	public uint MaxMana { get; set; }
 
-    // Whether this unit type can retaliate at all. Once-per-round state is Stack.Retaliated.
-    [Export]
-    public bool CanRetaliate { get; set; } = true;
+	// Tiles per side: 1 covers one tile, 2 covers a 2x2 square.
+	[Export(PropertyHint.Range, "1,2")]
+	public int Size { get; set; } = 1;
 
-    [ExportGroup("Abilities")]
-    [Export]
-    public MeleeAttackAbility? MeleeAttack { get; set; }
+	// Whether this unit type can retaliate at all. Once-per-round state is Stack.Retaliated.
+	[Export]
+	public bool CanRetaliate { get; set; } = true;
 
-    [Export]
-    public LongRangeAttackAbility? LongRangeAttack { get; set; }
+	[ExportGroup("Abilities")]
+	[Export]
+	public MeleeAttackAbility? MeleeAttack { get; set; }
 
-    [Export]
-    public Godot.Collections.Array<SpellAbility> Spells { get; set; } = new();
+	[Export]
+	public LongRangeAttackAbility? LongRangeAttack { get; set; }
 
-    [Export]
-    public Godot.Collections.Array<PassiveAbility> Passives { get; set; } = new();
+	[Export]
+	public Godot.Collections.Array<SpellAbility> Spells { get; set; } = new();
 
-    [Export]
-    public PackedScene? Model { get; set; }
+	[Export]
+	public Godot.Collections.Array<PassiveAbility> Passives { get; set; } = new();
+
+	[Export]
+	public PackedScene? Model { get; set; }
 }

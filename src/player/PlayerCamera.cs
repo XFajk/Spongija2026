@@ -17,11 +17,11 @@ public partial class PlayerCamera : Camera3D
 
 	public override void _Ready()
 	{
-        _interactionRayCast = new RayCast3D
-        {
-            Name = "InteractionRayCast"
-        };
-        _interactionRayCast.SetCollisionMaskValue(1, false);
+		_interactionRayCast = new RayCast3D
+		{
+			Name = "InteractionRayCast"
+		};
+		_interactionRayCast.SetCollisionMaskValue(1, false);
 		_interactionRayCast.SetCollisionMaskValue(4, true);
 		_interactionRayCast.CollideWithAreas = true;
 		AddChild(_interactionRayCast);

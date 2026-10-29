@@ -15,9 +15,9 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 	[Export] Node3D? container;
 	[Export] float pointsMinDistance;
 	List<Node3D> points = new List<Node3D>();
-	PointOfInterest? poi;
+	public PointOfInterest? poi;
 
-	Panel? inventoryPanel;
+	public CharacterPanel? inventoryPanel;
 	public bool canMove;
 
 	public override void _Ready()
@@ -27,7 +27,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 		agent.PathDesiredDistance = 0.5f;
 		agent.TargetDesiredDistance = 0.5f;
 
-		inventoryPanel = GetNode<Panel>("/root/Map/CanvasLayer/Canvas/Character");
+		inventoryPanel = GetNode<CharacterPanel>("/root/Map/CanvasLayer/Canvas/Character");
 		Button inventoryButtonClose = GetNode<Button>("/root/Map/CanvasLayer/Canvas/Character/Categories/Close");
 		inventoryButtonClose.Pressed += HidePanel;
 
@@ -243,6 +243,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 
 	public void HidePanel()
 	{
+		inventoryPanel?.ResetSplitting();
 		inventoryPanel!.Hide();
 		canMove = true;
 	}
