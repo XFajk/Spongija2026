@@ -214,6 +214,44 @@ public class Battle
         return new Reachability(stack, stack.Anchor, cameFrom);
     }
 
+    // Steps the stack needs from each anchor to an anchor it can melee the target from (next to it), walking around
+    // other stacks like GetReachability but with no step limit. Anchors that can't get there at all are missing,
+    // e.g. when the target is walled in. Moves are reversible, so this is a breadth-first search outward from the
+    // anchors next to the target. Used by the AI for distances and for walking toward a target over several turns.
+    public Dictionary<Vector2I, int> GetStepsToAttack(Stack stack, Stack target)
+    {
+        var steps = new Dictionary<Vector2I, int>();
+        var frontier = new List<Vector2I>();
+        for (int x = target.Anchor.X - stack.Size; x <= target.Anchor.X + target.Size; x++)
+            for (int y = target.Anchor.Y - stack.Size; y <= target.Anchor.Y + target.Size; y++)
+            {
+                var anchor = new Vector2I(x, y);
+                if (AreAdjacent(anchor, stack.Size, target.Anchor, target.Size) && Fits(stack, anchor))
+                {
+                    steps[anchor] = 0;
+                    frontier.Add(anchor);
+                }
+            }
+
+        for (int step = 1; frontier.Count > 0; step++)
+        {
+            var next = new List<Vector2I>();
+            foreach (Vector2I anchor in frontier)
+            {
+                foreach (Vector2I direction in Directions)
+                {
+                    Vector2I neighbor = anchor + direction;
+                    if (steps.ContainsKey(neighbor) || !Fits(stack, neighbor))
+                        continue;
+                    steps[neighbor] = step;
+                    next.Add(neighbor);
+                }
+            }
+            frontier = next;
+        }
+        return steps;
+    }
+
     // Every tile covered by some reachable anchor, for highlighting.
     public HashSet<Vector2I> GetReachableTiles(Stack stack) => GetReachability(stack).GetTiles();
 
@@ -309,6 +347,20 @@ public class Battle
         hero.Mana -= spell.ManaCost;
         hero.HasCastThisRound = true;
         return true;
+    }
+
+    #endregion
+
+    #region Damage
+
+    // Damage of an attack: the attacker's Strength per unit, scaled by the ability's multiplier, minus a tenth of
+    // the target's Defense per unit. Never negative. Both stats include effects and the hero bonus.
+    // Spells don't use it: they ignore Defense.
+    public static int CalculateDamage(Stack attacker, Stack target, float multiplier = 1f)
+    {
+        float attack = multiplier * attacker.GetStrength() * attacker.Quantity;
+        float defense = target.GetDefense() * target.Quantity / 10f;
+        return Math.Max(0, (int)(attack - defense));
     }
 
     #endregion

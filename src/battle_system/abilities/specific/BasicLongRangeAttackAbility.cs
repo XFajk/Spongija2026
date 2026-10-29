@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -18,12 +17,16 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
     [Export(PropertyHint.Range, "0,3")]
     public float ShootHeight { get; set; } = 0.5f;
 
+    public override int GetDamage(Stack user, Stack target) => Battle.CalculateDamage(user, target, BasicAttackMultiplier);
+
     public override async Task Use(Stack user, Stack target, Arena arena)
     {
-        target.TakeDamage(user.GetStrength() * (int)user.Quantity);
 
         if (user.NodeRepresentation is not UnitNode userNode || target.NodeRepresentation is not UnitNode targetNode)
+        {
+            target.TakeDamage(GetDamage(user, target));
             return;
+        }
 
         userNode.FaceTowards(target);
 
@@ -37,6 +40,8 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
             await projectile.ToSignal(projectile, Projectile.SignalName.Landed);
             projectile.QueueFree();
         }
+        // Outside the if, so the hit still lands when the projectile fails to spawn
+        target.TakeDamage(GetDamage(user, target));
 
         userNode.FaceEnemySide();
     }

@@ -27,7 +27,7 @@ script = ExtResource("6_4ag8t")
 InteractionDistance = 100.0
 
 [node name="BoardOverviewPosition" type="Marker3D" parent="SubViewport" unique_id=337750130]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.8660254, 0, -0.8660254, 0.5, 0, 4.59266, 3.6515741)
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.8660253, 0, -0.8660253, 0.5, 0, 4.34266, 4.0845866)
 
 [node name="SetupBoardPosition" type="Marker3D" parent="SubViewport" unique_id=1169227394]
 transform = Transform3D(-4.371139e-08, 0.25881904, -0.9659258, 0, 0.9659258, 0.25881904, 1, 1.131334e-08, -4.222196e-08, -7.1650634, 2.25, 0)

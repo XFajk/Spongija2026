@@ -17,13 +17,13 @@ public partial class ArenaUserInterface : Control
 	private Control? _battleInterface;
 
 	// UI elements for the setup  interfaces
-	private Button? _startBattleButton;
+	private TextureButton? _startBattleButton;
 
 	// UI elements for the battle interface
-	private Button? _useUnitSpellButton;
-	private Button? _waitButton;
+	private TextureButton? _useUnitSpellButton;
+	private TextureButton? _waitButton;
 
-	private Button? _useHeroSpellButton;
+	private TextureButton? _useHeroSpellButton;
 
 	// Shown while the target of a picked spell is being chosen
 	private Button? _cancelSpellButton;
@@ -34,6 +34,8 @@ public partial class ArenaUserInterface : Control
 	private Control? _spellButtonsRoot;
 	private Button? _nextPageButton;
 	private Button? _backPageButton;
+	// The caster's mana: a bar (animated by src/shaders/mana_bar.gdshader) with the numbers on it
+	private ProgressBar? _manaBar;
 	private Label? _manaLabel;
 
 	// In reading order: the left page top to bottom, then the right page. One page spread shows this many spells.
@@ -76,9 +78,13 @@ public partial class ArenaUserInterface : Control
 
 	// Size in pixels of the longer side of the spell's icon when it replaces the mouse cursor over a spell target
 	[Export]
-	public float SpellCursorSize { get; set; } = 64f;
+	public float SpellCursorSize { get; set; } = 128f;
 
 	private Sprite2D? _spellCursor;
+
+	// Opacity of a disabled texture button (SetButtonDisabled): low enough to read as off, not invisible
+	[Export(PropertyHint.Range, "0,1")]
+	public float DisabledButtonAlpha { get; set; } = 0.25f;
 
 	public const string StackLabelScene = "uid://bcefw8pb8y3se";
 
@@ -144,16 +150,16 @@ public partial class ArenaUserInterface : Control
 		_setupInterface = GetNode<Control>("SetupInterface");
 		_battleInterface = GetNode<Control>("BattleInterface");
 
-		_startBattleButton = GetNode<Button>("SetupInterface/StartBattle");
+		_startBattleButton = GetNode<TextureButton>("SetupInterface/StartBattle");
 		_startBattleButton!.Pressed += OnStartBattleButtonPressed;
 
-		_useUnitSpellButton = GetNode<Button>("BattleInterface/BattleActions/UnitActions/UseSpell");
+		_useUnitSpellButton = GetNode<TextureButton>("BattleInterface/BattleActions/UnitActions/UseSpell");
 		_useUnitSpellButton!.Pressed += OnUseUnitSpellButtonPressed;
 
-		_waitButton = GetNode<Button>("BattleInterface/BattleActions/UnitActions/Wait");
+		_waitButton = GetNode<TextureButton>("BattleInterface/BattleActions/UnitActions/Wait");
 		_waitButton!.Pressed += OnWaitButtonPressed;
 
-		_useHeroSpellButton = GetNode<Button>("BattleInterface/BattleActions/UseHeroSpell");
+		_useHeroSpellButton = GetNode<TextureButton>("BattleInterface/BattleActions/UseHeroSpell");
 		_useHeroSpellButton!.Pressed += OnUseHeroSpellButtonPressed;
 
 		_cancelSpellButton = GetNode<Button>("BattleInterface/CancelSpell");
@@ -168,9 +174,9 @@ public partial class ArenaUserInterface : Control
 		_nextPageButton.Pressed += OnNextPageButtonPressed;
 		_backPageButton = GetNode<Button>("BookInterface/Back");
 		_backPageButton.Pressed += OnBackPageButtonPressed;
-		_manaLabel = GetNode<Label>("BookInterface/ManaLable");
+		_manaBar = GetNode<ProgressBar>("BookInterface/ProgressBar");
+		_manaLabel = GetNode<Label>("BookInterface/ProgressBar/ManaLable");
 
-		// Last, so it draws over the interfaces
 		_stackTooltip = GD.Load<PackedScene>(StackTooltipScene).Instantiate() as StackTooltip;
 		if (_stackTooltip != null)
 		{
@@ -179,6 +185,8 @@ public partial class ArenaUserInterface : Control
 		}
 		else
 			GD.PushError("The stack tooltip scene's root isn't a StackTooltip.");
+
+		SetDrawOrder();
 
 		CollectSpellButtons(_spellButtonsRoot);
 		foreach (SpellButton spellButton in _spellButtons)
@@ -195,6 +203,20 @@ public partial class ArenaUserInterface : Control
 
 		ShowSetupInterface();
 		a.SetupPlacementPhaseCompleted += ShowBattleInterface;
+	}
+
+	// Bottom to top: stack labels (0), the interfaces, the stack tooltip, then the cursors
+	private void SetDrawOrder()
+	{
+		const int interfaces = 1;
+		_setupInterface!.ZIndex = interfaces;
+		_battleInterface!.ZIndex = interfaces;
+		_bookInterface!.ZIndex = interfaces;
+		if (_stackTooltip != null)
+			_stackTooltip.ZIndex = interfaces + 1;
+		_meleeCursor!.ZIndex = interfaces + 2;
+		_rangedCursor!.ZIndex = interfaces + 2;
+		_spellCursor!.ZIndex = interfaces + 2;
 	}
 
 	public override void _Process(double delta)
@@ -312,9 +334,17 @@ public partial class ArenaUserInterface : Control
 	{
 		if (_useUnitSpellButton == null || _useHeroSpellButton == null)
 			return;
-		_useUnitSpellButton.Disabled = stack == null || stack.Unit.Spells.Count == 0;
-		_useHeroSpellButton.Disabled = stack?.Hero is not Hero hero || hero.HasCastThisRound
-			|| hero.GetKnownSpells().Count == 0;
+		SetButtonDisabled(_useUnitSpellButton, stack == null || stack.Unit.Spells.Count == 0);
+		SetButtonDisabled(_useHeroSpellButton, stack?.Hero is not Hero hero || hero.HasCastThisRound
+			|| hero.GetKnownSpells().Count == 0);
+	}
+
+	// Disables or enables a texture button, fading a disabled one (label included) to DisabledButtonAlpha,
+	// so it's obviously off but still visible. Use this instead of setting Disabled on them directly.
+	private void SetButtonDisabled(TextureButton button, bool disabled)
+	{
+		button.Disabled = disabled;
+		button.Modulate = new Color(1, 1, 1, disabled ? DisabledButtonAlpha : 1);
 	}
 
 	public void SetCancelSpellVisible(bool visible)
@@ -346,7 +376,7 @@ public partial class ArenaUserInterface : Control
 	public void SetWaitEnabled(bool enabled)
 	{
 		if (_waitButton != null)
-			_waitButton.Disabled = !enabled;
+			SetButtonDisabled(_waitButton, !enabled);
 	}
 
 	// The hero's spells unlocked by Knowledge; the ones it can't cast now (mana, already cast this round) are disabled
@@ -373,6 +403,20 @@ public partial class ArenaUserInterface : Control
 		label.Setup(stack, isPlayerStack);
 		_stackLabels[stack] = label;
 		PlaceStackLabel(label);
+	}
+
+	private Stack? _previewedStack;
+
+	// Called by Arena every frame: what the hovered attack or spell would do to the stack (null for none), shown
+	// under its tag. The stack previewed before is cleared.
+	public void SetActionPreview(Stack? stack, int unitsKilled, int unitsRevived)
+	{
+		if (_previewedStack != stack && _previewedStack != null
+			&& _stackLabels.TryGetValue(_previewedStack, out StackLabel? previous))
+			previous.ShowPreview(0, 0);
+		_previewedStack = stack;
+		if (stack != null && _stackLabels.TryGetValue(stack, out StackLabel? label))
+			label.ShowPreview(unitsKilled, unitsRevived);
 	}
 
 	// Called by Arena when the stack dies
@@ -486,6 +530,9 @@ public partial class ArenaUserInterface : Control
 		_bookMana = mana;
 		// Mana can't change while the book is open, so it's set once
 		_manaLabel!.Text = $"Mana: {mana}/{maxMana}";
+		// At least 1, so a caster with no mana pool shows an empty bar instead of a full one
+		_manaBar!.MaxValue = Math.Max(1, maxMana);
+		_manaBar.Value = mana;
 
 		_battleInterface!.Visible = false;
 		_stackLabelsRoot!.Visible = false;
@@ -530,6 +577,8 @@ public partial class ArenaUserInterface : Control
 			button.Spell = spell;
 			button.Visible = spell != null;
 			button.Disabled = spell == null || !_canCastBookSpell(spell);
+			// A disabled button keeps the normal icon even when hovered
+			button.UpdateIcon();
 			button.IsHeroSpell = _bookShowsHeroSpells;
 			button.CantCastReason = spell != null ? GetCantCastReason(spell) : null;
 		}
@@ -599,6 +648,8 @@ public partial class ArenaUserInterface : Control
 			return;
 
 		GetViewport().SetInputAsHandled();
+		// The camera polls the button instead of reading events, so it has to be told this click is taken
+		arenaCamera?.IgnoreCurrentClick();
 		if (!_bookAnimating)
 			CloseSpellBook();
 	}

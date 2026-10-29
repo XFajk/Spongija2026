@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cmnbarmt5q8w0"]
+
+[ext_resource type="Shader" uid="uid://bmnbarsh4d3rq" path="res://src/shaders/mana_bar.gdshader" id="1_shader"]
+[ext_resource type="Texture2D" uid="uid://dmnbarn07x2kq" path="res://assets/ui/mana_bar_noise.tres" id="2_noise"]
+
+[resource]
+shader = ExtResource("1_shader")
+shader_parameter/noise_texture = ExtResource("2_noise")

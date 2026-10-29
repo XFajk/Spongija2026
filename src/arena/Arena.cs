@@ -37,6 +37,11 @@ public partial class Arena : Node3D
     [Export]
     public float CameraTransitionDuration { get; set; } = 1.5f;
 
+    // Seconds a computer stack waits, already outlined as active, before it acts, so the player sees who's next.
+    // 0 to act right away.
+    [Export(PropertyHint.Range, "0,2")]
+    public float ComputerTurnDelay { get; set; } = 0.4f;
+
     public const uint AreaWidth = 20;
 
     public const uint AreaHeight = 12;
@@ -58,8 +63,24 @@ public partial class Arena : Node3D
 
     public Battle? Battle { get; private set; }
 
-    // The stack whose turn it is, for the UI.
-    public Stack? CurrentStack { get; private set; }
+    // Decides the computer's turns, by the computer army's Strategy. Made with the Battle.
+    private BattleAI? _computerAI;
+
+    private Stack? _currentStack;
+
+    // The stack whose turn it is, for the UI. Its unit shows the active outline (UnitNode.IsActive).
+    public Stack? CurrentStack
+    {
+        get => _currentStack;
+        private set
+        {
+            if (_currentStack?.NodeRepresentation is UnitNode previous && IsInstanceValid(previous))
+                previous.IsActive = false;
+            _currentStack = value;
+            if (_currentStack?.NodeRepresentation is UnitNode current)
+                current.IsActive = true;
+        }
+    }
 
     // Where CurrentStack can move this turn. Searched once at the start of the turn and reused for
     // highlighting, hover (GetAnchorsCovering), validation and the movement path.
@@ -374,10 +395,10 @@ public partial class Arena : Node3D
         return GameViewportRect.ViewportToCanvas(PlayerCamera.UnprojectPosition(globalPoint));
     }
 
-    // Where the stack's label goes on the screen: under the stack's feet as the camera sees them, at the
-    // footprint's center horizontally and its lowest projected corner vertically. The same for 1x1 and 2x2 stacks
-    // from any camera angle. From the unit's current position, so it follows moves and the setup drag.
-    // Null if the stack has no unit or a corner is behind the camera.
+    // Where the stack's label goes on the screen: the near edge of its footprint as the camera sees it (the
+    // footprint center's projected X, its lowest projected corner's Y). A 1x1 stack's tag stays at its feet, and a
+    // 2x2 one's sits in front of the model instead of covering it (wolves lie flat). From the unit's current
+    // position, so it follows moves and the setup drag. Null if the stack has no unit or a corner is behind the camera.
     public Vector2? GetStackLabelCanvasPoint(Stack stack)
     {
         if (stack.NodeRepresentation is not UnitNode unit || !IsInstanceValid(unit))
@@ -387,14 +408,14 @@ public partial class Arena : Node3D
             return null;
 
         float half = stack.Size * TileSize / 2f;
-        float bottom = canvasCenter.Y;
+        float nearEdge = canvasCenter.Y;
         foreach (Vector3 corner in new Vector3[] { new(-half, 0, -half), new(half, 0, -half), new(-half, 0, half), new(half, 0, half) })
         {
             if (ProjectToCanvas(ToGlobal(center + corner)) is not Vector2 canvasCorner)
                 return null;
-            bottom = Mathf.Max(bottom, canvasCorner.Y);
+            nearEdge = Mathf.Max(nearEdge, canvasCorner.Y);
         }
-        return new Vector2(canvasCenter.X, bottom);
+        return new Vector2(canvasCenter.X, nearEdge);
     }
 
     #endregion
@@ -520,6 +541,7 @@ public partial class Arena : Node3D
     {
         // After the placement phase the stacks already have their anchors, so the Battle keeps them
         Battle = new Battle(playerArmy, computerArmy, (int)AreaWidth, (int)AreaHeight, keepAnchors: !AutoBeginBattle);
+        _computerAI = BattleAI.Create(computerArmy.Strategy, Battle);
         try
         {
             await RunBattle(Battle);
@@ -549,7 +571,7 @@ public partial class Arena : Node3D
             CurrentReachability = reachability;
             TurnOutput output = battle.IsPlayerStack(stack)
                 ? await GetPlayerTurn(battle, stack, reachability)
-                : GetComputerTurn(battle, stack, reachability);
+                : await GetComputerTurn(battle, stack, reachability);
             ClearTurnInput();
 
             // A waiting stack's turn comes again at the end of the round, so its turn doesn't end now
@@ -641,7 +663,44 @@ public partial class Arena : Node3D
         UpdateMeleeCursor();
         UpdateRangedCursor();
         UpdateSpellCursor();
+        UpdateActionPreview();
         _userInterface?.SetHoveredStack(GetFocusedStack());
+    }
+
+    // Shows under the hovered target what the action would do to it: units killed (or revived, by a spell).
+    // From the same amounts the abilities deal (GetDamage, SpellAbility.Evaluate), so it's what really happens.
+    // Retaliation isn't included.
+    private void UpdateActionPreview()
+    {
+        if (_userInterface == null)
+            return;
+
+        Stack? target = null;
+        int killed = 0, revived = 0;
+        if (IsPlayerTurn && CurrentStack is Stack stack && Battle is Battle battle)
+        {
+            if (IsPickingSpellTarget)
+            {
+                if (_pickedSpell is SpellAbility spell && GetFocusedStack() is Stack hovered && _spellTargets.Contains(hovered))
+                {
+                    SpellEstimate estimate = _pickedSpellIsHero
+                        ? spell.EvaluateFromHero(stack, hovered, battle)
+                        : spell.Evaluate(stack, hovered, battle);
+                    (target, killed, revived) = (hovered, estimate.UnitsKilled, estimate.Revives);
+                }
+            }
+            else if (_pickedMeleeAttack is { } picked && stack.Unit.MeleeAttack is MeleeAttackAbility melee)
+            {
+                target = picked.Target;
+                killed = (int)target.GetUnitsKilledBy(melee.GetDamage(stack, target));
+            }
+            else if (GetFocusedRangedTarget() is Stack shot && stack.Unit.LongRangeAttack is LongRangeAttackAbility ranged)
+            {
+                target = shot;
+                killed = (int)shot.GetUnitsKilledBy(ranged.GetDamage(stack, shot));
+            }
+        }
+        _userInterface.SetActionPreview(target, killed, revived);
     }
 
     // Every frame on the player's turn: picks the attack position for the hovered melee target (red and raised),
@@ -927,6 +986,18 @@ public partial class Arena : Node3D
         return true;
     }
 
+    // Where a hero casts from (global): the player's hero at HeroSpellCastPosition, the computer's at the marker
+    // mirrored to the other side of the board (X flipped, Arena-local). Without the marker, from the acting unit.
+    public Vector3 GetHeroCastOrigin(Stack caster)
+    {
+        if (HeroSpellCastPosition == null)
+            return caster.NodeRepresentation?.GlobalPosition ?? GlobalPosition;
+        if (Battle?.IsPlayerStack(caster) ?? true)
+            return HeroSpellCastPosition.GlobalPosition;
+        Vector3 local = ToLocal(HeroSpellCastPosition.GlobalPosition);
+        return ToGlobal(new Vector3(-local.X, local.Y, local.Z));
+    }
+
     // Plays the hero's spell in the middle of the player's turn, then gives the turn back: dead stacks are removed,
     // the reachability is searched again (the board may have changed) and the turn input is shown again.
     // If the battle is over or the acting stack died, the turn ends instead.
@@ -943,11 +1014,8 @@ public partial class Arena : Node3D
         _castingHeroSpell = true;
         try
         {
-            // From where the hero stands; without the marker, from the acting unit
-            Vector3 origin = HeroSpellCastPosition?.GlobalPosition
-                ?? stack.NodeRepresentation?.GlobalPosition ?? GlobalPosition;
             if (stack.Hero is Hero hero && battle.SpendHeroMana(hero, spell))
-                await spell.UseFromHero(stack, origin, target, this);
+                await spell.UseFromHero(stack, GetHeroCastOrigin(stack), target, this);
             RemoveDeadStacks(battle);
         }
         catch (Exception e)
@@ -967,14 +1035,14 @@ public partial class Arena : Node3D
         _userInterface?.UpdateSpellButtons(stack);
     }
 
-    // While a spell target is hovered, the mouse is replaced by the spell's icon.
+    // While a spell target is hovered, the mouse is replaced by the spell's hovered icon.
     private void UpdateSpellCursor()
     {
         if (_userInterface == null)
             return;
         if (IsPlayerTurn && _pickedSpell is SpellAbility spell && GetFocusedStack() is Stack hovered
             && _spellTargets.Contains(hovered))
-            _userInterface.ShowSpellCursor(spell.Icon);
+            _userInterface.ShowSpellCursor(spell.GetHoveredIcon());
         else
             _userInterface.HideSpellCursor();
     }
@@ -998,10 +1066,12 @@ public partial class Arena : Node3D
         return true;
     }
 
-    private TurnOutput GetComputerTurn(Battle battle, Stack stack, Reachability reachability)
+    // Waits ComputerTurnDelay first, so the active outline shows on the stack before it acts
+    private async Task<TurnOutput> GetComputerTurn(Battle battle, Stack stack, Reachability reachability)
     {
-        // TODO: AI. Skips the turn for now.
-        return new TurnOutput();
+        if (ComputerTurnDelay > 0)
+            await ToSignal(GetTree().CreateTimer(ComputerTurnDelay), SceneTreeTimer.SignalName.Timeout);
+        return _computerAI?.DecideTurn(stack, reachability) ?? new TurnOutput();
     }
 
     #endregion
@@ -1022,7 +1092,7 @@ public partial class Arena : Node3D
         {
             Hero? hero = user.Hero;
             if (hero != null && battle.SpendHeroMana(hero, spell))
-                await spell.Use(user, spellTarget, this);
+                await spell.UseFromHero(user, GetHeroCastOrigin(user), spellTarget, this);
         }
 
         var waves = new SortedDictionary<int, List<PendingAbility>>();
@@ -1059,6 +1129,10 @@ public partial class Arena : Node3D
             return;
 
         await pending.Ability.Use(pending.User, pending.Target, this);
+
+        // The AI's stacks remember who attacked them; striking back doesn't count
+        if (!pending.IsRetaliation)
+            _computerAI?.OnStackAttacked(pending.User, pending.Target);
 
         if (pending.Ability is MeleeAttackAbility && !pending.IsRetaliation && battle.CanRetaliate(pending.Target))
         {

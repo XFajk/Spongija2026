@@ -104,6 +104,18 @@ public class Stack
         return (int)(Quantity - 1) * Unit.MaxHealth + TopHealth;
     }
 
+    // How many units TakeDamage(damage) would kill, without changing anything
+    public uint GetUnitsKilledBy(int damage)
+    {
+        if (damage <= 0 || IsDead)
+            return 0;
+        int remaining = GetTotalHealth() - damage;
+        if (remaining <= 0)
+            return Quantity;
+        int maxHealth = Math.Max(1, Unit.MaxHealth);
+        return Quantity - (uint)((remaining + maxHealth - 1) / maxHealth);
+    }
+
     // Removes health from the top unit downwards. Returns how many units died.
     public uint TakeDamage(int damage)
     {
