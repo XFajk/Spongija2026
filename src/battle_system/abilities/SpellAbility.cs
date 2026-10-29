@@ -26,6 +26,12 @@ public abstract partial class SpellAbility : Resource, IAbility
     [Export]
     public Texture2D? Icon { get; set; }
 
+    // Shown on the button while it's hovered, and as the cursor while picking the spell's target. Icon if not set.
+    [Export]
+    public Texture2D? HoveredIcon { get; set; }
+
+    public Texture2D? GetHoveredIcon() => HoveredIcon ?? Icon;
+
     [Export]
     public uint ManaCost { get; set; }
 

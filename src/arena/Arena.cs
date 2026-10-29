@@ -395,10 +395,10 @@ public partial class Arena : Node3D
         return GameViewportRect.ViewportToCanvas(PlayerCamera.UnprojectPosition(globalPoint));
     }
 
-    // Where the stack's label goes on the screen: under the stack's feet as the camera sees them, at the
-    // footprint's center horizontally and its lowest projected corner vertically. The same for 1x1 and 2x2 stacks
-    // from any camera angle. From the unit's current position, so it follows moves and the setup drag.
-    // Null if the stack has no unit or a corner is behind the camera.
+    // Where the stack's label goes on the screen: the near edge of its footprint as the camera sees it (the
+    // footprint center's projected X, its lowest projected corner's Y). A 1x1 stack's tag stays at its feet, and a
+    // 2x2 one's sits in front of the model instead of covering it (wolves lie flat). From the unit's current
+    // position, so it follows moves and the setup drag. Null if the stack has no unit or a corner is behind the camera.
     public Vector2? GetStackLabelCanvasPoint(Stack stack)
     {
         if (stack.NodeRepresentation is not UnitNode unit || !IsInstanceValid(unit))
@@ -408,14 +408,14 @@ public partial class Arena : Node3D
             return null;
 
         float half = stack.Size * TileSize / 2f;
-        float bottom = canvasCenter.Y;
+        float nearEdge = canvasCenter.Y;
         foreach (Vector3 corner in new Vector3[] { new(-half, 0, -half), new(half, 0, -half), new(-half, 0, half), new(half, 0, half) })
         {
             if (ProjectToCanvas(ToGlobal(center + corner)) is not Vector2 canvasCorner)
                 return null;
-            bottom = Mathf.Max(bottom, canvasCorner.Y);
+            nearEdge = Mathf.Max(nearEdge, canvasCorner.Y);
         }
-        return new Vector2(canvasCenter.X, bottom);
+        return new Vector2(canvasCenter.X, nearEdge);
     }
 
     #endregion
@@ -663,7 +663,44 @@ public partial class Arena : Node3D
         UpdateMeleeCursor();
         UpdateRangedCursor();
         UpdateSpellCursor();
+        UpdateActionPreview();
         _userInterface?.SetHoveredStack(GetFocusedStack());
+    }
+
+    // Shows under the hovered target what the action would do to it: units killed (or revived, by a spell).
+    // From the same amounts the abilities deal (GetDamage, SpellAbility.Evaluate), so it's what really happens.
+    // Retaliation isn't included.
+    private void UpdateActionPreview()
+    {
+        if (_userInterface == null)
+            return;
+
+        Stack? target = null;
+        int killed = 0, revived = 0;
+        if (IsPlayerTurn && CurrentStack is Stack stack && Battle is Battle battle)
+        {
+            if (IsPickingSpellTarget)
+            {
+                if (_pickedSpell is SpellAbility spell && GetFocusedStack() is Stack hovered && _spellTargets.Contains(hovered))
+                {
+                    SpellEstimate estimate = _pickedSpellIsHero
+                        ? spell.EvaluateFromHero(stack, hovered, battle)
+                        : spell.Evaluate(stack, hovered, battle);
+                    (target, killed, revived) = (hovered, estimate.UnitsKilled, estimate.Revives);
+                }
+            }
+            else if (_pickedMeleeAttack is { } picked && stack.Unit.MeleeAttack is MeleeAttackAbility melee)
+            {
+                target = picked.Target;
+                killed = (int)target.GetUnitsKilledBy(melee.GetDamage(stack, target));
+            }
+            else if (GetFocusedRangedTarget() is Stack shot && stack.Unit.LongRangeAttack is LongRangeAttackAbility ranged)
+            {
+                target = shot;
+                killed = (int)shot.GetUnitsKilledBy(ranged.GetDamage(stack, shot));
+            }
+        }
+        _userInterface.SetActionPreview(target, killed, revived);
     }
 
     // Every frame on the player's turn: picks the attack position for the hovered melee target (red and raised),
@@ -998,14 +1035,14 @@ public partial class Arena : Node3D
         _userInterface?.UpdateSpellButtons(stack);
     }
 
-    // While a spell target is hovered, the mouse is replaced by the spell's icon.
+    // While a spell target is hovered, the mouse is replaced by the spell's hovered icon.
     private void UpdateSpellCursor()
     {
         if (_userInterface == null)
             return;
         if (IsPlayerTurn && _pickedSpell is SpellAbility spell && GetFocusedStack() is Stack hovered
             && _spellTargets.Contains(hovered))
-            _userInterface.ShowSpellCursor(spell.Icon);
+            _userInterface.ShowSpellCursor(spell.GetHoveredIcon());
         else
             _userInterface.HideSpellCursor();
     }

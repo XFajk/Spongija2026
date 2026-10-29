@@ -64,6 +64,12 @@ public abstract class BattleAI
 
     #region Attacking
 
+    // Damage the attacker's attack would really deal to the target (the abilities' own GetDamage, so their
+    // multipliers count): its stronger attack if it has both, 0 if it has none
+    protected static int GetAttackDamage(Stack attacker, Stack target) => Math.Max(
+        attacker.Unit.MeleeAttack?.GetDamage(attacker, target) ?? 0,
+        attacker.Unit.LongRangeAttack?.GetDamage(attacker, target) ?? 0);
+
     // Enemies the stack can hit this turn: in melee (moving first if needed) or by shooting
     public List<Stack> GetAttackableTargets(Stack stack, Reachability reachability) =>
         Battle.GetMeleeTargets(stack, reachability).Concat(Battle.GetRangedTargets(stack, reachability)).ToList();

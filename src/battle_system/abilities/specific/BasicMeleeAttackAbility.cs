@@ -15,6 +15,8 @@ public partial class BasicMeleeAttackAbility : MeleeAttackAbility
     [Export(PropertyHint.Range, "0.1,3")]
     public float LungeDuration { get; set; } = 0.7f;
 
+    public override int GetDamage(Stack user, Stack target) => Battle.CalculateDamage(user, target, BasicAttackMultiplier);
+
     public override async Task Use(Stack user, Stack target, Arena arena)
     {
 
@@ -25,7 +27,7 @@ public partial class BasicMeleeAttackAbility : MeleeAttackAbility
 
         if (maybeUserNode is not UnitNode userNode || maybeTargetNode is not UnitNode targetNode)
         {
-            target.TakeDamage(Battle.CalculateDamage(user, target, BasicAttackMultiplier));
+            target.TakeDamage(GetDamage(user, target));
             return;
         }
 
@@ -43,7 +45,7 @@ public partial class BasicMeleeAttackAbility : MeleeAttackAbility
             0f, 1f, LungeDuration);
         tween.TweenCallback(Callable.From(() =>
         {
-            target.TakeDamage(Battle.CalculateDamage(user, target, BasicAttackMultiplier));
+            target.TakeDamage(GetDamage(user, target));
             userNode.Position = start;
             userNode.FaceEnemySide();
             tcs.SetResult();

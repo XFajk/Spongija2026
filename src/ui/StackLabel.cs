@@ -1,6 +1,7 @@
 using Godot;
 
-// A stack's name and number of units, drawn over the battle under the stack's feet.
+// A stack's number of units on a tag, drawn over the stack's feet so it stays on the model, with a preview under it
+// of what the hovered attack or spell would do to the stack.
 // ArenaUserInterface spawns one per stack (scenes/ui/stack_lable.tscn) and moves it every frame.
 public partial class StackLabel : Control
 {
@@ -10,40 +11,75 @@ public partial class StackLabel : Control
 	[Export]
 	public Texture2D? ComputerTagTexture { get; set; } = GD.Load<Texture2D>("uid://dsiugxguwvrim");
 
-	// Added to the point under the stack's feet, in pixels. The label's top center (name and tag together) goes there.
+	// Added to the point at the stack's feet, in pixels. The tag is centered on this control's origin in the scene,
+	// so it's centered there.
 	[Export]
-	public Vector2 ScreenOffset { get; set; } = new(0, 4);
+	public Vector2 ScreenOffset { get; set; } = Vector2.Zero;
 
-	// Relative to the label (names are at 0); ArenaUserInterface puts its other layers above it
-	public const int TagZIndex = 1;
+	// The preview under the tag (ShowPreview): units the hovered action would kill, or bring back
+	[ExportGroup("Preview")]
+	[Export]
+	public Color KillPreviewColor { get; set; } = new(1f, 0.3f, 0.25f);
+
+	[Export]
+	public Color RevivePreviewColor { get; set; } = new(0.4f, 1f, 0.45f);
+
+	[Export]
+	public int PreviewFontSize { get; set; } = 26;
 
 	public Stack? Stack { get; private set; }
 
-	private Label? _nameLabel;
 	private TextureRect? _numberTag;
 	private Label? _quantityLabel;
+	private Label? _previewLabel;
 
 	// Shown only when it changes; null until the first Refresh
 	private uint? _shownQuantity;
 
 	public override void _Ready()
 	{
-		_nameLabel = GetNode<Label>("StackName");
-		_numberTag = GetNode<TextureRect>("StackName/NumberTag");
-		_quantityLabel = GetNode<Label>("StackName/NumberTag/NumberOfUnitsInStack");
-		// Every tag draws over every stack's name, so overlapping labels never hide a number
-		_numberTag.ZIndex = TagZIndex;
+		_numberTag = GetNode<TextureRect>("NumberTag");
+		_quantityLabel = GetNode<Label>("NumberTag/NumberOfUnitsInStack");
+
+		// Made here rather than in the scene, so the scene stays only the tag. Centered under the tag.
+		Rect2 tag = _numberTag.GetRect();
+		_previewLabel = new Label
+		{
+			Name = "Preview",
+			HorizontalAlignment = HorizontalAlignment.Center,
+			Position = new Vector2(tag.Position.X, tag.End.Y),
+			Size = new Vector2(tag.Size.X, PreviewFontSize + 8),
+			LabelSettings = new LabelSettings { FontSize = PreviewFontSize, OutlineSize = 8, OutlineColor = Colors.Black },
+			Visible = false,
+		};
+		AddChild(_previewLabel);
+
 		// The labels lie over the battle, so clicks and hovers must go through them to the units and tiles
 		IgnoreMouse(this);
+	}
+
+	// Shows what the hovered action would do to this stack: -kills in red, +revives in green, or nothing (0, 0)
+	public void ShowPreview(int unitsKilled, int unitsRevived)
+	{
+		if (_previewLabel == null)
+			return;
+		if (unitsKilled > 0)
+		{
+			_previewLabel.Text = $"-{unitsKilled}";
+			_previewLabel.LabelSettings.FontColor = KillPreviewColor;
+		}
+		else if (unitsRevived > 0)
+		{
+			_previewLabel.Text = $"+{unitsRevived}";
+			_previewLabel.LabelSettings.FontColor = RevivePreviewColor;
+		}
+		_previewLabel.Visible = unitsKilled > 0 || unitsRevived > 0;
 	}
 
 	// Called once, right after the label is added to the tree. The side picks the tag's image.
 	public void Setup(Stack stack, bool isPlayerStack)
 	{
 		Stack = stack;
-		_nameLabel!.Text = stack.Unit.Name;
-		// Shrinks the name's box to its text, so the tag, anchored to its right edge, follows the name right away
-		_nameLabel.ResetSize();
 		_numberTag!.Texture = isPlayerStack ? PlayerTagTexture : ComputerTagTexture;
 		Refresh();
 	}
@@ -57,15 +93,10 @@ public partial class StackLabel : Control
 		_quantityLabel!.Text = _shownQuantity.ToString();
 	}
 
-	// Puts the top center of the name and tag together, plus ScreenOffset, on the canvas point
+	// Centers the tag, plus ScreenOffset, on the canvas point
 	public void PlaceAt(Vector2 canvasPoint)
 	{
-		// Both rects relative to this control; the tag is a child of the name
-		Rect2 nameRect = _nameLabel!.GetRect();
-		Rect2 tagRect = _numberTag!.GetRect();
-		tagRect.Position += nameRect.Position;
-		Rect2 bounds = nameRect.Merge(tagRect);
-		GlobalPosition = canvasPoint + ScreenOffset - new Vector2(bounds.GetCenter().X, bounds.Position.Y);
+		GlobalPosition = canvasPoint + ScreenOffset;
 	}
 
 	private static void IgnoreMouse(Node node)
