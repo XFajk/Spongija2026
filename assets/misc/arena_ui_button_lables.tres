@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://d0km52bv6hh2a"]
+
+[ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="1_ylhfy"]
+
+[resource]
+font = ExtResource("1_ylhfy")
+font_size = 23
+outline_size = 13
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)

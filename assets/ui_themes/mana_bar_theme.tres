@@ -1,0 +1,22 @@
+[gd_resource type="Theme" format=3 uid="uid://dwva6hc8uuvyr"]
+
+[ext_resource type="Texture2D" path="res://assets/ui/progress_bar_rim.png" id="1_k2h41"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8utch"]
+texture = ExtResource("1_k2h41")
+texture_margin_left = 40.0
+texture_margin_top = 35.0
+texture_margin_right = 40.0
+texture_margin_bottom = 35.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w83m1"]
+bg_color = Color(0, 8.201599e-05, 1, 1)
+border_width_left = 30
+border_width_top = 25
+border_width_right = 30
+border_width_bottom = 25
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[resource]
+ProgressBar/styles/background = SubResource("StyleBoxTexture_8utch")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_w83m1")
