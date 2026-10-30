@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://rp8qxudhfv8q"]
+
+[ext_resource type="PackedScene" uid="uid://mwypqss4nms0" path="res://assets/terrain/models/carnota/claw.glb" id="1_0yope"]
+
+[node name="Claw" unique_id=1680009021 instance=ExtResource("1_0yope")]
+
+[node name="claw" parent="." index="0" unique_id=1484502983]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6746898, 0)
