@@ -21,6 +21,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 	public CharacterPanel? inventoryPanel;
 	Inventory? inventory;
 	public bool canMove;
+	public bool moving;
 
 	public override void _Ready()
 	{
@@ -59,8 +60,8 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 		TargetPosition = pos;
 		agent.TargetPosition = TargetPosition;
 		ResetPoints();
-		GD.Print(pos);
 		DisplayPathPoints();
+		moving = true;
 	}
 
 	public void SetPOITarget(Vector3 pos, float distance, PointOfInterest _point)
@@ -78,14 +79,20 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 		TargetPosition = pos;
 		agent.TargetPosition = TargetPosition;
 		ResetPoints();
-		GD.Print(pos);
 		DisplayPathPoints();
+		moving = true;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		if (agent!.IsNavigationFinished())
 		{
+			if (!TutorialChecklist.inventoryShown && moving)
+			{
+				GetNode<Tutorial>("/root/Map/Tutorial").ShowInventory();
+			}
+
+			moving = false;
 			Velocity = Vector3.Zero;
 			MoveAndSlide();
 
@@ -247,6 +254,10 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 	{
 		inventoryPanel!.Show();
 		canMove = false;
+		if (!TutorialChecklist.inventoryExplained)
+		{
+			GetNode<Tutorial>("/root/Map/Tutorial").ExplainInventory();
+		}
 	}
 
 	public void HidePanel()

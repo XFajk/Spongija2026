@@ -14,6 +14,8 @@ public partial class ResourcePOI : PointOfInterest
 	[Export]
 	public Control? Container { get; set; }
 
+	[Export] Texture2D[]? icons;
+
 	public override void Access()
 	{
 		base.Access();
@@ -37,6 +39,23 @@ public partial class ResourcePOI : PointOfInterest
 
 		popup!.Text = amount >= 0 ? $"+{amount}" : amount.ToString();
 		popup!.Position = screenPosition;
+		popup!.GetNode<TextureRect>("TextureRect").Show();
+		popup!.GetNode<TextureRect>("TextureRect").Texture = GetTexture();
+	}
+
+	Texture2D GetTexture()
+	{
+		switch(type)
+		{
+			case TypeOfResource.horses:
+				return icons![0];
+			case TypeOfResource.silk:
+				return icons![1];
+			case TypeOfResource.iron:
+				return icons![2];
+			default:
+				return icons![0];
+		}
 	}
 }
 

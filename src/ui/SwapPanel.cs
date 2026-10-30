@@ -19,6 +19,11 @@ public partial class SwapPanel : Panel
 
 	public void SetupWindow(Inventory inventory)
 	{
+		if (!TutorialChecklist.swappingExplained)
+		{
+			GetNode<Tutorial>("/root/Map/Tutorial").ExplainSwapping();
+		}
+
 		_inventory = inventory;
 
 		for (int i = 0; i < keepSlots?.Length; i++)
