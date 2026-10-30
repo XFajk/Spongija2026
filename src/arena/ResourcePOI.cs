@@ -5,7 +5,7 @@ public partial class ResourcePOI : PointOfInterest
 {
 	[Export] public TypeOfResource type;
 	[Export] public int Amount;
-	 [Export]
+	[Export]
 	public PackedScene? FloatingTextScene { get; set; }
 
 	[Export]

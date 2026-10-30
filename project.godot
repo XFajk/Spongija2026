@@ -36,6 +36,7 @@ enabled=PackedStringArray("res://addons/GPUTrail/plugin.cfg")
 folder_colors={
 "res://assets/": "green",
 "res://assets/battle_system/abilities/": "orange",
+"res://assets/battle_system/artefacts/": "teal",
 "res://assets/battle_system/effects/": "teal",
 "res://assets/battle_system/units/": "gray",
 "res://src/": "red"

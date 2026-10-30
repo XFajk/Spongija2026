@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Artefact" format=3 uid="uid://cwqr0302b8gbw"]
+
+[ext_resource type="Texture2D" uid="uid://sgd46d2fa4vd" path="res://icon.svg" id="1_4sbf0"]
+[ext_resource type="Script" uid="uid://dro3uwa3xh26h" path="res://src/battle_system/artefacts/Artefact.cs" id="1_kg6ff"]
+
+[resource]
+script = ExtResource("1_kg6ff")
+Name = "Fighter´s Helmet"
+BodyPart = 0
+Icon = ExtResource("1_4sbf0")
+metadata/_custom_type_script = "uid://dro3uwa3xh26h"

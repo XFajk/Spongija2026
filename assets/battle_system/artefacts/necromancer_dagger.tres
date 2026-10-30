@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Artefact" format=3 uid="uid://c0vftawr4xuyk"]
+
+[ext_resource type="Script" uid="uid://dro3uwa3xh26h" path="res://src/battle_system/artefacts/Artefact.cs" id="1_oxedt"]
+[ext_resource type="Texture2D" uid="uid://nidiayrbf26b" path="res://assets/ui/arrow.png" id="1_x6jbj"]
+
+[resource]
+script = ExtResource("1_oxedt")
+Name = "Necromancer Dagger"
+Icon = ExtResource("1_x6jbj")
+metadata/_custom_type_script = "uid://dro3uwa3xh26h"

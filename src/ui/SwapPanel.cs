@@ -23,9 +23,9 @@ public partial class SwapPanel : Panel
 
 		for (int i = 0; i < keepSlots?.Length; i++)
 		{
-			if (_inventory?.units?[i] != null)
+			if (_inventory?.Units?[i] != null)
 			{
-				keepSlots[i].Setup((int)_inventory.units[i].Quantity, _inventory.units[i]?.Unit?.texture!);
+				keepSlots[i].Setup((int)_inventory.Units[i].Quantity, _inventory.Units[i]?.Unit?.texture!);
 			}
 			else
 			{
@@ -47,9 +47,9 @@ public partial class SwapPanel : Panel
 	{
 		for (int i = 0; i < keepSlots?.Length; i++)
 		{
-			if (_inventory?.units?[i] != null)
+			if (_inventory?.Units?[i] != null)
 			{
-				keepSlots[i].Setup((int)_inventory.units[i].Quantity, _inventory.units[i]?.Unit?.texture!);
+				keepSlots[i].Setup((int)_inventory.Units[i].Quantity, _inventory.Units[i]?.Unit?.texture!);
 			}
 			else
 			{

@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://dd8qpygjqxwvm"]
 
+[ext_resource type="Theme" uid="uid://c7y84ghi423h7" path="res://assets/ui_themes/unit_slot.tres" id="1_7qvqg"]
 [ext_resource type="Script" uid="uid://bb6o3a5a5utuo" path="res://src/ui/InventoryUnitSlot.cs" id="1_cqnd5"]
 [ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="2_k7yi5"]
 [ext_resource type="Texture2D" uid="uid://r6lyu5hmdlly" path="res://assets/pics/swap.png" id="3_c56av"]
-
-[sub_resource type="Theme" id="Theme_4xvhx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_p7tei"]
 font = ExtResource("2_k7yi5")
@@ -14,7 +13,7 @@ outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 
 [node name="Slot" type="Button" unique_id=1118737442 node_paths=PackedStringArray("amountText", "image", "selected")]
 custom_minimum_size = Vector2(100, 100)
-theme = SubResource("Theme_4xvhx")
+theme = ExtResource("1_7qvqg")
 script = ExtResource("1_cqnd5")
 amountText = NodePath("Amount")
 image = NodePath("TextureRect")

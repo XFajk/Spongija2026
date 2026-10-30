@@ -5,27 +5,29 @@ using System.Diagnostics;
 public partial class AdventureCamera : PlayerCamera
 {
 	Rid map;
-	[Export] public AdventureCharacter? agent;
+	[Export] public AdventureCharacter? Agent;
 
 	[Export] public float Distance = 6.0f;
 	[Export] public float Height = 3.0f;
 	[Export] public float MouseSensitivity = 0.005f;
 	[Export] public float SmoothSpeed = 10.0f;
+	[Export] Label? returnPanningButton;
 
 	private float _yaw = 0.0f;
 	private bool _rotating = false;
 	private Vector2 _panningDirection;
 	private bool _panning;
 	private bool _panningChanged;
-	Vector3 rotatingCenter;
+	Vector3 _rotatingCenter;
 	RayCast3D? _groundRaycast;
+	private bool _ignoringClick;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
 		map = GetWorld3D().NavigationMap;
-		rotatingCenter = agent!.GlobalPosition;
+		_rotatingCenter = Agent!.GlobalPosition;
 		_groundRaycast = GetNode<RayCast3D>("/root/Map/SubViewport/RayCast3D");
 		_groundRaycast.CollisionMask = (1u << 2) | (1u << 3);
 		_groundRaycast.CollideWithAreas = true;
@@ -36,6 +38,11 @@ public partial class AdventureCamera : PlayerCamera
 	{
 		base._Process(delta);
 		Debug.Assert(_interactionRayCast != null);
+
+		if (_ignoringClick && !Input.IsActionJustPressed("interact"))
+			_ignoringClick = false;
+		bool interactPressed = Input.IsActionJustPressed("interact") && !_ignoringClick;
+
 		if (_interactionRayCast.IsColliding())
 		{
 			if (_interactionRayCast.GetCollider() is CollisionObject3D obj)
@@ -47,15 +54,15 @@ public partial class AdventureCamera : PlayerCamera
 					/*Vector3 navPoint =
 					NavigationServer3D.MapGetClosestPoint(map, hitPosition);*/
 
-					if (agent!.canMove)
+					if (Agent!.canMove)
 					{
 						if (IsOnNavMesh(hitPosition))
 						{
 							if (hasPath(hitPosition))
 							{
-								if (Input.IsActionJustPressed("interact"))
+								if (interactPressed)
 								{
-									agent.SetTarget(hitPosition);
+									Agent!.SetTarget(hitPosition);
 								}
 							}
 						}
@@ -70,10 +77,13 @@ public partial class AdventureCamera : PlayerCamera
 			{
 				ResetPan();
 			}
+
+			returnPanningButton?.Show();
 		}
 		else
 		{
-			rotatingCenter = agent!.GlobalPosition;
+			_rotatingCenter = Agent!.GlobalPosition;
+			returnPanningButton?.Hide();
 		}
 
 		CameraFollow(delta);
@@ -99,8 +109,8 @@ public partial class AdventureCamera : PlayerCamera
 		{
 			Vector3 hit = _groundRaycast.GetCollisionPoint();
 
-			rotatingCenter.Y = (float)Mathf.Lerp(
-				rotatingCenter.Y,
+			_rotatingCenter.Y = (float)Mathf.Lerp(
+				_rotatingCenter.Y,
 				hit.Y,
 				1.0 - Mathf.Exp(-10.0 * delta)
 			);
@@ -117,13 +127,13 @@ public partial class AdventureCamera : PlayerCamera
 				Mathf.Cos(_yaw) * Distance
 			);
 
-			Vector3 desiredPosition = (rotatingCenter + Vector3.Up * Height) + offset;
+			Vector3 desiredPosition = (_rotatingCenter + Vector3.Up * Height) + offset;
 
 			float t = 1.0f - Mathf.Exp(-SmoothSpeed * (float)delta);
 
 			GlobalPosition = GlobalPosition.Lerp(desiredPosition, t);
 
-			LookAt(rotatingCenter, Vector3.Up);
+			LookAt(_rotatingCenter, Vector3.Up);
 		}
 	}
 
@@ -157,8 +167,8 @@ public partial class AdventureCamera : PlayerCamera
 			right.Y = 0;
 			right = right.Normalized();
 
-			rotatingCenter += right * -motion.Relative.X * MouseSensitivity * 5;
-			rotatingCenter += forward * -motion.Relative.Y * MouseSensitivity * 5;
+			_rotatingCenter += right * -motion.Relative.X * MouseSensitivity * 5;
+			_rotatingCenter += forward * -motion.Relative.Y * MouseSensitivity * 5;
 
 			Position += right * -motion.Relative.X * MouseSensitivity * 5;
 			Position += forward * -motion.Relative.Y * MouseSensitivity * 5;
@@ -178,7 +188,7 @@ public partial class AdventureCamera : PlayerCamera
 	{
 		Vector3[] path = NavigationServer3D.MapGetPath(
 			map,
-			agent!.GlobalPosition,
+			Agent!.GlobalPosition,
 			pos,
 			true
 		);
@@ -193,14 +203,19 @@ public partial class AdventureCamera : PlayerCamera
 
 		Tween tween = CreateTween();
 		tween.TweenMethod(
-		Callable.From<Vector3>(v => rotatingCenter = v),
-		rotatingCenter,
-		agent!.GlobalPosition,
+		Callable.From<Vector3>(v => _rotatingCenter = v),
+		_rotatingCenter,
+		Agent!.GlobalPosition,
 		0.2f
 	);
 
 		await ToSignal(tween, Tween.SignalName.Finished);
 
 		_panningChanged = false;
+	}
+
+	public void IgnoreAdventureCurrentClick()
+	{
+		_ignoringClick = true;
 	}
 }

@@ -244,6 +244,8 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 	public void HidePanel()
 	{
 		inventoryPanel?.ResetSplitting();
+		inventoryPanel?.ResetCombining();
+		inventoryPanel?.ResetEquipping();
 		inventoryPanel!.Hide();
 		canMove = true;
 	}

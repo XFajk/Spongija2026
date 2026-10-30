@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 public partial class SpellDisplay : Control
 {
+	[Export] AdventureCamera? adventureCamera;
 	private Inventory? inventory;
 	private Control? _bookInterface;
 	private AnimatedSprite2D? _spellBook;
@@ -46,9 +47,10 @@ public partial class SpellDisplay : Control
 
 	public void OpenBook()
 	{
-		inventory?.character?.HidePanel();
+		inventory?.Character?.HidePanel();
+		inventory!.Character!.canMove = false;
 
-		OpenSpellBook(inventory!.spells!, 30, 50);
+		OpenSpellBook(inventory!.Spells!, 30, 50);
 	}
 
 	private void CollectSpellButtons(Node parent)
@@ -86,6 +88,7 @@ public partial class SpellDisplay : Control
 	private void CloseSpellBook()
 	{
 		_bookInterface!.Visible = false;
+		inventory!.Character!.canMove = true;
 	}
 
 	private async void OnNextPageButtonPressed()
@@ -160,6 +163,8 @@ public partial class SpellDisplay : Control
 
 		GetViewport().SetInputAsHandled();
 		// The camera polls the button instead of reading events, so it has to be told this click is taken
+		adventureCamera?.IgnoreAdventureCurrentClick();
+		adventureCamera?.IgnoreCurrentClick();
 		if (!_bookAnimating)
 			CloseSpellBook();
 	}

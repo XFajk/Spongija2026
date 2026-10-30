@@ -68,6 +68,7 @@ debug_path_custom_color = Color(0.2784467, 0.6038251, 0, 1)
 
 [node name="Inventory" type="Node" parent="." unique_id=1608058295]
 script = ExtResource("3_8pgid")
-units = Array[Object]([SubResource("Resource_n1psn"), SubResource("Resource_e24yl"), SubResource("Resource_a11gi"), null, null])
-spells = Array[Object]([ExtResource("7_51ulg"), ExtResource("8_l1a7v")])
+Units = Array[Object]([SubResource("Resource_n1psn"), SubResource("Resource_e24yl"), SubResource("Resource_a11gi"), null, null])
+Spells = Array[Object]([ExtResource("7_51ulg"), ExtResource("8_l1a7v")])
+EquippedArtefacts = Array[Object]([null, null, null])
 recipes = Array[Object]([ExtResource("7_e24yl"), ExtResource("8_bwkvg")])

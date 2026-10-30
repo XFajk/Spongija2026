@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Artefact" format=3 uid="uid://bc87qlraj571l"]
+
+[ext_resource type="Texture2D" uid="uid://eekwpb3iyv1q" path="res://assets/ui/flag_black.png" id="1_14lww"]
+[ext_resource type="Script" uid="uid://dro3uwa3xh26h" path="res://src/battle_system/artefacts/Artefact.cs" id="1_n7l6k"]
+
+[resource]
+script = ExtResource("1_n7l6k")
+Name = "Orome´s Horn"
+Icon = ExtResource("1_14lww")
+metadata/_custom_type_script = "uid://dro3uwa3xh26h"

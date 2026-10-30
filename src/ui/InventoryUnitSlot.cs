@@ -63,7 +63,7 @@ public partial class InventoryUnitSlot : Button
 			}
 			else
 			{
-				if (inventory?.units?[index].Unit == inventory?.unitSplitting)
+				if (inventory?.Units?[index].Unit == inventory?.unitSplitting)
 				{
 					if (inventory!.unitSplitting != null)
 					{
