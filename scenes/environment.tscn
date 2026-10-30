@@ -31,7 +31,6 @@
 [ext_resource type="Texture2D" uid="uid://dr5q06u3eewud" path="res://assets/terrain/ground_textures/86_normal_roughness.png" id="15_oqnwj"]
 [ext_resource type="PackedScene" uid="uid://dwnd8eivr0j0f" path="res://assets/terrain/models/trees/tree1.glb" id="16_sjwfk"]
 [ext_resource type="PackedScene" uid="uid://bxy2qhstt57uv" path="res://assets/terrain/models/trees/tree2.glb" id="17_12bcd"]
-[ext_resource type="Script" uid="uid://d1fx5b2mo1max" path="res://src/environment/debug_freecam.gd" id="18_3am05"]
 [ext_resource type="PackedScene" uid="uid://bd43ikhj5qkgb" path="res://assets/terrain/models/trees/tree3.glb" id="18_x2463"]
 [ext_resource type="PackedScene" uid="uid://bhf4gah8pdylg" path="res://assets/terrain/models/trees/tree4.glb" id="19_epjyj"]
 [ext_resource type="PackedScene" uid="uid://dkp62x8gmjam7" path="res://assets/terrain/models/trees/tree5.glb" id="20_cd3j1"]
@@ -39,7 +38,6 @@
 [ext_resource type="Texture2D" uid="uid://dgvxawhxnlwpe" path="res://assets/terrain/models/spider_nest/web1_khoko1.png" id="23_mv1rp"]
 [ext_resource type="Texture2D" uid="uid://nppu5vqvw6dm" path="res://assets/terrain/models/spider_nest/web2_khoko2.png" id="24_e3xjf"]
 [ext_resource type="Texture2D" uid="uid://cfsgerdbai2fw" path="res://assets/terrain/models/spider_nest/web3_khoko3.png" id="25_0bmnx"]
-[ext_resource type="PackedScene" uid="uid://e27iitbo5mh0" path="res://assets/misc/elf_reference.fbx" id="38_epjyj"]
 [ext_resource type="PackedScene" uid="uid://mwvl42up2ehw" path="res://scenes/points_of_interest/big_tent.tscn" id="38_x2463"]
 [ext_resource type="PackedScene" uid="uid://2qvbtu2smbfn" path="res://assets/terrain/models/camp/log.glb" id="39_73u5r"]
 [ext_resource type="PackedScene" uid="uid://cthd0snjora05" path="res://assets/terrain/models/camp/palica.glb" id="40_3460w"]
@@ -269,7 +267,7 @@ scene_file = ExtResource("16_sjwfk")
 density = 0.2
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 512.0
+lod0_range = 64.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_b7sw3"]
 name = "tree2"
@@ -278,7 +276,7 @@ scene_file = ExtResource("17_12bcd")
 density = 0.2
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 512.0
+lod0_range = 64.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_3527y"]
 name = "tree3"
@@ -287,7 +285,7 @@ scene_file = ExtResource("18_x2463")
 density = 0.2
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 512.0
+lod0_range = 64.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_xdke8"]
 name = "tree4"
@@ -296,7 +294,7 @@ scene_file = ExtResource("19_epjyj")
 density = 0.2
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 512.0
+lod0_range = 64.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_mv1rp"]
 name = "tree5"
@@ -305,7 +303,7 @@ scene_file = ExtResource("20_cd3j1")
 density = 0.2
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 512.0
+lod0_range = 64.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_e3xjf"]
 name = "tree6"
@@ -314,7 +312,7 @@ scene_file = ExtResource("21_yqkwf")
 density = 0.2
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 512.0
+lod0_range = 64.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_0bmnx"]
 name = "palica"
@@ -339,6 +337,7 @@ distance_fade_max_distance = 96.0
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_add30"]
 id = 21
 generated_type = 1
+height_offset = 0.5
 material_override = SubResource("StandardMaterial3D_lewcq")
 generated_faces = 1
 generated_size = Vector2(2, 2)
@@ -360,6 +359,7 @@ distance_fade_max_distance = 96.0
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_2poc3"]
 id = 22
 generated_type = 1
+height_offset = 0.5
 material_override = SubResource("StandardMaterial3D_bxgb7")
 generated_faces = 1
 generated_size = Vector2(2, 1.1)
@@ -381,6 +381,7 @@ distance_fade_max_distance = 96.0
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_cwyve"]
 id = 23
 generated_type = 1
+height_offset = 0.5
 material_override = SubResource("StandardMaterial3D_bhi3u")
 generated_faces = 1
 generated_size = Vector2(2, 2)
@@ -585,7 +586,9 @@ navigation_mesh = SubResource("NavigationMesh_jvnn3")
 data_directory = "res://assets/terrain/surface1"
 material = SubResource("Terrain3DMaterial_d5dl1")
 assets = SubResource("Terrain3DAssets_yw8f4")
-collision_radius = 256
+collision_radius = 128
+collision_layer = 12
+collision_mask = 0
 vertex_spacing = 0.25
 show_vertex_grid = true
 top_level = true
@@ -594,15 +597,6 @@ metadata/_edit_lock_ = true
 [node name="Water" type="MeshInstance3D" parent="." unique_id=1044422736]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -596.7897, -18.674173, -636.2078)
 mesh = SubResource("BoxMesh_etuta")
-
-[node name="DebugFreecam" type="CharacterBody3D" parent="." unique_id=1784385204]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -212.89848, 26.837448, -596.2627)
-script = ExtResource("18_3am05")
-
-[node name="Camera3D" type="Camera3D" parent="DebugFreecam" unique_id=1216372038]
-
-[node name="elf_reference" parent="." unique_id=1360837034 instance=ExtResource("38_epjyj")]
-transform = Transform3D(-0.09221346, 0, 0.6232148, 0, 0.63, 0, -0.6232148, 0, -0.09221346, -572.53, 4.5179462, -617.3053)
 
 [node name="Objects" type="Node3D" parent="." unique_id=1055363462]
 
@@ -688,11 +682,9 @@ transform = Transform3D(0.5742916, 0, -1.3857089, 0, 1.5, 0, 1.3857089, 0, 0.574
 
 [node name="wagon3" parent="Objects/StartingCamp" unique_id=1488753430 instance=ExtResource("43_3460w")]
 transform = Transform3D(0.5742916, 0, -1.3857089, 0, 1.5, 0, 1.3857089, 0, 0.5742916, -91.72385, 11.008896, -453.64703)
-metadata/_edit_group_ = true
 
 [node name="wagon4" parent="Objects/StartingCamp" unique_id=1759906369 instance=ExtResource("43_3460w")]
 transform = Transform3D(0.5742916, 0, -1.3857089, 0, 1.5, 0, 1.3857089, 0, 0.5742916, -90.9916, 11.008897, -446.26843)
-metadata/_edit_group_ = true
 
 [node name="small_wagon2" parent="Objects/StartingCamp" unique_id=349727118 instance=ExtResource("47_xxa8p")]
 transform = Transform3D(0.18196356, 0.16096957, -0.56029415, -3.7252903e-09, 0.5869546, 0.16862899, 0.5829585, -0.05024473, 0.17488913, -92.53163, 11.023728, -457.43088)
@@ -775,31 +767,24 @@ transform = Transform3D(-0.08981401, 0, 2.5934453, 0, 2.595, 0, -2.5934453, 0, -
 
 [node name="pickaxe2" parent="Objects/SwampMines" unique_id=29558320 instance=ExtResource("45_uoiqa")]
 transform = Transform3D(-0.34155822, -1.1445706, 0.115307964, -0.07409833, 0.14192346, 1.1892715, -1.1479754, 0.3313846, -0.11107156, -327.43658, 1.8449409, -412.28296)
-metadata/_edit_group_ = true
 
 [node name="pickaxe3" parent="Objects/SwampMines" unique_id=2140994651 instance=ExtResource("45_uoiqa")]
 transform = Transform3D(-1.1077935, 0.44665214, 0.11530796, 0.1482066, 0.060561053, 1.1892716, 0.43683958, 1.1121305, -0.11107157, -327.43658, 1.8449409, -413.76187)
-metadata/_edit_group_ = true
 
 [node name="shovel2" parent="Objects/SwampMines" unique_id=780617590 instance=ExtResource("46_ghe3b")]
 transform = Transform3D(-0.96596986, -0.11415427, 0.23210195, 0.12101461, 0.5936146, 0.79559875, -0.22860008, 0.79661196, -0.5595996, -328.36856, 1.6477389, -413.60443)
-metadata/_edit_group_ = true
 
 [node name="shovel3" parent="Objects/SwampMines" unique_id=444901887 instance=ExtResource("46_ghe3b")]
 transform = Transform3D(-0.83006954, -0.20638196, 0.518065, -0.06541489, 0.9586188, 0.277075, -0.5538102, 0.19610229, -0.8092209, -368.68723, 1.8352718, -365.95114)
-metadata/_edit_group_ = true
 
 [node name="shovel4" parent="Objects/SwampMines" unique_id=674372464 instance=ExtResource("46_ghe3b")]
 transform = Transform3D(-0.38810685, 0.23136486, -0.89210075, -0.06541489, 0.9586188, 0.277075, 0.91929007, 0.16589135, -0.35691196, -363.14493, 2.5170925, -367.54626)
-metadata/_edit_group_ = true
 
 [node name="small_wagon2" parent="Objects/SwampMines" unique_id=1987392015 instance=ExtResource("47_xxa8p")]
 transform = Transform3D(0.89703107, 0.25215954, -0.3629746, -0.06566716, 0.8881964, 0.45474708, 0.43706173, -0.38408682, 0.81329846, -329.33347, 2.308598, -409.96094)
-metadata/_edit_group_ = true
 
 [node name="small_wagon3" parent="Objects/SwampMines" unique_id=392561399 instance=ExtResource("47_xxa8p")]
 transform = Transform3D(-0.93879855, -0.33354262, -0.08605942, -0.10003239, 0.50304794, -0.8584497, 0.3296217, -0.7973028, -0.5056258, -364.43536, 3.6064796, -362.70734)
-metadata/_edit_group_ = true
 
 [node name="barricade4" parent="Objects/SwampMines" unique_id=602527833 instance=ExtResource("44_vvqaq")]
 transform = Transform3D(2.342228, 0, -0.17377755, 0, 2.3486655, 0, 0.17377755, 0, 2.342228, -431.64642, 0.31309512, -440.489)
