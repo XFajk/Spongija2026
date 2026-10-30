@@ -1,12 +1,18 @@
 [gd_scene format=3 uid="uid://3me630kro538"]
 
 [ext_resource type="Theme" uid="uid://bjx58o26db5so" path="res://assets/ui_themes/fantasy.tres" id="1_m1k1p"]
-[ext_resource type="LabelSettings" uid="uid://d2yjmolnb3eqi" path="res://assets/ui_themes/HighlightLabelSettings.tres" id="2_m1k1p"]
+[ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="2_m1k1p"]
 [ext_resource type="FontFile" uid="uid://cotpgy3uit4mg" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Regular.ttf" id="3_q1wa4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s4c8q"]
+font = ExtResource("2_m1k1p")
+font_size = 40
+outline_size = 13
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_4xvhx"]
 font = ExtResource("3_q1wa4")
-font_size = 30
+font_size = 25
 outline_size = 13
 outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 
@@ -32,23 +38,21 @@ anchor_right = 1.0
 offset_top = 8.0
 offset_bottom = 76.0
 grow_horizontal = 2
-text = "Label"
-label_settings = ExtResource("2_m1k1p")
+text = "TutORIAL"
+label_settings = SubResource("LabelSettings_s4c8q")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Text" type="Label" parent="." unique_id=92059024]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = 100.0
-offset_right = -20.0
-offset_bottom = -166.0
+anchor_left = 0.067
+anchor_top = 0.2
+anchor_right = 0.925
+anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
-text = "Milujem Mateja Goca Best: OMG!"
+text = "Move by clicking on the ground. You can also click on different Point of Interest"
 label_settings = SubResource("LabelSettings_4xvhx")
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -64,10 +68,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 14.0
-offset_top = -209.0
-offset_right = 134.0
-offset_bottom = -89.0
+offset_left = -61.0
+offset_top = -103.0
+offset_right = 59.0
+offset_bottom = 17.0
 grow_horizontal = 2
 grow_vertical = 0
 rotation = 0.27401668

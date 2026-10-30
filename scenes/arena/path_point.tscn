@@ -2,6 +2,9 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyjbk"]
 albedo_color = Color(0.18115184, 0.9275787, 0, 1)
+emission_enabled = true
+emission = Color(0.13702786, 0.6672773, 0, 1)
+emission_energy_multiplier = 13.7
 
 [sub_resource type="SphereMesh" id="SphereMesh_iopsf"]
 

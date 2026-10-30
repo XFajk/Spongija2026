@@ -31,6 +31,8 @@ public partial class CharacterPanel : Panel
 	[Export] GridContainer? artefactUIContainer;
 	[Export] Label? artefactsEmpty;
 
+	[Export] Control? fightWindow;
+
 	public override void _Ready()
 	{
 		this.VisibilityChanged += OnVisible;
@@ -54,6 +56,10 @@ public partial class CharacterPanel : Panel
 		Button spellB = GetNode<Button>("/root/Map/CanvasLayer/Canvas/Character/Viewport/Magic/Spells");
 		SpellDisplay _display = GetNode<SpellDisplay>("/root/Map/CanvasLayer/Canvas/Spells");
 		spellB!.Pressed += _display.OpenBook;
+
+		//Fight
+		Button fightB = GetNode<Button>("/root/Map/CanvasLayer/Canvas/SetupFight/Fight/Button");
+		fightB.Pressed += camera!.Agent!.EnterFight;
 	}
 
 	public void OnVisible()
@@ -180,6 +186,14 @@ public partial class CharacterPanel : Panel
 		}
 
 		artefactsEmpty!.Visible = _inventory?.Artefacts?.Count == 0;
+	}
+
+	public void GetReady()
+	{
+		camera?.Agent?.HidePanel();
+		swapWindow?.CancelSwapping();
+		fightWindow?.Show();
+		GetTree().Paused = true;
 	}
 
 	public void Highlight(int index)
