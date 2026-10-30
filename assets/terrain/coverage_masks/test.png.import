@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://qvfwklg6y4qp"
+path="res://.godot/imported/test.png-ed873ce81f29b052a65a4fb603040786.image"
+
+[deps]
+
+source_file="res://assets/terrain/coverage_masks/test.png"
+dest_files=["res://.godot/imported/test.png-ed873ce81f29b052a65a4fb603040786.image"]
+
+[params]
+

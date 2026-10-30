@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://wkll5v6kcgxk"
+path="res://.godot/imported/fullka.png-a76b89a134dad07213fe6ee0c03b6689.image"
+
+[deps]
+
+source_file="res://assets/terrain/coverage_masks/fullka.png"
+dest_files=["res://.godot/imported/fullka.png-a76b89a134dad07213fe6ee0c03b6689.image"]
+
+[params]
+

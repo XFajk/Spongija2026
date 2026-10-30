@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://j57ctfw7r8sm"]
+
+[ext_resource type="PackedScene" uid="uid://dr50sob5o7i7a" path="res://assets/terrain/models/carnota/wall.glb" id="1_4u783"]
+
+[node name="Wall" unique_id=1527543199 instance=ExtResource("1_4u783")]
+
+[node name="Wall" parent="." index="0" unique_id=1302497201]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.464, 0)

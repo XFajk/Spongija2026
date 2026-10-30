@@ -1,0 +1,762 @@
+[gd_scene format=3 uid="uid://bw2n3jxff7m3j"]
+
+[ext_resource type="Texture2D" uid="uid://counh0r3s34de" path="res://assets/terrain/foliage/grass_grass_1.png" id="1_dmsi2"]
+[ext_resource type="Texture2D" uid="uid://byky2a7jdit5j" path="res://assets/terrain/ground_textures/grass_albedo_height.png" id="2_dmsi2"]
+[ext_resource type="Texture2D" uid="uid://bkfslrgo5pe00" path="res://assets/terrain/foliage/plant_2.png" id="2_ofm7x"]
+[ext_resource type="Texture2D" uid="uid://pl1hjtpht24q" path="res://assets/terrain/ground_textures/grass_normal_roughness.png" id="3_ofm7x"]
+[ext_resource type="PackedScene" uid="uid://c7wh025n4b644" path="res://assets/terrain/models/foliage/fern1.glb" id="3_om7ee"]
+[ext_resource type="PackedScene" uid="uid://bxr7syu45j5mx" path="res://assets/terrain/models/foliage/fern2.glb" id="4_6rpxt"]
+[ext_resource type="Texture2D" uid="uid://cfoh2go5jprd7" path="res://assets/terrain/ground_textures/deep_albedo_height.png" id="4_80s2q"]
+[ext_resource type="Texture2D" uid="uid://mcj0yt6hj5j6" path="res://assets/terrain/ground_textures/deep_normal_roughness.png" id="5_3am05"]
+[ext_resource type="PackedScene" uid="uid://bk5hkdm7lv7cp" path="res://assets/terrain/models/foliage/fern3.glb" id="5_qrvva"]
+[ext_resource type="Texture2D" uid="uid://bmssu5cou4bkg" path="res://assets/terrain/ground_textures/swamp_albedo_height.png" id="6_1afuj"]
+[ext_resource type="PackedScene" uid="uid://4avxjhgndy7s" path="res://assets/terrain/models/foliage/fern4.glb" id="6_mymnt"]
+[ext_resource type="Texture2D" uid="uid://cl3mv3vyxuj6u" path="res://assets/terrain/ground_textures/swamp_normal_roughness.png" id="7_375xh"]
+[ext_resource type="PackedScene" uid="uid://xrx6lgm8qiel" path="res://assets/terrain/models/foliage/fern5.glb" id="7_ti3hv"]
+[ext_resource type="Texture2D" uid="uid://26lmin303vlg" path="res://assets/terrain/ground_textures/rock1_albedo_height.png" id="8_6p5pf"]
+[ext_resource type="PackedScene" uid="uid://bbe1irrfwq5ey" path="res://assets/terrain/models/foliage/fern6.glb" id="8_twl6x"]
+[ext_resource type="PackedScene" uid="uid://dkgw8nkprrkwe" path="res://assets/terrain/models/foliage/fern7.glb" id="9_sjwfk"]
+[ext_resource type="Texture2D" uid="uid://fdjicrxxfj54" path="res://assets/terrain/ground_textures/rock1_normal_roughness.png" id="9_t8dep"]
+[ext_resource type="PackedScene" uid="uid://ct3n3ihk2wohu" path="res://assets/terrain/models/foliage/fern8.glb" id="10_12bcd"]
+[ext_resource type="Texture2D" uid="uid://b316vu57r4p82" path="res://assets/terrain/ground_textures/rock2_albedo_height.png" id="10_cofmf"]
+[ext_resource type="Material" uid="uid://blp1elgobmqfx" path="res://assets/terrain/models/rocks/misc/rock_material.tres" id="11_6rpxt"]
+[ext_resource type="Texture2D" uid="uid://domsu0l82h20f" path="res://assets/terrain/ground_textures/rock2_normal_roughness.png" id="11_f0uwl"]
+[ext_resource type="PackedScene" uid="uid://by3vb6a6mh260" path="res://assets/terrain/models/rocks/rock1.glb" id="11_x2463"]
+[ext_resource type="Texture2D" uid="uid://bqlbrkbmgebxf" path="res://assets/terrain/ground_textures/path_albedo_height.png" id="12_bwu6h"]
+[ext_resource type="PackedScene" uid="uid://lkls1b8mk76k" path="res://assets/terrain/models/rocks/rock2.glb" id="12_epjyj"]
+[ext_resource type="PackedScene" uid="uid://cql6mngvcokni" path="res://assets/terrain/models/rocks/rock3.glb" id="13_cd3j1"]
+[ext_resource type="Texture2D" uid="uid://boss7yfwnnhxm" path="res://assets/terrain/ground_textures/path_normal_roughness.png" id="13_qhcem"]
+[ext_resource type="Texture2D" uid="uid://dgbcc2ixilrwn" path="res://assets/terrain/ground_textures/86_albedo_height.png" id="14_l5y12"]
+[ext_resource type="PackedScene" uid="uid://bml0en2yp0mse" path="res://assets/terrain/models/rocks/rock4.glb" id="14_yqkwf"]
+[ext_resource type="Texture2D" uid="uid://dr5q06u3eewud" path="res://assets/terrain/ground_textures/86_normal_roughness.png" id="15_oqnwj"]
+[ext_resource type="PackedScene" uid="uid://dwnd8eivr0j0f" path="res://assets/terrain/models/trees/tree1.glb" id="16_sjwfk"]
+[ext_resource type="PackedScene" uid="uid://bxy2qhstt57uv" path="res://assets/terrain/models/trees/tree2.glb" id="17_12bcd"]
+[ext_resource type="Script" uid="uid://d1fx5b2mo1max" path="res://src/environment/debug_freecam.gd" id="18_3am05"]
+[ext_resource type="PackedScene" uid="uid://bd43ikhj5qkgb" path="res://assets/terrain/models/trees/tree3.glb" id="18_x2463"]
+[ext_resource type="PackedScene" uid="uid://bhf4gah8pdylg" path="res://assets/terrain/models/trees/tree4.glb" id="19_epjyj"]
+[ext_resource type="PackedScene" uid="uid://dkp62x8gmjam7" path="res://assets/terrain/models/trees/tree5.glb" id="20_cd3j1"]
+[ext_resource type="PackedScene" uid="uid://dpr6g8j0r5xnj" path="res://assets/terrain/models/trees/tree6.glb" id="21_yqkwf"]
+[ext_resource type="PackedScene" uid="uid://e27iitbo5mh0" path="res://assets/misc/elf_reference.fbx" id="38_epjyj"]
+[ext_resource type="PackedScene" uid="uid://mwvl42up2ehw" path="res://scenes/points_of_interest/big_tent.tscn" id="38_x2463"]
+[ext_resource type="PackedScene" uid="uid://2qvbtu2smbfn" path="res://assets/terrain/models/camp/log.glb" id="39_73u5r"]
+[ext_resource type="PackedScene" uid="uid://cthd0snjora05" path="res://assets/terrain/models/camp/palica.glb" id="40_3460w"]
+[ext_resource type="PackedScene" uid="uid://v3iphn3prjs1" path="res://assets/terrain/models/camp/outpost.glb" id="41_fobrl"]
+[ext_resource type="PackedScene" uid="uid://cnbt2qq53goui" path="res://assets/terrain/models/camp/small_tent.glb" id="42_rlnmy"]
+[ext_resource type="PackedScene" uid="uid://cw1jbdd46ok36" path="res://assets/terrain/models/camp/wagon.glb" id="43_3460w"]
+[ext_resource type="PackedScene" uid="uid://uomujjp6idjk" path="res://assets/terrain/models/swamp/barricade.glb" id="44_vvqaq"]
+[ext_resource type="PackedScene" uid="uid://bpm16t1350fhf" path="res://assets/terrain/models/swamp/pickaxe.glb" id="45_uoiqa"]
+[ext_resource type="PackedScene" uid="uid://cf4gleu1ot51k" path="res://assets/terrain/models/swamp/shovel.glb" id="46_ghe3b"]
+[ext_resource type="PackedScene" uid="uid://dsr4yeh002t3l" path="res://assets/terrain/models/swamp/small_wagon.glb" id="47_xxa8p"]
+[ext_resource type="PackedScene" uid="uid://2cgmbaw7v5u" path="res://scenes/decorations/cernota/hillside.tscn" id="48_2m713"]
+[ext_resource type="PackedScene" uid="uid://j57ctfw7r8sm" path="res://scenes/decorations/cernota/wall.tscn" id="48_uoiqa"]
+[ext_resource type="PackedScene" uid="uid://dx427dvdsh6v" path="res://scenes/decorations/cernota/tower.tscn" id="49_xxa8p"]
+[ext_resource type="PackedScene" uid="uid://rp8qxudhfv8q" path="res://scenes/decorations/cernota/claw.tscn" id="50_2m713"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_jvnn3"]
+geometry_parsed_geometry_type = 1
+
+[sub_resource type="Gradient" id="Gradient_y44tv"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bc5iu"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fm4en"]
+noise = SubResource("FastNoiseLite_bc5iu")
+color_ramp = SubResource("Gradient_y44tv")
+seamless = true
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_d5dl1"]
+_shader_parameters = {
+&"bias_distance": null,
+&"blend_sharpness": null,
+&"depth_blur": null,
+&"enable_macro_variation": null,
+&"enable_projection": null,
+&"flat_terrain_normals": null,
+&"macro_variation1": null,
+&"macro_variation2": null,
+&"macro_variation_slope": null,
+&"mipmap_bias": null,
+&"noise1_angle": null,
+&"noise1_offset": null,
+&"noise1_scale": null,
+&"noise2_scale": null,
+&"noise_texture": SubResource("NoiseTexture2D_fm4en"),
+&"projection_threshold": null
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yyxhd"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_dmsi2")
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_ofm7x"]
+name = "grass"
+generated_type = 1
+height_offset = 0.75
+cast_shadows = 0
+material_override = SubResource("StandardMaterial3D_yyxhd")
+generated_size = Vector2(0.5, 0.5)
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80s2q"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_ofm7x")
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_3am05"]
+id = 1
+generated_type = 1
+height_offset = 0.5
+material_override = SubResource("StandardMaterial3D_80s2q")
+generated_faces = 3
+generated_size = Vector2(2, 2)
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_73u5r"]
+name = "fern1"
+id = 2
+scene_file = ExtResource("3_om7ee")
+density = 0.3291215
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_3460w"]
+name = "fern2"
+id = 3
+scene_file = ExtResource("4_6rpxt")
+density = 0.29132107
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_fobrl"]
+name = "fern3"
+id = 4
+scene_file = ExtResource("5_qrvva")
+density = 0.24219258
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_rlnmy"]
+name = "fern4"
+id = 5
+scene_file = ExtResource("6_mymnt")
+density = 0.27248254
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_b0cvu"]
+name = "fern5"
+id = 6
+scene_file = ExtResource("7_ti3hv")
+density = 0.20240095
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_vvqaq"]
+name = "fern6"
+id = 7
+scene_file = ExtResource("8_twl6x")
+density = 0.56496423
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_uoiqa"]
+name = "fern7"
+id = 8
+scene_file = ExtResource("9_sjwfk")
+density = 0.69365805
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_ghe3b"]
+name = "fern8"
+id = 9
+scene_file = ExtResource("10_12bcd")
+density = 0.1658948
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_xxa8p"]
+name = "rock1"
+id = 10
+scene_file = ExtResource("11_x2463")
+density = 0.5007329
+material_override = ExtResource("11_6rpxt")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_2m713"]
+name = "rock2"
+id = 11
+scene_file = ExtResource("12_epjyj")
+density = 0.38281232
+material_override = ExtResource("11_6rpxt")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_w8v73"]
+name = "rock3"
+id = 12
+scene_file = ExtResource("13_cd3j1")
+density = 0.3220489
+material_override = ExtResource("11_6rpxt")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_6r0n0"]
+name = "rock4"
+id = 13
+scene_file = ExtResource("14_yqkwf")
+density = 0.27660966
+material_override = ExtResource("11_6rpxt")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_3wnr2"]
+name = "tree1"
+id = 14
+scene_file = ExtResource("16_sjwfk")
+density = 0.2
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 512.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_b7sw3"]
+name = "tree2"
+id = 15
+scene_file = ExtResource("17_12bcd")
+density = 0.2
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 512.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_3527y"]
+name = "tree3"
+id = 16
+scene_file = ExtResource("18_x2463")
+density = 0.2
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 512.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_xdke8"]
+name = "tree4"
+id = 17
+scene_file = ExtResource("19_epjyj")
+density = 0.2
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 512.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_mv1rp"]
+name = "tree5"
+id = 18
+scene_file = ExtResource("20_cd3j1")
+density = 0.2
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 512.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_e3xjf"]
+name = "tree6"
+id = 19
+scene_file = ExtResource("21_yqkwf")
+density = 0.2
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 512.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_3drpd"]
+name = "Grass"
+albedo_texture = ExtResource("2_dmsi2")
+normal_texture = ExtResource("3_ofm7x")
+roughness = 0.417
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_a3oai"]
+name = "deep_forest"
+id = 1
+albedo_texture = ExtResource("4_80s2q")
+normal_texture = ExtResource("5_3am05")
+roughness = 0.583
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_ysate"]
+name = "swamp"
+id = 2
+albedo_texture = ExtResource("6_1afuj")
+normal_texture = ExtResource("7_375xh")
+roughness = 0.35
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_3am05"]
+name = "rock1"
+id = 3
+albedo_texture = ExtResource("8_6p5pf")
+normal_texture = ExtResource("9_t8dep")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_1afuj"]
+name = "rock2"
+id = 4
+albedo_texture = ExtResource("10_cofmf")
+normal_texture = ExtResource("11_f0uwl")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_375xh"]
+name = "path"
+id = 5
+albedo_texture = ExtResource("12_bwu6h")
+normal_texture = ExtResource("13_qhcem")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_ofm7x"]
+name = "86_albedo_height"
+id = 6
+albedo_texture = ExtResource("14_l5y12")
+normal_texture = ExtResource("15_oqnwj")
+roughness = 1.0
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_yw8f4"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_ofm7x"), SubResource("Terrain3DMeshAsset_3am05"), SubResource("Terrain3DMeshAsset_73u5r"), SubResource("Terrain3DMeshAsset_3460w"), SubResource("Terrain3DMeshAsset_fobrl"), SubResource("Terrain3DMeshAsset_rlnmy"), SubResource("Terrain3DMeshAsset_b0cvu"), SubResource("Terrain3DMeshAsset_vvqaq"), SubResource("Terrain3DMeshAsset_uoiqa"), SubResource("Terrain3DMeshAsset_ghe3b"), SubResource("Terrain3DMeshAsset_xxa8p"), SubResource("Terrain3DMeshAsset_2m713"), SubResource("Terrain3DMeshAsset_w8v73"), SubResource("Terrain3DMeshAsset_6r0n0"), SubResource("Terrain3DMeshAsset_3wnr2"), SubResource("Terrain3DMeshAsset_b7sw3"), SubResource("Terrain3DMeshAsset_3527y"), SubResource("Terrain3DMeshAsset_xdke8"), SubResource("Terrain3DMeshAsset_mv1rp"), SubResource("Terrain3DMeshAsset_e3xjf")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_3drpd"), SubResource("Terrain3DTextureAsset_a3oai"), SubResource("Terrain3DTextureAsset_ysate"), SubResource("Terrain3DTextureAsset_3am05"), SubResource("Terrain3DTextureAsset_1afuj"), SubResource("Terrain3DTextureAsset_375xh"), SubResource("Terrain3DTextureAsset_ofm7x")])
+
+[sub_resource type="Shader" id="Shader_yyxhd"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.7.2.stable.mono's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_always, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform sampler2D texture_refraction : filter_linear_mipmap, repeat_enable;
+uniform float refraction : hint_range(-1.0, 1.0, 0.001);
+uniform vec4 refraction_texture_channel;
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear_mipmap;
+uniform sampler2D depth_texture : hint_depth_texture, repeat_disable, filter_nearest;
+
+uniform sampler2D texture_normal : hint_roughness_normal, filter_linear_mipmap, repeat_enable;
+uniform float normal_scale : hint_range(-16.0, 16.0);
+varying vec3 uv1_triplanar_pos;
+
+uniform float uv1_blend_sharpness : hint_range(0.0, 150.0, 0.001);
+varying vec3 uv1_power_normal;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+void vertex() {
+	vec3 normal = MODEL_NORMAL_MATRIX * NORMAL;
+
+	TANGENT = vec3(0.0, 0.0, -1.0) * abs(normal.x);
+	TANGENT += vec3(1.0, 0.0, 0.0) * abs(normal.y);
+	TANGENT += vec3(1.0, 0.0, 0.0) * abs(normal.z);
+	TANGENT = inverse(MODEL_NORMAL_MATRIX) * normalize(TANGENT);
+
+	BINORMAL = vec3(0.0, 1.0, 0.0) * abs(normal.x);
+	BINORMAL += vec3(0.0, 0.0, -1.0) * abs(normal.y);
+	BINORMAL += vec3(0.0, 1.0, 0.0) * abs(normal.z);
+	BINORMAL = inverse(MODEL_NORMAL_MATRIX) * normalize(BINORMAL);
+
+	// UV1 Triplanar: Enabled (with World Triplanar)
+	uv1_power_normal = pow(abs(normal), vec3(uv1_blend_sharpness));
+	uv1_triplanar_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz * uv1_scale + uv1_offset + TIME * 0.05;
+	uv1_power_normal /= dot(uv1_power_normal, vec3(1.0));
+	uv1_triplanar_pos *= vec3(1.0, -1.0, 1.0);
+}
+
+vec4 triplanar_texture(sampler2D p_sampler, vec3 p_weights, vec3 p_triplanar_pos) {
+	vec4 samp = vec4(0.0);
+	samp += texture(p_sampler, p_triplanar_pos.xy) * p_weights.z;
+	samp += texture(p_sampler, p_triplanar_pos.xz) * p_weights.y;
+	samp += texture(p_sampler, p_triplanar_pos.zy * vec2(-1.0, 1.0)) * p_weights.x;
+	return samp;
+}
+
+void fragment() {
+	vec4 albedo_tex = triplanar_texture(texture_albedo, uv1_power_normal, uv1_triplanar_pos);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(triplanar_texture(texture_metallic, uv1_power_normal, uv1_triplanar_pos), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(triplanar_texture(texture_roughness, uv1_power_normal, uv1_triplanar_pos), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+
+	// Normal Map: Enabled
+	NORMAL_MAP = triplanar_texture(texture_normal, uv1_power_normal, uv1_triplanar_pos).rgb;
+	NORMAL_MAP_DEPTH = normal_scale;
+
+	// Refraction: Enabled (with normal map texture)
+	vec3 unpacked_normal = NORMAL_MAP;
+	unpacked_normal.xy = unpacked_normal.xy * 2.0 - 1.0;
+	unpacked_normal.z = sqrt(max(0.0, 1.0 - dot(unpacked_normal.xy, unpacked_normal.xy)));
+	vec3 ref_normal = normalize(mix(
+			NORMAL,
+			TANGENT * unpacked_normal.x + BINORMAL * unpacked_normal.y + NORMAL * unpacked_normal.z,
+			NORMAL_MAP_DEPTH));
+	vec2 ref_ofs = SCREEN_UV - ref_normal.xy * dot(triplanar_texture(texture_refraction, uv1_power_normal, uv1_triplanar_pos), refraction_texture_channel) * refraction;
+
+	float ref_amount = 1.0 - albedo.a * albedo_tex.a;
+
+	float refraction_depth_tex = textureLod(depth_texture, ref_ofs, 0.0).r;
+	vec4 ndc = OUTPUT_IS_SRGB ? vec4(vec3(SCREEN_UV, refraction_depth_tex) * 2.0 - 1.0, 1.0) : vec4(SCREEN_UV * 2.0 - 1.0, refraction_depth_tex, 1.0);
+	vec4 refraction_view_pos = INV_PROJECTION_MATRIX * ndc;
+	refraction_view_pos.xyz /= refraction_view_pos.w;
+
+	// If the depth buffer is lower then the model's Z position, use the refracted UV, otherwise use the normal screen UV.
+	// At low depth differences, decrease refraction intensity to avoid sudden discontinuities.
+	EMISSION += textureLod(screen_texture, mix(SCREEN_UV, ref_ofs, smoothstep(0.0, 1.0, VERTEX.z - refraction_view_pos.z)), ROUGHNESS * 8.0).rgb * ref_amount * EXPOSURE;
+	ALBEDO *= 1.0 - ref_amount;
+	// Force transparency on the material (required for refraction).
+	ALPHA = 1.0;
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o16s2"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pt8cg"]
+noise = SubResource("FastNoiseLite_o16s2")
+seamless = true
+as_normal_map = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dmsi2"]
+render_priority = 0
+shader = SubResource("Shader_yyxhd")
+shader_parameter/albedo = Color(0.14901961, 0.48235294, 0.5882353, 0.4509804)
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.05
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/texture_refraction = SubResource("NoiseTexture2D_pt8cg")
+shader_parameter/refraction = 1.0
+shader_parameter/refraction_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_pt8cg")
+shader_parameter/normal_scale = 1.0
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.025, 0.025, 0.025)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_etuta"]
+material = SubResource("ShaderMaterial_dmsi2")
+size = Vector3(800, 40, 800)
+
+[node name="Node3D" type="Node3D" unique_id=1448908437]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=405003216]
+navigation_mesh = SubResource("NavigationMesh_jvnn3")
+
+[node name="Terrain3D" type="Terrain3D" parent="NavigationRegion3D" unique_id=339997479]
+data_directory = "res://assets/terrain/surface1"
+material = SubResource("Terrain3DMaterial_d5dl1")
+assets = SubResource("Terrain3DAssets_yw8f4")
+collision_radius = 256
+vertex_spacing = 0.25
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="Water" type="MeshInstance3D" parent="." unique_id=1044422736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -596.7897, -18.674173, -636.2078)
+mesh = SubResource("BoxMesh_etuta")
+
+[node name="DebugFreecam" type="CharacterBody3D" parent="." unique_id=1784385204]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -212.89848, 26.837448, -596.2627)
+script = ExtResource("18_3am05")
+
+[node name="Camera3D" type="Camera3D" parent="DebugFreecam" unique_id=1216372038]
+
+[node name="elf_reference" parent="." unique_id=1360837034 instance=ExtResource("38_epjyj")]
+transform = Transform3D(-0.09221346, 0, 0.6232148, 0, 0.63, 0, -0.6232148, 0, -0.09221346, -572.53, 4.5179462, -617.3053)
+
+[node name="Objects" type="Node3D" parent="." unique_id=1055363462]
+
+[node name="Camp" type="Node" parent="Objects" unique_id=678340568]
+
+[node name="BigTent" parent="Objects/Camp" unique_id=2107329745 instance=ExtResource("38_x2463")]
+transform = Transform3D(0.0067356676, 0, 0.99997735, 0, 1, 0, -0.99997735, 0, 0.0067356676, -576.35596, 4.970058, -622.5393)
+
+[node name="log2" parent="Objects/Camp" unique_id=1641921296 instance=ExtResource("39_73u5r")]
+transform = Transform3D(0.18976384, 0.024152156, -1.4877522, -0.0063390704, 1.4998019, 0.023539217, 1.4879346, 0.0033093826, 0.18984085, -560.8923, 4.543321, -628.7973)
+
+[node name="log3" parent="Objects/Camp" unique_id=1474943844 instance=ExtResource("39_73u5r")]
+transform = Transform3D(1.4985296, 0.024152156, -0.061851084, -0.024268042, 1.4998019, -0.0023109792, 0.061805725, 0.003309382, 1.4987224, -563.86237, 4.585659, -626.309)
+
+[node name="palica2" parent="Objects/Camp" unique_id=1837484138 instance=ExtResource("40_3460w")]
+transform = Transform3D(1.78, 0, 0, 0, 1.78, 0, 0, 0, 1.78, -563.6047, 4.448595, -629.0022)
+
+[node name="outpost2" parent="Objects/Camp" unique_id=1062480716 instance=ExtResource("41_fobrl")]
+transform = Transform3D(1.9984568, 0, -0.07855276, 0, 2, 0, 0.07855276, 0, 1.9984568, -573.2903, 4.584525, -635.3791)
+
+[node name="outpost3" parent="Objects/Camp" unique_id=2040098545 instance=ExtResource("41_fobrl")]
+transform = Transform3D(1.9013476, 0, -0.6203845, 0, 2, 0, 0.6203845, 0, 1.9013476, -577.06995, 4.584525, -608.6774)
+
+[node name="outpost4" parent="Objects/Camp" unique_id=214276477 instance=ExtResource("41_fobrl")]
+transform = Transform3D(1.8537334, 0, -0.7507813, 0, 2, 0, 0.7507813, 0, 1.8537334, -548.316, 4.728629, -600.52234)
+
+[node name="outpost5" parent="Objects/Camp" unique_id=1070430179 instance=ExtResource("41_fobrl")]
+transform = Transform3D(1.9949741, 0, -0.14169979, 0, 2, 0, 0.14169979, 0, 1.9949741, -545.9296, 4.6149607, -634.2567)
+
+[node name="palica3" parent="Objects/Camp" unique_id=446546424 instance=ExtResource("40_3460w")]
+transform = Transform3D(1.78, 0, 0, 0, 1.78, 0, 0, 0, 1.78, -563.82434, 4.448595, -623.5759)
+
+[node name="palica4" parent="Objects/Camp" unique_id=1374170264 instance=ExtResource("40_3460w")]
+transform = Transform3D(1.78, 0, 0, 0, 1.78, 0, 0, 0, 1.78, -558.6487, 4.448595, -629.0022)
+
+[node name="small_tent2" parent="Objects/Camp" unique_id=466978743 instance=ExtResource("42_rlnmy")]
+transform = Transform3D(0.940962, 0, 1.7648202, 0, 2, 0, -1.7648202, 0, 0.940962, -564.67, 4.61986, -609.7635)
+
+[node name="small_tent3" parent="Objects/Camp" unique_id=1260616645 instance=ExtResource("42_rlnmy")]
+transform = Transform3D(0.5094548, 0, 1.9340259, 0, 2, 0, -1.9340259, 0, 0.5094548, -559.65814, 4.61986, -607.6806)
+
+[node name="small_tent4" parent="Objects/Camp" unique_id=1718465219 instance=ExtResource("42_rlnmy")]
+transform = Transform3D(-0.1318059, 0, 1.995652, 0, 2, 0, -1.995652, 0, -0.1318059, -554.4375, 4.61986, -606.87695)
+
+[node name="wagon" parent="Objects/Camp" unique_id=1294445016 instance=ExtResource("43_3460w")]
+transform = Transform3D(-1.3264084, 0, -0.70045745, 0, 1.5, 0, 0.70045745, 0, -1.3264084, -555.02747, 4.7982407, -627.4408)
+
+[node name="wagon2" parent="Objects/Camp" unique_id=477252541 instance=ExtResource("43_3460w")]
+transform = Transform3D(-1.3264084, 0, -0.70045745, 0, 1.5, 0, 0.70045745, 0, -1.3264084, -551.2559, 4.7982407, -627.6649)
+
+[node name="SwampMines" type="Node" parent="Objects" unique_id=224204955]
+
+[node name="pickaxe4" parent="Objects/SwampMines" unique_id=1036334715 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(1.2527542, 0.11500442, -0.069293946, 0.048038006, 0.22328758, 1.2390544, 0.12537953, -1.2346406, 0.2176313, -421.56763, 5.2770576, -429.27338)
+
+[node name="pickaxe6" parent="Objects/SwampMines" unique_id=984317518 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(1.2527542, 0.11500442, -0.069293946, 0.048038006, 0.22328758, 1.2390544, 0.12537953, -1.2346406, 0.2176313, -417.5193, 4.0735784, -425.84555)
+
+[node name="pickaxe7" parent="Objects/SwampMines" unique_id=430576312 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(0.5909919, 0.8027324, -0.77056485, 0.025924955, 0.8623365, 0.9182182, 1.1124198, -0.44656196, 0.387977, -416.3996, 4.4673853, -423.82214)
+
+[node name="pickaxe5" parent="Objects/SwampMines" unique_id=4703627 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(0.33987513, 1.201958, -0.16493416, -0.18452492, 0.22050473, 1.226682, 1.1991065, -0.306751, 0.23551747, -421.46286, 5.48053, -430.3984)
+
+[node name="barricade2" parent="Objects/SwampMines" unique_id=1771410996 instance=ExtResource("44_vvqaq")]
+transform = Transform3D(2.0177276, 0, -1.6318088, 0, 2.595, 0, 1.6318088, 0, 2.0177276, -323.48984, 0.274895, -413.80954)
+
+[node name="barricade3" parent="Objects/SwampMines" unique_id=414868401 instance=ExtResource("44_vvqaq")]
+transform = Transform3D(-0.08981401, 0, 2.5934453, 0, 2.595, 0, -2.5934453, 0, -0.08981401, -312.95612, 0.30347016, -419.29523)
+
+[node name="pickaxe2" parent="Objects/SwampMines" unique_id=29558320 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(-0.34155822, -1.1445706, 0.115307964, -0.07409833, 0.14192346, 1.1892715, -1.1479754, 0.3313846, -0.11107156, -327.43658, 1.8449409, -412.28296)
+metadata/_edit_group_ = true
+
+[node name="pickaxe3" parent="Objects/SwampMines" unique_id=2140994651 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(-1.1077935, 0.44665214, 0.11530796, 0.1482066, 0.060561053, 1.1892716, 0.43683958, 1.1121305, -0.11107157, -327.43658, 1.8449409, -413.76187)
+metadata/_edit_group_ = true
+
+[node name="shovel2" parent="Objects/SwampMines" unique_id=780617590 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(-0.96596986, -0.11415427, 0.23210195, 0.12101461, 0.5936146, 0.79559875, -0.22860008, 0.79661196, -0.5595996, -328.36856, 1.6477389, -413.60443)
+metadata/_edit_group_ = true
+
+[node name="shovel3" parent="Objects/SwampMines" unique_id=444901887 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(-0.83006954, -0.20638196, 0.518065, -0.06541489, 0.9586188, 0.277075, -0.5538102, 0.19610229, -0.8092209, -368.68723, 1.8352718, -365.95114)
+metadata/_edit_group_ = true
+
+[node name="shovel4" parent="Objects/SwampMines" unique_id=674372464 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(-0.38810685, 0.23136486, -0.89210075, -0.06541489, 0.9586188, 0.277075, 0.91929007, 0.16589135, -0.35691196, -363.14493, 2.5170925, -367.54626)
+metadata/_edit_group_ = true
+
+[node name="small_wagon2" parent="Objects/SwampMines" unique_id=349727118 instance=ExtResource("47_xxa8p")]
+transform = Transform3D(0.89703107, 0.25215954, -0.3629746, -0.06566716, 0.8881964, 0.45474708, 0.43706173, -0.38408682, 0.81329846, -329.33347, 2.308598, -409.96094)
+metadata/_edit_group_ = true
+
+[node name="small_wagon3" parent="Objects/SwampMines" unique_id=392561399 instance=ExtResource("47_xxa8p")]
+transform = Transform3D(-0.93879855, -0.33354262, -0.08605942, -0.10003239, 0.50304794, -0.8584497, 0.3296217, -0.7973028, -0.5056258, -364.43536, 3.6064796, -362.70734)
+metadata/_edit_group_ = true
+
+[node name="barricade4" parent="Objects/SwampMines" unique_id=602527833 instance=ExtResource("44_vvqaq")]
+transform = Transform3D(2.342228, 0, -0.17377755, 0, 2.3486655, 0, 0.17377755, 0, 2.342228, -431.64642, 0.31309512, -440.489)
+
+[node name="barricade5" parent="Objects/SwampMines" unique_id=563283021 instance=ExtResource("44_vvqaq")]
+transform = Transform3D(2.2920265, 0, -0.51268387, 0, 2.3486655, 0, 0.51268387, 0, 2.2920265, -442.59012, 0.31309512, -441.99512)
+
+[node name="barricade6" parent="Objects/SwampMines" unique_id=492888310 instance=ExtResource("44_vvqaq")]
+transform = Transform3D(1.5115608, 0, -1.7976134, 0, 2.3486655, 0, 1.7976134, 0, 1.5115608, -451.8813, 0.31309512, -447.13065)
+
+[node name="barricade7" parent="Objects/SwampMines" unique_id=729947037 instance=ExtResource("44_vvqaq")]
+transform = Transform3D(0.68737066, 0, 2.2458298, 0, 2.3486652, 0, -2.2458298, 0, 0.68737066, -412.49417, 0.08073354, -459.76175)
+
+[node name="barricade8" parent="Objects/SwampMines" unique_id=1128863106 instance=ExtResource("44_vvqaq")]
+transform = Transform3D(0.92745453, 0, 2.1577904, 0, 2.3486652, 0, -2.1577904, 0, 0.92745453, -408.63358, 0.08073354, -470.45703)
+
+[node name="small_wagon4" parent="Objects/SwampMines" unique_id=911962858 instance=ExtResource("47_xxa8p")]
+transform = Transform3D(-0.8358843, -0.14145897, 0.5303649, 0, 0.9662221, 0.25771087, -0.54890573, 0.21541646, -0.80764985, -421.31927, 3.7982664, -429.99057)
+
+[node name="small_wagon5" parent="Objects/SwampMines" unique_id=1868766775 instance=ExtResource("47_xxa8p")]
+transform = Transform3D(-0.5858166, 0.2767928, -0.7617116, 0.008806488, 0.9419885, 0.3355294, 0.81039566, 0.18985076, -0.5542701, -402.47385, 3.7321525, -427.12238)
+
+[node name="small_wagon6" parent="Objects/SwampMines" unique_id=536479422 instance=ExtResource("47_xxa8p")]
+transform = Transform3D(0.042324506, 0.33347598, -0.94180787, 0.0580519, 0.9402393, 0.33552936, 0.99741596, -0.06887491, 0.020436406, -395.84976, 3.3166027, -451.41956)
+
+[node name="small_wagon7" parent="Objects/SwampMines" unique_id=2108747108 instance=ExtResource("47_xxa8p")]
+transform = Transform3D(0.7020434, 0.27123323, -0.65845853, 0.058051903, 0.8997527, 0.4325219, 0.7097641, -0.34187388, 0.6159197, -398.7456, 2.965392, -460.045)
+
+[node name="shovel5" parent="Objects/SwampMines" unique_id=1619095572 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(0.3280655, 0.38298565, -0.8635363, -1.4901161e-08, 0.91412884, 0.40542385, 0.94465494, -0.13300559, 0.29989418, -419.62115, 3.725604, -427.29532)
+
+[node name="shovel7" parent="Objects/SwampMines" unique_id=204802527 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(0.8253166, -0.22424261, 0.5182353, 2.9802322e-08, 0.9177662, 0.39712125, -0.56467044, -0.3277508, 0.7574476, -399.15396, 3.271533, -427.49194)
+
+[node name="shovel8" parent="Objects/SwampMines" unique_id=138434173 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(0.9977194, -0.061286736, 0.028285027, -0.029605478, -0.020744562, 0.9993464, -0.06065993, -0.99790466, -0.022511676, -398.27478, 3.386736, -426.5347)
+
+[node name="pickaxe8" parent="Objects/SwampMines" unique_id=1012069662 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(0.86745924, 0.4975084, 0, 2.9802322e-08, -2.9802322e-08, 1, 0.49750847, -0.86745924, -4.4703484e-08, -397.3553, 3.525302, -427.37823)
+
+[node name="pickaxe9" parent="Objects/SwampMines" unique_id=600605638 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(-0.26378918, 0.9645804, 2.9802322e-08, 2.9802322e-08, -5.9604645e-08, 1.0000001, 0.96458036, 0.26378918, -1.4901161e-08, -399.1813, 3.6874952, -424.19434)
+
+[node name="pickaxe10" parent="Objects/SwampMines" unique_id=220879677 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(-0.90535283, -0.42466038, 2.9802322e-08, 0, 0, 1.0000001, -0.42466038, 0.9053528, -1.4901161e-08, -400.64432, 3.7360535, -422.82376)
+
+[node name="shovel6" parent="Objects/SwampMines" unique_id=417235999 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(0.18663943, 0.88721436, -0.42191985, -0.07244041, 0.44072548, 0.8947142, 0.97975403, -0.13642493, 0.14652696, -423.40604, 3.725604, -426.626)
+
+[node name="pickaxe11" parent="Objects/SwampMines" unique_id=2116062299 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(0.26666194, -0.7368957, 0.6211894, 0.013938305, 0.6474088, 0.7620155, -0.9636893, -0.1945422, 0.18291032, -395.2849, 3.661014, -455.43253)
+
+[node name="pickaxe12" parent="Objects/SwampMines" unique_id=2034949831 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(-0.5866876, -0.5305904, 0.61177725, 1.286833e-08, 0.75545466, 0.65520096, -0.80981326, 0.38439834, -0.44321597, -395.7069, 3.5863242, -456.45993)
+
+[node name="shovel9" parent="Objects/SwampMines" unique_id=775270863 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(0.99916214, -0.03378707, 0.023094986, -0.024417073, -0.039254736, 0.9989309, -0.032844346, -0.9986578, -0.040046837, -394.5394, 2.9887426, -455.89377)
+
+[node name="shovel11" parent="Objects/SwampMines" unique_id=1437939703 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(0.99916214, -0.03378707, 0.023094986, -0.024417073, -0.039254736, 0.9989309, -0.032844346, -0.9986578, -0.040046837, -392.52762, 3.0404341, -453.44418)
+
+[node name="shovel10" parent="Objects/SwampMines" unique_id=944241684 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(0.7116643, 0.69705707, 0.087438695, -0.029131016, -0.0950766, 0.9950439, 0.70191556, -0.7106842, -0.04735665, -395.53186, 3.2525501, -453.75)
+
+[node name="small_wagon8" parent="Objects/SwampMines" unique_id=855995987 instance=ExtResource("47_xxa8p")]
+transform = Transform3D(-0.24218045, -0.18464383, 0.9524995, 0.050537203, 0.97799075, 0.20243485, -0.9689142, 0.09716244, -0.22751895, -340.94345, 3.5465124, -436.90207)
+
+[node name="pickaxe13" parent="Objects/SwampMines" unique_id=342504273 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(-0.21265322, 0.9753924, 0.05820965, 0.022740245, -0.054615855, 0.9982482, 0.9768631, 0.21360445, -0.010566369, -344.6382, 4.0843754, -436.5413)
+
+[node name="pickaxe14" parent="Objects/SwampMines" unique_id=1798617830 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(-0.3647328, -0.9301381, -0.0425808, 0.022740247, -0.054615855, 0.9982482, -0.9308346, 0.36312574, 0.041071735, -344.8802, 4.110251, -435.42972)
+
+[node name="pickaxe15" parent="Objects/SwampMines" unique_id=1315674389 instance=ExtResource("45_uoiqa")]
+transform = Transform3D(-0.3647328, -0.9301381, -0.0425808, 0.022740247, -0.054615855, 0.9982482, -0.9308346, 0.36312574, 0.041071735, -345.27884, 4.0013065, -432.63342)
+
+[node name="shovel12" parent="Objects/SwampMines" unique_id=826134059 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(0.53218675, 0.2844641, -0.7974067, 0, 0.94186306, 0.33599696, 0.84662706, -0.17881313, 0.50124705, -344.3343, 3.7263937, -438.52576)
+
+[node name="shovel13" parent="Objects/SwampMines" unique_id=1970273276 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(0.88420075, 0.15694652, -0.43995088, 0, 0.941863, 0.33599693, 0.46710718, -0.29708874, 0.832796, -345.06467, 3.7263937, -439.68768)
+
+[node name="shovel14" parent="Objects/SwampMines" unique_id=1206023239 instance=ExtResource("46_ghe3b")]
+transform = Transform3D(-0.7137073, 0.23534706, -0.6597224, -1.3175618e-08, 0.941863, 0.33599693, 0.7004441, 0.2398034, -0.6722144, -343.99133, 3.7263937, -433.38513)
+
+[node name="Cernota" type="Node" parent="Objects" unique_id=875927526]
+
+[node name="Hillside" parent="Objects/Cernota" unique_id=2093609270 instance=ExtResource("48_2m713")]
+transform = Transform3D(0.7193633, 0, 0.694634, 0, 1, 0, -0.694634, 0, 0.7193633, -676.7184, 28.634079, -485.07996)
+
+[node name="Hillside2" parent="Objects/Cernota" unique_id=1252123897 instance=ExtResource("48_2m713")]
+transform = Transform3D(0.7193633, 0, 0.694634, 0, 1, 0, -0.694634, 0, 0.7193633, -667.3721, 26.294378, -475.4009)
+
+[node name="Hillside3" parent="Objects/Cernota" unique_id=1259453248 instance=ExtResource("48_2m713")]
+transform = Transform3D(0.7193633, 0, 0.694634, 0, 1, 0, -0.694634, 0, 0.7193633, -686.1654, 29.768328, -494.8858)
+
+[node name="Wall" parent="Objects/Cernota" unique_id=1527543199 instance=ExtResource("48_uoiqa")]
+transform = Transform3D(-1.1043658, 0, 0.60796773, 0, 1.2606544, 0, -0.60796773, 0, -1.1043658, -787.31635, 66.20216, -445.11966)
+
+[node name="Wall2" parent="Objects/Cernota" unique_id=1378567958 instance=ExtResource("48_uoiqa")]
+transform = Transform3D(-0.0013661981, 0, 1.2606533, 0, 1.2606544, 0, -1.2606533, 0, -0.0013661981, -760.464, 66.20216, -460.16312)
+
+[node name="Wall5" parent="Objects/Cernota" unique_id=235525621 instance=ExtResource("48_uoiqa")]
+transform = Transform3D(0.0013663084, 0, -1.2606533, 0, 1.2606544, 0, 1.2606533, 0, 0.0013663084, -755.6738, 66.20216, -397.2185)
+
+[node name="Wall3" parent="Objects/Cernota" unique_id=860100 instance=ExtResource("48_uoiqa")]
+transform = Transform3D(1.0264724, 0, 0.7318487, 0, 1.2606544, 0, -0.7318487, 0, 1.0264724, -732.35114, 66.20216, -444.78625)
+
+[node name="Wall6" parent="Objects/Cernota" unique_id=2035974225 instance=ExtResource("48_uoiqa")]
+transform = Transform3D(-1.0264723, 0, -0.78227496, 0, 1.2606544, 0, 0.73184884, 0, -1.0971987, -785.3776, 66.20216, -413.0544)
+
+[node name="Wall4" parent="Objects/Cernota" unique_id=238848020 instance=ExtResource("48_uoiqa")]
+transform = Transform3D(1.1347361, 0, -0.5492014, 0, 1.2606544, 0, 0.5492014, 0, 1.1347361, -729.6634, 66.20216, -413.70206)
+
+[node name="Tower" parent="Objects/Cernota" unique_id=1783422153 instance=ExtResource("49_xxa8p")]
+transform = Transform3D(-0.22560778, 0, 1.5029247, 0, 1.5197636, 0, -1.5029247, 0, -0.22560778, -778.6518, 65.08177, -460.533)
+
+[node name="Tower3" parent="Objects/Cernota" unique_id=570584050 instance=ExtResource("49_xxa8p")]
+transform = Transform3D(1.0136915, 0, 1.1323034, 0, 1.5197636, 0, -1.1323034, 0, 1.0136915, -742.3357, 65.08177, -460.0164)
+
+[node name="Tower4" parent="Objects/Cernota" unique_id=472530532 instance=ExtResource("49_xxa8p")]
+transform = Transform3D(1.5076935, 0, 0.191158, 0, 1.5197636, 0, -0.191158, 0, 1.5076935, -721.64655, 65.08177, -430.19403)
+
+[node name="Tower5" parent="Objects/Cernota" unique_id=928956436 instance=ExtResource("49_xxa8p")]
+transform = Transform3D(0.7342999, 0, -1.3305957, 0, 1.5197636, 0, 1.3305957, 0, 0.7342999, -737.33923, 65.08177, -397.0224)
+
+[node name="Tower6" parent="Objects/Cernota" unique_id=2065459702 instance=ExtResource("49_xxa8p")]
+transform = Transform3D(0.6034481, 0, 1.3948231, 0, 1.5197636, 0, -1.3948231, 0, 0.6034481, -774.20435, 65.08177, -397.10626)
+
+[node name="Tower7" parent="Objects/Cernota" unique_id=43818295 instance=ExtResource("49_xxa8p")]
+transform = Transform3D(1.5076935, 0, 0.191158, 0, 1.5197636, 0, -0.191158, 0, 1.5076935, -795.28613, 65.08177, -428.4918)
+
+[node name="Claw" parent="Objects/Cernota" unique_id=1680009021 instance=ExtResource("50_2m713")]
+transform = Transform3D(0.874103, 0, -0.4857406, 0, 1, 0, 0.4857406, 0, 0.874103, -755.8765, 66.39296, -405.60892)
+
+[node name="Claw2" parent="Objects/Cernota" unique_id=1801404258 instance=ExtResource("50_2m713")]
+transform = Transform3D(0.874103, 0, -0.4857406, 0, 1, 0, 0.4857406, 0, 0.874103, -739.09827, 66.39296, -435.8019)
+
+[node name="Claw3" parent="Objects/Cernota" unique_id=989019093 instance=ExtResource("50_2m713")]
+transform = Transform3D(0.874103, 0, -0.4857406, 0, 1, 0, 0.4857406, 0, 0.874103, -767.8673, 66.39296, -451.78894)
+
+[node name="Claw4" parent="Objects/Cernota" unique_id=1478702078 instance=ExtResource("50_2m713")]
+transform = Transform3D(0.874103, 0, -0.4857406, 0, 1, 0, 0.4857406, 0, 0.874103, -783.03766, 66.39296, -424.48947)

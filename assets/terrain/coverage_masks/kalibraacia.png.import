@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://idvydxfmpsfj"
+path="res://.godot/imported/kalibraacia.png-ed343b5b77c09737fb61cf0961dac849.image"
+
+[deps]
+
+source_file="res://assets/terrain/coverage_masks/kalibraacia.png"
+dest_files=["res://.godot/imported/kalibraacia.png-ed343b5b77c09737fb61cf0961dac849.image"]
+
+[params]
+

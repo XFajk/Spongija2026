@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dx427dvdsh6v"]
+
+[ext_resource type="PackedScene" uid="uid://c4fghm601xoxc" path="res://assets/terrain/models/carnota/tower.glb" id="1_tiavx"]
+
+[node name="Tower" unique_id=1783422153 instance=ExtResource("1_tiavx")]
+
+[node name="tower" parent="." index="0" unique_id=957293879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.5, 0)
