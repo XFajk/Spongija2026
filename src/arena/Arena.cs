@@ -7,35 +7,35 @@ using System.Threading.Tasks;
 
 public partial class Arena : Node3D
 {
-    #region Fields
+	#region Fields
 
-    [Signal]
-    public delegate void SetupPlacementPhaseCompletedEventHandler();
+	[Signal]
+	public delegate void SetupPlacementPhaseCompletedEventHandler();
 
-    public const string SmallTileScene = "uid://c16eba65w4ptq";
-    public const string DoubleTileScene = "uid://fahq2oemfim8";
-    public const string ArenaUserInterfaceScene = "uid://cd3eg1hleix2";
+	public const string SmallTileScene = "uid://c16eba65w4ptq";
+	public const string DoubleTileScene = "uid://fahq2oemfim8";
+	public const string ArenaUserInterfaceScene = "uid://cd3eg1hleix2";
 
-    [Export]
-    public Node3D? SetupBoardCameraPosition { get; set; } = null;
+	[Export]
+	public Node3D? SetupBoardCameraPosition { get; set; } = null;
 
-    [Export]
-    public Node3D? BoardOverviewCameraPosition { get; set; } = null;
+	[Export]
+	public Node3D? BoardOverviewCameraPosition { get; set; } = null;
 
-    [Export]
-    public ArenaCamera? PlayerCamera { get; set; } = null;
+	[Export]
+	public ArenaCamera? PlayerCamera { get; set; } = null;
 
-    // Where the player's hero stands, off the board: hero spells come from here (SpellAbility.UseFromHero).
-    [Export]
-    public Node3D? HeroSpellCastPosition { get; set; } = null;
+	// Where the player's hero stands, off the board: hero spells come from here (SpellAbility.UseFromHero).
+	[Export]
+	public Node3D? HeroSpellCastPosition { get; set; } = null;
 
-    // Shows the camera's SubViewport on screen; converts projected points to where UI is drawn over them.
-    [Export]
-    public ViewportRect? GameViewportRect { get; set; } = null;
+	// Shows the camera's SubViewport on screen; converts projected points to where UI is drawn over them.
+	[Export]
+	public ViewportRect? GameViewportRect { get; set; } = null;
 
-    // Seconds the camera takes to move from the setup view to the battle view.
-    [Export]
-    public float CameraTransitionDuration { get; set; } = 1.5f;
+	// Seconds the camera takes to move from the setup view to the battle view.
+	[Export]
+	public float CameraTransitionDuration { get; set; } = 1.5f;
 
     // Seconds a computer stack waits, already outlined as active, before it acts, so the player sees who's next.
     // 0 to act right away.
@@ -44,24 +44,24 @@ public partial class Arena : Node3D
 
     public const uint AreaWidth = 20;
 
-    public const uint AreaHeight = 12;
+	public const uint AreaHeight = 12;
 
-    // Side of one tile in meters.
-    public const float TileSize = 0.5f;
+	// Side of one tile in meters.
+	public const float TileSize = 0.5f;
 
-    // Columns on the player's side where stacks can be arranged during the placement phase.
-    public const int PlacementColumns = 2;
+	// Columns on the player's side where stacks can be arranged during the placement phase.
+	public const int PlacementColumns = 2;
 
-    // Starts the battle as soon as the arena is ready. TODO: turn off once the placement phase exists.
-    [Export]
-    public bool AutoBeginBattle = true;
+	// Starts the battle as soon as the arena is ready. TODO: turn off once the placement phase exists.
+	[Export]
+	public bool AutoBeginBattle = true;
 
-    // Armies stored before the battle exists, so the placement phase can arrange them.
-    // Set by SceneTransitions.EnterArena.
-    public Army? PlayerArmy { get; private set; }
-    public Army? ComputerArmy { get; private set; }
+	// Armies stored before the battle exists, so the placement phase can arrange them.
+	// Set by SceneTransitions.EnterArena.
+	public Army? PlayerArmy { get; private set; }
+	public Army? ComputerArmy { get; private set; }
 
-    public Battle? Battle { get; private set; }
+	public Battle? Battle { get; private set; }
 
     // Decides the computer's turns, by the computer army's Strategy. Made with the Battle.
     private BattleAI? _computerAI;
@@ -82,44 +82,44 @@ public partial class Arena : Node3D
         }
     }
 
-    // Where CurrentStack can move this turn. Searched once at the start of the turn and reused for
-    // highlighting, hover (GetAnchorsCovering), validation and the movement path.
-    public Reachability? CurrentReachability { get; private set; }
+	// Where CurrentStack can move this turn. Searched once at the start of the turn and reused for
+	// highlighting, hover (GetAnchorsCovering), validation and the movement path.
+	public Reachability? CurrentReachability { get; private set; }
 
-    public event Action<Army?>? BattleEnded;
+	public event Action<Army?>? BattleEnded;
 
-    // Tiles by battle grid coordinate (0..AreaWidth-1, 0..AreaHeight-1).
-    private readonly SmallTile[] _smallTiles = new SmallTile[AreaWidth * AreaHeight];
+	// Tiles by battle grid coordinate (0..AreaWidth-1, 0..AreaHeight-1).
+	private readonly SmallTile[] _smallTiles = new SmallTile[AreaWidth * AreaHeight];
 
-    private TaskCompletionSource<TurnOutput>? _playerTurn;
+	private TaskCompletionSource<TurnOutput>? _playerTurn;
 
-    // Created by SetupPlacementPhase.
-    private ArenaUserInterface? _userInterface;
+	// Created by SetupPlacementPhase.
+	private ArenaUserInterface? _userInterface;
 
-    // False while a hero spell plays in the middle of the turn, so no input is taken meanwhile
-    public bool IsPlayerTurn => CurrentStack?.Army == PlayerArmy && _playerTurn != null && !_castingHeroSpell;
+	// False while a hero spell plays in the middle of the turn, so no input is taken meanwhile
+	public bool IsPlayerTurn => CurrentStack?.Army == PlayerArmy && _playerTurn != null && !_castingHeroSpell;
 
-    public bool IsInSetupPhase => Battle == null;
+	public bool IsInSetupPhase => Battle == null;
 
-    // Enemies the current stack can melee this player turn. The tiles under them are red, and hovering one
-    // (its unit or its tile) picks the position to attack it from.
-    private readonly List<Stack> _meleeTargets = [];
+	// Enemies the current stack can melee this player turn. The tiles under them are red, and hovering one
+	// (its unit or its tile) picks the position to attack it from.
+	private readonly List<Stack> _meleeTargets = [];
 
-    // The attack position picked by hovering a melee target this turn: red and raised.
-    private (Stack Target, Vector2I Anchor)? _pickedMeleeAttack;
+	// The attack position picked by hovering a melee target this turn: red and raised.
+	private (Stack Target, Vector2I Anchor)? _pickedMeleeAttack;
 
-    // Enemies the current stack can shoot this player turn (none of them is a melee target). Their tiles are red
-    // too, and hovering one (its unit or its tile) shows the arrow cursor.
-    private readonly List<Stack> _rangedTargets = [];
+	// Enemies the current stack can shoot this player turn (none of them is a melee target). Their tiles are red
+	// too, and hovering one (its unit or its tile) shows the arrow cursor.
+	private readonly List<Stack> _rangedTargets = [];
 
-    // The spell picked in the spellbook this player turn, while the player picks its target. Meanwhile the move,
-    // melee and ranged input is off, the targets' tiles show (red for enemies), and hovering a target shows the
-    // spell's icon as the cursor. Right click or Escape cancels it.
-    private SpellAbility? _pickedSpell;
-    private bool _pickedSpellIsHero;
-    private readonly List<Stack> _spellTargets = [];
+	// The spell picked in the spellbook this player turn, while the player picks its target. Meanwhile the move,
+	// melee and ranged input is off, the targets' tiles show (red for enemies), and hovering a target shows the
+	// spell's icon as the cursor. Right click or Escape cancels it.
+	private SpellAbility? _pickedSpell;
+	private bool _pickedSpellIsHero;
+	private readonly List<Stack> _spellTargets = [];
 
-    public bool IsPickingSpellTarget => _pickedSpell != null;
+	public bool IsPickingSpellTarget => _pickedSpell != null;
 
     // A hero spell is cast right away and the turn goes on after it, as in HoMM; this is true while it plays.
     private bool _castingHeroSpell;
@@ -395,10 +395,10 @@ public partial class Arena : Node3D
         return GameViewportRect.ViewportToCanvas(PlayerCamera.UnprojectPosition(globalPoint));
     }
 
-    // Where the stack's label goes on the screen: under the stack's feet as the camera sees them, at the
-    // footprint's center horizontally and its lowest projected corner vertically. The same for 1x1 and 2x2 stacks
-    // from any camera angle. From the unit's current position, so it follows moves and the setup drag.
-    // Null if the stack has no unit or a corner is behind the camera.
+    // Where the stack's label goes on the screen: the near edge of its footprint as the camera sees it (the
+    // footprint center's projected X, its lowest projected corner's Y). A 1x1 stack's tag stays at its feet, and a
+    // 2x2 one's sits in front of the model instead of covering it (wolves lie flat). From the unit's current
+    // position, so it follows moves and the setup drag. Null if the stack has no unit or a corner is behind the camera.
     public Vector2? GetStackLabelCanvasPoint(Stack stack)
     {
         if (stack.NodeRepresentation is not UnitNode unit || !IsInstanceValid(unit))
@@ -408,14 +408,14 @@ public partial class Arena : Node3D
             return null;
 
         float half = stack.Size * TileSize / 2f;
-        float bottom = canvasCenter.Y;
+        float nearEdge = canvasCenter.Y;
         foreach (Vector3 corner in new Vector3[] { new(-half, 0, -half), new(half, 0, -half), new(-half, 0, half), new(half, 0, half) })
         {
             if (ProjectToCanvas(ToGlobal(center + corner)) is not Vector2 canvasCorner)
                 return null;
-            bottom = Mathf.Max(bottom, canvasCorner.Y);
+            nearEdge = Mathf.Max(nearEdge, canvasCorner.Y);
         }
-        return new Vector2(canvasCenter.X, bottom);
+        return new Vector2(canvasCenter.X, nearEdge);
     }
 
     #endregion
@@ -663,7 +663,44 @@ public partial class Arena : Node3D
         UpdateMeleeCursor();
         UpdateRangedCursor();
         UpdateSpellCursor();
+        UpdateActionPreview();
         _userInterface?.SetHoveredStack(GetFocusedStack());
+    }
+
+    // Shows under the hovered target what the action would do to it: units killed (or revived, by a spell).
+    // From the same amounts the abilities deal (GetDamage, SpellAbility.Evaluate), so it's what really happens.
+    // Retaliation isn't included.
+    private void UpdateActionPreview()
+    {
+        if (_userInterface == null)
+            return;
+
+        Stack? target = null;
+        int killed = 0, revived = 0;
+        if (IsPlayerTurn && CurrentStack is Stack stack && Battle is Battle battle)
+        {
+            if (IsPickingSpellTarget)
+            {
+                if (_pickedSpell is SpellAbility spell && GetFocusedStack() is Stack hovered && _spellTargets.Contains(hovered))
+                {
+                    SpellEstimate estimate = _pickedSpellIsHero
+                        ? spell.EvaluateFromHero(stack, hovered, battle)
+                        : spell.Evaluate(stack, hovered, battle);
+                    (target, killed, revived) = (hovered, estimate.UnitsKilled, estimate.Revives);
+                }
+            }
+            else if (_pickedMeleeAttack is { } picked && stack.Unit.MeleeAttack is MeleeAttackAbility melee)
+            {
+                target = picked.Target;
+                killed = (int)target.GetUnitsKilledBy(melee.GetDamage(stack, target));
+            }
+            else if (GetFocusedRangedTarget() is Stack shot && stack.Unit.LongRangeAttack is LongRangeAttackAbility ranged)
+            {
+                target = shot;
+                killed = (int)shot.GetUnitsKilledBy(ranged.GetDamage(stack, shot));
+            }
+        }
+        _userInterface.SetActionPreview(target, killed, revived);
     }
 
     // Every frame on the player's turn: picks the attack position for the hovered melee target (red and raised),
@@ -998,14 +1035,14 @@ public partial class Arena : Node3D
         _userInterface?.UpdateSpellButtons(stack);
     }
 
-    // While a spell target is hovered, the mouse is replaced by the spell's icon.
+    // While a spell target is hovered, the mouse is replaced by the spell's hovered icon.
     private void UpdateSpellCursor()
     {
         if (_userInterface == null)
             return;
         if (IsPlayerTurn && _pickedSpell is SpellAbility spell && GetFocusedStack() is Stack hovered
             && _spellTargets.Contains(hovered))
-            _userInterface.ShowSpellCursor(spell.Icon);
+            _userInterface.ShowSpellCursor(spell.GetHoveredIcon());
         else
             _userInterface.HideSpellCursor();
     }

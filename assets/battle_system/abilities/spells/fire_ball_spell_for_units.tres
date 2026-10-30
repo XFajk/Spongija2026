@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="FireBallSpell" format=3 uid="uid://6lki1oqmls1"]
 
-[ext_resource type="Texture2D" uid="uid://dndqmhsahycyb" path="res://assets/ui/spell_icons/fireball.svg" id="1_mgucp"]
+[ext_resource type="Texture2D" uid="uid://pej1hmqyk87g" path="res://assets/ui/fireball_color.png" id="1_elqq3"]
+[ext_resource type="Texture2D" uid="uid://cgc3ud17jn31f" path="res://assets/ui/fireball.png" id="1_mgucp"]
 [ext_resource type="PackedScene" uid="uid://br02cttlef0ed" path="res://scenes/projectiles/fire_ball_projectile.tscn" id="2_elqq3"]
 [ext_resource type="Script" uid="uid://kaqcq55yms27" path="res://src/battle_system/abilities/specific/FireBallSpell.cs" id="3_f6sqe"]
 
@@ -12,5 +13,6 @@ ShootAngle = 10.0
 Name = "Fire Ball"
 Description = "Cast a ball a fire at the enemy stack"
 Icon = ExtResource("1_mgucp")
+HoveredIcon = ExtResource("1_elqq3")
 ManaCost = 10
 metadata/_custom_type_script = "uid://kaqcq55yms27"

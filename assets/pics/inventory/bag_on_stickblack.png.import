@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpk4t2bqqrf3h"
-path="res://.godot/imported/BookBack.png-c132fa644df591c69f29b2aa71cdd0f2.ctex"
+uid="uid://csuq8cas0opo5"
+path="res://.godot/imported/bag_on_stickblack.png-66ca8acd8163118efcf8daab102193d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pics/BookBack.png"
-dest_files=["res://.godot/imported/BookBack.png-c132fa644df591c69f29b2aa71cdd0f2.ctex"]
+source_file="res://assets/pics/inventory/bag_on_stickblack.png"
+dest_files=["res://.godot/imported/bag_on_stickblack.png-66ca8acd8163118efcf8daab102193d8.ctex"]
 
 [params]
 

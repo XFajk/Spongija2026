@@ -1,17 +1,19 @@
 [gd_scene format=3 uid="uid://b011mxkc5of83"]
 
-[ext_resource type="Texture2D" uid="uid://dndqmhsahycyb" path="res://assets/ui/spell_icons/fireball.svg" id="1_b5kpl"]
+[ext_resource type="Texture2D" uid="uid://pej1hmqyk87g" path="res://assets/ui/fireball_color.png" id="1_2ccg4"]
 [ext_resource type="Script" uid="uid://dpextiv72ucw8" path="res://src/ui/SpellButton.cs" id="2_spbtn"]
+[ext_resource type="LabelSettings" uid="uid://cc2gqaoowh1kc" path="res://assets/misc/arena_ui_button_lables.tres" id="3_a8xnk"]
 
 [node name="SpellButton" type="Button" unique_id=366633442]
-script = ExtResource("2_spbtn")
-custom_minimum_size = Vector2(128, 128)
-custom_maximum_size = Vector2(128, 128)
-offset_right = 128.0
-offset_bottom = 128.0
-icon = ExtResource("1_b5kpl")
+custom_minimum_size = Vector2(240, 240)
+custom_maximum_size = Vector2(240, 240)
+offset_right = 240.0
+offset_bottom = 240.0
+icon = ExtResource("1_2ccg4")
+flat = true
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("2_spbtn")
 
 [node name="SpellName" type="Label" parent="." unique_id=804895359]
 layout_mode = 1
@@ -26,3 +28,4 @@ offset_bottom = 23.000061
 grow_horizontal = 2
 grow_vertical = 0
 text = "Spell Name"
+label_settings = ExtResource("3_a8xnk")

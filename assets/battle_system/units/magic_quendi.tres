@@ -6,10 +6,12 @@
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_743o3"]
 [ext_resource type="Resource" uid="uid://6lki1oqmls1" path="res://assets/battle_system/abilities/spells/fire_ball_spell_for_units.tres" id="4_q5xll"]
 [ext_resource type="Resource" uid="uid://dseb7o15vd18m" path="res://assets/battle_system/abilities/spells/heal_spell.tres" id="5_e8vb7"]
+[ext_resource type="Texture2D" uid="uid://dndqmhsahycyb" path="res://assets/ui/spell_icons/fireball.svg" id="7_e8vb7"]
 
 [resource]
 script = ExtResource("3_743o3")
 Name = "Wizzard Quendi"
+texture = ExtResource("7_e8vb7")
 MaxHealth = 25
 StartingMana = 100
 MaxMana = 100

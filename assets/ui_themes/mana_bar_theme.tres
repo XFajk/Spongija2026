@@ -1,6 +1,6 @@
-[gd_resource type="Theme" format=3 uid="uid://dwva6hc8uuvyr"]
+[gd_resource type="Theme" format=3 uid="uid://dekw64qwcbodv"]
 
-[ext_resource type="Texture2D" path="res://assets/ui/progress_bar_rim.png" id="1_k2h41"]
+[ext_resource type="Texture2D" uid="uid://6w06wg2axgkt" path="res://assets/ui/progress_bar_rim.png" id="1_k2h41"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8utch"]
 texture = ExtResource("1_k2h41")

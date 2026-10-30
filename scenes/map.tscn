@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://d2vdux1r2w61k" path="res://scenes/player/viewport_rect.tscn" id="1_gldc4"]
 [ext_resource type="Script" uid="uid://856gdeetf6ag" path="res://src/arena/PointOfInterest.cs" id="2_2lpho"]
 [ext_resource type="PackedScene" uid="uid://d3siemxsgpj3l" path="res://scenes/player/player_camera.tscn" id="2_paxxb"]
+[ext_resource type="Script" uid="uid://428dhvbojk24" path="res://src/arena/ResourcePOI.cs" id="3_n1psn"]
 [ext_resource type="Script" uid="uid://bknow4djldqy" path="res://src/player/AdventureCamera.cs" id="4_0cso3"]
 [ext_resource type="PackedScene" uid="uid://3fhavcdsavfw" path="res://scenes/player/adventure_character.tscn" id="4_2klcf"]
 [ext_resource type="Theme" uid="uid://bjx58o26db5so" path="res://assets/ui_themes/fantasy.tres" id="6_2lpho"]
@@ -11,7 +12,18 @@
 [ext_resource type="LabelSettings" uid="uid://d2yjmolnb3eqi" path="res://assets/ui_themes/HighlightLabelSettings.tres" id="7_nakos"]
 [ext_resource type="PackedScene" uid="uid://3me630kro538" path="res://scenes/ui/popout.tscn" id="7_wslke"]
 [ext_resource type="Texture2D" uid="uid://b8ddb7nxoqbb7" path="res://assets/pics/cantGoIcon.png" id="8_jh32y"]
-[ext_resource type="Texture2D" uid="uid://bpk4t2bqqrf3h" path="res://assets/pics/BookBack.png" id="9_be0no"]
+[ext_resource type="Texture2D" uid="uid://bpk4t2bqqrf3h" path="res://assets/pics/book/BookBack.png" id="9_be0no"]
+[ext_resource type="Texture2D" uid="uid://csuq8cas0opo5" path="res://assets/pics/inventory/bag_on_stickblack.png" id="12_sq6bu"]
+[ext_resource type="Texture2D" uid="uid://b5gh5rno637p2" path="res://assets/pics/inventory/bag_on_stickgray.png" id="13_4b7dj"]
+[ext_resource type="Texture2D" uid="uid://eaq1jq5w0ja5" path="res://assets/pics/book/BookBackGrey.png" id="13_c70he"]
+[ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="13_gw3fx"]
+[ext_resource type="Texture2D" uid="uid://couyd22ndcmbh" path="res://assets/pics/inventory/bag_on_stickwhite.png" id="14_2cfcp"]
+[ext_resource type="Texture2D" uid="uid://b1a78biqiyy4e" path="res://assets/pics/book/BookBackWhite.png" id="14_mo32q"]
+[ext_resource type="PackedScene" uid="uid://dd8qpygjqxwvm" path="res://scenes/ui/unit_slot.tscn" id="14_p7tei"]
+[ext_resource type="FontFile" uid="uid://cotpgy3uit4mg" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Regular.ttf" id="16_p7tei"]
+[ext_resource type="Texture2D" uid="uid://cnt4a1ofuqcj5" path="res://assets/pics/CombineIcon.png" id="22_2cfcp"]
+[ext_resource type="PackedScene" uid="uid://wka7hhiahe1k" path="res://scenes/ui/swap_slot.tscn" id="23_2cfcp"]
+[ext_resource type="Script" uid="uid://b1ofx7nj4p48q" path="res://src/ui/SwapPanel.cs" id="23_y2ir2"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_gldc4"]
 vertices = PackedVector3Array(-1, 1, -2.999999, 0, 1, -3.499999, 0, 1, -14.499999, -14.5, 1, -14.499999, -14.5, 1, 9.536743e-07, -1, 1, 9.536743e-07, 1, 1, -2.999999, 14.5, 1, 9.536743e-07, 14.5, 1, -14.499999, 1, 1, 9.536743e-07, 17, 1, -1.499999, 17, 1, 1.500001, 20.5, 1, 1.500001, 20.5, 1, -1.499999, 0, 1, 14.500001, 0, 1, 3.500001, -1, 1, 3.000001, -14.5, 1, 14.500001, 1, 1, 3.000001, 14.5, 1, 14.500001)
@@ -54,13 +66,33 @@ albedo_color = Color(0.74509805, 0.69411767, 0, 0.39215687)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4xvhx"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jh32y"]
-load_path = "res://.godot/imported/canGoIcon.png-e3d80933a6e7a1f9ce7c30b7cc359df6.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_be0no"]
-load_path = "res://.godot/imported/cantGoIcon.png-836c93ea133488b738fd06ef8d52728b.ctex"
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wslke"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n1psn"]
+bg_color = Color(0.54474026, 0.31868562, 0.12448826, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.48177314, 0.20731443, 0.047696292, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iopsf"]
+texture = ExtResource("12_sq6bu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d35y6"]
+texture = ExtResource("13_4b7dj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1tni7"]
+texture = ExtResource("14_2cfcp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gyjbk"]
+texture = ExtResource("9_be0no")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jclro"]
+texture = ExtResource("13_c70he")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4xvhx"]
+texture = ExtResource("14_mo32q")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_be0no"]
 bg_color = Color(0.54474026, 0.31868562, 0.12448826, 1)
@@ -90,6 +122,27 @@ border_color = Color(0.48177314, 0.20731443, 0.047696292, 1)
 Button/styles/hover = SubResource("StyleBoxFlat_be0no")
 Button/styles/normal = SubResource("StyleBoxFlat_gyjbk")
 Button/styles/pressed = SubResource("StyleBoxFlat_blm8a")
+
+[sub_resource type="LabelSettings" id="LabelSettings_iopsf"]
+font = ExtResource("13_gw3fx")
+font_size = 35
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gyjbk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gw3fx"]
+bg_color = Color(0.5137255, 0.5137255, 0.5137255, 0.23529412)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4xvhx"]
+font = ExtResource("16_p7tei")
+font_size = 30
+outline_size = 13
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2cfcp"]
+font = ExtResource("16_p7tei")
+font_size = 30
+outline_size = 13
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 
 [node name="Map" type="Node3D" unique_id=1745784945]
 
@@ -164,7 +217,9 @@ mesh = SubResource("BoxMesh_4xvhx")
 [node name="Point2" type="Area3D" parent="PointsOfInterest" unique_id=605855154]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.832, 1, 10.344)
 collision_layer = 9
-script = ExtResource("2_2lpho")
+script = ExtResource("3_n1psn")
+type = 1
+Amount = 2
 stopDistance = 1.5
 cursorIcon = SubResource("CompressedTexture2D_nakos")
 
@@ -193,9 +248,6 @@ Distance = 6.0
 Height = 6.0
 MouseSensitivity = 0.005
 SmoothSpeed = 10.0
-_canGoIcon = SubResource("CompressedTexture2D_jh32y")
-_cantGoIcon = SubResource("CompressedTexture2D_be0no")
-_inventoryIcon = null
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=472189251]
 transform = Transform3D(0.8660254, -0.3535534, 0.3535534, 0, 0.7071068, 0.7071068, -0.5, -0.61237246, 0.61237246, 0, 4, 0)
@@ -217,7 +269,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="PopoutContainer" type="Control" parent="CanvasLayer/Canvas" unique_id=655575447 node_paths=PackedStringArray("agent")]
+[node name="PopoutContainer" type="Control" parent="CanvasLayer/Canvas" unique_id=655575447]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -226,10 +278,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_mlgqr")
-agent = NodePath("../../../SubViewport/PlayerCamera")
 popoutPrefab = ExtResource("7_wslke")
 
-[node name="Character" type="Panel" parent="CanvasLayer/Canvas" unique_id=1402481781 node_paths=PackedStringArray("inventoryPanel", "magicPanel")]
+[node name="Character" type="Panel" parent="CanvasLayer/Canvas" unique_id=1402481781 node_paths=PackedStringArray("inventoryPanel", "magicPanel", "horsesText", "silkText", "ironText", "icons", "splitWindow", "splitSlider", "splitNumber", "splitUnit", "swapWindow", "resourceCombiningIcons")]
 visible = false
 custom_minimum_size = Vector2(600, 800)
 layout_mode = 1
@@ -249,6 +300,16 @@ magicPanel = NodePath("Viewport/Magic")
 inventoryYPos = PackedFloat32Array(0, -750)
 magicYPos = PackedFloat32Array(565.2, 0)
 movingSpeed = 0.5
+horsesText = NodePath("Viewport/Inventory/Resources/Horses/Amount")
+silkText = NodePath("Viewport/Inventory/Resources/Silk/Amount")
+ironText = NodePath("Viewport/Inventory/Resources/Iron/Amount")
+icons = [NodePath("Viewport/Inventory/Slots/HBoxContainer/Slot"), NodePath("Viewport/Inventory/Slots/HBoxContainer/Slot2"), NodePath("Viewport/Inventory/Slots/HBoxContainer/Slot3"), NodePath("Viewport/Inventory/Slots/HBoxContainer2/Slot"), NodePath("Viewport/Inventory/Slots/HBoxContainer2/Slot2")]
+splitWindow = NodePath("../Split")
+splitSlider = NodePath("../Split/HSlider")
+splitNumber = NodePath("../Split/HSlider/Amount")
+splitUnit = NodePath("../Split/Text")
+swapWindow = NodePath("../Swap")
+resourceCombiningIcons = [NodePath("Viewport/Inventory/Resources/Horses/Selected"), NodePath("Viewport/Inventory/Resources/Silk/Selected"), NodePath("Viewport/Inventory/Resources/Iron/Selected")]
 
 [node name="Background" type="Panel" parent="CanvasLayer/Canvas/Character" unique_id=107308044]
 layout_mode = 1
@@ -291,52 +352,42 @@ offset_bottom = 340.0
 grow_vertical = 2
 pivot_offset_ratio = Vector2(1, 0.5)
 
-[node name="Inventory" type="Button" parent="CanvasLayer/Canvas/Character/Categories" unique_id=257292417]
+[node name="Inventory" type="Panel" parent="CanvasLayer/Canvas/Character/Categories" unique_id=2125863111]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme = SubResource("Theme_iopsf")
+offset_right = 75.0
+offset_bottom = 75.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_n1psn")
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Canvas/Character/Categories/Inventory" unique_id=446176708]
-custom_minimum_size = Vector2(50, 50)
+[node name="Button" type="Button" parent="CanvasLayer/Canvas/Character/Categories/Inventory" unique_id=252869853]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset_ratio = Vector2(0.5, 0.5)
-texture = ExtResource("8_jh32y")
-expand_mode = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_iopsf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_d35y6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1tni7")
 
-[node name="Magic" type="Button" parent="CanvasLayer/Canvas/Character/Categories" unique_id=717858099]
+[node name="Magic" type="Panel" parent="CanvasLayer/Canvas/Character/Categories" unique_id=988923908]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 0
 offset_top = 100.0
 offset_right = 75.0
 offset_bottom = 175.0
-theme = SubResource("Theme_iopsf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_n1psn")
 
-[node name="Icon" type="TextureRect" parent="CanvasLayer/Canvas/Character/Categories/Magic" unique_id=948932025]
-custom_minimum_size = Vector2(75, 75)
+[node name="Button" type="Button" parent="CanvasLayer/Canvas/Character/Categories/Magic" unique_id=460003622]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -36.5
-offset_top = -37.5
-offset_right = 38.5
-offset_bottom = 37.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset_ratio = Vector2(0.5, 0.5)
-texture = ExtResource("9_be0no")
-expand_mode = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_gyjbk")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jclro")
+theme_override_styles/hover = SubResource("StyleBoxTexture_4xvhx")
 
 [node name="Close" type="Button" parent="CanvasLayer/Canvas/Character/Categories" unique_id=1109385405]
 custom_minimum_size = Vector2(75, 75)
@@ -380,13 +431,269 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Canvas/Character/Viewport/Inventory" unique_id=960354946]
+[node name="I_Line" type="ColorRect" parent="CanvasLayer/Canvas/Character/Viewport/Inventory" unique_id=960354946]
 custom_minimum_size = Vector2(150, 5)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 color = Color(0.103743516, 0.10374353, 0.103743516, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory" unique_id=1346749070]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 244.20001
+offset_bottom = 344.2
+grow_horizontal = 2
+text = "Resources"
+label_settings = ExtResource("7_nakos")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="R_Line" type="ColorRect" parent="CanvasLayer/Canvas/Character/Viewport/Inventory" unique_id=1520861333]
+custom_minimum_size = Vector2(150, 5)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 325.0
+offset_bottom = 330.0
+grow_horizontal = 2
+color = Color(0.103743516, 0.10374353, 0.103743516, 1)
+
+[node name="Slots" type="VBoxContainer" parent="CanvasLayer/Canvas/Character/Viewport/Inventory" unique_id=1705083319]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_right = 6.1035156e-05
+offset_bottom = 240.0
+grow_horizontal = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots" unique_id=1227049781]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Slot" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots/HBoxContainer" unique_id=1118737442 instance=ExtResource("14_p7tei")]
+layout_mode = 2
+
+[node name="Slot2" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots/HBoxContainer" unique_id=2111353828 instance=ExtResource("14_p7tei")]
+layout_mode = 2
+index = 1
+
+[node name="Slot3" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots/HBoxContainer" unique_id=1942794143 instance=ExtResource("14_p7tei")]
+layout_mode = 2
+index = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots" unique_id=270136627]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Slot" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots/HBoxContainer2" unique_id=156425065 instance=ExtResource("14_p7tei")]
+layout_mode = 2
+index = 3
+
+[node name="Slot2" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots/HBoxContainer2" unique_id=1751292718 instance=ExtResource("14_p7tei")]
+layout_mode = 2
+index = 4
+
+[node name="Resources" type="VBoxContainer" parent="CanvasLayer/Canvas/Character/Viewport/Inventory" unique_id=1048197823]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 341.2
+offset_right = 6.1035156e-05
+offset_bottom = 561.2
+grow_horizontal = 2
+theme_override_constants/separation = 20
+
+[node name="Horses" type="Control" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources" unique_id=37856513]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Horses" unique_id=984819010]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.711
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Horses"
+label_settings = SubResource("LabelSettings_iopsf")
+vertical_alignment = 1
+
+[node name="Amount" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Horses" unique_id=1527516476]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -137.0
+offset_top = -24.0
+offset_right = -52.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "1000"
+label_settings = SubResource("LabelSettings_iopsf")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Horses" unique_id=1314304161]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gyjbk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gyjbk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gw3fx")
+
+[node name="Selected" type="TextureRect" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Horses" unique_id=694052260]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("22_2cfcp")
+expand_mode = 1
+
+[node name="Silk" type="Control" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources" unique_id=492553282]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Silk" unique_id=1221818795]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.711
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Silk"
+label_settings = SubResource("LabelSettings_iopsf")
+vertical_alignment = 1
+
+[node name="Amount" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Silk" unique_id=1918049217]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -137.0
+offset_top = -24.0
+offset_right = -52.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "1000"
+label_settings = SubResource("LabelSettings_iopsf")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Silk" unique_id=1906020248]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gyjbk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gyjbk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gw3fx")
+
+[node name="Selected" type="TextureRect" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Silk" unique_id=1697138218]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("22_2cfcp")
+expand_mode = 1
+
+[node name="Iron" type="Control" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources" unique_id=1088537681]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Iron" unique_id=854585920]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.711
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Iron"
+label_settings = SubResource("LabelSettings_iopsf")
+vertical_alignment = 1
+
+[node name="Amount" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Iron" unique_id=354499824]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -137.0
+offset_top = -24.0
+offset_right = -52.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "1000"
+label_settings = SubResource("LabelSettings_iopsf")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Iron" unique_id=1478868811]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gyjbk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gyjbk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gw3fx")
+
+[node name="Selected" type="TextureRect" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Iron" unique_id=84567305]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("22_2cfcp")
+expand_mode = 1
 
 [node name="Magic" type="Control" parent="CanvasLayer/Canvas/Character/Viewport" unique_id=235222784]
 layout_mode = 1
@@ -420,3 +727,232 @@ offset_top = 100.2
 offset_bottom = 105.2
 grow_horizontal = 2
 color = Color(0.103743516, 0.10374353, 0.103743516, 1)
+
+[node name="Split" type="Panel" parent="CanvasLayer/Canvas" unique_id=1677304227]
+visible = false
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -826.0
+offset_top = -250.0
+offset_right = -426.0
+offset_bottom = 250.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("6_2lpho")
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Split" unique_id=984977792]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 76.0
+grow_horizontal = 2
+text = "Split"
+label_settings = ExtResource("7_nakos")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="CanvasLayer/Canvas/Split" unique_id=92059024]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 100.0
+offset_right = -20.0
+offset_bottom = -350.0
+grow_horizontal = 2
+text = "Unit Name"
+label_settings = SubResource("LabelSettings_4xvhx")
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Canvas/Split" unique_id=1900542050]
+process_mode = 3
+custom_minimum_size = Vector2(230, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -112.0
+offset_top = -148.0
+offset_right = 118.0
+offset_bottom = -106.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 1)
+theme = ExtResource("6_2lpho")
+text = "Confirm"
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Canvas/Split" unique_id=1974968560]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 4.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+rounded = true
+
+[node name="Amount" type="Label" parent="CanvasLayer/Canvas/Split/HSlider" unique_id=515942793]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -59.0
+offset_top = 30.0
+offset_right = 59.0
+offset_bottom = 98.0
+grow_horizontal = 2
+text = "50"
+label_settings = ExtResource("7_nakos")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Swap" type="Panel" parent="CanvasLayer/Canvas" unique_id=1111375680 node_paths=PackedStringArray("keepSlots", "container")]
+visible = false
+custom_minimum_size = Vector2(700, 800)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_2lpho")
+script = ExtResource("23_y2ir2")
+keepSlots = [NodePath("KeepUnits/Slot"), NodePath("KeepUnits/Slot2"), NodePath("KeepUnits/Slot3"), NodePath("KeepUnits/Slot4"), NodePath("KeepUnits/Slot5")]
+swapSlotPrefab = ExtResource("23_2cfcp")
+container = NodePath("LeaveUnits")
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Swap" unique_id=992370053]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 39.0
+offset_bottom = 94.0
+grow_horizontal = 2
+text = "Full inventory"
+label_settings = ExtResource("7_nakos")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Keep" type="Label" parent="CanvasLayer/Canvas/Swap" unique_id=251113152]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 143.0
+offset_bottom = 193.0
+grow_horizontal = 2
+text = "Units you keep:"
+label_settings = SubResource("LabelSettings_2cfcp")
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="Leave" type="Label" parent="CanvasLayer/Canvas/Swap" unique_id=1185204099]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 387.0
+offset_bottom = 437.0
+grow_horizontal = 2
+text = "Units you Leave BeHIND:"
+label_settings = SubResource("LabelSettings_2cfcp")
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Canvas/Swap" unique_id=592755913]
+process_mode = 3
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -139.0
+offset_top = -97.0
+offset_right = 161.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 1)
+theme = ExtResource("6_2lpho")
+text = "CONFIRM"
+
+[node name="KeepUnits" type="HBoxContainer" parent="CanvasLayer/Canvas/Swap" unique_id=299189901]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -176.0
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Slot" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=1437054140 instance=ExtResource("23_2cfcp")]
+layout_mode = 2
+keep = true
+
+[node name="Slot2" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=2029012940 instance=ExtResource("23_2cfcp")]
+layout_mode = 2
+keep = true
+index = 1
+
+[node name="Slot3" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=613569414 instance=ExtResource("23_2cfcp")]
+layout_mode = 2
+keep = true
+index = 2
+
+[node name="Slot4" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=674906256 instance=ExtResource("23_2cfcp")]
+layout_mode = 2
+keep = true
+index = 3
+
+[node name="Slot5" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=1397593107 instance=ExtResource("23_2cfcp")]
+layout_mode = 2
+keep = true
+index = 4
+
+[node name="LeaveUnits" type="HBoxContainer" parent="CanvasLayer/Canvas/Swap" unique_id=530625729]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 74.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1

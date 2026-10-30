@@ -117,8 +117,8 @@ public class GreedyAI : BattleAI
 
     // Share of the target's total health one attack by the stack takes, 0..1
     private static float KillFraction(Stack stack, Stack target) =>
-        Math.Min(1f, Battle.CalculateDamage(stack, target) / (float)Math.Max(1, target.GetTotalHealth()));
+        Math.Min(1f, GetAttackDamage(stack, target) / (float)Math.Max(1, target.GetTotalHealth()));
 
     // Damage the attacker's attack would do to the stack
-    private static int Threat(Stack attacker, Stack stack) => Battle.CalculateDamage(attacker, stack);
+    private static int Threat(Stack attacker, Stack stack) => GetAttackDamage(attacker, stack);
 }
