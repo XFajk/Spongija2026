@@ -1,8 +1,14 @@
 [gd_scene format=3 uid="uid://3me630kro538"]
 
 [ext_resource type="Theme" uid="uid://bjx58o26db5so" path="res://assets/ui_themes/fantasy.tres" id="1_m1k1p"]
-[ext_resource type="LabelSettings" uid="uid://d2yjmolnb3eqi" path="res://assets/ui_themes/HighlightLabelSettings.tres" id="2_m1k1p"]
+[ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="2_m1k1p"]
 [ext_resource type="FontFile" uid="uid://cotpgy3uit4mg" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Regular.ttf" id="3_q1wa4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s4c8q"]
+font = ExtResource("2_m1k1p")
+font_size = 40
+outline_size = 13
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_4xvhx"]
 font = ExtResource("3_q1wa4")
@@ -32,8 +38,8 @@ anchor_right = 1.0
 offset_top = 8.0
 offset_bottom = 76.0
 grow_horizontal = 2
-text = "Label"
-label_settings = ExtResource("2_m1k1p")
+text = "TutORIAL"
+label_settings = SubResource("LabelSettings_s4c8q")
 horizontal_alignment = 1
 vertical_alignment = 1
 

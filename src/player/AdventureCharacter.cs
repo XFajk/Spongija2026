@@ -12,12 +12,14 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 	public Vector3 TargetPosition;
 	private NavigationAgent3D? agent;
 	[Export] PackedScene? point;
+	[Export] PackedScene? finalPoint;
 	[Export] Node3D? container;
 	[Export] float pointsMinDistance;
 	List<Node3D> points = new List<Node3D>();
 	public PointOfInterest? poi;
 
 	public CharacterPanel? inventoryPanel;
+	Inventory? inventory;
 	public bool canMove;
 
 	public override void _Ready()
@@ -32,6 +34,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 		inventoryButtonClose.Pressed += HidePanel;
 
 		canMove = true;
+		inventory = GetNode<Inventory>("Inventory");
 
 		CallDeferred(nameof(SetupNavigation));
 	}
@@ -62,6 +65,9 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 
 	public void SetPOITarget(Vector3 pos, float distance, PointOfInterest _point)
 	{
+		if (!canMove)
+			return;
+
 		if (poi != null && poi != _point)
 		{
 			poi.UnFocus();
@@ -88,7 +94,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 				ResetPoints();
 			}
 
-			if (poi != null)
+			if (poi != null && !poi.accessed)
 			{
 				poi.Access();
 			}
@@ -186,13 +192,15 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 
 				if (points[points.Count - 1].GlobalPosition.DistanceTo(path[path.Length - 1]) <= 0.5f)
 				{
-					points[points.Count - 1].GlobalPosition = path[path.Length - 1];
-					points[points.Count - 1].GetNode<MeshInstance3D>("MeshInstance3D").MaterialOverride = endMaterial;
+					Node3D _point = finalPoint!.Instantiate<Node3D>();
+					container!.AddChild(_point);
+					_point.GlobalPosition = path[path.Length - 1];
+					points[points.Count - 1].QueueFree();
+					points[points.Count - 1] = _point;
 				}
 				else
 				{
-					Node3D _point = point!.Instantiate<Node3D>();
-					_point.GetNode<MeshInstance3D>("MeshInstance3D").MaterialOverride = endMaterial;
+					Node3D _point = finalPoint!.Instantiate<Node3D>();
 					container!.AddChild(_point);
 					_point.GlobalPosition = path[path.Length -1];
 					points.Add(_point);
@@ -248,5 +256,31 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 		inventoryPanel?.ResetEquipping();
 		inventoryPanel!.Hide();
 		canMove = true;
+	}
+
+	public void ForceStop()
+	{
+		for (int i = 0; i < points.Count; i++)
+		{
+			points[i].QueueFree();
+			points.RemoveAt(i);
+			agent!.TargetPosition = GlobalPosition;
+		}
+	}
+
+	public void EnterFight()
+	{
+		GetTree().Paused = false;
+		GetNode<BattleStarter>("BattleStarter").EnterBattle(inventory!.Spells!, inventory!.Units!);
+	}
+
+	public void SetupEnemyArmy(Godot.Collections.Array<StackResource> units, Godot.Collections.Array<SpellAbility> spells)
+	{
+		GetNode<BattleStarter>("BattleStarter").SetupEnemyArmy(units, spells);
+	}
+
+	public void SetupDifficulty(EnemyStrategy enemyStrategy)
+	{
+		GetNode<BattleStarter>("BattleStarter").SetupDifficulty(enemyStrategy);
 	}
 }

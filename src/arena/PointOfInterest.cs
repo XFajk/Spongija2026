@@ -9,7 +9,7 @@ public partial class PointOfInterest : Area3D, IInteractable
 	protected AdventureCharacter? _character;
 	private MeshInstance3D? highlight;
 	bool _keepHighlighted;
-	bool accessed;
+	public bool accessed;
 
 	public override void _Ready()
 	{

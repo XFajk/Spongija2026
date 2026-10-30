@@ -142,7 +142,7 @@ public partial class AdventureCamera : PlayerCamera
 		if (@event is InputEventMouseButton rightButton &&
 			rightButton.ButtonIndex == MouseButton.Right)
 		{
-			_rotating = rightButton.Pressed;
+			_rotating = rightButton.Pressed && Agent!.canMove;
 		}
 
 		if (@event is InputEventMouseMotion mouseMotionRight && _rotating)
@@ -153,7 +153,7 @@ public partial class AdventureCamera : PlayerCamera
 		if (@event is InputEventMouseButton middleButton &&
 			middleButton.ButtonIndex == MouseButton.Middle)
 		{
-			_panning = middleButton.Pressed;
+			_panning = middleButton.Pressed && Agent!.canMove;
 		}
 
 		if (@event is InputEventMouseMotion motion && _panning)

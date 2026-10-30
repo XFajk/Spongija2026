@@ -87,6 +87,71 @@ public partial class Inventory : Node
 		UpdateUI();
 	}
 
+	public void AddUnits(StackResource[] _units)
+	{
+		unitsToSwap = [];
+		for (int i = 0; i < _units.Length; i++)
+		{
+			bool inInventory = false;
+			int indexInInventory = 0;
+
+			for (int y = 0; y < Units?.Length; y++)
+			{
+				if (Units[y] != null)
+				{
+					if (Units[y].Unit == _units[i].Unit)
+					{
+						inInventory = true;
+						indexInInventory = y;
+						break;
+					}
+				}
+			}
+
+			if (inInventory)
+			{
+				Units![indexInInventory].Quantity += _units[i].Quantity;
+				UpdateUI();
+			}
+			else
+			{
+				bool emptyPlace = false;
+				int emptyIndex = 0;
+				
+				for (int y = 0; y < Units?.Length; y++)
+				{
+					if (Units[y] == null)
+					{
+						emptyPlace = true;
+						emptyIndex = y;
+						break;
+					}
+				}
+
+				StackResource newUnit = new StackResource();
+				newUnit.Unit = _units[i].Unit;
+				newUnit.Quantity = _units[i].Quantity;
+
+				if (emptyPlace)
+				{
+					Units![emptyIndex] = newUnit;
+					UpdateUI();
+				}
+				else
+				{
+
+					unitsToSwap = unitsToSwap.Append(newUnit).ToArray();
+				}
+			}
+		}
+
+		if (unitsToSwap.Length > 0)
+		{
+			Character?.HidePanel();
+			Character?.inventoryPanel?.SwapWarning();
+		}
+	}
+
 	public void AddArtefact(Artefact artefact)
 	{
 		Artefacts!.Add(artefact);
