@@ -1,8 +1,10 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class CharacterPanel : Panel
 {
+	[Export] AdventureCamera? camera;
 	Inventory? inventory;
 	[Export] Control? inventoryPanel;
 	[Export] Control? magicPanel;
@@ -23,6 +25,12 @@ public partial class CharacterPanel : Panel
 
 	[Export] TextureRect[]? resourceCombiningIcons;
 
+	[Export] ArtefactSlot[]? equippedArtefacts;
+	List<ArtefactSlot>? artefacts = new List<ArtefactSlot>();
+	[Export] PackedScene? artefactUIPrefab;
+	[Export] GridContainer? artefactUIContainer;
+	[Export] Label? artefactsEmpty;
+
 	public override void _Ready()
 	{
 		this.VisibilityChanged += OnVisible;
@@ -41,6 +49,11 @@ public partial class CharacterPanel : Panel
 		horseB.Pressed += ClickHorse;
 		silkB.Pressed += ClickSilk;
 		ironB.Pressed += ClickIron;
+
+		//Spells
+		Button spellB = GetNode<Button>("/root/Map/CanvasLayer/Canvas/Character/Viewport/Magic/Spells");
+		SpellDisplay _display = GetNode<SpellDisplay>("/root/Map/CanvasLayer/Canvas/Spells");
+		spellB!.Pressed += _display.OpenBook;
 	}
 
 	public void OnVisible()
@@ -112,17 +125,61 @@ public partial class CharacterPanel : Panel
 		silkText!.Text = inventory.silk.ToString();
 		ironText!.Text = inventory.iron.ToString();
 
-		for (int i = 0; i < inventory?.units?.Length; i++)
+		for (int i = 0; i < inventory?.Units?.Length; i++)
 		{
-			if (inventory.units[i] != null)
+			if (inventory.Units[i] != null)
 			{
-				icons?[i].Setup((int)inventory.units[i].Quantity, inventory.units[i].Unit!.texture!);
+				icons?[i].Setup((int)inventory.Units[i].Quantity, inventory.Units[i].Unit!.texture!);
 			}
 			else
 			{
 				icons?[i].Reset();
 			}
 		}
+
+		for (int i = 0; i < inventory?.EquippedArtefacts?.Length; i++)
+		{
+			if (inventory.EquippedArtefacts[i] != null)
+			{
+				equippedArtefacts?[i].Setup(_inventory?.EquippedArtefacts?[i].Icon!, _inventory!.EquippedArtefacts![i].BodyPart!);
+			}
+			else
+			{
+				equippedArtefacts?[i].Reset();
+			}
+		}
+
+		if (inventory!.Artefacts.Count <= artefacts!.Count)
+		{
+			for (int i = inventory!.Artefacts.Count; i < artefacts?.Count; i++)
+			{
+				artefacts[i].QueueFree();
+			}
+
+			List<ArtefactSlot> newList = new List<ArtefactSlot>();
+
+			for (int i = 0; i < inventory!.Artefacts.Count; i++)
+			{
+				artefacts![i].index = i;
+				artefacts[i].Setup(inventory.Artefacts[i].Icon!, inventory.Artefacts[i].BodyPart);
+				newList.Add(artefacts[i]);
+			}
+
+			artefacts = newList;
+		}
+		else
+		{
+			for (int i = artefacts!.Count; i < _inventory?.Artefacts?.Count; i++)
+			{
+				ArtefactSlot _prefab = artefactUIPrefab!.Instantiate<ArtefactSlot>();
+				artefactUIContainer?.AddChild(_prefab);
+				_prefab.index = i;
+				_prefab.Setup(_inventory.Artefacts[i].Icon!, _inventory.Artefacts[i].BodyPart);
+				artefacts?.Add(_prefab);
+			}
+		}
+
+		artefactsEmpty!.Visible = _inventory?.Artefacts?.Count == 0;
 	}
 
 	public void Highlight(int index)
@@ -210,6 +267,7 @@ public partial class CharacterPanel : Panel
 		if (amount > 0)
 		{
 			ResetSplitting();
+			ResetEquipping();
 
 			for (int i = 0; i < resourceCombiningIcons?.Length; i++)
 			{
@@ -240,5 +298,40 @@ public partial class CharacterPanel : Panel
 		}
 
 		inventory?.CancelCombining();
+	}
+
+	public void UnhighlightArtefacts()
+	{
+		for (int i = 0; i < artefacts?.Count; i++)
+		{
+			artefacts[i].Deselect();
+		}
+
+		for (int i = 0; i < equippedArtefacts?.Length; i++)
+		{
+			equippedArtefacts[i].Deselect();
+		}
+	}
+
+	public void ResetEquipping()
+	{
+		UnhighlightArtefacts();
+		inventory?.CancelEquipping();
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (!Visible)
+			return;
+		if (@event is not InputEventMouseButton { Pressed: true } click)
+			return;
+		if (GetGlobalRect().HasPoint(click.Position) || splitWindow!.GetGlobalRect().HasPoint(click.Position))
+			return;
+
+		GetViewport().SetInputAsHandled();
+		// The camera polls the button instead of reading events, so it has to be told this click is taken
+		camera?.IgnoreAdventureCurrentClick();
+		camera?.IgnoreCurrentClick();
+		camera?.Agent?.HidePanel();
 	}
 }

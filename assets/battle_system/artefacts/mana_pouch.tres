@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Artefact" format=3 uid="uid://c7thoe6q17b3v"]
+
+[ext_resource type="Texture2D" uid="uid://csuq8cas0opo5" path="res://assets/pics/inventory/bag_on_stickblack.png" id="1_jg482"]
+[ext_resource type="Script" uid="uid://dro3uwa3xh26h" path="res://src/battle_system/artefacts/Artefact.cs" id="2_5uc6d"]
+
+[resource]
+script = ExtResource("2_5uc6d")
+Name = "Mana Pouch"
+Icon = ExtResource("1_jg482")
+metadata/_custom_type_script = "uid://dro3uwa3xh26h"

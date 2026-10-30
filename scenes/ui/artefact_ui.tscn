@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://c23anfnailwup"]
+
+[ext_resource type="Script" uid="uid://c5ixo1iq7wh61" path="res://src/ui/ArtefactSlot.cs" id="1_bkv8t"]
+[ext_resource type="Theme" uid="uid://cnc81xrt3w2j6" path="res://assets/ui_themes/artefact_slot.tres" id="1_q0mpr"]
+[ext_resource type="Texture2D" uid="uid://r6lyu5hmdlly" path="res://assets/pics/swap.png" id="2_q0mpr"]
+[ext_resource type="Texture2D" uid="uid://d0bogrip7idj2" path="res://assets/misc/godot_logo.svg" id="3_34fuc"]
+[ext_resource type="Texture2D" uid="uid://cudyhr601ttgg" path="res://assets/pics/ConfirmIcon.png" id="4_fufb1"]
+
+[node name="ArtefactUI" type="Button" unique_id=1118737442 node_paths=PackedStringArray("smallIcon", "image", "selected")]
+custom_minimum_size = Vector2(100, 100)
+theme = ExtResource("1_q0mpr")
+script = ExtResource("1_bkv8t")
+smallIcons = Array[Texture2D]([ExtResource("3_34fuc"), ExtResource("4_fufb1")])
+largeIcons = Array[Texture2D]([ExtResource("3_34fuc"), ExtResource("4_fufb1")])
+smallIcon = NodePath("SmallIcon")
+image = NodePath("TextureRect")
+selected = NodePath("Highlight")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=703928972]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="Highlight" type="TextureRect" parent="." unique_id=1818073155]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+texture = ExtResource("2_q0mpr")
+expand_mode = 1
+
+[node name="SmallIcon" type="TextureRect" parent="." unique_id=1035725318]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+expand_mode = 1

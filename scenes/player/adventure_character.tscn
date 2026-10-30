@@ -6,8 +6,10 @@
 [ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="4_ff6r0"]
 [ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="5_p6sce"]
 [ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="6_p6sce"]
+[ext_resource type="Resource" uid="uid://ddfgaidqfhbat" path="res://assets/battle_system/abilities/spells/fire_ball_spell.tres" id="7_51ulg"]
 [ext_resource type="Resource" uid="uid://6677wl7yciyh" path="res://assets/battle_system/crafting/archer_crafting.tres" id="7_e24yl"]
 [ext_resource type="Resource" uid="uid://cyv73832q5mrk" path="res://assets/battle_system/crafting/warrior_crafting.tres" id="8_bwkvg"]
+[ext_resource type="Resource" uid="uid://dseb7o15vd18m" path="res://assets/battle_system/abilities/spells/heal_spell.tres" id="8_l1a7v"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0cso3"]
 albedo_color = Color(0.3500733, 0.54419804, 0.23764646, 1)
@@ -66,5 +68,7 @@ debug_path_custom_color = Color(0.2784467, 0.6038251, 0, 1)
 
 [node name="Inventory" type="Node" parent="." unique_id=1608058295]
 script = ExtResource("3_8pgid")
-units = Array[Object]([SubResource("Resource_n1psn"), SubResource("Resource_e24yl"), SubResource("Resource_a11gi"), null, null])
+Units = Array[Object]([SubResource("Resource_n1psn"), SubResource("Resource_e24yl"), SubResource("Resource_a11gi"), null, null])
+Spells = Array[Object]([ExtResource("7_51ulg"), ExtResource("8_l1a7v")])
+EquippedArtefacts = Array[Object]([null, null, null])
 recipes = Array[Object]([ExtResource("7_e24yl"), ExtResource("8_bwkvg")])

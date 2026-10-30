@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Artefact" format=3 uid="uid://cy7b18dunqpbt"]
+
+[ext_resource type="Texture2D" uid="uid://c21n6vo2a3nt4" path="res://assets/ui/sword.png" id="1_hxs57"]
+[ext_resource type="Script" uid="uid://dro3uwa3xh26h" path="res://src/battle_system/artefacts/Artefact.cs" id="1_pmngv"]
+
+[resource]
+script = ExtResource("1_pmngv")
+Name = "Sword of Courage"
+Icon = ExtResource("1_hxs57")
+metadata/_custom_type_script = "uid://dro3uwa3xh26h"

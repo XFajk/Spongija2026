@@ -7,5 +7,5 @@ fractal_octaves = 4
 [resource]
 width = 256
 height = 256
-seamless = true
 noise = SubResource("FastNoiseLite_mana")
+seamless = true

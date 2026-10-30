@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Artefact" format=3 uid="uid://defcc54wv0c5j"]
+
+[ext_resource type="Script" uid="uid://dro3uwa3xh26h" path="res://src/battle_system/artefacts/Artefact.cs" id="1_3jqg5"]
+[ext_resource type="Texture2D" uid="uid://dghmmjc7448aa" path="res://assets/ui/spell_icons/healing.svg" id="1_fnhj4"]
+
+[resource]
+script = ExtResource("1_3jqg5")
+Name = "Mithril Shield"
+Icon = ExtResource("1_fnhj4")
+metadata/_custom_type_script = "uid://dro3uwa3xh26h"

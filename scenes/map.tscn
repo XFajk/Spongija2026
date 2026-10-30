@@ -6,9 +6,13 @@
 [ext_resource type="Script" uid="uid://428dhvbojk24" path="res://src/arena/ResourcePOI.cs" id="3_n1psn"]
 [ext_resource type="Script" uid="uid://bknow4djldqy" path="res://src/player/AdventureCamera.cs" id="4_0cso3"]
 [ext_resource type="PackedScene" uid="uid://3fhavcdsavfw" path="res://scenes/player/adventure_character.tscn" id="4_2klcf"]
+[ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="4_fq663"]
+[ext_resource type="Script" uid="uid://w2lj0wq3830v" path="res://src/arena/ArtefactPOI.cs" id="5_yfm5w"]
 [ext_resource type="Theme" uid="uid://bjx58o26db5so" path="res://assets/ui_themes/fantasy.tres" id="6_2lpho"]
+[ext_resource type="Resource" uid="uid://cpdv5gxr6hjrb" path="res://assets/battle_system/artefacts/wizzard_hat.tres" id="6_081xv"]
 [ext_resource type="Script" uid="uid://drwglebqk0es7" path="res://src/ui/PopoutManager.cs" id="6_mlgqr"]
 [ext_resource type="Script" uid="uid://da8xkfatqgrcb" path="res://src/ui/CharacterPanel.cs" id="7_blm8a"]
+[ext_resource type="Resource" uid="uid://cy7b18dunqpbt" path="res://assets/battle_system/artefacts/sword_of_courage.tres" id="7_cgoaf"]
 [ext_resource type="LabelSettings" uid="uid://d2yjmolnb3eqi" path="res://assets/ui_themes/HighlightLabelSettings.tres" id="7_nakos"]
 [ext_resource type="PackedScene" uid="uid://3me630kro538" path="res://scenes/ui/popout.tscn" id="7_wslke"]
 [ext_resource type="Texture2D" uid="uid://b8ddb7nxoqbb7" path="res://assets/pics/cantGoIcon.png" id="8_jh32y"]
@@ -21,9 +25,18 @@
 [ext_resource type="Texture2D" uid="uid://b1a78biqiyy4e" path="res://assets/pics/book/BookBackWhite.png" id="14_mo32q"]
 [ext_resource type="PackedScene" uid="uid://dd8qpygjqxwvm" path="res://scenes/ui/unit_slot.tscn" id="14_p7tei"]
 [ext_resource type="FontFile" uid="uid://cotpgy3uit4mg" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Regular.ttf" id="16_p7tei"]
+[ext_resource type="PackedScene" uid="uid://c23anfnailwup" path="res://scenes/ui/artefact_ui.tscn" id="20_081xv"]
 [ext_resource type="Texture2D" uid="uid://cnt4a1ofuqcj5" path="res://assets/pics/CombineIcon.png" id="22_2cfcp"]
 [ext_resource type="PackedScene" uid="uid://wka7hhiahe1k" path="res://scenes/ui/swap_slot.tscn" id="23_2cfcp"]
 [ext_resource type="Script" uid="uid://b1ofx7nj4p48q" path="res://src/ui/SwapPanel.cs" id="23_y2ir2"]
+[ext_resource type="Script" uid="uid://crl5qc0vw008e" path="res://src/ui/SpellDisplay.cs" id="25_4qxv8"]
+[ext_resource type="SpriteFrames" uid="uid://ccufku72ig3ug" path="res://assets/ui/book/book_animations.tres" id="25_6ek7f"]
+[ext_resource type="PackedScene" uid="uid://b011mxkc5of83" path="res://scenes/ui/spell_button.tscn" id="26_4qxv8"]
+[ext_resource type="Shader" uid="uid://bmnbarsh4d3rq" path="res://src/shaders/mana_bar.gdshader" id="27_fq663"]
+[ext_resource type="Theme" uid="uid://dekw64qwcbodv" path="res://assets/ui_themes/mana_bar_theme.tres" id="28_mniao"]
+[ext_resource type="LabelSettings" uid="uid://cc2gqaoowh1kc" path="res://assets/misc/arena_ui_button_lables.tres" id="29_yfm5w"]
+[ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="33_12q1p"]
+[ext_resource type="Theme" uid="uid://c7y84ghi423h7" path="res://assets/ui_themes/unit_slot.tres" id="34_lhdcv"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_gldc4"]
 vertices = PackedVector3Array(-1, 1, -2.999999, 0, 1, -3.499999, 0, 1, -14.499999, -14.5, 1, -14.499999, -14.5, 1, 9.536743e-07, -1, 1, 9.536743e-07, 1, 1, -2.999999, 14.5, 1, 9.536743e-07, 14.5, 1, -14.499999, 1, 1, 9.536743e-07, 17, 1, -1.499999, 17, 1, 1.500001, 20.5, 1, 1.500001, 20.5, 1, -1.499999, 0, 1, 14.500001, 0, 1, 3.500001, -1, 1, 3.000001, -14.5, 1, 14.500001, 1, 1, 3.000001, 14.5, 1, 14.500001)
@@ -65,6 +78,27 @@ transparency = 1
 albedo_color = Color(0.74509805, 0.69411767, 0, 0.39215687)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4xvhx"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_081xv"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hqvwm"]
+noise = SubResource("FastNoiseLite_081xv")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_12q1p"]
+shader = ExtResource("27_fq663")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_hqvwm")
+shader_parameter/fill_key_color = Color(0, 0.014977694, 1, 1)
+shader_parameter/key_tolerance = 0.1
+shader_parameter/deep_color = Color(0, 0.019990107, 0.26653373, 1)
+shader_parameter/bright_color = Color(0.07058823, 0.60082793, 1, 1)
+shader_parameter/spark_color = Color(1, 1, 1, 1)
+shader_parameter/noise_scale = 200.0
+shader_parameter/scroll_speed_a = Vector2(0.08, 0.03)
+shader_parameter/scroll_speed_b = Vector2(-0.05, 0.04)
+shader_parameter/spark_threshold = 0.55
+shader_parameter/brightness = 1.2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wslke"]
 
@@ -132,6 +166,19 @@ font_size = 35
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gw3fx"]
 bg_color = Color(0.5137255, 0.5137255, 0.5137255, 0.23529412)
 
+[sub_resource type="LabelSettings" id="LabelSettings_081xv"]
+font = ExtResource("16_p7tei")
+font_size = 30
+outline_size = 13
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lhdcv"]
+font = ExtResource("33_12q1p")
+font_size = 30
+font_color = Color(0.8738509, 0.3847592, 0.42821774, 1)
+outline_size = 13
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_4xvhx"]
 font = ExtResource("16_p7tei")
 font_size = 30
@@ -143,6 +190,26 @@ font = ExtResource("16_p7tei")
 font_size = 30
 outline_size = 13
 outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgoaf"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhdcv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12q1p"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gyjbk"]
+font = ExtResource("13_gw3fx")
+font_size = 35
 
 [node name="Map" type="Node3D" unique_id=1745784945]
 
@@ -163,6 +230,20 @@ material_override = SubResource("StandardMaterial3D_0cso3")
 mesh = SubResource("PlaneMesh_4xvhx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground" unique_id=1998171768]
+transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 15, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_2klcf")
+
+[node name="Ground3" type="Area3D" parent="NavigationRegion3D" unique_id=1937867765]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -33.287907, 5.1033077, 0)
+collision_layer = 12
+collision_mask = 12
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Ground3" unique_id=1763495837]
+transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 15, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_0cso3")
+mesh = SubResource("PlaneMesh_4xvhx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground3" unique_id=2082131279]
 transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 15, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_2klcf")
 
@@ -214,12 +295,15 @@ transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
 material_override = SubResource("StandardMaterial3D_jclro")
 mesh = SubResource("BoxMesh_4xvhx")
 
-[node name="Point2" type="Area3D" parent="PointsOfInterest" unique_id=605855154]
+[node name="Point2" type="Area3D" parent="PointsOfInterest" unique_id=605855154 node_paths=PackedStringArray("Camera", "Container")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.832, 1, 10.344)
 collision_layer = 9
 script = ExtResource("3_n1psn")
-type = 1
+type = 2
 Amount = 2
+FloatingTextScene = ExtResource("4_fq663")
+Camera = NodePath("../../SubViewport/PlayerCamera")
+Container = NodePath("../../CanvasLayer/Canvas")
 stopDistance = 1.5
 cursorIcon = SubResource("CompressedTexture2D_nakos")
 
@@ -237,17 +321,71 @@ transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
 material_override = SubResource("StandardMaterial3D_jclro")
 mesh = SubResource("BoxMesh_4xvhx")
 
+[node name="Point3" type="Area3D" parent="PointsOfInterest" unique_id=2027299538 node_paths=PackedStringArray("Camera", "Container")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.832, 1, -10.344)
+collision_layer = 9
+script = ExtResource("5_yfm5w")
+Artefact = ExtResource("6_081xv")
+FloatingTextScene = ExtResource("4_fq663")
+Camera = NodePath("../../SubViewport/PlayerCamera")
+Container = NodePath("../../CanvasLayer/Canvas")
+stopDistance = 1.5
+cursorIcon = SubResource("CompressedTexture2D_nakos")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PointsOfInterest/Point3" unique_id=1153801545]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2lpho")
+mesh = SubResource("BoxMesh_gyjbk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PointsOfInterest/Point3" unique_id=329243836]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_2klcf")
+
+[node name="Highlight" type="MeshInstance3D" parent="PointsOfInterest/Point3" unique_id=1274424798]
+transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
+material_override = SubResource("StandardMaterial3D_jclro")
+mesh = SubResource("BoxMesh_4xvhx")
+
+[node name="Point4" type="Area3D" parent="PointsOfInterest" unique_id=1083515539 node_paths=PackedStringArray("Camera", "Container")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.832, 1, -12.34118)
+collision_layer = 9
+script = ExtResource("5_yfm5w")
+Artefact = ExtResource("7_cgoaf")
+FloatingTextScene = ExtResource("4_fq663")
+Camera = NodePath("../../SubViewport/PlayerCamera")
+Container = NodePath("../../CanvasLayer/Canvas")
+stopDistance = 1.5
+cursorIcon = SubResource("CompressedTexture2D_nakos")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PointsOfInterest/Point4" unique_id=1164298319]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2lpho")
+mesh = SubResource("BoxMesh_gyjbk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PointsOfInterest/Point4" unique_id=319318227]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_2klcf")
+
+[node name="Highlight" type="MeshInstance3D" parent="PointsOfInterest/Point4" unique_id=689551640]
+transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
+material_override = SubResource("StandardMaterial3D_jclro")
+mesh = SubResource("BoxMesh_4xvhx")
+
 [node name="SubViewport" type="SubViewport" parent="." unique_id=2116964362]
 size = Vector2i(1393, 729)
 
-[node name="PlayerCamera" parent="SubViewport" unique_id=118941473 node_paths=PackedStringArray("agent") instance=ExtResource("2_paxxb")]
+[node name="PlayerCamera" parent="SubViewport" unique_id=118941473 node_paths=PackedStringArray("Agent", "returnPanningButton") instance=ExtResource("2_paxxb")]
 transform = Transform3D(1, 0, 0, 0, 0.33218208, 0.94321525, 0, -0.94321525, 0.33218208, 0, 6.4965672, 3.1734376)
 script = ExtResource("4_0cso3")
-agent = NodePath("../../AdventureCharacter")
+Agent = NodePath("../../AdventureCharacter")
 Distance = 6.0
 Height = 6.0
 MouseSensitivity = 0.005
 SmoothSpeed = 10.0
+returnPanningButton = NodePath("../../CanvasLayer/Canvas/ReturnPanning")
+
+[node name="RayCast3D" type="RayCast3D" parent="SubViewport" unique_id=1920633245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.4965672, 3.1734376)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=472189251]
 transform = Transform3D(0.8660254, -0.3535534, 0.3535534, 0, 0.7071068, 0.7071068, -0.5, -0.61237246, 0.61237246, 0, 4, 0)
@@ -280,7 +418,156 @@ mouse_filter = 2
 script = ExtResource("6_mlgqr")
 popoutPrefab = ExtResource("7_wslke")
 
-[node name="Character" type="Panel" parent="CanvasLayer/Canvas" unique_id=1402481781 node_paths=PackedStringArray("inventoryPanel", "magicPanel", "horsesText", "silkText", "ironText", "icons", "splitWindow", "splitSlider", "splitNumber", "splitUnit", "swapWindow", "resourceCombiningIcons")]
+[node name="Spells" type="Control" parent="CanvasLayer/Canvas" unique_id=1692921506 node_paths=PackedStringArray("adventureCamera")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("25_4qxv8")
+adventureCamera = NodePath("../../../SubViewport/PlayerCamera")
+
+[node name="BookInterface" type="Control" parent="CanvasLayer/Canvas/Spells" unique_id=1518456595]
+visible = false
+layout_mode = 1
+anchor_left = 0.20677084
+anchor_top = 0.16574074
+anchor_right = 0.7875
+anchor_bottom = 0.82314813
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SpellBook" type="AnimatedSprite2D" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=39295325]
+position = Vector2(563, 361)
+sprite_frames = ExtResource("25_6ek7f")
+animation = &"flip_page"
+autoplay = "open"
+
+[node name="SpellButtons" type="Control" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=1291200326]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftPage" type="VBoxContainer" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons" unique_id=576632346]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11121076
+anchor_top = 0.07605634
+anchor_right = 0.46278027
+anchor_bottom = 0.87323946
+grow_vertical = 2
+theme_override_constants/separation = 60
+metadata/_edit_use_anchors_ = true
+
+[node name="Row1" type="HBoxContainer" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/LeftPage" unique_id=2100115135]
+layout_mode = 2
+alignment = 1
+
+[node name="SpellButton" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/LeftPage/Row1" unique_id=366633442 instance=ExtResource("26_4qxv8")]
+layout_mode = 2
+
+[node name="Row2" type="HBoxContainer" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/LeftPage" unique_id=1961359749]
+layout_mode = 2
+alignment = 1
+
+[node name="SpellButton" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/LeftPage/Row2" unique_id=2107489057 instance=ExtResource("26_4qxv8")]
+layout_mode = 2
+
+[node name="RightPage" type="VBoxContainer" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons" unique_id=934933791]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5452915
+anchor_top = 0.07605634
+anchor_right = 0.89686096
+anchor_bottom = 0.87323946
+grow_vertical = 2
+theme_override_constants/separation = 60
+metadata/_edit_use_anchors_ = true
+
+[node name="Row1" type="HBoxContainer" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/RightPage" unique_id=1092911409]
+layout_mode = 2
+alignment = 1
+
+[node name="SpellButton" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/RightPage/Row1" unique_id=2145245294 instance=ExtResource("26_4qxv8")]
+layout_mode = 2
+
+[node name="Row2" type="HBoxContainer" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/RightPage" unique_id=1107940703]
+layout_mode = 2
+alignment = 1
+
+[node name="SpellButton" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/RightPage/Row2" unique_id=884789815 instance=ExtResource("26_4qxv8")]
+layout_mode = 2
+
+[node name="Next" type="Button" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=276621532]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -64.0
+offset_right = -104.0
+offset_bottom = -28.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Next
+"
+
+[node name="Back" type="Button" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=1869706705]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 115.0
+offset_top = -66.0
+offset_right = 203.0
+offset_bottom = -30.0
+grow_vertical = 0
+text = "Back
+"
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=1601981821]
+material = SubResource("ShaderMaterial_12q1p")
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_right = 500.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("28_mniao")
+show_percentage = false
+
+[node name="ManaLable" type="Label" parent="CanvasLayer/Canvas/Spells/BookInterface/ProgressBar" unique_id=522542054]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.5
+offset_top = -11.5
+offset_right = 38.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Mana: 0/0"
+label_settings = ExtResource("29_yfm5w")
+
+[node name="Character" type="Panel" parent="CanvasLayer/Canvas" unique_id=1402481781 node_paths=PackedStringArray("camera", "inventoryPanel", "magicPanel", "horsesText", "silkText", "ironText", "icons", "splitWindow", "splitSlider", "splitNumber", "splitUnit", "swapWindow", "resourceCombiningIcons", "equippedArtefacts", "artefactUIContainer", "artefactsEmpty")]
 visible = false
 custom_minimum_size = Vector2(600, 800)
 layout_mode = 1
@@ -295,6 +582,7 @@ grow_vertical = 2
 theme = ExtResource("6_2lpho")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wslke")
 script = ExtResource("7_blm8a")
+camera = NodePath("../../../SubViewport/PlayerCamera")
 inventoryPanel = NodePath("Viewport/Inventory")
 magicPanel = NodePath("Viewport/Magic")
 inventoryYPos = PackedFloat32Array(0, -750)
@@ -310,6 +598,10 @@ splitNumber = NodePath("../Split/HSlider/Amount")
 splitUnit = NodePath("../Split/Text")
 swapWindow = NodePath("../Swap")
 resourceCombiningIcons = [NodePath("Viewport/Inventory/Resources/Horses/Selected"), NodePath("Viewport/Inventory/Resources/Silk/Selected"), NodePath("Viewport/Inventory/Resources/Iron/Selected")]
+equippedArtefacts = [NodePath("Viewport/Magic/ArtefactsEquipped/ArtefactUI"), NodePath("Viewport/Magic/ArtefactsEquipped/ArtefactUI2"), NodePath("Viewport/Magic/ArtefactsEquipped/ArtefactUI3")]
+artefactUIPrefab = ExtResource("20_081xv")
+artefactUIContainer = NodePath("Viewport/Magic/Artefacts")
+artefactsEmpty = NodePath("Viewport/Magic/Empty")
 
 [node name="Background" type="Panel" parent="CanvasLayer/Canvas/Character" unique_id=107308044]
 layout_mode = 1
@@ -428,6 +720,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -848.8
+offset_bottom = -848.8
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -700,8 +994,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 565.2
-offset_bottom = 565.2
+offset_bottom = 6.1035156e-05
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -718,6 +1011,51 @@ label_settings = ExtResource("7_nakos")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Equipped" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=79988311]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 90.2
+offset_bottom = 190.2
+grow_horizontal = 2
+text = "Equipped artefacts"
+label_settings = SubResource("LabelSettings_081xv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Owned" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1312151889]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -85.20001
+offset_bottom = 14.799988
+grow_horizontal = 2
+grow_vertical = 2
+text = "Owned Artefacts"
+label_settings = SubResource("LabelSettings_081xv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Empty" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1768288797]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 53.799988
+offset_bottom = 153.79999
+grow_horizontal = 2
+grow_vertical = 2
+text = "Artefact lIST iS Empty"
+label_settings = SubResource("LabelSettings_lhdcv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1115710996]
 custom_minimum_size = Vector2(150, 5)
 layout_mode = 1
@@ -727,6 +1065,66 @@ offset_top = 100.2
 offset_bottom = 105.2
 grow_horizontal = 2
 color = Color(0.103743516, 0.10374353, 0.103743516, 1)
+
+[node name="ArtefactsEquipped" type="HBoxContainer" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=705361471]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -177.20001
+offset_right = 6.1035156e-05
+offset_bottom = -77.20001
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ArtefactUI" parent="CanvasLayer/Canvas/Character/Viewport/Magic/ArtefactsEquipped" unique_id=244097040 instance=ExtResource("20_081xv")]
+layout_mode = 2
+equipped = true
+
+[node name="ArtefactUI2" parent="CanvasLayer/Canvas/Character/Viewport/Magic/ArtefactsEquipped" unique_id=1303360019 instance=ExtResource("20_081xv")]
+layout_mode = 2
+part = 1
+equipped = true
+index = 1
+
+[node name="ArtefactUI3" parent="CanvasLayer/Canvas/Character/Viewport/Magic/ArtefactsEquipped" unique_id=906302764 instance=ExtResource("20_081xv")]
+layout_mode = 2
+part = 1
+equipped = true
+index = 2
+
+[node name="Artefacts" type="GridContainer" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1016586482]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.501
+anchor_right = 1.0
+anchor_bottom = 0.867
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="Spells" type="Button" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1410930609]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -68.599976
+offset_bottom = -18.599976
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8399988, 1)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("34_lhdcv")
+theme_override_font_sizes/font_size = 35
+text = "Show spells"
 
 [node name="Split" type="Panel" parent="CanvasLayer/Canvas" unique_id=1677304227]
 visible = false
@@ -776,22 +1174,22 @@ text_overrun_behavior = 2
 
 [node name="Confirm" type="Button" parent="CanvasLayer/Canvas/Split" unique_id=1900542050]
 process_mode = 3
-custom_minimum_size = Vector2(230, 40)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -112.0
-offset_top = -148.0
-offset_right = 118.0
-offset_bottom = -106.0
+offset_left = 18.999878
+offset_top = -191.0
+offset_right = 138.99988
+offset_bottom = -71.0
 grow_horizontal = 2
 grow_vertical = 0
+rotation = 0.26529005
 pivot_offset_ratio = Vector2(0.5, 1)
 theme = ExtResource("6_2lpho")
-text = "Confirm"
 
 [node name="HSlider" type="HSlider" parent="CanvasLayer/Canvas/Split" unique_id=1974968560]
 custom_minimum_size = Vector2(300, 50)
@@ -889,22 +1287,21 @@ text_overrun_behavior = 2
 
 [node name="Button" type="Button" parent="CanvasLayer/Canvas/Swap" unique_id=592755913]
 process_mode = 3
-custom_minimum_size = Vector2(300, 60)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -139.0
-offset_top = -97.0
-offset_right = 161.0
-offset_bottom = -37.0
+offset_left = 118.0
+offset_top = -264.0
+offset_right = 268.0
+offset_bottom = -114.0
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset_ratio = Vector2(0.5, 1)
 theme = ExtResource("6_2lpho")
-text = "CONFIRM"
 
 [node name="KeepUnits" type="HBoxContainer" parent="CanvasLayer/Canvas/Swap" unique_id=299189901]
 custom_minimum_size = Vector2(0, 100)
@@ -922,25 +1319,40 @@ alignment = 1
 
 [node name="Slot" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=1437054140 instance=ExtResource("23_2cfcp")]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cgoaf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lhdcv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_12q1p")
 keep = true
 
 [node name="Slot2" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=2029012940 instance=ExtResource("23_2cfcp")]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cgoaf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lhdcv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_12q1p")
 keep = true
 index = 1
 
 [node name="Slot3" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=613569414 instance=ExtResource("23_2cfcp")]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cgoaf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lhdcv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_12q1p")
 keep = true
 index = 2
 
 [node name="Slot4" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=674906256 instance=ExtResource("23_2cfcp")]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cgoaf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lhdcv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_12q1p")
 keep = true
 index = 3
 
 [node name="Slot5" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=1397593107 instance=ExtResource("23_2cfcp")]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cgoaf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lhdcv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_12q1p")
 keep = true
 index = 4
 
@@ -956,3 +1368,17 @@ offset_bottom = 174.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
+
+[node name="ReturnPanning" type="Label" parent="CanvasLayer/Canvas" unique_id=1463180940]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press SPACE to return"
+label_settings = SubResource("LabelSettings_gyjbk")
+horizontal_alignment = 1
