@@ -21,7 +21,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 	public CharacterPanel? inventoryPanel;
 	Inventory? inventory;
 	public bool canMove;
-	public bool moving;
+	public bool movingToPoint;
 
 	public override void _Ready()
 	{
@@ -61,7 +61,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 		agent.TargetPosition = TargetPosition;
 		ResetPoints();
 		DisplayPathPoints();
-		moving = true;
+		movingToPoint = true;
 	}
 
 	public void SetPOITarget(Vector3 pos, float distance, PointOfInterest _point)
@@ -80,19 +80,19 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 		agent.TargetPosition = TargetPosition;
 		ResetPoints();
 		DisplayPathPoints();
-		moving = true;
+		movingToPoint = false;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		if (agent!.IsNavigationFinished())
 		{
-			if (!TutorialChecklist.inventoryShown && moving)
+			if (!TutorialChecklist.inventoryShown && movingToPoint)
 			{
 				GetNode<Tutorial>("/root/Map/Tutorial").ShowInventory();
 			}
 
-			moving = false;
+			movingToPoint = false;
 			Velocity = Vector3.Zero;
 			MoveAndSlide();
 
@@ -282,7 +282,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 	public void EnterFight()
 	{
 		GetTree().Paused = false;
-		GetNode<BattleStarter>("BattleStarter").EnterBattle(inventory!.Spells!, inventory!.Units!);
+		GetNode<BattleStarter>("BattleStarter").EnterBattle(inventory!.Spells!, inventory!.Units!, inventory!.Mana);
 	}
 
 	public void SetupEnemyArmy(Godot.Collections.Array<StackResource> units, Godot.Collections.Array<SpellAbility> spells)

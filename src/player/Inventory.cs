@@ -18,6 +18,8 @@ public partial class Inventory : Node
 	[Export] public int horses;
 	[Export] public int silk;
 	[Export] public int iron;
+	public uint Mana;
+	[Export] public uint MaxMana;
 	
 	public Unit? unitSplitting;
 	public string resourceCombining = "";
@@ -85,6 +87,15 @@ public partial class Inventory : Node
 		}
 
 		UpdateUI();
+	}
+
+	public void AddMana(uint _mana)
+	{
+		Mana += _mana;
+		if (Mana > MaxMana)
+		{
+			Mana = MaxMana;
+		}
 	}
 
 	public void AddUnits(StackResource[] _units)

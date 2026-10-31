@@ -42,6 +42,10 @@ folder_colors={
 "res://src/": "red"
 }
 
+[global_group]
+
+Terrain=""
+
 [input]
 
 forward={

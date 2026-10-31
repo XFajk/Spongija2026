@@ -122,6 +122,14 @@ public partial class CharacterPanel : Panel
 			new Vector2(magicPanel!.Position.X, magicYPos![1]),
 			movingSpeed
 		);
+
+		if (!TutorialChecklist.magicExplained)
+		{
+			tweenM.Finished += () =>
+			{
+				GetNode<Tutorial>("/root/Map/Tutorial").ExplainMagic();
+			};
+		}
 	}
 
 	public void UpdateUI(Inventory _inventory)
@@ -191,6 +199,7 @@ public partial class CharacterPanel : Panel
 	public void GetReady()
 	{
 		camera?.Agent?.HidePanel();
+		camera?.HideCustomCursor();
 		swapWindow?.CancelSwapping();
 		fightWindow?.Show();
 		GetTree().Paused = true;

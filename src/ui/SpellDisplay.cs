@@ -50,7 +50,7 @@ public partial class SpellDisplay : Control
 		inventory?.Character?.HidePanel();
 		inventory!.Character!.canMove = false;
 
-		OpenSpellBook(inventory!.Spells!, 30, 50);
+		OpenSpellBook(inventory!.Spells!, inventory!.Mana, inventory!.MaxMana);
 	}
 
 	private void CollectSpellButtons(Node parent)

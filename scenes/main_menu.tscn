@@ -2,23 +2,29 @@
 
 [ext_resource type="Script" uid="uid://trwdn7gc4m2u" path="res://src/ui/MainMenu.cs" id="1_g0mf2"]
 [ext_resource type="Theme" uid="uid://brqf071jtaftc" path="res://assets/ui_themes/main_menu_ui_theme.tres" id="1_xsbw3"]
+[ext_resource type="Texture2D" uid="uid://b0d4e1rffedix" path="res://assets/misc/bkTest.png" id="2_5dd4i"]
 [ext_resource type="Script" uid="uid://cjev6goupr6st" path="res://src/ui/SettingsBuilder.cs" id="3_e5b5k"]
+[ext_resource type="Shader" uid="uid://dynufpf531jyg" path="res://src/shaders/vignette_ui_effect.gdshader" id="3_lgwnu"]
 [ext_resource type="Resource" uid="uid://ch16y2n442y74" path="res://assets/settings/video.tres" id="4_8t0lc"]
 [ext_resource type="Theme" uid="uid://bsblrvfn2nnnb" path="res://assets/ui_themes/settings_menu_ui_theme.tres" id="4_a3bfj"]
+[ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="4_lgwnu"]
 [ext_resource type="Resource" uid="uid://mm5wijfsiwhe" path="res://assets/settings/input.tres" id="5_3ngc3"]
 [ext_resource type="Resource" uid="uid://7db8pyme20tx" path="res://assets/settings/audio.tres" id="6_fefxt"]
 [ext_resource type="Resource" uid="uid://diqv13xtgj5eb" path="res://assets/settings/mysc.tres" id="7_1sjpa"]
 
-[sub_resource type="Gradient" id="Gradient_xsbw3"]
-colors = PackedColorArray(0.2801254, 0.03864867, 0.05847299, 1, 0, 0, 0, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s2dh3"]
+texture = ExtResource("2_5dd4i")
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_sk6ys"]
-gradient = SubResource("Gradient_xsbw3")
-fill = 1
-fill_from = Vector2(0.53744495, 0.5726872)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iopsf"]
+shader = ExtResource("3_lgwnu")
+shader_parameter/strength = 1.0
+shader_parameter/center_alpha = 0.626000029735
+shader_parameter/radius = 0.362000017195
+shader_parameter/softness = 0.47300002176898004
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x5cif"]
-texture = SubResource("GradientTexture2D_sk6ys")
+[sub_resource type="LabelSettings" id="LabelSettings_5dd4i"]
+font = ExtResource("4_lgwnu")
+font_size = 100
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsomr"]
 content_margin_left = 0.0
@@ -37,20 +43,21 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 corner_detail = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0mf2"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lgwnu"]
 content_margin_left = 0.0
 content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
+bg_color = Color(0.1109196, 0.0067062946, 0.008779497, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.66604537, 0.08673792, 0.11216498, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1sjpa"]
@@ -114,7 +121,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_x5cif")
+theme_override_styles/panel = SubResource("StyleBoxTexture_s2dh3")
+
+[node name="ColorRect" type="ColorRect" parent="Panel" unique_id=1385354914]
+material = SubResource("ShaderMaterial_iopsf")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TitleMenu" type="Control" parent="." unique_id=1368377317]
 layout_mode = 1
@@ -138,7 +154,8 @@ offset_bottom = -398.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 90
-text = "ŠPONGIA 67"
+text = "THE GREAT JOURNEY"
+label_settings = SubResource("LabelSettings_5dd4i")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -220,13 +237,14 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = 30.0
-offset_right = -30.0
-offset_bottom = -30.0
+offset_left = 560.0
+offset_top = 305.0
+offset_right = -560.0
+offset_bottom = -175.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_g0mf2")
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_lgwnu")
 
 [node name="Buttons" type="Panel" parent="SettingsMenu/Background" unique_id=697584398]
 custom_minimum_size = Vector2(200, 0)
@@ -338,9 +356,9 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 281.0
+offset_left = 200.0
 offset_top = 20.0
-offset_right = -35.0
+offset_right = -20.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2

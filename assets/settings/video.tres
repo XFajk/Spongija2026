@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://t6w8bg8dy7a1" path="res://src/resources/SettingsPageResource.cs" id="1_onpoo"]
 [ext_resource type="Script" uid="uid://c63oacn1bhp0n" path="res://src/resources/TitleSetting.cs" id="2_3aabb"]
 [ext_resource type="PackedScene" uid="uid://d27vlxv52ybnw" path="res://scenes/ui/settings/title_setting.tscn" id="2_hl0pj"]
+[ext_resource type="Script" uid="uid://cf6w3m85b28c6" path="res://src/resources/Setting.cs" id="2_w7tr1"]
 [ext_resource type="PackedScene" uid="uid://ps0nlivurnvy" path="res://scenes/ui/settings/toggle_setting.tscn" id="4_0ijnh"]
 [ext_resource type="Script" uid="uid://ckynlennwfn7v" path="res://src/resources/ToggleSetting.cs" id="4_3n1ax"]
 [ext_resource type="PackedScene" uid="uid://bp8o1xh6bd1f1" path="res://scenes/ui/settings/slider_setting.tscn" id="6_0ijnh"]
@@ -46,5 +47,5 @@ metadata/_custom_type_script = "uid://kqcg47axafo5"
 
 [resource]
 script = ExtResource("1_onpoo")
-settings = Array[Object]([SubResource("Resource_x5cif"), SubResource("Resource_4n641"), SubResource("Resource_jxyc0"), SubResource("Resource_e1ve6"), SubResource("Resource_m04ob")])
+settings = Array[ExtResource("2_w7tr1")]([SubResource("Resource_x5cif"), SubResource("Resource_4n641"), SubResource("Resource_jxyc0"), SubResource("Resource_e1ve6"), SubResource("Resource_m04ob")])
 metadata/_custom_type_script = "uid://t6w8bg8dy7a1"

@@ -84,14 +84,14 @@ public partial class RecruitPOI : PointOfInterest
 
 	public override async void Access()
 	{
+		base.Access();
+
 		if (!looted)
 		{
 			if (!firstTimeLooted)
 			{
 				firstTimeLooted = true;
 			}
-
-			base.Access();
 
 			_character!.canMove = false;
 
@@ -121,7 +121,7 @@ public partial class RecruitPOI : PointOfInterest
 			Container?.AddChild(popup);
 
 			// Prevod 3D pozície na 2D pozíciu obrazovky
-			Vector2 screenPosition = Camera!.UnprojectPosition(worldPosition);
+			Vector2 screenPosition = base.GetScreenPosition(Camera!, worldPosition, Container!);
 
 			popup!.Text = "+ " + Units[i]?.Quantity.ToString() + " " + Units[i]?.Unit?.Name;
 			popup!.Position = screenPosition;

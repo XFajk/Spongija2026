@@ -20,7 +20,8 @@ public partial class Tutorial : Node
 
 	public void ExplainInventory()
 	{
-		PopoutManager?.SpawnPopout("Combine", "Get new units by combing Resources with units: \n Warrior = Iron + Pilgrim \n Archer = Silk + Pilgrim \n Horse Rider = Horse + Pilgrim");
+		PopoutManager?.SpawnPopout("Combine", "Warrior = Iron + Pilgrim \n Archer = Silk + Pilgrim \n Horse Rider = Horse + Pilgrim");
+		PopoutManager?.SpawnPopout("Combine", "Get new units by combing Resources with units");
 		PopoutManager?.SpawnPopout("Splitting", "Split your units by selecting the unit and pressing empty slot or slot with the same unit");
 		PopoutManager?.SpawnPopout("Categories", "Switch between categories with the buttons on the left side");
 		TutorialChecklist.inventoryExplained = true;
@@ -30,6 +31,13 @@ public partial class Tutorial : Node
 	{
 		PopoutManager?.SpawnPopout("Swapping", "If your inventory is full, you have to decide which unit groups you keep or leave behind.");
 		TutorialChecklist.swappingExplained = true;
+	}
+
+	public void ExplainMagic()
+	{
+		PopoutManager?.SpawnPopout("Spells", "You can check your spells in the Spell book. These spells can be used in a battle. Each spell cost different amount of MANA.");
+		PopoutManager?.SpawnPopout("Artefacts", "Equip artefacts from your inventory to get different advantages.");
+		TutorialChecklist.magicExplained = true;
 	}
 
 	public async override void _Ready()
@@ -44,7 +52,6 @@ public partial class Tutorial : Node
 			ShowMovementPopout();
 		}
 	}
-
 }
 
 public static class TutorialChecklist
@@ -53,4 +60,5 @@ public static class TutorialChecklist
 	public static bool inventoryShown = false;
 	public static bool inventoryExplained = false;
 	public static bool swappingExplained = false;
+	public static bool magicExplained = false;
 }

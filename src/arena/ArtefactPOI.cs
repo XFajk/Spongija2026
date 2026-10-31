@@ -32,7 +32,7 @@ public partial class ArtefactPOI : PointOfInterest
 		Container?.AddChild(popup);
 
 		// Prevod 3D pozície na 2D pozíciu obrazovky
-		Vector2 screenPosition = Camera!.UnprojectPosition(worldPosition);
+		Vector2 screenPosition = base.GetScreenPosition(Camera!, worldPosition, Container!);
 
 		popup!.Text = "+ " + Artefact?.Name;
 		popup!.Position = screenPosition;
