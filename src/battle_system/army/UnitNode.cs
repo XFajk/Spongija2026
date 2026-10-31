@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+// Scenes store the value as a number, so Teleport keeps 2 (1 was Dash, removed)
 public enum MovementStyle
 {
-    Walk,
-    Dash,
-    Teleport,
+    // Moves tile by tile, playing the model's run animation
+    Walk = 0,
+    // Jumps tile by tile, no animation
+    Teleport = 2,
 }
 
 public partial class UnitNode : Area3D, IInteractable
@@ -57,6 +59,10 @@ public partial class UnitNode : Area3D, IInteractable
     private bool _isActive;
     private bool _hoverOutlined;
 
+    // The model's animation flags and the AnimationTree that reads them; null for models without animations
+    private UnitAnimationManager? _animations;
+    private AnimationTree? _animationTree;
+
     // Whether it's this unit's turn: shows the active outline. Set by Arena.CurrentStack.
     public bool IsActive
     {
@@ -76,14 +82,22 @@ public partial class UnitNode : Area3D, IInteractable
     {
         UnitInteractable = this.FindDescendant<Interactable>();
         Meshes = this.FindDescendants<MeshInstance3D>();
+        _animations = this.FindDescendant<UnitAnimationManager>();
+        _animationTree = _animations?.FindDescendant<AnimationTree>();
 
-        // Give each unit its own materials, so outlining one doesn't outline every unit sharing the scene
+        // Give each unit its own materials, so outlining one doesn't outline every unit sharing the scene.
+        // Imported models (.glb) keep their materials on the Mesh resource, not in the node's surface overrides,
+        // so each surface's material (the override if set, else the mesh's own) is copied into the overrides.
+        // The outline and ghost effects only touch the overrides.
         foreach (var mesh in Meshes)
         {
-            for (int i = 0; i < mesh.GetSurfaceOverrideMaterialCount(); i++)
+            if (mesh.Mesh == null)
+                continue;
+            for (int i = 0; i < mesh.Mesh.GetSurfaceCount(); i++)
             {
-                if (mesh.GetActiveMaterial(i) is StandardMaterial3D material)
-                    mesh.SetSurfaceOverrideMaterial(i, (StandardMaterial3D)material.Duplicate());
+                Material? material = mesh.GetSurfaceOverrideMaterial(i) ?? mesh.Mesh.SurfaceGetMaterial(i);
+                if (material is StandardMaterial3D standard)
+                    mesh.SetSurfaceOverrideMaterial(i, (StandardMaterial3D)standard.Duplicate());
             }
         }
 
@@ -363,16 +377,16 @@ public partial class UnitNode : Area3D, IInteractable
 
         switch (MovementStyle)
         {
-            // TODO: Dash has no animation yet, so it walks; otherwise MovementCompleted would never fire
-            case MovementStyle.Dash:
             case MovementStyle.Walk:
                 tween.SetParallel(false);
+                tween.TweenCallback(Callable.From(() => SetRunning(true)));
                 foreach (Vector2I point in gridPath)
                 {
                     tween.TweenCallback(Callable.From(() => FaceTowards(point)));
                     // Engine property name (snake_case), not the C# one
                     tween.TweenProperty(this, "position", GridToLocal(point), delay);
                 }
+                tween.TweenCallback(Callable.From(() => SetRunning(false)));
                 tween.TweenCallback(Callable.From(FaceEnemySide));
                 tween.TweenCallback(Callable.From(() => EmitSignal(SignalName.MovementCompleted)));
                 break;
@@ -397,6 +411,115 @@ public partial class UnitNode : Area3D, IInteractable
                 break;
         }
     }
+
+    #endregion
+
+    #region Animations
+
+    // How long a one-shot animation (attack, cast) gets to start after its flag is set. If it doesn't start by then,
+    // the model has no state for that flag, and the Play method returns false.
+    private const double AnimationStartTimeout = 0.3;
+
+    // Added to the animation's length as the longest wait for it to end, in case its state has no way back
+    private const double AnimationEndMargin = 1.0;
+
+    // A one-shot animation that has been started. Hit: true at the animation's hit frame (UnitAnimationManager.EmitHit),
+    // or at its end if it has no hit event; false right away if the model has no such animation, so the ability
+    // can do its own motion instead. Finished: when the animation has ended (or right away when Hit is false).
+    public readonly record struct UnitAnimation(Task<bool> Hit, Task Finished);
+
+    // Plays the model's melee attack; Hit is when the weapon connects
+    public UnitAnimation PlayMeleeAttack() => PlayOneShot((animations, on) => animations.MeleeAttack = on);
+
+    // Plays the model's ranged attack; Hit is when the shot leaves
+    public UnitAnimation PlayRangedAttack() => PlayOneShot((animations, on) => animations.RangedAttack = on);
+
+    // Plays the model's spell cast; Hit is when the spell is released
+    public UnitAnimation PlaySpellCast() => PlayOneShot((animations, on) => animations.SpellCast = on);
+
+    private void SetRunning(bool running)
+    {
+        if (_animations != null)
+            _animations.IsRunning = running;
+    }
+
+    private UnitAnimation PlayOneShot(Action<UnitAnimationManager, bool> setFlag)
+    {
+        var hit = new TaskCompletionSource<bool>();
+        var finished = new TaskCompletionSource();
+        _ = RunOneShot(setFlag, hit, finished);
+        return new UnitAnimation(hit.Task, finished.Task);
+    }
+
+    // Sets the flag until the AnimationTree's state machine enters a non-looping state (the animation it leads to),
+    // then waits until the state machine leaves it again (its transition back at the end). Hit is completed by the
+    // manager's Hit signal, or at the end at the latest, so an ability never waits forever for a missing event.
+    private async Task RunOneShot(Action<UnitAnimationManager, bool> setFlag, TaskCompletionSource<bool> hit, TaskCompletionSource finished)
+    {
+        try
+        {
+            if (_animations == null || _animationTree == null
+                || _animationTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>() is not AnimationNodeStateMachinePlayback playback)
+            {
+                hit.TrySetResult(false);
+                return;
+            }
+
+            UnitAnimationManager animations = _animations;
+            void OnHit() => hit.TrySetResult(true);
+            animations.Hit += OnHit;
+            try
+            {
+                setFlag(animations, true);
+                StringName? state = null;
+                double waited = 0;
+                while (state == null && waited < AnimationStartTimeout)
+                {
+                    await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+                    if (!IsInstanceValid(this))
+                        return;
+                    waited += GetProcessDeltaTime();
+                    if (IsOneShotState(playback.GetCurrentNode()))
+                        state = playback.GetCurrentNode();
+                }
+                setFlag(animations, false);
+                if (state == null)
+                {
+                    hit.TrySetResult(false);
+                    return;
+                }
+
+                double limit = playback.GetCurrentLength() + AnimationEndMargin;
+                waited = 0;
+                while (playback.GetCurrentNode() == state && waited < limit)
+                {
+                    await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+                    if (!IsInstanceValid(this))
+                        return;
+                    waited += GetProcessDeltaTime();
+                }
+            }
+            finally
+            {
+                if (IsInstanceValid(animations))
+                    animations.Hit -= OnHit;
+            }
+        }
+        finally
+        {
+            // Whatever happened (freed node, no event, an exception), nothing awaiting these is left hanging
+            hit.TrySetResult(true);
+            finished.TrySetResult();
+        }
+    }
+
+    // Whether the state plays an animation that doesn't loop (attacks and casts do, idle and running don't)
+    private bool IsOneShotState(StringName state) =>
+        _animationTree!.TreeRoot is AnimationNodeStateMachine machine
+        && machine.HasNode(state)
+        && machine.GetNode(state) is AnimationNodeAnimation node
+        && _animationTree.HasAnimation(node.Animation)
+        && _animationTree.GetAnimation(node.Animation).LoopMode == Animation.LoopModeEnum.None;
 
     #endregion
 

@@ -29,6 +29,9 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
         }
 
         userNode.FaceTowards(target);
+        // The projectile leaves at the shot's hit frame (right away if the model has no shooting animation)
+        UnitNode.UnitAnimation shot = userNode.PlayRangedAttack();
+        await shot.Hit;
 
         // Units stand at their footprint's center, so this also aims at the middle of a 2x2 target
         Vector3 start = userNode.GlobalPosition + Vector3.Up * ShootHeight;
@@ -43,6 +46,7 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
         // Outside the if, so the hit still lands when the projectile fails to spawn
         target.TakeDamage(GetDamage(user, target));
 
+        await shot.Finished;
         userNode.FaceEnemySide();
     }
 }

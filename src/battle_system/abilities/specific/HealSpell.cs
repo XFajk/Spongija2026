@@ -20,7 +20,27 @@ public partial class HealSpell : SpellAbility
 
     public override async Task Use(Stack user, Stack target, Arena arena)
     {
+        if (user.NodeRepresentation is not UnitNode casterNode)
+        {
+            await HealTarget(target, arena);
+            return;
+        }
 
+        if (target != user)
+            casterNode.FaceTowards(target);
+        // The heal starts at the cast's hit frame
+        UnitNode.UnitAnimation cast = casterNode.PlaySpellCast();
+        await cast.Hit;
+        await Task.WhenAll(HealTarget(target, arena), cast.Finished);
+        casterNode.FaceEnemySide();
+    }
+
+    // The hero casts it, so the acting stack plays no cast animation
+    public override Task UseFromHero(Stack caster, Vector3 origin, Stack target, Arena arena) => HealTarget(target, arena);
+
+    // The effect on the target, then the heal
+    private async Task HealTarget(Stack target, Arena arena)
+    {
         if (VisualEffect == null || target.NodeRepresentation is not UnitNode targetNode)
         {
             target.Heal(GetHealing());

@@ -32,9 +32,13 @@ public partial class FireBallSpell : SpellAbility
         }
 
         userNode.FaceTowards(target);
+        // The fireball leaves at the cast's hit frame
+        UnitNode.UnitAnimation cast = userNode.PlaySpellCast();
+        await cast.Hit;
         await FlyFireBall(userNode.GlobalPosition + Vector3.Up * ShootHeight, target, arena);
         target.TakeDamage(GetDamage(user, fromHero: false));
 
+        await cast.Finished;
         userNode.FaceEnemySide();
     }
 

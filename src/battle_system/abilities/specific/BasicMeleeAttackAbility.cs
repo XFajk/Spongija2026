@@ -31,6 +31,18 @@ public partial class BasicMeleeAttackAbility : MeleeAttackAbility
             return;
         }
 
+        userNode.FaceTowards(target);
+        UnitNode.UnitAnimation attack = userNode.PlayMeleeAttack();
+        if (await attack.Hit)
+        {
+            // The number drops when the weapon connects; the swing still finishes before the turn goes on
+            target.TakeDamage(GetDamage(user, target));
+            await attack.Finished;
+            userNode.FaceEnemySide();
+            return;
+        }
+
+        // No attack animation on the model: a lunge instead.
         // Local positions: both units are children of the Arena, so this works wherever the Arena is
         Vector3 start = userNode.Position;
         Vector3 direction = targetNode.Position - start;
@@ -38,7 +50,6 @@ public partial class BasicMeleeAttackAbility : MeleeAttackAbility
         direction = direction.Normalized();
 
         var tween = userNode.CreateTween();
-        tween.TweenCallback(Callable.From(() => userNode.FaceTowards(target)));
         // One springy motion out toward the target and back, instead of two tweens that stop in between
         tween.TweenMethod(
             Callable.From<float>(t => userNode.Position = start + direction * LungeDistance * Lunge(t)),
