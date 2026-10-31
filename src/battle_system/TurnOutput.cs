@@ -8,10 +8,11 @@ public readonly record struct TurnEntry(IAbility Ability, Stack Target, int Wave
 // What a stack does on its turn. Produced by player input or the AI, executed by Arena.
 public class TurnOutput
 {
-    // Runs before everything else.
+    // Runs after the hero spell, before the entries.
     public Vector2I? MoveTo;
 
-    // Cast by the hero during this stack's turn, before the entries.
+    // Cast by the hero during this stack's turn, before everything else (only the computer's; the player's hero
+    // casts right away, Arena.CastHeroSpell).
     public (SpellAbility Spell, Stack Target)? HeroSpell;
 
     public List<TurnEntry> Entries { get; } = new();

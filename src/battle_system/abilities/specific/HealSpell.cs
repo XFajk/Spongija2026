@@ -22,7 +22,7 @@ public partial class HealSpell : SpellAbility
     {
         if (user.NodeRepresentation is not UnitNode casterNode)
         {
-            await HealTarget(target, arena);
+            await HealTarget(user, target, arena);
             return;
         }
 
@@ -31,15 +31,15 @@ public partial class HealSpell : SpellAbility
         // The heal starts at the cast's hit frame
         UnitNode.UnitAnimation cast = casterNode.PlaySpellCast();
         await cast.Hit;
-        await Task.WhenAll(HealTarget(target, arena), cast.Finished);
+        await Task.WhenAll(HealTarget(user, target, arena), cast.Finished);
         casterNode.FaceEnemySide();
     }
 
     // The hero casts it, so the acting stack plays no cast animation
-    public override Task UseFromHero(Stack caster, Vector3 origin, Stack target, Arena arena) => HealTarget(target, arena);
+    public override Task UseFromHero(Stack caster, Vector3 origin, Stack target, Arena arena) => HealTarget(caster, target, arena);
 
-    // The effect on the target, then the heal
-    private async Task HealTarget(Stack target, Arena arena)
+    // The effect on the target, then the heal. The camera follows the effect if it's showing the caster.
+    private async Task HealTarget(Stack caster, Stack target, Arena arena)
     {
         if (VisualEffect == null || target.NodeRepresentation is not UnitNode targetNode)
         {
@@ -50,6 +50,7 @@ public partial class HealSpell : SpellAbility
         var effect = AbilityVisualEffect.Spawn(arena, VisualEffect, targetNode.GlobalPosition);
         if (effect != null)
         {
+            arena.FollowWithCamera(caster, effect);
             await effect.ToSignal(effect, AbilityVisualEffect.SignalName.Finished);
             effect.QueueFree();
         }

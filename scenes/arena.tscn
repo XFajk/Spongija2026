@@ -11,6 +11,9 @@ BoardOverviewCameraPosition = NodePath("SubViewport/BoardOverviewPosition")
 PlayerCamera = NodePath("SubViewport/ArenaCamera")
 HeroSpellCastPosition = NodePath("HeroSpellCastPosition")
 GameViewportRect = NodePath("ViewportRect")
+CameraTransitionDuration = 3.0
+CinematicLeadIn = 0.8
+CinematicReturnDuration = 1.2000000000000002
 AutoBeginBattle = false
 
 [node name="HeroSpellCastPosition" type="Marker3D" parent="." unique_id=855865640]

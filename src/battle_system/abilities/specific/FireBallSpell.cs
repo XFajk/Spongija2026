@@ -35,7 +35,7 @@ public partial class FireBallSpell : SpellAbility
         // The fireball leaves at the cast's hit frame
         UnitNode.UnitAnimation cast = userNode.PlaySpellCast();
         await cast.Hit;
-        await FlyFireBall(userNode.GlobalPosition + Vector3.Up * ShootHeight, target, arena);
+        await FlyFireBall(user, userNode.GlobalPosition + Vector3.Up * ShootHeight, target, arena);
         target.TakeDamage(GetDamage(user, fromHero: false));
 
         await cast.Finished;
@@ -45,7 +45,7 @@ public partial class FireBallSpell : SpellAbility
     // From where the hero stands; the marker is the launch point itself, so no ShootHeight is added to it
     public override async Task UseFromHero(Stack caster, Vector3 origin, Stack target, Arena arena)
     {
-        await FlyFireBall(origin, target, arena);
+        await FlyFireBall(caster, origin, target, arena);
         target.TakeDamage(GetDamage(caster, fromHero: true));
     }
 
@@ -55,7 +55,8 @@ public partial class FireBallSpell : SpellAbility
     public override SpellEstimate EvaluateFromHero(Stack caster, Stack target, Battle battle) =>
         SpellEstimate.ForDamage(GetDamage(caster, fromHero: true), target);
 
-    private async Task FlyFireBall(Vector3 start, Stack target, Arena arena)
+    // The caster is the acting stack, also for hero casts; the camera follows the fireball if it's showing it
+    private async Task FlyFireBall(Stack caster, Vector3 start, Stack target, Arena arena)
     {
         if (Projectile == null || target.NodeRepresentation is not UnitNode targetNode)
             return;
@@ -64,6 +65,7 @@ public partial class FireBallSpell : SpellAbility
         var projectile = global::Projectile.Spawn(arena, Projectile, start, end, ShootAngle);
         if (projectile != null)
         {
+            arena.FollowWithCamera(caster, projectile);
             await projectile.ToSignal(projectile, global::Projectile.SignalName.Landed);
             projectile.QueueFree();
         }

@@ -42,6 +42,24 @@ public partial class Arena : Node3D
     [Export(PropertyHint.Range, "0,2")]
     public float ComputerTurnDelay { get; set; } = 0.4f;
 
+	// Close shots of each turn as it plays (the shot itself is set on the ArenaCamera); input is off meanwhile
+	[ExportGroup("Cinematic camera")]
+	[Export]
+	public bool CinematicCamera { get; set; } = true;
+
+	// Height above a unit's or effect's origin the shots look at, in meters
+	[Export(PropertyHint.Range, "0,3")]
+	public float CinematicFocusHeight { get; set; } = 0.5f;
+
+	// Seconds the camera gets to reach the acting unit before the turn starts playing
+	[Export(PropertyHint.Range, "0,2")]
+	public float CinematicLeadIn { get; set; } = 0.4f;
+
+	// Seconds the camera takes to go back to the board overview after the turn
+	[Export(PropertyHint.Range, "0.1,3")]
+	public float CinematicReturnDuration { get; set; } = 0.6f;
+	[ExportGroup("")]
+
     public const uint AreaWidth = 20;
 
 	public const uint AreaHeight = 12;
@@ -139,6 +157,10 @@ public partial class Arena : Node3D
 	// An ability waiting to run in ExecuteTurn. Unlike TurnEntry it knows its user,
 	// because retaliations are used by the target, not by the acting stack.
 	private readonly record struct PendingAbility(Stack User, IAbility Ability, Stack Target, bool IsRetaliation);
+
+	// The stack the cinematic shots follow right now: only its projectiles and effects are followed
+	// (FollowWithCamera). Null while there are no shots.
+	private Stack? _cinematicSubject;
 
 	#endregion
 
@@ -583,7 +605,11 @@ public partial class Arena : Node3D
 			}
 
 			// CurrentReachability, not the local: a hero spell cast during the player's turn searches it again
+			// The computer's hero spell plays first (ExecuteTurn), so its shots start on the hero
+			bool shots = await BeginCinematic(stack, output, output.HeroSpell != null ? HeroFocus(stack) : null);
             await ExecuteTurn(battle, stack, output, CurrentReachability ?? reachability);
+            if (shots)
+                await EndCinematic();
             CurrentReachability = null;
             await EndTurn(stack);
             RemoveDeadStacks(battle);
@@ -1012,16 +1038,22 @@ public partial class Arena : Node3D
 		_userInterface?.SetCancelSpellVisible(false);
 		_userInterface?.UpdateSpellButtons(null);
 		_castingHeroSpell = true;
+		bool shots = false;
 		try
 		{
 			if (stack.Hero is Hero hero && battle.SpendHeroMana(hero, spell))
+			{
+				shots = await BeginCinematic(stack, null, HeroFocus(stack));
 				await spell.UseFromHero(stack, GetHeroCastOrigin(stack), target, this);
+			}
 			RemoveDeadStacks(battle);
 		}
 		catch (Exception e)
 		{
 			GD.PushError($"Hero spell failed: {e}");
 		}
+		if (shots)
+			await EndCinematic();
 		_castingHeroSpell = false;
 
 		if (battle.IsOver || stack.IsDead)
@@ -1080,19 +1112,23 @@ public partial class Arena : Node3D
 
     private async Task ExecuteTurn(Battle battle, Stack user, TurnOutput output, Reachability reachability)
     {
+        // The hero first, like the player's hero casting before their stack acts; the AI picked its target on the
+        // board as it was before the move. The shots started on the hero (RunBattle) and go to the stack after.
+        if (output.HeroSpell is var (spell, spellTarget))
+        {
+            Hero? hero = user.Hero;
+            if (hero != null && battle.SpendHeroMana(hero, spell))
+                await spell.UseFromHero(user, GetHeroCastOrigin(user), spellTarget, this);
+            if (output.MoveTo != null || output.Entries.Count > 0)
+                await FocusCinematicOnStack(user);
+        }
+
         if (output.MoveTo is Vector2I moveTo)
         {
             if (reachability.CanReach(moveTo) && battle.TryPlaceStack(user, moveTo))
                 await AnimateMove(user, reachability.GetPath(moveTo));
             else
 				GD.PushWarning($"{user.Unit.Name} can't move to {moveTo}.");
-        }
-
-        if (output.HeroSpell is var (spell, spellTarget))
-        {
-            Hero? hero = user.Hero;
-            if (hero != null && battle.SpendHeroMana(hero, spell))
-                await spell.UseFromHero(user, GetHeroCastOrigin(user), spellTarget, this);
         }
 
         var waves = new SortedDictionary<int, List<PendingAbility>>();
@@ -1104,6 +1140,7 @@ public partial class Arena : Node3D
         while (waves.Keys.Any(w => w >= wave))
         {
             wave = waves.Keys.First(w => w >= wave);
+            FocusCinematicOnWave(user, waves[wave]);
             List<Task> tasks = waves[wave].Select(p => ExecuteAbility(battle, p, wave, waves)).ToList();
             await Task.WhenAll(tasks);
             wave++;
@@ -1199,6 +1236,103 @@ public partial class Arena : Node3D
             return;
         await effect.Apply(target, this);
         effect.RemainingDuration--;
+    }
+
+    #endregion
+
+    #region Cinematic camera
+
+    // Starts the close shots of a turn on the acting stack (or on the given focus): input off, and the camera given
+    // CinematicLeadIn to get there. A null output is a hero spell in the middle of the player's turn. False (and
+    // nothing started) if the shots are off or the turn does nothing to show (a skipped turn).
+    private async Task<bool> BeginCinematic(Stack stack, TurnOutput? output, Func<Vector3>? focus = null)
+    {
+        if (!CinematicCamera || PlayerCamera == null || stack.NodeRepresentation is not UnitNode node)
+            return false;
+        if (output != null && output.MoveTo == null && output.HeroSpell == null && output.Entries.Count == 0)
+            return false;
+
+        PlayerCamera.InteractionEnabled = false;
+        _cinematicSubject = stack;
+        PlayerCamera.SetShotFocus(focus ?? FollowNodes(node));
+        await WaitCinematicLeadIn();
+        return true;
+    }
+
+    // From the hero's spell straight to the acting stack, without going back to the overview in between
+    private async Task FocusCinematicOnStack(Stack stack)
+    {
+        if (_cinematicSubject == null || PlayerCamera == null || stack.NodeRepresentation is not UnitNode node)
+            return;
+        PlayerCamera.SetShotFocus(FollowNodes(node));
+        await WaitCinematicLeadIn();
+    }
+
+    // There's no hero model: the hero is the point its spells start from (GetHeroCastOrigin, mirrored for the
+    // computer). Hero spell shots start there, so the spell is seen leaving the hero before its projectile or
+    // effect takes over (FollowWithCamera). No CinematicFocusHeight: the marker already is the launch point.
+    private Func<Vector3> HeroFocus(Stack stack)
+    {
+        Vector3 origin = GetHeroCastOrigin(stack);
+        return () => origin;
+    }
+
+    private async Task WaitCinematicLeadIn()
+    {
+        if (CinematicLeadIn > 0)
+            await ToSignal(GetTree().CreateTimer(CinematicLeadIn), SceneTreeTimer.SignalName.Timeout);
+    }
+
+    // Back to the board overview, then input on again
+    private async Task EndCinematic()
+    {
+        _cinematicSubject = null;
+        if (PlayerCamera == null)
+            return;
+        PlayerCamera.SetShotFocus(null);
+        if (BoardOverviewCameraPosition != null)
+            await PlayerCamera.MoveTo(BoardOverviewCameraPosition, CinematicReturnDuration);
+        PlayerCamera.InteractionEnabled = true;
+    }
+
+    // Abilities run in parallel within a wave, but the camera shows one: the acting stack's own, else the wave's
+    // first (a retaliation). A melee hit is framed between the attacker and the target; anything else starts on
+    // its user, and its projectile or effect takes over once it's spawned (FollowWithCamera).
+    private void FocusCinematicOnWave(Stack turnStack, List<PendingAbility> wave)
+    {
+        if (_cinematicSubject == null || PlayerCamera == null || wave.Count == 0)
+            return;
+
+        PendingAbility shown = wave.FirstOrDefault(p => p.User == turnStack, wave[0]);
+        if (shown.User.NodeRepresentation is not UnitNode userNode)
+            return;
+        _cinematicSubject = shown.User;
+        PlayerCamera.SetShotFocus(shown.Ability is MeleeAttackAbility && shown.Target.NodeRepresentation is UnitNode targetNode
+            ? FollowNodes(userNode, targetNode)
+            : FollowNodes(userNode));
+    }
+
+    // Called by abilities for the projectile or effect they spawn: the shots follow it if it's the shown stack's.
+    // The camera stays where the node ended up after it's freed.
+    public void FollowWithCamera(Stack user, Node3D node)
+    {
+        if (user == _cinematicSubject && PlayerCamera != null)
+            PlayerCamera.SetShotFocus(FollowNodes(node));
+    }
+
+    // The middle of the nodes, CinematicFocusHeight up. A freed node counts where it was last seen.
+    private Func<Vector3> FollowNodes(params Node3D[] nodes)
+    {
+        Vector3[] last = nodes.Select(n => n.GlobalPosition).ToArray();
+        return () =>
+        {
+            for (int i = 0; i < nodes.Length; i++)
+            {
+                if (IsInstanceValid(nodes[i]))
+                    last[i] = nodes[i].GlobalPosition;
+            }
+            return last.Aggregate(Vector3.Zero, (sum, p) => sum + p) / last.Length + Vector3.Up * CinematicFocusHeight;
+        };
     }
 
     #endregion

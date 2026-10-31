@@ -40,6 +40,7 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
         var projectile = Projectile.Spawn(arena, GD.Load<PackedScene>(ProjectileScene), start, end, ShootAngle);
         if (projectile != null)
         {
+            arena.FollowWithCamera(user, projectile);
             await projectile.ToSignal(projectile, Projectile.SignalName.Landed);
             projectile.QueueFree();
         }
