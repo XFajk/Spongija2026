@@ -19,9 +19,11 @@ metadata/_custom_type_script = "uid://dbehoqcrijunt"
 [resource]
 script = ExtResource("3_j2hvo")
 Name = "Archer Quendi"
-MaxHealth = 50
-Strength = 10
-Defense = 5
+Description = "Pilgrims strung with bows of forest yew and spider silk. They shoot from where they stand, at any foe they can see, but they're lightly clad, poor with a knife, and too busy with their arrows to strike back when an enemy reaches them. Keep them behind the warriors."
+MaxHealth = 30
+Strength = 7
+Defense = 3
+SpeedTier = 4
 CanRetaliate = false
 MeleeAttack = SubResource("Resource_3u73f")
 LongRangeAttack = SubResource("Resource_4koe0")

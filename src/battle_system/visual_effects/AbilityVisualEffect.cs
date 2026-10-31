@@ -1,6 +1,7 @@
 using Godot;
 
-// A visual effect an ability plays at a point (a heal glow, an explosion, ...) that emits Finished after Duration.
+// A visual effect an ability plays at a point (a heal glow, an explosion, ...) that emits Finished after Duration,
+// or plays until freed if Endless.
 // Spawn it with Spawn; the root of the effect's scene must be an AbilityVisualEffect. It doesn't free itself.
 // The effect is moved to the position, so build the scene around its origin.
 [GlobalClass]
@@ -9,9 +10,13 @@ public partial class AbilityVisualEffect : Node3D
 	[Signal]
 	public delegate void FinishedEventHandler();
 
-	// Seconds from spawning until Finished
+	// Seconds from spawning until Finished; ignored if Endless
 	[Export(PropertyHint.Range, "0,10")]
 	public float Duration { get; set; } = 1f;
+
+	// Never emits Finished: plays until it's freed (e.g. an effect shown on a stack while the effect lasts)
+	[Export]
+	public bool Endless { get; set; }
 
 	// Global position the effect plays at
 	public Vector3 EffectPosition { get; private set; }
@@ -37,6 +42,9 @@ public partial class AbilityVisualEffect : Node3D
 	public override void _Ready()
 	{
 		GlobalPosition = EffectPosition;
+
+		if (Endless)
+			return;
 
 		var tween = CreateTween();
 		tween.TweenInterval(Mathf.Max(Duration, 0.01f));

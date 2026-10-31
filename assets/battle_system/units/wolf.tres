@@ -13,9 +13,10 @@ metadata/_custom_type_script = "uid://dbehoqcrijunt"
 [resource]
 script = ExtResource("3_l58po")
 Name = "Wolf"
-MaxHealth = 75
-Strength = 10
-Defense = 2
+Description = "Great grey wolves, the size of a pony, descended from the hunting packs Melkor sent into the forest. As strong as an elven warrior and faster on their feet, but they wear no armor, and arrows find them easily."
+MaxHealth = 50
+Strength = 9
+Defense = 3
 SpeedTier = 6
 Size = 2
 MeleeAttack = SubResource("Resource_l58po")

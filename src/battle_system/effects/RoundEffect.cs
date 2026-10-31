@@ -19,8 +19,15 @@ public abstract partial class RoundEffect : Resource, IEffect
     [Export]
     public int Duration { get; set; } = 1;
 
+    [Export]
+    public PackedScene? VisualEffect { get; set; }
+
     // Runtime state, set by Stack.AddEffect. Effects are duplicated per stack.
     public int RemainingDuration { get; set; }
+
+    public IEffect? Source { get; set; }
+
+    public virtual int ModifySpeedTier(int speedTier) => speedTier + SpeedTierModifier;
 
     public abstract Task Apply(Stack target, Arena arena);
 }

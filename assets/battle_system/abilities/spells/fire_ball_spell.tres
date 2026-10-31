@@ -7,11 +7,11 @@
 
 [resource]
 script = ExtResource("1_mpr6r")
-Damage = 400
+Damage = 60
 Projectile = ExtResource("1_3c0sb")
 ShootAngle = 10.0
 Name = "Fire Ball"
-Description = "Cast a ball a fire at the enemy stack"
+Description = "Hurls a ball of fire at an enemy stack, dealing 60 damage that no armor can stop."
 Icon = ExtResource("1_fyjep")
 HoveredIcon = ExtResource("1_h3oea")
 ManaCost = 10

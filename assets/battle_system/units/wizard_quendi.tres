@@ -10,11 +10,14 @@
 
 [resource]
 script = ExtResource("3_743o3")
-Name = "Wizzard Quendi"
+Name = "Wizard Quendi"
 texture = ExtResource("7_e8vb7")
-MaxHealth = 25
-StartingMana = 100
-MaxMana = 100
+Description = "Elves who first learned the words of power, back when the stars were the only light. They carry no weapon and can't strike back, but they throw fire at the enemy or close their kin's wounds. Their strength runs out with their mana, so spend it well."
+MaxHealth = 20
+Defense = 2
+SpeedTier = 4
+StartingMana = 30
+MaxMana = 30
 CanRetaliate = false
 Spells = Array[ExtResource("2_wwugf")]([ExtResource("4_q5xll"), ExtResource("5_e8vb7")])
 Model = ExtResource("1_q5xll")

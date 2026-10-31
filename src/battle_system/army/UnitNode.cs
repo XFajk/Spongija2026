@@ -59,6 +59,9 @@ public partial class UnitNode : Area3D, IInteractable
     private bool _isActive;
     private bool _hoverOutlined;
 
+    // The visual effects of the effects on the stack (ShowEffect), children of this node so they follow the unit
+    private readonly Dictionary<IEffect, AbilityVisualEffect> _effectVisuals = new();
+
     // The model's animation flags and the AnimationTree that reads them; null for models without animations
     private UnitAnimationManager? _animations;
     private AnimationTree? _animationTree;
@@ -322,6 +325,25 @@ public partial class UnitNode : Area3D, IInteractable
                 material.Transparency = enable ? BaseMaterial3D.TransparencyEnum.Alpha : BaseMaterial3D.TransparencyEnum.Disabled;
             }
         }
+    }
+
+    // Plays the effect's visual effect on the unit (at its origin, the footprint center on the ground) until
+    // HideEffect. Called by Stack.AddEffect; the visual should be Endless, as nothing frees it when it finishes.
+    public void ShowEffect(IEffect effect)
+    {
+        if (effect.VisualEffect == null || _effectVisuals.ContainsKey(effect))
+            return;
+
+        var visual = AbilityVisualEffect.Spawn(this, effect.VisualEffect, GlobalPosition);
+        if (visual != null)
+            _effectVisuals[effect] = visual;
+    }
+
+    // Called by Stack.RemoveExpiredEffects. The visuals also go with the unit when it's freed.
+    public void HideEffect(IEffect effect)
+    {
+        if (_effectVisuals.Remove(effect, out AbilityVisualEffect? visual) && IsInstanceValid(visual))
+            visual.QueueFree();
     }
 
     #endregion

@@ -17,9 +17,6 @@ public partial class BattleTest : Node
     [Export]
     public EnemyStrategy ComputerStrategy { get; set; } = EnemyStrategy.Wild;
 
-    // The computer gets a hero (with the same stats as the player's) only if this has spells
-    [Export]
-    public Array<SpellAbility> ComputerHeroSpells { get; set; } = [];
 
     public override void _Ready()
     {
@@ -35,11 +32,6 @@ public partial class BattleTest : Node
         }
 
         var computerArmy = new Army { Strategy = ComputerStrategy };
-        if (ComputerHeroSpells.Count > 0)
-        {
-            computerArmy.Hero = new Hero { Strength = 2, Defense = 2, Knowledge = 5, Mana = 30 };
-            computerArmy.Hero.Spells.AddRange(ComputerHeroSpells);
-        }
         foreach (var stack in ComputerUnits)
         {
             if (stack.Unit != null)

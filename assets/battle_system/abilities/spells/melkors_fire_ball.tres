@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="FireBallSpell" format=3 uid="uid://fmqe8vji5py1"]
+
+[ext_resource type="Texture2D" uid="uid://pej1hmqyk87g" path="res://assets/ui/fireball_color.png" id="1_afd3j"]
+[ext_resource type="Script" uid="uid://kaqcq55yms27" path="res://src/battle_system/abilities/specific/FireBallSpell.cs" id="1_atip4"]
+[ext_resource type="Texture2D" uid="uid://cgc3ud17jn31f" path="res://assets/ui/fireball.png" id="2_qdj0e"]
+
+[resource]
+script = ExtResource("1_atip4")
+Damage = 70
+ShootHeight = 10.0
+Name = "Melkors FireBall"
+Icon = ExtResource("2_qdj0e")
+HoveredIcon = ExtResource("1_afd3j")
+ManaCost = 20
+metadata/_custom_type_script = "uid://kaqcq55yms27"

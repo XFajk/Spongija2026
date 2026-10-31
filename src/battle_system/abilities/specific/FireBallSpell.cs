@@ -16,7 +16,7 @@ public partial class FireBallSpell : SpellAbility
     public float ShootAngle { get; set; } = 20f;
 
     // Height above the units' origins (on the ground) the fireball leaves from and hits at, in meters
-    [Export(PropertyHint.Range, "0,3")]
+    [Export(PropertyHint.Range, "0,10")]
     public float ShootHeight { get; set; } = 0.5f;
 
     // Spells ignore Defense. A unit's cast scales with its quantity, a hero's doesn't. Use and Evaluate both use this.
@@ -27,7 +27,7 @@ public partial class FireBallSpell : SpellAbility
 
         if (user.NodeRepresentation is not UnitNode userNode)
         {
-            target.TakeDamage(GetDamage(user, fromHero: false));
+            Hit(target, GetDamage(user, fromHero: false));
             return;
         }
 
@@ -36,7 +36,7 @@ public partial class FireBallSpell : SpellAbility
         UnitNode.UnitAnimation cast = userNode.PlaySpellCast();
         await cast.Hit;
         await FlyFireBall(user, userNode.GlobalPosition + Vector3.Up * ShootHeight, target, arena);
-        target.TakeDamage(GetDamage(user, fromHero: false));
+        Hit(target, GetDamage(user, fromHero: false));
 
         await cast.Finished;
         userNode.FaceEnemySide();
@@ -46,7 +46,13 @@ public partial class FireBallSpell : SpellAbility
     public override async Task UseFromHero(Stack caster, Vector3 origin, Stack target, Arena arena)
     {
         await FlyFireBall(caster, origin, target, arena);
-        target.TakeDamage(GetDamage(caster, fromHero: true));
+        Hit(target, GetDamage(caster, fromHero: true));
+    }
+
+    // What the ball does when it lands; subclasses add to it (WebBallSpell)
+    protected virtual void Hit(Stack target, int damage)
+    {
+        target.TakeDamage(damage);
     }
 
     public override SpellEstimate Evaluate(Stack caster, Stack target, Battle battle) =>

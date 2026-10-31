@@ -94,7 +94,8 @@ public class Stack
 
     public int GetSpeedTier()
     {
-        return Math.Max(0, Unit.SpeedTier + Effects.Sum(e => e.SpeedTierModifier));
+        // Effect by effect, so an effect can cap what it does (SlowEffect)
+        return Math.Max(0, Effects.Aggregate(Unit.SpeedTier, (speedTier, e) => e.ModifySpeedTier(speedTier)));
     }
 
     public int GetTotalHealth()
@@ -147,17 +148,29 @@ public class Stack
         return TopHealth - before;
     }
 
-    // Effects are Resources shared through .tres files, so every stack gets its own copy.
+    // Effects are Resources shared through .tres files, so every stack gets its own copy, and its visual effect plays
+    // on the unit. The same effect isn't added twice: if it's already on the stack, its duration starts over instead.
     public IEffect AddEffect(IEffect effect)
     {
+        IEffect? existing = Effects.FirstOrDefault(e => e.Source == effect);
+        if (existing != null)
+        {
+            existing.RemainingDuration = existing.Duration;
+            return existing;
+        }
+
         IEffect copy = effect is Resource resource ? (IEffect)resource.Duplicate() : effect;
+        copy.Source = effect;
         copy.RemainingDuration = copy.Duration;
         Effects.Add(copy);
+        NodeRepresentation?.ShowEffect(copy);
         return copy;
     }
 
     public void RemoveExpiredEffects()
     {
+        foreach (IEffect effect in Effects.Where(e => e.IsExpired))
+            NodeRepresentation?.HideEffect(effect);
         Effects.RemoveAll(e => e.IsExpired);
     }
 

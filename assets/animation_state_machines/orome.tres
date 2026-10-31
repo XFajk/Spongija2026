@@ -1,0 +1,39 @@
+[gd_resource type="AnimationNodeStateMachine" format=3 uid="uid://dwjx2ptpun2u5"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ots6c"]
+animation = &"Cast Spell"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lvuwn"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kvtxt"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_62r3e"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tyq5x"]
+advance_mode = 2
+advance_expression = "IsRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5aex2"]
+advance_mode = 2
+advance_expression = "SpellCast"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ots6c"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lvuwn"]
+advance_mode = 2
+advance_expression = "!IsRunning"
+
+[resource]
+"states/Cast Spell/node" = SubResource("AnimationNodeAnimation_ots6c")
+"states/Cast Spell/position" = Vector2(380.46, -33.38752)
+states/Idle/node = SubResource("AnimationNodeAnimation_lvuwn")
+states/Idle/position = Vector2(380.085, 98.40312)
+states/Run/node = SubResource("AnimationNodeAnimation_kvtxt")
+states/Run/position = Vector2(380.8975, 204.61249)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_62r3e"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_tyq5x"), "Idle", "Cast Spell", SubResource("AnimationNodeStateMachineTransition_5aex2"), "Cast Spell", "Idle", SubResource("AnimationNodeStateMachineTransition_ots6c"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_lvuwn")]
+graph_offset = Vector2(105.20999, -101.88752)

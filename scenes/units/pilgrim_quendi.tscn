@@ -12,6 +12,7 @@ height = 0.45
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_h68j4")
+MovementTime = 0.2
 
 [node name="PilgrimAnimationManager" parent="." unique_id=1294747214 instance=ExtResource("2_ibihl")]
 transform = Transform3D(-0.102906115, 0, -8.996338e-09, 0, 0.102906115, 0, 8.996338e-09, 0, -0.102906115, 0, 0, 0)

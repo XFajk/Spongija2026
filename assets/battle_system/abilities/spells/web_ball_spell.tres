@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WebBallSpell" format=3 uid="uid://bdthpuy62xd12"]
+
+[ext_resource type="Script" uid="uid://dms411lu6oxqm" path="res://src/battle_system/abilities/specific/WebBallSpell.cs" id="1_web"]
+[ext_resource type="Texture2D" uid="uid://b3pd54pr1eff3" path="res://assets/ui/cobweb_slow_color.png" id="2_hdubd"]
+[ext_resource type="PackedScene" uid="uid://bmu4cgreo3j2b" path="res://scenes/projectiles/ball_of_web.tscn" id="2_web"]
+[ext_resource type="Texture2D" uid="uid://c2itp2dsr8vpy" path="res://assets/ui/cobweb_slow.png" id="3_bv0lv"]
+[ext_resource type="Resource" path="res://assets/battle_system/effects/slow_effect.tres" id="3_web"]
+
+[resource]
+script = ExtResource("1_web")
+Effect = ExtResource("3_web")
+Damage = 10
+Projectile = ExtResource("2_web")
+Name = "Ball of Web"
+Description = "Spits a ball of web at an enemy stack. It deals a little damage and slows the stack by 2 speed, but not below 3, for its next 2 turns. Another hit only makes the slow last longer."
+Icon = ExtResource("3_bv0lv")
+HoveredIcon = ExtResource("2_hdubd")
+ManaCost = 20
+metadata/_custom_type_script = "uid://dms411lu6oxqm"

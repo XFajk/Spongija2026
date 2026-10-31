@@ -13,10 +13,11 @@ metadata/_custom_type_script = "uid://dbehoqcrijunt"
 [resource]
 script = ExtResource("3_qqub5")
 Name = "Pilgrim Quendi"
-MaxHealth = 50
-Strength = 5
-Defense = 5
-SpeedTier = 5
+Description = "Elves of the Great Journey, who left the waters of Cuiviénen to follow Oromë into the west. They carry staves and walking poles rather than swords, and fall easily, but there are many of them, and every camp along the road sends more. Taught and armed, they become archers, warriors and riders."
+MaxHealth = 20
+Strength = 3
+Defense = 2
+SpeedTier = 4
 MeleeAttack = SubResource("Resource_qqub5")
 Model = ExtResource("2_qqub5")
 metadata/_custom_type_script = "uid://cj3g6btx1kotr"

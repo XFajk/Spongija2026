@@ -8,12 +8,16 @@
 [ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="4_7bjbe"]
 [ext_resource type="Resource" uid="uid://ddfgaidqfhbat" path="res://assets/battle_system/abilities/spells/fire_ball_spell.tres" id="4_axugm"]
 [ext_resource type="Resource" uid="uid://dmn08fp2i52t3" path="res://assets/battle_system/units/archer_quendi.tres" id="5_2mwd4"]
+[ext_resource type="Resource" uid="uid://dogeope8ka2lb" path="res://assets/battle_system/units/cavelry.tres" id="6_0r34i"]
 [ext_resource type="Resource" uid="uid://c72a0ew85gt6u" path="res://assets/battle_system/units/wizard_quendi.tres" id="9_0mm7v"]
 [ext_resource type="Resource" uid="uid://vmbdbqx2frwv" path="res://assets/battle_system/units/warrior_quendi.tres" id="9_axugm"]
+[ext_resource type="Resource" uid="uid://cvkx8nuc22xf0" path="res://assets/battle_system/units/melkor.tres" id="11_0r34i"]
+[ext_resource type="Resource" uid="uid://d0wwc65q72h7u" path="res://assets/battle_system/units/spider.tres" id="11_cn4ts"]
+[ext_resource type="Resource" uid="uid://7tcdw1qoic5w" path="res://assets/battle_system/units/small_wolf.tres" id="12_0r34i"]
 
 [sub_resource type="Resource" id="Resource_d1jsn"]
 script = ExtResource("2_stackres")
-Unit = ExtResource("3_8ajim")
+Unit = ExtResource("6_0r34i")
 Quantity = 10
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
@@ -43,26 +47,26 @@ metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [sub_resource type="Resource" id="Resource_cj8pm"]
 script = ExtResource("2_stackres")
-Unit = ExtResource("4_7bjbe")
-Quantity = 10
+Unit = ExtResource("11_0r34i")
+Quantity = 2
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [sub_resource type="Resource" id="Resource_2mwd4"]
 script = ExtResource("2_stackres")
-Unit = ExtResource("3_8ajim")
-Quantity = 10
+Unit = ExtResource("11_cn4ts")
+Quantity = 30
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [sub_resource type="Resource" id="Resource_3nq0d"]
 script = ExtResource("2_stackres")
-Unit = ExtResource("5_2mwd4")
-Quantity = 15
+Unit = ExtResource("12_0r34i")
+Quantity = 30
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [sub_resource type="Resource" id="Resource_0mm7v"]
 script = ExtResource("2_stackres")
-Unit = ExtResource("9_0mm7v")
-Quantity = 10
+Unit = ExtResource("4_7bjbe")
+Quantity = 15
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [node name="BattleTest" type="Node" unique_id=1175393641]
@@ -70,5 +74,4 @@ script = ExtResource("1_battletest")
 HeroSpells = Array[ExtResource("2_nxugr")]([ExtResource("3_0mm7v"), ExtResource("4_axugm")])
 PlayerUnits = Array[ExtResource("2_stackres")]([SubResource("Resource_d1jsn"), SubResource("Resource_26d8k"), SubResource("Resource_jvnn3"), SubResource("Resource_e8vb7"), SubResource("Resource_thunb")])
 ComputerUnits = Array[ExtResource("2_stackres")]([SubResource("Resource_cj8pm"), SubResource("Resource_2mwd4"), SubResource("Resource_3nq0d"), SubResource("Resource_0mm7v")])
-ComputerStrategy = 1
-ComputerHeroSpells = Array[ExtResource("2_nxugr")]([ExtResource("3_0mm7v"), ExtResource("4_axugm")])
+ComputerStrategy = 2
