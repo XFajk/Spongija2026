@@ -13,7 +13,7 @@ outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_4xvhx"]
 font = ExtResource("3_q1wa4")
 font_size = 25
-outline_size = 13
+outline_size = 7
 outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 
 [node name="Popout" type="Panel" unique_id=1677304227]

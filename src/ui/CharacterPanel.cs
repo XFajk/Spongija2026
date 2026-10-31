@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public partial class CharacterPanel : Panel
 {
@@ -32,6 +33,13 @@ public partial class CharacterPanel : Panel
 	[Export] Label? artefactsEmpty;
 
 	[Export] Control? fightWindow;
+	FightPOI? _currentFightPOI;
+
+	[Export]
+	public PackedScene? FloatingTextScene { get; set; }
+
+	[Export]
+	public Control? Container { get; set; }
 
 	public override void _Ready()
 	{
@@ -58,8 +66,10 @@ public partial class CharacterPanel : Panel
 		spellB!.Pressed += _display.OpenBook;
 
 		//Fight
-		Button fightB = GetNode<Button>("/root/Map/CanvasLayer/Canvas/SetupFight/Fight/Button");
+		Button fightB = GetNode<Button>("/root/Map/CanvasLayer/Canvas/SetupFight/Fight");
 		fightB.Pressed += camera!.Agent!.EnterFight;
+		Button defectB = GetNode<Button>("/root/Map/CanvasLayer/Canvas/SetupFight/Defection");
+		defectB.Pressed += DefectUnits;
 	}
 
 	public void OnVisible()
@@ -196,12 +206,14 @@ public partial class CharacterPanel : Panel
 		artefactsEmpty!.Visible = _inventory?.Artefacts?.Count == 0;
 	}
 
-	public void GetReady()
+	public void GetReady(bool _surrender, FightPOI _poi)
 	{
 		camera?.Agent?.HidePanel();
 		camera?.HideCustomCursor();
 		swapWindow?.CancelSwapping();
 		fightWindow?.Show();
+		fightWindow!.GetNode<Control>("Defection").Visible = _surrender;
+		_currentFightPOI = _poi;
 		GetTree().Paused = true;
 	}
 
@@ -340,6 +352,60 @@ public partial class CharacterPanel : Panel
 	{
 		UnhighlightArtefacts();
 		inventory?.CancelEquipping();
+	}
+
+	public void DefectUnits()
+	{
+		GetTree().Paused = false;
+		fightWindow!.Hide();
+
+		StackResource[] _units = new StackResource[camera!.Agent!.GetNode<BattleStarter>("BattleStarter").ComputerUnits!.Count];
+		for (int i = 0; i < camera!.Agent!.GetNode<BattleStarter>("BattleStarter").ComputerUnits!.Count; i++)
+		{
+			_units[i] = camera!.Agent!.GetNode<BattleStarter>("BattleStarter").ComputerUnits![i];
+		}
+		
+		ShowUnitsText(_units);
+		_currentFightPOI!.QueueFree();
+		_currentFightPOI = null;
+
+		inventory?.AddUnits(_units);
+	}
+
+	async void ShowUnitsText(StackResource[] _units)
+	{
+		await ShowFloatingText(_currentFightPOI!.GlobalPosition, _units);
+	}
+
+	public async Task ShowFloatingText(Vector3 worldPosition, StackResource[] Units)
+	{
+		for (int i = 0; i < Units?.Length; i++)
+		{
+			var popup = FloatingTextScene?.Instantiate<FloatingText>();
+
+			Container?.AddChild(popup);
+
+			float X = camera!.GetViewport().GetVisibleRect().Size.X / 2;
+			float Y = camera!.GetViewport().GetVisibleRect().Size.X / 2;
+
+			popup!.Text = "+ " + Units[i]?.Quantity.ToString() + " " + Units[i]?.Unit?.Name;
+			popup!.Position = new Vector2(X, Y);
+
+			if (i == Units?.Length - 1)
+			{
+				await ToSignal(
+					GetTree().CreateTimer(1f),
+					SceneTreeTimer.SignalName.Timeout
+				);
+			}
+			else
+			{
+				await ToSignal(
+					GetTree().CreateTimer(0.5f),
+					SceneTreeTimer.SignalName.Timeout
+				);
+			}
+		}
 	}
 
 	public override void _Input(InputEvent @event)

@@ -7,8 +7,8 @@ public partial class BattleStarter : Node
 	public EnemyStrategy ComputerStrategy;
 	Array<SpellAbility>? HeroSpells;
 	Array<StackResource>? PlayerUnits;
-	Array<StackResource>? ComputerUnits;
-	Array<SpellAbility>? ComputerHeroSpells;
+	public Array<StackResource>? ComputerUnits;
+	public Array<SpellAbility>? ComputerHeroSpells;
 
 	public void EnterBattle(SpellAbility[] spells, StackResource[] units, uint _Mana)
 	{
