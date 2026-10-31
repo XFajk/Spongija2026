@@ -20,7 +20,7 @@ public partial class Tutorial : Node
 
 	public void ExplainInventory()
 	{
-		PopoutManager?.SpawnPopout("Combine", "Warrior = Iron + Pilgrim \n Archer = Silk + Pilgrim \n Horse Rider = Horse + Pilgrim");
+		PopoutManager?.SpawnPopout("Combine", "Warrior = Iron + Pilgrim \n Archer = Silk + Pilgrim \n Cavarly = Horse + Pilgrim");
 		PopoutManager?.SpawnPopout("Combine", "Get new units by combing Resources with units");
 		PopoutManager?.SpawnPopout("Splitting", "Split your units by selecting the unit and pressing empty slot or slot with the same unit. Each slot represents Unit Group in a battle.");
 		PopoutManager?.SpawnPopout("Categories", "Switch between categories with the buttons on the left side");
