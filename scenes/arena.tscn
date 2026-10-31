@@ -20,7 +20,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -3.5)
 GameViewport = NodePath("../SubViewport")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=253654758]
-size = Vector2i(640, 360)
+size = Vector2i(1280, 720)
 
 [node name="ArenaCamera" type="Camera3D" parent="SubViewport" unique_id=547754814]
 script = ExtResource("6_4ag8t")

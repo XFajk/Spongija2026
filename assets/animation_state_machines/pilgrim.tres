@@ -1,0 +1,41 @@
+[gd_resource type="AnimationNodeStateMachine" format=3 uid="uid://cvfoabmg4lwbg"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fkbm7"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qfsyp"]
+animation = &"MeleeAttack_pilgrim"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y2r3h"]
+animation = &"Run_pilgrim"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jadlb"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3vfux"]
+advance_mode = 2
+advance_expression = "MeleeAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_542fg"]
+advance_mode = 2
+advance_expression = "IsRunning
+"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vagb2"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ehie3"]
+advance_mode = 2
+advance_expression = "!IsRunning"
+
+[resource]
+states/Idle/node = SubResource("AnimationNodeAnimation_fkbm7")
+states/Idle/position = Vector2(372.35974, 100.375)
+states/MeleeAttack_pilgrim/node = SubResource("AnimationNodeAnimation_qfsyp")
+states/MeleeAttack_pilgrim/position = Vector2(401.85974, -14.849976)
+states/Run_pilgrim/node = SubResource("AnimationNodeAnimation_y2r3h")
+states/Run_pilgrim/position = Vector2(400.35974, 210.65002)
+states/Start/position = Vector2(198, 100.1875)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_jadlb"), "Idle", "MeleeAttack_pilgrim", SubResource("AnimationNodeStateMachineTransition_3vfux"), "Idle", "Run_pilgrim", SubResource("AnimationNodeStateMachineTransition_542fg"), "MeleeAttack_pilgrim", "Idle", SubResource("AnimationNodeStateMachineTransition_vagb2"), "Run_pilgrim", "Idle", SubResource("AnimationNodeStateMachineTransition_ehie3")]
+graph_offset = Vector2(114.35976, -64.349976)

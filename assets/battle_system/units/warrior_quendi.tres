@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="1_113b1"]
 [ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="1_pmt3w"]
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_113b1"]
+[ext_resource type="PackedScene" uid="uid://c8hnygka3iyfv" path="res://scenes/units/warrior_quendi.tscn" id="2_w35rb"]
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_x8p6f"]
 [ext_resource type="Texture2D" uid="uid://c21n6vo2a3nt4" path="res://assets/ui/sword.png" id="5_x8p6f"]
 
@@ -19,4 +20,5 @@ Strength = 15
 Defense = 15
 SpeedTier = 2
 MeleeAttack = SubResource("Resource_113b1")
+Model = ExtResource("2_w35rb")
 metadata/_custom_type_script = "uid://cj3g6btx1kotr"

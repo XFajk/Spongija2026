@@ -1,16 +1,8 @@
 [gd_scene format=3 uid="uid://dh7btewbds0p4"]
 
 [ext_resource type="Script" uid="uid://3pe1f0cixbxg" path="res://src/battle_system/army/UnitNode.cs" id="1_k2rr7"]
+[ext_resource type="PackedScene" uid="uid://btqbl1551jvxg" path="res://scenes/units/archer_animation_manager.tscn" id="2_cyhjf"]
 [ext_resource type="Script" uid="uid://c1so6sg2p5nqy" path="res://src/interaction_system/Interactable.cs" id="2_r818c"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_cyhjf"]
-radius = 0.075
-height = 0.45
-radial_segments = 12
-rings = 6
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r818c"]
-albedo_color = Color(0.69789743, 1, 0, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qs3nw"]
 radius = 0.075
@@ -21,10 +13,8 @@ collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_k2rr7")
 
-[node name="Model" type="MeshInstance3D" parent="." unique_id=229959619]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, 0)
-mesh = SubResource("CapsuleMesh_cyhjf")
-surface_material_override/0 = SubResource("StandardMaterial3D_r818c")
+[node name="ArcherAnimationManger" parent="." unique_id=1294747214 instance=ExtResource("2_cyhjf")]
+transform = Transform3D(-0.10495756, 0, -9.175681e-09, 0, 0.10495756, 0, 9.175681e-09, 0, -0.10495756, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=199654374]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, 0)

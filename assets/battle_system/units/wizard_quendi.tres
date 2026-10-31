@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Unit" format=3 uid="uid://c72a0ew85gt6u"]
 
-[ext_resource type="PackedScene" uid="uid://vj4mqvrlegty" path="res://scenes/units/magic_quendi.tscn" id="1_q5xll"]
+[ext_resource type="PackedScene" uid="uid://vj4mqvrlegty" path="res://scenes/units/wizard_quendi.tscn" id="1_q5xll"]
 [ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="1_rwne8"]
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_wwugf"]
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_743o3"]
