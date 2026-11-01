@@ -126,6 +126,8 @@ Binary assets (images, audio, video, 3D models, fonts, zips) are stored with **G
 
 **Scene fades:** `ScreenFade` (`src/helpers/`, static) keeps one black overlay on a `CanvasLayer` (layer 100) under the tree's root, not under a scene, so it stays black while the scene changes under it. `FadeOut` fades it to black, `FadeIn` from black to clear and removes it, `Clear` removes it at once. It blocks the mouse while it's there and runs while the tree is paused. The map has its own fade in (`BlackScreen`, a `ColorRect` in its `CanvasLayer`).
 
+**Music:** `Music` (`src/helpers/`, static, like `ScreenFade`) keeps its `AudioStreamPlayer`s (bus `Music`, process mode Always) on the tree's root, so a track plays on across scene changes. A scene picks its track with a `MusicCue` node (`Track`, `VolumeDb`, `FadeDuration`): `Music.Play` leaves the same track playing without a break (easing to the cue's volume) and crossfades to a different one (null fades out). A scene without a cue leaves the music as it is. The tracks in `assets/music/` loop through their import settings (`loop=true`, gapless for Ogg Vorbis). `main_menu.ogg` plays in `main_menu.tscn`; `advature_song.ogg` in `map.tscn`. The arena's `MusicCue` has no track, so the music fades out in battles (a scene without a cue would keep the previous track playing) and the adventure song fades back in from its start on the map. The intro video and `test.tscn` have none.
+
 **UI:** `src/ui/custom_controls/PieBar.cs` is a `[GlobalClass][Tool]` `Range` control that draws a radial fill, so it runs in the editor too.
 
 ### Battle system (`src/battle_system/`, `src/arena/`)

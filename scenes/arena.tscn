@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://bg4y00xbnewei" path="res://assets/terrain/models/carnota/pillars.glb" id="25_sya1t"]
 [ext_resource type="PackedScene" uid="uid://rp8qxudhfv8q" path="res://scenes/decorations/cernota/claw.tscn" id="26_y6qpl"]
 [ext_resource type="Resource" uid="uid://cvkx8nuc22xf0" path="res://assets/battle_system/units/melkor.tres" id="27_mlkor"]
+[ext_resource type="Script" uid="uid://bmusiccue8r4t" path="res://src/helpers/MusicCue.cs" id="28_mcue"]
 
 [sub_resource type="Gradient" id="Gradient_olpmc"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -393,3 +394,6 @@ transform = Transform3D(0.57, 0, 0, 0, 0.57, 0, 0, 0, 0.57, -6.504837, 0, -10.14
 
 [node name="Claw2" parent="EvilArenaDeco" unique_id=1999313625 instance=ExtResource("26_y6qpl")]
 transform = Transform3D(0.57, 0, 0, 0, 0.57, 0, 0, 0, 0.57, 9.895378, 0, -10.145569)
+
+[node name="MusicCue" type="Node" parent="." unique_id=1288840519]
+script = ExtResource("28_mcue")
