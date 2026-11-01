@@ -32,6 +32,8 @@ public partial class SaveBrowser : Panel
 			_indexes.Add(GetNumber(_saves[i]));
 		}
 
+		_indexes.Sort();
+
 		for (int i = 0; i < _indexes.Count; i++)
 		{
 			SaveFile _file = saveFilePrefab!.Instantiate<SaveFile>();

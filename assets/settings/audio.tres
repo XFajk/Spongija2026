@@ -19,6 +19,7 @@ maxValue = 100.0
 step = 1.0
 name = "Master"
 SceneTemplate = ExtResource("8_drrdw")
+function = "Master"
 metadata/_custom_type_script = "uid://kqcg47axafo5"
 
 [resource]

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Artefact" format=3 uid="uid://c0vftawr4xuyk"]
 
 [ext_resource type="Script" uid="uid://dro3uwa3xh26h" path="res://src/battle_system/artefacts/Artefact.cs" id="1_oxedt"]
-[ext_resource type="Texture2D" uid="uid://nidiayrbf26b" path="res://assets/ui/arrow.png" id="1_x6jbj"]
+[ext_resource type="Texture2D" uid="uid://bn0kuk06hgcex" path="res://assets/artefacts_icons/necromancer_dagger.png" id="1_x6jbj"]
 
 [resource]
 script = ExtResource("1_oxedt")

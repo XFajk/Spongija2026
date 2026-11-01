@@ -8,4 +8,5 @@ public partial class Setting : Resource
 	public string name = "";
 
 	[Export] public PackedScene? SceneTemplate;
+	[Export] public string? function;
 }

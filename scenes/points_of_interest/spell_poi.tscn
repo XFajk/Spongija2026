@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bbca8on0i7dje"]
+
+[ext_resource type="Script" uid="uid://bfumahficj3wt" path="res://src/arena/SpellPOI.cs" id="1_mfaqe"]
+[ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="2_gw1sw"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
+load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
+
+[sub_resource type="BoxMesh" id="BoxMesh_iopsf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyjbk"]
+transparency = 1
+albedo_color = Color(0.54509807, 0.5568628, 0, 0.8509804)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
+size = Vector3(1, 0.5578003, 1)
+
+[node name="spell_poi" type="Area3D" unique_id=1250873675 node_paths=PackedStringArray("_mesh") groups=["Savable"]]
+collision_layer = 9
+script = ExtResource("1_mfaqe")
+FloatingTextScene = ExtResource("2_gw1sw")
+_mesh = NodePath("MeshInstance3D")
+stopDistance = 1.5
+cursorIcon = SubResource("CompressedTexture2D_nakos")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1494336331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505, 0)
+mesh = SubResource("BoxMesh_iopsf")
+
+[node name="Highlight" type="MeshInstance3D" parent="." unique_id=38608875]
+transform = Transform3D(1.2, 0, 0, 0, 0.5, 0, 0, 0, 1.2, 0, 0.278, 0)
+visible = false
+material_overlay = SubResource("StandardMaterial3D_gyjbk")
+mesh = SubResource("BoxMesh_iopsf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=581070797]
+transform = Transform3D(1.1565427, 0, 0, 0, 2, 0, 0, 0, 1.0576551, 0, 0.5101782, 0)
+shape = SubResource("BoxShape3D_2klcf")
+
+[node name="Position" type="Node3D" parent="." unique_id=1455037076]
