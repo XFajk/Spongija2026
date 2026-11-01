@@ -7,10 +7,10 @@
 
 [resource]
 script = ExtResource("1_atip4")
-Damage = 70
+Damage = 150
 Projectile = ExtResource("3_proj")
 Name = "Melkors FireBall"
-Description = "Melkor hurls a ball of black fire at an enemy stack, dealing 70 damage that no armor can stop."
+Description = "Melkor hurls a ball of black fire at an enemy stack, dealing 150 damage that no armor can stop."
 Icon = ExtResource("2_qdj0e")
 HoveredIcon = ExtResource("1_afd3j")
 ManaCost = 20
