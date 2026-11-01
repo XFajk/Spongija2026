@@ -19,7 +19,6 @@ metadata/_custom_type_script = "uid://c63oacn1bhp0n"
 script = ExtResource("4_3n1ax")
 name = "Fullscreen"
 SceneTemplate = ExtResource("4_0ijnh")
-function = "Fullscreen"
 metadata/_custom_type_script = "uid://ckynlennwfn7v"
 
 [sub_resource type="Resource" id="Resource_jxyc0"]
@@ -33,7 +32,6 @@ script = ExtResource("7_w7tr1")
 options = PackedStringArray("1920x1080", "1920x1200")
 name = "Resolution"
 SceneTemplate = ExtResource("6_0tpu0")
-function = "Resolution"
 metadata/_custom_type_script = "uid://j5vcvwh2jtdf"
 
 [resource]

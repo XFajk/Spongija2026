@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="2_ghost"]
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="4_ghost"]
 [ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="5_ghost"]
-[ext_resource type="Resource" uid="uid://b2jfxuqvfhdp7" path="res://assets/battle_system/abilities/spells/necromancy_spell.tres" id="6_ghost"]
 [ext_resource type="PackedScene" uid="uid://cxoifrur1d7ae" path="res://scenes/units/forest_ghost.tscn" id="7_ghost"]
 
 [sub_resource type="Resource" id="Resource_melee"]

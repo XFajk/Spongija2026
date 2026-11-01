@@ -6,24 +6,15 @@
 [ext_resource type="Script" uid="uid://bknow4djldqy" path="res://src/player/AdventureCamera.cs" id="4_0cso3"]
 [ext_resource type="PackedScene" uid="uid://3fhavcdsavfw" path="res://scenes/player/adventure_character.tscn" id="4_2klcf"]
 [ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="4_fq663"]
-[ext_resource type="Script" uid="uid://w2lj0wq3830v" path="res://src/arena/ArtefactPOI.cs" id="5_yfm5w"]
 [ext_resource type="Theme" uid="uid://bjx58o26db5so" path="res://assets/ui_themes/fantasy.tres" id="6_2lpho"]
-[ext_resource type="Resource" uid="uid://cpdv5gxr6hjrb" path="res://assets/battle_system/artefacts/wizzard_hat.tres" id="6_081xv"]
 [ext_resource type="Script" uid="uid://drwglebqk0es7" path="res://src/ui/PopoutManager.cs" id="6_mlgqr"]
 [ext_resource type="Script" uid="uid://da8xkfatqgrcb" path="res://src/ui/CharacterPanel.cs" id="7_blm8a"]
-[ext_resource type="Resource" uid="uid://cy7b18dunqpbt" path="res://assets/battle_system/artefacts/sword_of_courage.tres" id="7_cgoaf"]
-[ext_resource type="Resource" uid="uid://defcc54wv0c5j" path="res://assets/battle_system/artefacts/mithril_shield.tres" id="7_fq3dv"]
 [ext_resource type="LabelSettings" uid="uid://d2yjmolnb3eqi" path="res://assets/ui_themes/HighlightLabelSettings.tres" id="7_nakos"]
 [ext_resource type="PackedScene" uid="uid://3me630kro538" path="res://scenes/ui/popout.tscn" id="7_wslke"]
 [ext_resource type="Texture2D" uid="uid://b8ddb7nxoqbb7" path="res://assets/pics/cantGoIcon.png" id="8_jh32y"]
 [ext_resource type="Texture2D" uid="uid://bpk4t2bqqrf3h" path="res://assets/pics/book/BookBack.png" id="9_be0no"]
-[ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="9_g8nl4"]
-[ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="10_8kgjo"]
-[ext_resource type="Script" uid="uid://b5jive522rs6g" path="res://src/arena/FightPOI.cs" id="11_qcc5i"]
 [ext_resource type="Texture2D" uid="uid://csuq8cas0opo5" path="res://assets/pics/inventory/bag_on_stickblack.png" id="12_sq6bu"]
-[ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="12_xcq86"]
 [ext_resource type="Texture2D" uid="uid://b5gh5rno637p2" path="res://assets/pics/inventory/bag_on_stickgray.png" id="13_4b7dj"]
-[ext_resource type="Resource" uid="uid://ddfgaidqfhbat" path="res://assets/battle_system/abilities/spells/fire_ball_spell.tres" id="13_7s432"]
 [ext_resource type="PackedScene" uid="uid://dojoqutc52f7o" path="res://scenes/points_of_interest/silk_resource_poi.tscn" id="13_baix8"]
 [ext_resource type="Texture2D" uid="uid://eaq1jq5w0ja5" path="res://assets/pics/book/BookBackGrey.png" id="13_c70he"]
 [ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="13_gw3fx"]
@@ -56,34 +47,6 @@
 [ext_resource type="Environment" uid="uid://oi2ubom7ugak" path="res://assets/misc/new_environment.tres" id="52_tf62m"]
 [ext_resource type="Script" uid="uid://swwcjjqiscph" path="res://src/ui/Tutorial.cs" id="53_ogd7i"]
 [ext_resource type="PackedScene" uid="uid://bw2n3jxff7m3j" path="res://scenes/environment.tscn" id="53_tf62m"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
-load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2lpho"]
-albedo_color = Color(0.1620417, 0.31105772, 0.3087925, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_gyjbk"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jclro"]
-transparency = 1
-albedo_color = Color(0.74509805, 0.69411767, 0, 0.39215687)
-
-[sub_resource type="BoxMesh" id="BoxMesh_4xvhx"]
-
-[sub_resource type="Resource" id="Resource_la2vj"]
-script = ExtResource("12_xcq86")
-Unit = ExtResource("9_g8nl4")
-Quantity = 1
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Resource_5cjpp"]
-script = ExtResource("12_xcq86")
-Unit = ExtResource("10_8kgjo")
-Quantity = 1
-metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r2y85"]
 load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
@@ -322,117 +285,6 @@ RestoringSpeed = 5.0
 Camera = NodePath("../../SubViewport/PlayerCamera")
 Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
 SaveId = "spring"
-
-[node name="artefact_poi" type="Area3D" parent="PointsOfInterest" unique_id=2027299538 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -379.0257, 4.066335, -444.01874)
-collision_layer = 9
-script = ExtResource("5_yfm5w")
-Artefact = ExtResource("6_081xv")
-FloatingTextScene = ExtResource("4_fq663")
-Camera = NodePath("../../SubViewport/PlayerCamera")
-Container = NodePath("../../CanvasLayer/Canvas")
-SaveId = "artefact"
-stopDistance = 1.5
-cursorIcon = SubResource("CompressedTexture2D_nakos")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PointsOfInterest/artefact_poi" unique_id=1153801545]
-transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_2lpho")
-mesh = SubResource("BoxMesh_gyjbk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PointsOfInterest/artefact_poi" unique_id=329243836]
-transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_2klcf")
-
-[node name="Highlight" type="MeshInstance3D" parent="PointsOfInterest/artefact_poi" unique_id=1274424798]
-transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
-material_override = SubResource("StandardMaterial3D_jclro")
-mesh = SubResource("BoxMesh_4xvhx")
-
-[node name="Position" type="Node3D" parent="PointsOfInterest/artefact_poi" unique_id=1510978354]
-
-[node name="artefact_poi2" type="Area3D" parent="PointsOfInterest" unique_id=1303651051 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -379.0257, 4.066335, -446.82965)
-collision_layer = 9
-script = ExtResource("5_yfm5w")
-Artefact = ExtResource("7_cgoaf")
-FloatingTextScene = ExtResource("4_fq663")
-Camera = NodePath("../../SubViewport/PlayerCamera")
-Container = NodePath("../../CanvasLayer/Canvas")
-SaveId = "sword"
-stopDistance = 1.5
-cursorIcon = SubResource("CompressedTexture2D_nakos")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PointsOfInterest/artefact_poi2" unique_id=472947921]
-transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_2lpho")
-mesh = SubResource("BoxMesh_gyjbk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PointsOfInterest/artefact_poi2" unique_id=768532191]
-transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_2klcf")
-
-[node name="Highlight" type="MeshInstance3D" parent="PointsOfInterest/artefact_poi2" unique_id=804011958]
-transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
-material_override = SubResource("StandardMaterial3D_jclro")
-mesh = SubResource("BoxMesh_4xvhx")
-
-[node name="Position" type="Node3D" parent="PointsOfInterest/artefact_poi2" unique_id=492907887]
-
-[node name="artefact_poi3" type="Area3D" parent="PointsOfInterest" unique_id=414998733 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -379.0257, 4.066335, -449.31677)
-collision_layer = 9
-script = ExtResource("5_yfm5w")
-Artefact = ExtResource("7_fq3dv")
-FloatingTextScene = ExtResource("4_fq663")
-Camera = NodePath("../../SubViewport/PlayerCamera")
-Container = NodePath("../../CanvasLayer/Canvas")
-SaveId = "shield"
-stopDistance = 1.5
-cursorIcon = SubResource("CompressedTexture2D_nakos")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PointsOfInterest/artefact_poi3" unique_id=1045553905]
-transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_2lpho")
-mesh = SubResource("BoxMesh_gyjbk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PointsOfInterest/artefact_poi3" unique_id=406726878]
-transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_2klcf")
-
-[node name="Highlight" type="MeshInstance3D" parent="PointsOfInterest/artefact_poi3" unique_id=1941444192]
-transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
-material_override = SubResource("StandardMaterial3D_jclro")
-mesh = SubResource("BoxMesh_4xvhx")
-
-[node name="Position" type="Node3D" parent="PointsOfInterest/artefact_poi3" unique_id=673633421]
-
-[node name="FightPOI" type="Area3D" parent="PointsOfInterest" unique_id=342446672 groups=["Savable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -363.24158, 3.8152628, -452.03088)
-collision_layer = 9
-script = ExtResource("11_qcc5i")
-detectionDistance = 5.0
-ComputerUnits = Array[Object]([SubResource("Resource_la2vj"), SubResource("Resource_5cjpp")])
-ComputerSpells = Array[Object]([ExtResource("13_7s432")])
-SaveId = "fight_poi"
-stopDistance = 1.5
-cursorIcon = SubResource("CompressedTexture2D_nakos")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PointsOfInterest/FightPOI" unique_id=1605555645]
-transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_2lpho")
-mesh = SubResource("BoxMesh_gyjbk")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PointsOfInterest/FightPOI" unique_id=1893168519]
-transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_2klcf")
-
-[node name="Highlight" type="MeshInstance3D" parent="PointsOfInterest/FightPOI" unique_id=894314285]
-transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
-material_override = SubResource("StandardMaterial3D_jclro")
-mesh = SubResource("BoxMesh_4xvhx")
-
-[node name="Position" type="Node3D" parent="PointsOfInterest/FightPOI" unique_id=1807006421]
 
 [node name="Camp" parent="PointsOfInterest" unique_id=157508729 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("18_r2y85")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -73.00316, 11.110363, -431.28476)
