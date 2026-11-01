@@ -52,6 +52,7 @@
 [ext_resource type="Script" uid="uid://dsh7utydx6qkr" path="res://src/save_system/SaveManager.cs" id="49_s2dh3"]
 [ext_resource type="Script" uid="uid://dvqihq641myar" path="res://src/ui/PauseMenu.cs" id="50_tf62m"]
 [ext_resource type="PackedScene" uid="uid://bp7h6wk0dp8i7" path="res://scenes/ui/select_file.tscn" id="51_nc68e"]
+[ext_resource type="Script" uid="uid://dgxys3vbibvpt" path="res://src/ui/BlackScreen.cs" id="51_r2y85"]
 [ext_resource type="Environment" uid="uid://oi2ubom7ugak" path="res://assets/misc/new_environment.tres" id="52_tf62m"]
 [ext_resource type="Script" uid="uid://swwcjjqiscph" path="res://src/ui/Tutorial.cs" id="53_ogd7i"]
 [ext_resource type="PackedScene" uid="uid://bw2n3jxff7m3j" path="res://scenes/environment.tscn" id="53_tf62m"]
@@ -568,17 +569,275 @@ Camera = NodePath("../../../SubViewport/PlayerCamera")
 Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
 SaveId = "iron17"
 
-[node name="silk_resource_poi" parent="PointsOfInterest" unique_id=1300719750 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -379.31476, 3.7648826, -451.47165)
-Camera = NodePath("../../SubViewport/PlayerCamera")
-Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
+[node name="Silk" type="Node3D" parent="PointsOfInterest" unique_id=454512395]
+
+[node name="silk_resource_poi" parent="PointsOfInterest/Silk" unique_id=790522178 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -422.57315, 31.565113, -809.1333)
+Amount = 3
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
 SaveId = "silk"
 
-[node name="horse_resource_poi" parent="PointsOfInterest" unique_id=1702899593 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -376.56274, 3.2433615, -461.31116)
-Camera = NodePath("../../SubViewport/PlayerCamera")
-Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
-SaveId = "horse"
+[node name="silk_resource_poi2" parent="PointsOfInterest/Silk" unique_id=1637744610 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -411.79004, 32.611965, -805.9311)
+Amount = 9
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk2"
+
+[node name="silk_resource_poi6" parent="PointsOfInterest/Silk" unique_id=126564017 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -408.14786, 34.7822, -821.0358)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk3"
+
+[node name="silk_resource_poi14" parent="PointsOfInterest/Silk" unique_id=323603843 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -427.05432, 28.774496, -772.04846)
+Amount = 8
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk4"
+
+[node name="silk_resource_poi15" parent="PointsOfInterest/Silk" unique_id=92312188 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -428.14706, 28.774496, -780.8651)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk5"
+
+[node name="silk_resource_poi16" parent="PointsOfInterest/Silk" unique_id=1648831551 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -424.9147, 29.290499, -790.9209)
+Amount = 11
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk6"
+
+[node name="silk_resource_poi17" parent="PointsOfInterest/Silk" unique_id=1209835108 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -445.84064, 29.950329, -803.6268)
+Amount = 2
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk7"
+
+[node name="silk_resource_poi18" parent="PointsOfInterest/Silk" unique_id=1595566238 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -450.3106, 31.010883, -819.0222)
+Amount = 7
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk8"
+
+[node name="silk_resource_poi19" parent="PointsOfInterest/Silk" unique_id=1009779991 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -430.83954, 31.741714, -825.35333)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk9"
+
+[node name="silk_resource_poi20" parent="PointsOfInterest/Silk" unique_id=324980514 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(0.7890818, 0, -0.6142881, 0, 1, 0, 0.6142881, 0, 0.7890818, -429.79343, 35.902344, -846.37805)
+Amount = 10
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk10"
+
+[node name="silk_resource_poi7" parent="PointsOfInterest/Silk" unique_id=713432195 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -396.5792, 40.061264, -841.15894)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk11"
+
+[node name="silk_resource_poi8" parent="PointsOfInterest/Silk" unique_id=1719375629 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -400.20233, 40.255524, -849.21405)
+Amount = 8
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk12"
+
+[node name="silk_resource_poi9" parent="PointsOfInterest/Silk" unique_id=2035769968 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -391.20734, 39.8866, -833.6814)
+Amount = 3
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk13"
+
+[node name="silk_resource_poi10" parent="PointsOfInterest/Silk" unique_id=675097562 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(-0.10550007, 0, 0.9944192, 0, 1, 0, -0.9944192, 0, -0.10550007, -391.20734, 37.69463, -814.85657)
+Amount = 9
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk14"
+
+[node name="silk_resource_poi11" parent="PointsOfInterest/Silk" unique_id=247269667 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(-0.10550007, 0, 0.9944192, 0, 1, 0, -0.9944192, 0, -0.10550007, -390.17188, 36.652706, -805.6044)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk15"
+
+[node name="silk_resource_poi12" parent="PointsOfInterest/Silk" unique_id=1015227507 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(-0.10550007, 0, 0.9944192, 0, 1, 0, -0.9944192, 0, -0.10550007, -394.713, 34.418655, -797.0389)
+Amount = 7
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk16"
+
+[node name="silk_resource_poi13" parent="PointsOfInterest/Silk" unique_id=51769708 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(-0.10550007, 0, 0.9944192, 0, 1, 0, -0.9944192, 0, -0.10550007, -401.8872, 33.090946, -801.3211)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk17"
+
+[node name="silk_resource_poi3" parent="PointsOfInterest/Silk" unique_id=224419657 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(0.88631785, -0.4630774, 0, 0.40605727, 0.7771828, -0.4807332, 0.22261667, 0.4260824, 0.87686694, -400.61066, 32.008595, -783.3419)
+Amount = 8
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk18"
+
+[node name="silk_resource_poi4" parent="PointsOfInterest/Silk" unique_id=1250429920 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(0.88631785, -0.4630774, 0, 0.40605727, 0.7771828, -0.4807332, 0.22261667, 0.4260824, 0.87686694, -403.26648, 30.785278, -774.71796)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk19"
+
+[node name="silk_resource_poi5" parent="PointsOfInterest/Silk" unique_id=636307887 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(0.88631785, -0.4630774, 0, 0.40605727, 0.7771828, -0.4807332, 0.22261667, 0.4260824, 0.87686694, -395.0546, 33.0543, -780.17114)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk20"
+
+[node name="Horses" type="Node3D" parent="PointsOfInterest" unique_id=274147397]
+
+[node name="horse_resource_poi" parent="PointsOfInterest/Horses" unique_id=1702899593 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -138.74718, 18.651186, -747.95056)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse1"
+
+[node name="horse_resource_poi2" parent="PointsOfInterest/Horses" unique_id=1803834773 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.28847498, 0, -0.9574874, 0, 1, 0, 0.9574874, 0, 0.28847498, -82.25152, 9.81068, -559.10425)
+Amount = 3
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse2"
+
+[node name="horse_resource_poi3" parent="PointsOfInterest/Horses" unique_id=1758569132 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.28847498, 0, -0.9574874, 0, 1, 0, 0.9574874, 0, 0.28847498, -360.13803, 22.318998, -629.00183)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse3"
+
+[node name="horse_resource_poi4" parent="PointsOfInterest/Horses" unique_id=2076852142 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.86288995, 0, 0.5053921, 0, 1, 0, -0.5053921, 0, 0.86288995, -381.50903, 23.069696, -656.5813)
+Amount = 2
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse4"
+
+[node name="horse_resource_poi5" parent="PointsOfInterest/Horses" unique_id=1497696355 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.86288995, 0, 0.5053921, 0, 1, 0, -0.5053921, 0, 0.86288995, -484.78348, 6.2677217, -625.48975)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse5"
+
+[node name="horse_resource_poi6" parent="PointsOfInterest/Horses" unique_id=500568684 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.86288995, 0, 0.5053921, 0, 1, 0, -0.5053921, 0, 0.86288995, -549.2579, 5.8404856, -663.5578)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse6"
+
+[node name="horse_resource_poi7" parent="PointsOfInterest/Horses" unique_id=1489539939 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.4482869, 0, 0.89388984, 0, 1, 0, -0.89388984, 0, -0.4482869, -591.6963, 6.091095, -607.16437)
+Amount = 3
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse7"
+
+[node name="horse_resource_poi8" parent="PointsOfInterest/Horses" unique_id=888308432 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.4482869, 0, 0.89388984, 0, 1, 0, -0.89388984, 0, -0.4482869, -478.29364, 5.1320515, -521.8977)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse8"
+
+[node name="horse_resource_poi9" parent="PointsOfInterest/Horses" unique_id=1249034605 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.4482869, 0, 0.89388984, 0, 1, 0, -0.89388984, 0, -0.4482869, -490.2331, 38.713974, -876.8914)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse9"
+
+[node name="horse_resource_poi10" parent="PointsOfInterest/Horses" unique_id=1770389283 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.97120297, 0, -0.2382538, -0.044166226, 0.9826679, 0.18003646, 0.23412436, 0.18537474, -0.95437, -507.9991, 34.45784, -824.13464)
+Amount = 2
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse10"
+
+[node name="horse_resource_poi11" parent="PointsOfInterest/Horses" unique_id=1334273558 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.97120297, 2.7622988e-09, -0.23825382, -0.021249615, 0.9960147, 0.086620614, 0.23730426, 0.08918901, -0.9673325, -550.6063, 36.534275, -901.0661)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse11"
+
+[node name="horse_resource_poi12" parent="PointsOfInterest/Horses" unique_id=101224646 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.3884306, -0.009050259, -0.92143357, 0.0026872458, 0.9999364, -0.010954135, 0.92147404, -0.0067310366, -0.3883815, -576.65924, 34.680416, -896.5907)
+Amount = 3
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse12"
+
+[node name="horse_resource_poi13" parent="PointsOfInterest/Horses" unique_id=1684115964 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.9938427, 0.001457186, -0.11079025, 0.0026872451, 0.99993634, -0.010954134, 0.110767186, -0.011184393, -0.9937835, -627.771, 32.36973, -895.31995)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse13"
+
+[node name="horse_resource_poi14" parent="PointsOfInterest/Horses" unique_id=1798114483 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.9938427, 0.001457186, -0.11079025, 0.0026872451, 0.99993634, -0.010954134, 0.110767186, -0.011184393, -0.9937835, -608.43726, 33.683838, -855.47375)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse14"
+
+[node name="horse_resource_poi15" parent="PointsOfInterest/Horses" unique_id=1212576493 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.8175198, 0.036074445, -0.5747696, -0.0047660307, 0.9984258, 0.055885565, 0.5758809, -0.0429482, 0.8164049, -590.159, 9.4633665, -720.9972)
+Amount = 3
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse15"
+
+[node name="horse_resource_poi16" parent="PointsOfInterest/Horses" unique_id=438275609 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.4161861, -0.04883559, 0.9079672, -0.004766033, 0.9984258, 0.05588556, -0.90926695, -0.027586207, 0.41529816, -630.1404, 9.098982, -682.1602)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse16"
+
+[node name="horse_resource_poi17" parent="PointsOfInterest/Horses" unique_id=1529638579 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.4057768, 0.16329022, 0.8992672, -0.092621505, 0.98619235, -0.13728061, -0.90926677, -0.027586186, 0.41529807, -643.3269, 16.95854, -558.6111)
+Amount = 2
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse17"
+
+[node name="horse_resource_poi18" parent="PointsOfInterest/Horses" unique_id=1864744945 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.076970935, 0.2952641, -0.95231026, 0.050247025, 0.95507884, 0.29206112, 0.99576634, -0.025370596, -0.088349074, -824.12854, 20.86028, -621.7734)
+Amount = 8
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse18"
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=2116964362]
 size = Vector2i(1280, 720)
@@ -1847,6 +2106,17 @@ offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
 manager = NodePath("../../../SaveSystem")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Canvas" unique_id=1428706499]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("51_r2y85")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1694680490]
 environment = ExtResource("52_tf62m")

@@ -115,12 +115,13 @@ public partial class PointOfInterest : Area3D, IInteractable, ISavable
 		float thickness = outlineWidth;
 
 		var mesh = _mesh!.Mesh;
-		var material = mesh.SurfaceGetMaterial(0) as StandardMaterial3D;
+		var material = mesh.SurfaceGetMaterial(0).Duplicate() as StandardMaterial3D;
 		material!.StencilMode = _enable ? BaseMaterial3D.StencilModeEnum.Outline : BaseMaterial3D.StencilModeEnum.Disabled;
-		if (!_enable) return;
 		material.StencilReference = 1;
 		material.StencilColor = outlineColor;
 		material.StencilOutlineThickness = thickness;
+
+		_mesh.Mesh.SurfaceSetMaterial(0, material);
 	}
 
 	public Vector2 GetScreenPosition(Camera3D Camera, Vector3 worldPosition, Control _control)
