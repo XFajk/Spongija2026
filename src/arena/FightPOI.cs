@@ -21,6 +21,9 @@ public partial class FightPOI : PointOfInterest
 
 	public override void _Process(double delta)
 	{
+		if (base._destroyed)
+			return;
+
 		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) <= detectionDistance && _character.poi != this && !accessed)
 		{
 			_character.ForceStop();
@@ -31,6 +34,9 @@ public partial class FightPOI : PointOfInterest
 
 	public override void Access()
 	{
+		if (base._destroyed)
+			return;
+
 		base.Access();
 
 		float enemyStrenght = GetEnemyDamage(ComputerUnits);
@@ -106,5 +112,10 @@ public partial class FightPOI : PointOfInterest
 		}
 
 		return totalHealth;
+	}
+
+	public void _Destroy()
+	{
+		base.Destroy();
 	}
 }

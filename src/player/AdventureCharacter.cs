@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
-public partial class AdventureCharacter : CharacterBody3D, IInteractable
+public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavable
 {
+	 [Export]
+	public string SaveId { get; set; } = "player";
 	[Export] public float stopDistance;
 	[Export] public float Speed = 5.0f;
 	[Export] public float RotationSpeed = 5.0f;
@@ -293,5 +295,25 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable
 	public void SetupDifficulty(EnemyStrategy enemyStrategy)
 	{
 		GetNode<BattleStarter>("BattleStarter").SetupDifficulty(enemyStrategy);
+	}
+
+	//Save
+	public Godot.Collections.Dictionary<string, Variant> Save()
+	{
+		return new()
+		{
+			{ "position_x", GlobalPosition.X },
+			{ "position_y", GlobalPosition.Y },
+			{ "position_z", GlobalPosition.Z }
+		};
+	}
+
+	public void Load(Godot.Collections.Dictionary data)
+	{
+		GlobalPosition = new Vector3(
+		(float)data["position_x"].AsDouble(),
+		(float)data["position_y"].AsDouble(),
+		(float)data["position_z"].AsDouble()
+   		);
 	}
 }

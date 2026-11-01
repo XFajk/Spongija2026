@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class SpringPOI : PointOfInterest
+public partial class SpringPOI : PointOfInterest, ISavable
 {
 	[Export] Texture2D? icon;
 
@@ -68,5 +68,19 @@ public partial class SpringPOI : PointOfInterest
 		popup!.Position = screenPosition;
 		popup!.GetNode<TextureRect>("TextureRect").Show();
 		popup!.GetNode<TextureRect>("TextureRect").Texture = icon;
+	}
+
+	public override Godot.Collections.Dictionary<string, Variant> Save()
+	{
+		var data = base.Save();
+		data.Add("amount", Amount);
+		return data;
+	}
+
+	public override void Load(Godot.Collections.Dictionary data)
+	{
+		base.Load(data);
+
+		Amount = (int)data["amount"];
 	}
 }

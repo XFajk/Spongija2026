@@ -2,8 +2,10 @@ using Godot;
 using System;
 using System.Diagnostics;
 
-public partial class PointOfInterest : Area3D, IInteractable
+public partial class PointOfInterest : Area3D, IInteractable, ISavable
 {
+	[Export] public string SaveId { get; set; } = "";
+
 	[Export] public bool MeshOutlineHighlight;
 	[Export] public MeshInstance3D? _mesh;
 	[Export] public float stopDistance;
@@ -15,6 +17,7 @@ public partial class PointOfInterest : Area3D, IInteractable
 	private Node3D? _position;
 	bool _keepHighlighted;
 	public bool accessed;
+	public bool _destroyed;
 
 	public override void _Ready()
 	{
@@ -113,13 +116,12 @@ public partial class PointOfInterest : Area3D, IInteractable
 
 		var mesh = _mesh!.Mesh;
 		var material = mesh.SurfaceGetMaterial(0) as StandardMaterial3D;
-		// WARNING: GODOT stencil API is only Experimental may break on GODOT version's after 4.7.2
-        material!.StencilMode = _enable ? BaseMaterial3D.StencilModeEnum.Outline : BaseMaterial3D.StencilModeEnum.Disabled;
-        if (!_enable) return;
-        material.StencilReference = 1;
-        material.StencilColor = outlineColor;
-        material.StencilOutlineThickness = thickness;
-    }
+		material!.StencilMode = _enable ? BaseMaterial3D.StencilModeEnum.Outline : BaseMaterial3D.StencilModeEnum.Disabled;
+		if (!_enable) return;
+		material.StencilReference = 1;
+		material.StencilColor = outlineColor;
+		material.StencilOutlineThickness = thickness;
+	}
 
 	public Vector2 GetScreenPosition(Camera3D Camera, Vector3 worldPosition, Control _control)
 	{
@@ -145,5 +147,36 @@ public partial class PointOfInterest : Area3D, IInteractable
 		);
 
 		return screenPosition;
+	}
+
+	public void Destroy()
+	{
+		_destroyed = true;
+
+		Visible = false;
+
+		SetCollisionEnabled(false);
+	}
+
+	private void SetCollisionEnabled(bool enabled)
+	{
+		CollisionLayer = enabled ? 1u : 0u;
+		CollisionMask = enabled ? 1u : 0u;
+	}
+
+	public virtual Godot.Collections.Dictionary<string, Variant> Save()
+	{
+		return new()
+		{
+			{ "destroyed", _destroyed }
+		};
+	}
+
+	public virtual void Load(Godot.Collections.Dictionary data)
+	{
+		_destroyed = (bool)data["destroyed"];
+
+		if (_destroyed)
+			Destroy();
 	}
 }

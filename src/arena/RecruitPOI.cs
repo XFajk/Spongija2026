@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-public partial class RecruitPOI : PointOfInterest
+public partial class RecruitPOI : PointOfInterest, ISavable
 {
 	[Export] StackResource[] Units = [];
 
@@ -174,5 +174,27 @@ public partial class RecruitPOI : PointOfInterest
 		{
 			Units = [];
 		}
+	}
+
+	public override Godot.Collections.Dictionary<string, Variant> Save()
+	{
+		var data = base.Save();
+
+		data.Add("looted", looted);
+		data.Add("maxDistance", maxDistance);
+		data.Add("currentMaxDistance", currentMaxDistance);
+		data.Add("firstTimeLooted", firstTimeLooted);
+
+		return data;
+	}
+
+	public override void Load(Godot.Collections.Dictionary data)
+	{
+		base.Load(data);
+
+		looted = (bool)data["looted"];
+		maxDistance = (float)data["maxDistance"];
+		firstTimeLooted = (bool)data["firstTimeLooted"];
+		currentMaxDistance = (float)data["currentMaxDistance"];
 	}
 }

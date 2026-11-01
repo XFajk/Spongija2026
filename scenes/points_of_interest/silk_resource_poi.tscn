@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://428dhvbojk24" path="res://src/arena/ResourcePOI.cs" id="1_mpnuc"]
 [ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="2_tirvn"]
-[ext_resource type="Texture2D" uid="uid://dmnbarn07x2kq" path="res://assets/ui/mana_bar_noise.tres" id="3_c7uuq"]
+[ext_resource type="Texture2D" uid="uid://dgvxawhxnlwpe" path="res://assets/terrain/models/spider_nest/web1_khoko1.png" id="3_5gbbo"]
+[ext_resource type="PackedScene" uid="uid://dhqtu34un1e33" path="res://assets/terrain/models/spider_nest/web3.glb" id="4_5gbbo"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
 load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
@@ -14,24 +15,19 @@ albedo_color = Color(0.1620417, 0.31105772, 0.3087925, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jclro"]
-transparency = 1
-albedo_color = Color(0.74509805, 0.69411767, 0, 0.39215687)
-
-[sub_resource type="BoxMesh" id="BoxMesh_4xvhx"]
-
 [node name="silk_resource_poi" type="Area3D" unique_id=2127545491]
 collision_layer = 9
 script = ExtResource("1_mpnuc")
 type = 1
 Amount = 1
 FloatingTextScene = ExtResource("2_tirvn")
-icon = ExtResource("3_c7uuq")
+icon = ExtResource("3_5gbbo")
 stopDistance = 1.5
 cursorIcon = SubResource("CompressedTexture2D_nakos")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1465654173]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4836316, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_2lpho")
 mesh = SubResource("BoxMesh_gyjbk")
 
@@ -39,9 +35,13 @@ mesh = SubResource("BoxMesh_gyjbk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4836316, 0)
 shape = SubResource("BoxShape3D_2klcf")
 
-[node name="Highlight" type="MeshInstance3D" parent="." unique_id=737366154]
-transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
-material_override = SubResource("StandardMaterial3D_jclro")
-mesh = SubResource("BoxMesh_4xvhx")
-
 [node name="Position" type="Node3D" parent="." unique_id=1002277261]
+
+[node name="web3" parent="." unique_id=1350149744 instance=ExtResource("4_5gbbo")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.7007544, -1.1024383, 1.1753879)
+
+[node name="Highlight" type="OmniLight3D" parent="." unique_id=1649401518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.40064287, 0)
+visible = false
+light_color = Color(0, 0.3871237, 0.32401788, 1)
+light_energy = 1.158

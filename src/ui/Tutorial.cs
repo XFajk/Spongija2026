@@ -1,8 +1,9 @@
 using Godot;
 using System;
 
-public partial class Tutorial : Node
+public partial class Tutorial : Node, ISavable
 {
+	[Export] public string SaveId { get; set; } = "adventure_tutorial";
 	[Export] public PopoutManager? PopoutManager;
 
 	public void ShowMovementPopout()
@@ -51,6 +52,27 @@ public partial class Tutorial : Node
 		{
 			ShowMovementPopout();
 		}
+	}
+
+	public Godot.Collections.Dictionary<string, Variant> Save()
+	{
+		return new()
+		{
+			{ "movementShown", TutorialChecklist.movementShown },
+			{ "inventoryShown", TutorialChecklist.inventoryShown },
+			{ "inventoryExplained", TutorialChecklist.inventoryExplained },
+			{ "swappingExplained", TutorialChecklist.swappingExplained },
+			{ "magicExplained", TutorialChecklist.magicExplained }
+		};
+	}
+
+	public void Load(Godot.Collections.Dictionary data)
+	{
+		TutorialChecklist.movementShown = (bool)data["movementShown"];
+		TutorialChecklist.inventoryShown = (bool)data["inventoryShown"];
+		TutorialChecklist.inventoryExplained = (bool)data["inventoryExplained"];
+		TutorialChecklist.swappingExplained = (bool)data["swappingExplained"];
+		TutorialChecklist.magicExplained = (bool)data["magicExplained"];
 	}
 }
 

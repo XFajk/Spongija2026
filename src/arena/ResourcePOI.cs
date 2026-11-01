@@ -18,6 +18,9 @@ public partial class ResourcePOI : PointOfInterest
 
 	public override void Access()
 	{
+		if (base._destroyed)
+			return;
+
 		base.Access();
 		_character?.GetNode<Inventory>("Inventory").AddResource(type, Amount);
 
@@ -25,7 +28,7 @@ public partial class ResourcePOI : PointOfInterest
 
 		_character!.poi = null;
 		UnFocus();
-		QueueFree();
+		base.Destroy();
 	}
 
 	public void ShowFloatingText(Vector3 worldPosition, int amount)

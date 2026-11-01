@@ -366,7 +366,7 @@ public partial class CharacterPanel : Panel
 		}
 		
 		ShowUnitsText(_units);
-		_currentFightPOI!.QueueFree();
+		_currentFightPOI!._Destroy();
 		_currentFightPOI = null;
 
 		inventory?.AddUnits(_units);

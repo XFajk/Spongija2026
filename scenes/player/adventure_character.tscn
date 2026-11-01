@@ -43,7 +43,7 @@ Unit = ExtResource("6_p6sce")
 Quantity = 1
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
-[node name="AdventureCharacter" type="CharacterBody3D" unique_id=590468899]
+[node name="AdventureCharacter" type="CharacterBody3D" unique_id=590468899 groups=["Savable"]]
 collision_layer = 9
 script = ExtResource("1_f37vf")
 stopDistance = 0.5
@@ -72,7 +72,7 @@ target_desired_distance = 0.5
 path_height_offset = 0.25
 debug_path_custom_color = Color(0.2784467, 0.6038251, 0, 1)
 
-[node name="Inventory" type="Node" parent="." unique_id=1608058295]
+[node name="Inventory" type="Node" parent="." unique_id=1608058295 groups=["Savable"]]
 script = ExtResource("3_8pgid")
 Units = Array[Object]([SubResource("Resource_n1psn"), SubResource("Resource_e24yl"), SubResource("Resource_a11gi"), null, null])
 Spells = Array[Object]([ExtResource("7_51ulg"), ExtResource("8_l1a7v")])

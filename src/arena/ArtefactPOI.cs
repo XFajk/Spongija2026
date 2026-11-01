@@ -16,13 +16,16 @@ public partial class ArtefactPOI : PointOfInterest
 
 	public override void Access()
 	{
+		if (base._destroyed)
+			return;
+
 		base.Access();
 		ShowFloatingText(GlobalPosition);
 		_character?.GetNode<Inventory>("Inventory").AddArtefact(Artefact!);
 
 		_character!.poi = null;
 		UnFocus();
-		QueueFree();
+		base.Destroy();
 	}
 
 	public void ShowFloatingText(Vector3 worldPosition)
