@@ -4,5 +4,5 @@
 
 [node name="Claw" unique_id=1680009021 instance=ExtResource("1_0yope")]
 
-[node name="claw" parent="." index="0" unique_id=1484502983]
+[node name="claw" parent="." index="0" unique_id=914306772]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6746898, 0)
