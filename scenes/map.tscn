@@ -42,13 +42,16 @@
 [ext_resource type="Script" uid="uid://crl5qc0vw008e" path="res://src/ui/SpellDisplay.cs" id="25_4qxv8"]
 [ext_resource type="SpriteFrames" uid="uid://ccufku72ig3ug" path="res://assets/ui/book/book_animations.tres" id="25_6ek7f"]
 [ext_resource type="PackedScene" uid="uid://b011mxkc5of83" path="res://scenes/ui/spell_button.tscn" id="26_4qxv8"]
-[ext_resource type="Shader" uid="uid://dxdtuyu7opueg" path="res://src/shaders/mana_bar.gdshader" id="27_fq663"]
+[ext_resource type="Shader" uid="uid://bmnbarsh4d3rq" path="res://src/shaders/mana_bar.gdshader" id="27_fq663"]
 [ext_resource type="Theme" uid="uid://dekw64qwcbodv" path="res://assets/ui_themes/mana_bar_theme.tres" id="28_mniao"]
 [ext_resource type="LabelSettings" uid="uid://cc2gqaoowh1kc" path="res://assets/misc/arena_ui_button_lables.tres" id="29_yfm5w"]
 [ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="33_12q1p"]
 [ext_resource type="Theme" uid="uid://c7y84ghi423h7" path="res://assets/ui_themes/unit_slot.tres" id="34_lhdcv"]
 [ext_resource type="Texture2D" uid="uid://d0ae0e4vsrswn" path="res://assets/ui/BookBackBlack.png" id="41_fq3dv"]
+[ext_resource type="Theme" uid="uid://brqf071jtaftc" path="res://assets/ui_themes/main_menu_ui_theme.tres" id="49_ogd7i"]
 [ext_resource type="Script" uid="uid://dsh7utydx6qkr" path="res://src/save_system/SaveManager.cs" id="49_s2dh3"]
+[ext_resource type="Script" uid="uid://dvqihq641myar" path="res://src/ui/PauseMenu.cs" id="50_tf62m"]
+[ext_resource type="PackedScene" uid="uid://bp7h6wk0dp8i7" path="res://scenes/ui/select_file.tscn" id="51_nc68e"]
 [ext_resource type="Environment" uid="uid://oi2ubom7ugak" path="res://assets/misc/new_environment.tres" id="52_tf62m"]
 [ext_resource type="Script" uid="uid://swwcjjqiscph" path="res://src/ui/Tutorial.cs" id="53_ogd7i"]
 [ext_resource type="PackedScene" uid="uid://bw2n3jxff7m3j" path="res://scenes/environment.tscn" id="53_tf62m"]
@@ -270,6 +273,23 @@ font_size = 20
 [sub_resource type="LabelSettings" id="LabelSettings_gyjbk"]
 font = ExtResource("13_gw3fx")
 font_size = 35
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tf62m"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1109196, 0.0067062946, 0.008779497, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.66604537, 0.08673792, 0.11216498, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
 
 [node name="Map" type="Node3D" unique_id=1745784945]
 
@@ -548,7 +568,7 @@ SaveId = "horse"
 size = Vector2i(1280, 720)
 
 [node name="PlayerCamera" parent="SubViewport" unique_id=118941473 node_paths=PackedStringArray("Agent", "returnPanningButton", "_cursorContainer") instance=ExtResource("2_paxxb")]
-transform = Transform3D(1, 0, 0, 0, 0.33218208, 0.94321525, 0, -0.94321525, 0.33218208, 0, 6.4965672, 3.1734376)
+transform = Transform3D(1, 0, 0, 0, 0.3321821, 0.9432153, 0, -0.9432153, 0.3321821, -412.57367, 127.85014, -434.07703)
 script = ExtResource("4_0cso3")
 Agent = NodePath("../../AdventureCharacter")
 Distance = 8.0
@@ -573,9 +593,11 @@ light_color = Color(0.049423575, 0.11703893, 0.32706, 1)
 light_energy = 0.75
 shadow_enabled = true
 
-[node name="AdventureCharacter" parent="." unique_id=590468899 node_paths=PackedStringArray("container") instance=ExtResource("4_2klcf")]
+[node name="AdventureCharacter" parent="." unique_id=590468899 node_paths=PackedStringArray("container", "pauseWindow", "_saves") instance=ExtResource("4_2klcf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -382.47223, 3.6384203, -457.84418)
 container = NodePath("../PointsContainer")
+pauseWindow = NodePath("../CanvasLayer/Canvas/PauseMenu")
+_saves = NodePath("../CanvasLayer/Canvas/select_file")
 
 [node name="PointsContainer" type="Node3D" parent="." unique_id=1683784706]
 
@@ -1718,6 +1740,97 @@ mouse_filter = 2
 script = ExtResource("6_mlgqr")
 camera = NodePath("../../../SubViewport/PlayerCamera")
 popoutPrefab = ExtResource("7_wslke")
+
+[node name="PauseMenu" type="PanelContainer" parent="CanvasLayer/Canvas" unique_id=1196592553 node_paths=PackedStringArray("camera")]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.0
+offset_top = -192.0
+offset_right = 245.0
+offset_bottom = 208.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("49_ogd7i")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tf62m")
+script = ExtResource("50_tf62m")
+camera = NodePath("../../../SubViewport/PlayerCamera")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Canvas/PauseMenu" unique_id=1723800833]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Canvas/PauseMenu/MarginContainer" unique_id=168418877]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Back" type="Button" parent="CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer" unique_id=2127850596]
+process_mode = 3
+custom_minimum_size = Vector2(350, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "BACK"
+
+[node name="Load" type="Button" parent="CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer" unique_id=2013827118]
+process_mode = 3
+custom_minimum_size = Vector2(375, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "LOAD"
+
+[node name="Save" type="Button" parent="CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer" unique_id=1296689147]
+process_mode = 3
+custom_minimum_size = Vector2(400, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "SAVE"
+
+[node name="Quit" type="Button" parent="CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer" unique_id=1179867440]
+process_mode = 3
+custom_minimum_size = Vector2(425, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "SAVE and QUIT"
+
+[node name="select_file" parent="CanvasLayer/Canvas" unique_id=1218259961 node_paths=PackedStringArray("manager") instance=ExtResource("51_nc68e")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.0
+offset_top = -225.0
+offset_right = 245.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+manager = NodePath("../../../SaveSystem")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1694680490]
 environment = ExtResource("52_tf62m")

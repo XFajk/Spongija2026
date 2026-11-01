@@ -24,6 +24,8 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 	Inventory? inventory;
 	public bool canMove;
 	public bool movingToPoint;
+	[Export] PauseMenu? pauseWindow;
+	[Export] SaveBrowser? _saves;
 
 	public override void _Ready()
 	{
@@ -35,6 +37,17 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 		inventoryPanel = GetNode<CharacterPanel>("/root/Map/CanvasLayer/Canvas/Character");
 		Button inventoryButtonClose = GetNode<Button>("/root/Map/CanvasLayer/Canvas/Character/Categories/Close");
 		inventoryButtonClose.Pressed += HidePanel;
+		Button resumeButton = GetNode<Button>("/root/Map/CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer/Back");
+		resumeButton.Pressed += Resume;
+
+		Button saveButton = GetNode<Button>("/root/Map/CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer/Save");
+		saveButton.Pressed += SaveSelect;
+
+		Button loadButton = GetNode<Button>("/root/Map/CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer/Load");
+		loadButton.Pressed += LoadSelect;
+
+		Button quitButton = GetNode<Button>("/root/Map/CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer/Quit");
+		quitButton.Pressed += Quit;
 
 		canMove = true;
 		inventory = GetNode<Inventory>("Inventory");
@@ -84,6 +97,18 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 		DisplayPathPoints();
 		movingToPoint = false;
 	}
+
+	public override void _Process(double delta)
+	{
+		if (Input.IsKeyPressed(Key.Escape))
+		{
+			if (!GetTree().Paused)
+			{
+				Pause();
+			}
+		}
+	}
+
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -295,6 +320,44 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 	public void SetupDifficulty(EnemyStrategy enemyStrategy)
 	{
 		GetNode<BattleStarter>("BattleStarter").SetupDifficulty(enemyStrategy);
+	}
+
+	public void Pause()
+	{
+		HidePanel();
+		pauseWindow!.Show();
+		pauseWindow.Setup();
+		GetTree().Paused = true;
+	}
+
+	public void Resume()
+	{
+		pauseWindow!.Hide();
+		GetTree().Paused = false;
+	}
+
+	public void SaveSelect()
+	{
+		pauseWindow!.Hide();
+		_saves!.Show();
+		_saves!.Setup(true);
+	}
+
+	public void LoadSelect()
+	{
+		pauseWindow!.Hide();
+		_saves!.Show();
+		_saves!.Setup(false);
+	}
+
+	public void Quit()
+	{
+		pauseWindow!.Hide();
+		GetTree().Paused = false;
+		_saves!.manager!.SaveGame(CurrentSave.CurrentSaveIndex);
+
+		Control menu = GD.Load<PackedScene>("uid://1cwqotqa3spu").Instantiate<Control>();
+		GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToNode, menu);
 	}
 
 	//Save

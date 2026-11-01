@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 public partial class FightPOI : PointOfInterest
 {
+	[Export] public bool CanRecruit;
 	[Export] public EnemyStrategy ComputerStrategy { get; set; } = EnemyStrategy.Wild;
 	[Export] public float detectionDistance;
 
@@ -48,11 +49,9 @@ public partial class FightPOI : PointOfInterest
 		Random random = new Random();
 		int _random = random.Next(2);
 
-		GD.Print(winningChance);
-
 		_character?.SetupEnemyArmy(ComputerUnits!, ComputerSpells!);
 		_character?.SetupDifficulty(ComputerStrategy);
-		_character?.inventoryPanel?.GetReady(winningChance >= 600 && _random == 0, this);
+		_character?.inventoryPanel?.GetReady(winningChance >= 600 && _random == 0 && CanRecruit, this);
 
 		_character!.poi = null;
 		UnFocus();
