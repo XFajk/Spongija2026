@@ -20,6 +20,17 @@ public partial class FireBallSpell : SpellAbility
     [Export(PropertyHint.Range, "0,10")]
     public float ShootHeight { get; set; } = 0.5f;
 
+    // Played when the fireball leaves and when it lands (OneShotSound); none if null
+    [ExportGroup("Sounds")]
+    [Export]
+    public AudioStream? LaunchSound { get; set; }
+
+    [Export]
+    public AudioStream? HitSound { get; set; }
+
+    [Export]
+    public StringName SoundBus { get; set; } = "SFX";
+
     // Spells ignore Defense. A unit's cast scales with its quantity, a hero's doesn't. Use and Evaluate both use this.
     private int GetDamage(Stack caster, bool fromHero) => fromHero ? Damage : Damage * (int)caster.Quantity;
 
@@ -72,9 +83,11 @@ public partial class FireBallSpell : SpellAbility
         var projectile = global::Projectile.Spawn(arena, Projectile, start, end, ShootAngle);
         if (projectile != null)
         {
+            OneShotSound.Play(arena, LaunchSound, SoundBus);
             arena.FollowWithCamera(caster, projectile);
             await projectile.ToSignal(projectile, global::Projectile.SignalName.Landed);
             projectile.QueueFree();
+            OneShotSound.Play(arena, HitSound, SoundBus);
         }
     }
 }

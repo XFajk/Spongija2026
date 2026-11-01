@@ -1,15 +1,22 @@
-[gd_resource type="Resource" script_class="NecromancySpell" format=3]
+[gd_resource type="Resource" script_class="NecromancySpell" format=3 uid="uid://b2jfxuqvfhdp7"]
 
 [ext_resource type="Script" uid="uid://dbgph75cbek0k" path="res://src/battle_system/abilities/specific/NecromancySpell.cs" id="1_necro"]
 [ext_resource type="Texture2D" uid="uid://7wee7r36m35o" path="res://assets/ui/necromance.png" id="2_necro"]
 [ext_resource type="Texture2D" uid="uid://cj3plhcln1nu2" path="res://assets/ui/necromance_color.png" id="3_necro"]
 [ext_resource type="PackedScene" uid="uid://c88bke3litvni" path="res://scenes/visual_effects/necromancer_effect.tscn" id="4_necro"]
+[ext_resource type="Script" uid="uid://bpefgv47nx5g2" path="res://src/helpers/SoundCue.cs" id="5_necro"]
+[ext_resource type="AudioStream" uid="uid://bndgrjich4k0x" path="res://assets/sounds/forestghost/forestghost.ogg" id="6_necro"]
+
+[sub_resource type="Resource" id="Resource_sound"]
+script = ExtResource("5_necro")
+Stream = ExtResource("6_necro")
+PitchScale = 0.2
+metadata/_custom_type_script = "uid://bpefgv47nx5g2"
 
 [resource]
 script = ExtResource("1_necro")
-Amount = 60
-AmountPerCaster = 10
 VisualEffect = ExtResource("4_necro")
+Sound = SubResource("Resource_sound")
 Name = "Raise the Fallen"
 Description = "Calls the fallen of an allied stack back from the shadows: gives 60 health back to its top unit, then raises its dead, but never more than it started the battle with. Cast by a unit, it gives back 10 for every caster in the stack. A stack that was wiped out can't be raised."
 Targets = 1
