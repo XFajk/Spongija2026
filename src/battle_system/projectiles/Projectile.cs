@@ -2,7 +2,8 @@ using Godot;
 
 // A projectile (arrow, bolt, ...) that flies along a parabola from StartPosition to EndPosition, leaving at
 // ShootAngle above the horizontal (XZ) plane, and emits Landed when it arrives. Spawn it with Spawn;
-// the root of the projectile's scene must be a Projectile.
+// the root of the projectile's scene must be a Projectile. It turns its -Z along the flight, so the model's head
+// must point toward -Z in the scene (the root's own rotation is overwritten).
 [GlobalClass]
 public partial class Projectile : Node3D
 {
@@ -43,7 +44,8 @@ public partial class Projectile : Node3D
 
 	public override void _Ready()
 	{
-		GlobalPosition = StartPosition;
+		// Placed and turned for the first frame, before the tween's first step
+		Fly(0f);
 
 		Vector3 horizontal = EndPosition - StartPosition;
 		horizontal.Y = 0;
@@ -84,5 +86,14 @@ public partial class Projectile : Node3D
 		GlobalPosition = StartPosition + horizontal * t + Vector3.Up * (a * t + b * t * t);
 		// The derivative of the position: horizontal part plus the slope dy/dt = a + 2 b t
 		HeadDirection = (horizontal + Vector3.Up * (a + 2f * b * t)).Normalized();
+		FaceHeadDirection();
+	}
+
+	// Turns the projectile's -Z (Godot's forward) along HeadDirection, keeping its scale, so build the scene with
+	// the head pointing toward -Z. The flight is never vertical here (that's the straight case above), so Up works
+	// as the up vector.
+	private void FaceHeadDirection()
+	{
+		LookAt(GlobalPosition + HeadDirection, Vector3.Up);
 	}
 }

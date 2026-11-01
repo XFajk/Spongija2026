@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Unit" format=3 uid="uid://cvkx8nuc22xf0"]
+
+[ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="1_hvtls"]
+[ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="1_xre7n"]
+[ext_resource type="PackedScene" uid="uid://b1a520tcaed5g" path="res://scenes/units/melkor.tscn" id="2_e80q4"]
+[ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_gycr8"]
+[ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_srmyx"]
+[ext_resource type="Resource" uid="uid://fmqe8vji5py1" path="res://assets/battle_system/abilities/spells/melkors_fire_ball.tres" id="5_emm48"]
+
+[sub_resource type="Resource" id="Resource_xre7n"]
+script = ExtResource("1_hvtls")
+metadata/_custom_type_script = "uid://dbehoqcrijunt"
+
+[resource]
+script = ExtResource("3_srmyx")
+Name = "Melkor"
+Description = "The Dark Enemy himself, mightiest of the Valar and the first to turn against them. He walks the ruins of his stronghold on Shadow Hill in a shape of night, and every horror of the forest answers to him. His blows break shields, and his fire burns through any armor. Only the bravest host should climb the hill, and only it can win back the great horn of Oromë."
+MaxHealth = 2500
+Strength = 250
+Defense = 30
+SpeedTier = 7
+StartingMana = 60
+MaxMana = 60
+MeleeAttack = SubResource("Resource_xre7n")
+Spells = Array[ExtResource("2_gycr8")]([ExtResource("5_emm48")])
+Model = ExtResource("2_e80q4")
+metadata/_custom_type_script = "uid://cj3g6btx1kotr"

@@ -1,0 +1,42 @@
+[gd_resource type="AnimationNodeStateMachine" format=3 uid="uid://7n4p6p7b2u4g"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ydpn4"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_17nur"]
+animation = &"MeleeAttack_warrior"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ensfq"]
+animation = &"Run_warrior"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_17nur"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tsdew"]
+advance_mode = 2
+advance_expression = "IsRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2by8o"]
+advance_mode = 2
+advance_expression = "!IsRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6403u"]
+advance_mode = 2
+advance_expression = "MeleeAttack
+"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ydpn4"]
+switch_mode = 2
+advance_mode = 2
+
+[resource]
+states/End/position = Vector2(863, 99.3125)
+states/Idle/node = SubResource("AnimationNodeAnimation_ydpn4")
+states/Idle/position = Vector2(426.9838, -25.950005)
+states/MeleeAttack_warrior/node = SubResource("AnimationNodeAnimation_17nur")
+states/MeleeAttack_warrior/position = Vector2(638.87006, 59.475113)
+states/Run_warrior/node = SubResource("AnimationNodeAnimation_ensfq")
+states/Run_warrior/position = Vector2(426.87006, 123.97511)
+states/Start/position = Vector2(210.5, 99.25)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_17nur"), "Idle", "Run_warrior", SubResource("AnimationNodeStateMachineTransition_tsdew"), "Run_warrior", "Idle", SubResource("AnimationNodeStateMachineTransition_2by8o"), "Idle", "MeleeAttack_warrior", SubResource("AnimationNodeStateMachineTransition_6403u"), "MeleeAttack_warrior", "Idle", SubResource("AnimationNodeStateMachineTransition_ydpn4")]
+graph_offset = Vector2(83.370026, -117.974915)

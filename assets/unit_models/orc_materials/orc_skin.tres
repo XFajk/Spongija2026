@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b633mrv1xhda7"]
+
+[resource]
+resource_name = "OrcSkin"
+cull_mode = 2
+albedo_color = Color(0.42848188, 0.49342346, 0.35055196, 1)
+roughness = 0.75

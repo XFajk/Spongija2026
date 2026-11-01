@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="Unit" format=3 uid="uid://cbq4xjm6ju4ll"]
+
+[ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="1_ghost"]
+[ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="2_ghost"]
+[ext_resource type="Script" uid="uid://ik1ggaaf8fot" path="res://src/battle_system/abilities/specific/RangedImmunityPassive.cs" id="3_ghost"]
+[ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="4_ghost"]
+[ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="5_ghost"]
+[ext_resource type="Resource" path="res://assets/battle_system/abilities/spells/necromancy_spell.tres" id="6_ghost"]
+[ext_resource type="PackedScene" uid="uid://cxoifrur1d7ae" path="res://scenes/units/forest_ghost.tscn" id="7_ghost"]
+
+[sub_resource type="Resource" id="Resource_melee"]
+script = ExtResource("2_ghost")
+metadata/_custom_type_script = "uid://dbehoqcrijunt"
+
+[sub_resource type="Resource" id="Resource_immune"]
+script = ExtResource("3_ghost")
+metadata/_custom_type_script = "uid://ik1ggaaf8fot"
+
+[resource]
+script = ExtResource("1_ghost")
+Name = "Forest Ghost"
+Description = "Restless spirits of those who died in the dark of the forest, bound to Shadow Hill by Melkor's will. Arrows pass through them as through mist, so only blade and spell can touch them. Once a battle, they call their fallen kin back from the shadows. Not all of them serve the dark gladly: a host strong enough might win them over, and learn their art."
+MaxHealth = 30
+Strength = 7
+Defense = 5
+SpeedTier = 5
+StartingMana = 15
+MaxMana = 15
+MeleeAttack = SubResource("Resource_melee")
+Spells = Array[ExtResource("4_ghost")]([ExtResource("6_ghost")])
+Passives = Array[ExtResource("5_ghost")]([SubResource("Resource_immune")])
+Model = ExtResource("7_ghost")
+metadata/_custom_type_script = "uid://cj3g6btx1kotr"

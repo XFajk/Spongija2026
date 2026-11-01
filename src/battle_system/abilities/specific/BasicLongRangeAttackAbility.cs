@@ -13,7 +13,8 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
     [Export(PropertyHint.Range, "0,85")]
     public float ShootAngle { get; set; } = 30f;
 
-    // Height above the units' origins (on the ground) the projectile leaves from and hits at, in meters
+    // Height above the units' origins (on the ground) the projectile hits at, in meters, and leaves from if the
+    // shooter has no UnitNode.LaunchPoint
     [Export(PropertyHint.Range, "0,3")]
     public float ShootHeight { get; set; } = 0.5f;
 
@@ -29,20 +30,25 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
         }
 
         userNode.FaceTowards(target);
+        // The projectile leaves at the shot's hit frame (right away if the model has no shooting animation)
+        UnitAnimation shot = userNode.PlayRangedAttack();
+        await shot.Hit;
 
         // Units stand at their footprint's center, so this also aims at the middle of a 2x2 target
-        Vector3 start = userNode.GlobalPosition + Vector3.Up * ShootHeight;
+        Vector3 start = userNode.GetLaunchPosition(ShootHeight);
         Vector3 end = targetNode.GlobalPosition + Vector3.Up * ShootHeight;
 
         var projectile = Projectile.Spawn(arena, GD.Load<PackedScene>(ProjectileScene), start, end, ShootAngle);
         if (projectile != null)
         {
+            arena.FollowWithCamera(user, projectile);
             await projectile.ToSignal(projectile, Projectile.SignalName.Landed);
             projectile.QueueFree();
         }
         // Outside the if, so the hit still lands when the projectile fails to spawn
         target.TakeDamage(GetDamage(user, target));
 
+        await shot.Finished;
         userNode.FaceEnemySide();
     }
 }
