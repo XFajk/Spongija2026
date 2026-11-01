@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_njrqm"]
 [ext_resource type="PackedScene" uid="uid://dphq6ph1yv1hr" path="res://scenes/units/pilgrim_quendi.tscn" id="2_qqub5"]
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_qqub5"]
+[ext_resource type="Texture2D" uid="uid://cpmm7x8qe4xpp" path="res://assets/units_icons/pilgrim.png" id="6_q36qr"]
 
 [sub_resource type="Resource" id="Resource_qqub5"]
 script = ExtResource("1_njrqm")
@@ -13,6 +14,7 @@ metadata/_custom_type_script = "uid://dbehoqcrijunt"
 [resource]
 script = ExtResource("3_qqub5")
 Name = "Pilgrim Quendi"
+texture = ExtResource("6_q36qr")
 Description = "Elves of the Great Journey, who left the waters of Cuiviénen to follow Oromë into the west. They carry staves and walking poles rather than swords, and fall easily, but there are many of them, and every camp along the road sends more. Taught and armed, they become archers, warriors and riders."
 MaxHealth = 20
 Strength = 3

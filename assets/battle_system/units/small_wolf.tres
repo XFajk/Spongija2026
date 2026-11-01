@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_jw3w2"]
 [ext_resource type="PackedScene" uid="uid://blvkxhsy0vb4a" path="res://scenes/units/small_wolf.tscn" id="2_ud42c"]
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_2eli6"]
+[ext_resource type="Texture2D" uid="uid://71ddjx4rm1h4" path="res://assets/units_icons/cub_wolf.png" id="6_ud42c"]
 
 [sub_resource type="Resource" id="Resource_kbp5n"]
 script = ExtResource("1_2eli6")
@@ -13,6 +14,7 @@ metadata/_custom_type_script = "uid://dbehoqcrijunt"
 [resource]
 script = ExtResource("3_2eli6")
 Name = "Cub"
+texture = ExtResource("6_ud42c")
 Description = "Young wolves of the Eastern Woods, running in big hungry packs. One alone is no match for an elf, but they're quick to close in, and they never come alone."
 MaxHealth = 12
 Strength = 3

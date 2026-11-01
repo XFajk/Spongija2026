@@ -6,12 +6,12 @@
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_743o3"]
 [ext_resource type="Resource" uid="uid://6lki1oqmls1" path="res://assets/battle_system/abilities/spells/fire_ball_spell_for_units.tres" id="4_q5xll"]
 [ext_resource type="Resource" uid="uid://dseb7o15vd18m" path="res://assets/battle_system/abilities/spells/heal_spell.tres" id="5_e8vb7"]
-[ext_resource type="Texture2D" uid="uid://dndqmhsahycyb" path="res://assets/ui/spell_icons/fireball.svg" id="7_e8vb7"]
+[ext_resource type="Texture2D" uid="uid://cko0dwr01mro2" path="res://assets/units_icons/wizard.png" id="7_kmwtq"]
 
 [resource]
 script = ExtResource("3_743o3")
 Name = "Wizard Quendi"
-texture = ExtResource("7_e8vb7")
+texture = ExtResource("7_kmwtq")
 Description = "Elves who first learned the words of power, back when the stars were the only light. They carry no weapon and can't strike back, but they throw fire at the enemy or close their kin's wounds. Their strength runs out with their mana, so spend it well."
 MaxHealth = 20
 Defense = 2

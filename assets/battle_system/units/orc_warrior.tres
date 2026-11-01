@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="Unit" format=3]
+[gd_resource type="Resource" script_class="Unit" format=3 uid="uid://c8e1he2vgqad1"]
 
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="1_orc"]
 [ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="2_orc"]
 [ext_resource type="PackedScene" uid="uid://bs301ou6e73rc" path="res://scenes/units/orc_warrior.tscn" id="3_orc"]
+[ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="3_vrekw"]
+[ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="4_bnn5t"]
 
 [sub_resource type="Resource" id="Resource_melee"]
 script = ExtResource("2_orc")

@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_hc6ia"]
 [ext_resource type="Resource" uid="uid://bdthpuy62xd12" path="res://assets/battle_system/abilities/spells/web_ball_spell.tres" id="5_dcyt5"]
 [ext_resource type="Resource" path="res://assets/battle_system/effects/slow_effect.tres" id="6_slow"]
+[ext_resource type="Texture2D" uid="uid://dxyo5rw467yc3" path="res://assets/units_icons/queen_spider.png" id="8_02owu"]
 
 [sub_resource type="Resource" id="Resource_hc6ia"]
 script = ExtResource("1_hc6ia")
@@ -17,6 +18,7 @@ metadata/_custom_type_script = "uid://dls7msx604j8"
 [resource]
 script = ExtResource("3_hc6ia")
 Name = "Big Spider"
+texture = ExtResource("8_02owu")
 Description = "The Spider Queen. Born of the dark that Melkor let loose in Middle-earth, she rules the Deep Thicket from a nest of grey silk and old bones. She doesn't chase her prey. She spits strands of web over it, and once they've bound its legs, even the swiftest move like they're wading through tar."
 MaxHealth = 600
 Strength = 60
