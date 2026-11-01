@@ -7,3 +7,8 @@ public interface ISavable
 	Godot.Collections.Dictionary<string, Variant> Save();
 	void Load(Godot.Collections.Dictionary data);
 }
+
+public static class CurrentSave
+{
+	public static int CurrentSaveIndex;
+}

@@ -4,6 +4,7 @@ using System;
 public partial class ArtefactPOI : PointOfInterest
 {
 	[Export] Artefact? Artefact;
+	[Export] public float RotationSpeed = 1.0f;
 
 	[Export]
 	public PackedScene? FloatingTextScene { get; set; }
@@ -13,6 +14,16 @@ public partial class ArtefactPOI : PointOfInterest
 
 	[Export]
 	public Control? Container { get; set; }
+
+	public override void _Process(double delta)
+	{
+		_mesh!.GlobalRotate(Vector3.Up, RotationSpeed * (float)delta);
+		if (!MeshOutlineHighlight)
+		{
+			_mesh!.GlobalRotate(Vector3.Up, RotationSpeed * (float)delta);
+		}
+	}
+
 
 	public override void Access()
 	{

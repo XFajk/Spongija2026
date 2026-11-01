@@ -15,6 +15,7 @@ public partial class Arena : Node3D
 	public const string SmallTileScene = "uid://c16eba65w4ptq";
 	public const string DoubleTileScene = "uid://fahq2oemfim8";
 	public const string ArenaUserInterfaceScene = "uid://cd3eg1hleix2";
+	public const string EndFightScreenScene = "uid://ce5i5duugw3fw";
 
 	[Export]
 	public Node3D? SetupBoardCameraPosition { get; set; } = null;
@@ -87,6 +88,11 @@ public partial class Arena : Node3D
 	// Set by SceneTransitions.EnterArena.
 	public Army? PlayerArmy { get; private set; }
 	public Army? ComputerArmy { get; private set; }
+
+	// Both sides' stacks as the battle began, in the armies' order: dead stacks are removed from the armies, but the
+	// end screen counts their losses too.
+	private List<Stack> _playerStartingStacks = [];
+	private List<Stack> _computerStartingStacks = [];
 
 	public Battle? Battle { get; private set; }
 
@@ -247,6 +253,8 @@ public partial class Arena : Node3D
 	{
 		PlayerArmy = playerArmy;
 		ComputerArmy = computerArmy;
+		_playerStartingStacks = [.. playerArmy.Stacks];
+		_computerStartingStacks = [.. computerArmy.Stacks];
 	}
 
 	// Setup the Scene to let the player place their units before the battle begins.
@@ -619,62 +627,99 @@ public partial class Arena : Node3D
 			// CurrentReachability, not the local: a hero spell cast during the player's turn searches it again
 			// The computer's hero spell plays first (ExecuteTurn), so its shots start on the hero
 			bool shots = await BeginCinematic(stack, output, output.HeroSpell != null ? HeroFocus(stack) : null);
-            await ExecuteTurn(battle, stack, output, CurrentReachability ?? reachability);
-            if (shots)
-                await EndCinematic();
-            CurrentReachability = null;
-            await EndTurn(stack);
-            RemoveDeadStacks(battle);
-        }
+			await ExecuteTurn(battle, stack, output, CurrentReachability ?? reachability);
+			if (shots)
+				await EndCinematic();
+			CurrentReachability = null;
+			await EndTurn(stack);
+			RemoveDeadStacks(battle);
+		}
 
-        CurrentStack = null;
-        battle.EndBattle();
-        BattleEnded?.Invoke(battle.Winner);
-    }
+		CurrentStack = null;
+		battle.EndBattle();
+		BattleEnded?.Invoke(battle.Winner);
+		ShowEndFightScreen(battle.Winner == PlayerArmy);
+	}
 
-    #endregion
+	#endregion
 
-    #region Turn input
+	#region End of battle
 
-    private Task<TurnOutput> GetPlayerTurn(Battle battle, Stack stack, Reachability reachability)
-    {
-        ShowTurnTargets(battle, stack, reachability);
-        _userInterface?.UpdateSpellButtons(stack);
-        _userInterface?.SetWaitEnabled(battle.CanWait(stack));
-        // Size 2 hover: reachability.GetAnchorsCovering(hoveredTile) gives the valid 2x2 squares under the mouse.
-        // Clicks build a TurnOutput (MoveTo is an anchor) and call SubmitPlayerTurn.
-        _playerTurn = new TaskCompletionSource<TurnOutput>();
-        return _playerTurn.Task;
-    }
+	// The end screen over everything: the units each side lost. Its confirm button goes back to the adventure map.
+	private void ShowEndFightScreen(bool won)
+	{
+		if (PlayerCamera != null)
+			PlayerCamera.InteractionEnabled = false;
 
-    // The normal turn input: reachable tiles, and red tiles under the melee and ranged targets.
-    private void ShowTurnTargets(Battle battle, Stack stack, Reachability reachability)
-    {
-        ShowTiles(reachability.GetTiles());
+		var screen = GD.Load<PackedScene>(EndFightScreenScene).Instantiate<EndFightScreen>();
+		AddLosses(screen.playerLostUnits, _playerStartingStacks);
+		AddLosses(screen.opponentLostUnits, _computerStartingStacks);
+		foreach (Stack stack in _playerStartingStacks)
+			screen.survivingQuantities.Add(stack.Quantity);
+		screen.heroMana = PlayerArmy?.Hero?.Mana;
 
-        // The tiles under every enemy the stack can melee turn red; hovering one picks where to attack it from
-        _meleeTargets.AddRange(battle.GetMeleeTargets(stack, reachability));
-        // And so do the tiles under every enemy it can shoot; hovering one shows the arrow cursor
-        _rangedTargets.AddRange(battle.GetRangedTargets(stack, reachability));
-        foreach (Stack target in _meleeTargets.Concat(_rangedTargets))
-        {
-            ShowTiles(target.GetOccupiedTiles());
-            SetTilesHighlight(target.GetOccupiedTiles(), red: true, raised: false);
-        }
-    }
+		// Its own layer, so it's above the arena's interface whatever that draws
+		var layer = new CanvasLayer { Layer = 10 };
+		AddChild(layer);
+		layer.AddChild(screen);
+		screen.SetWon(won);
+		screen.Setup();
+		screen.Show();
+	}
 
-    // Hides the tiles and forgets the melee and ranged targets, the picked attack and the move preview.
-    private void ClearTurnTargets()
-    {
-        // While the preview anchor is still set, so HideAllTiles also resets the preview
-        HideAllTiles();
-        _meleeTargets.Clear();
-        _rangedTargets.Clear();
-        _pickedMeleeAttack = null;
-        _movePreviewAnchor = null;
-        if (MovePreview != null)
-            MovePreview.Enabled = false;
-    }
+	// One entry per stack that lost units, with how many it lost
+	private static void AddLosses(Godot.Collections.Array<StackResource> losses, List<Stack> startingStacks)
+	{
+		foreach (Stack stack in startingStacks)
+		{
+			if (stack.StartingQuantity > stack.Quantity)
+				losses.Add(new StackResource { Unit = stack.Unit, Quantity = stack.StartingQuantity - stack.Quantity });
+		}
+	}
+
+	#endregion
+
+	#region Turn input
+
+	private Task<TurnOutput> GetPlayerTurn(Battle battle, Stack stack, Reachability reachability)
+	{
+		ShowTurnTargets(battle, stack, reachability);
+		_userInterface?.UpdateSpellButtons(stack);
+		_userInterface?.SetWaitEnabled(battle.CanWait(stack));
+		// Size 2 hover: reachability.GetAnchorsCovering(hoveredTile) gives the valid 2x2 squares under the mouse.
+		// Clicks build a TurnOutput (MoveTo is an anchor) and call SubmitPlayerTurn.
+		_playerTurn = new TaskCompletionSource<TurnOutput>();
+		return _playerTurn.Task;
+	}
+
+	// The normal turn input: reachable tiles, and red tiles under the melee and ranged targets.
+	private void ShowTurnTargets(Battle battle, Stack stack, Reachability reachability)
+	{
+		ShowTiles(reachability.GetTiles());
+
+		// The tiles under every enemy the stack can melee turn red; hovering one picks where to attack it from
+		_meleeTargets.AddRange(battle.GetMeleeTargets(stack, reachability));
+		// And so do the tiles under every enemy it can shoot; hovering one shows the arrow cursor
+		_rangedTargets.AddRange(battle.GetRangedTargets(stack, reachability));
+		foreach (Stack target in _meleeTargets.Concat(_rangedTargets))
+		{
+			ShowTiles(target.GetOccupiedTiles());
+			SetTilesHighlight(target.GetOccupiedTiles(), red: true, raised: false);
+		}
+	}
+
+	// Hides the tiles and forgets the melee and ranged targets, the picked attack and the move preview.
+	private void ClearTurnTargets()
+	{
+		// While the preview anchor is still set, so HideAllTiles also resets the preview
+		HideAllTiles();
+		_meleeTargets.Clear();
+		_rangedTargets.Clear();
+		_pickedMeleeAttack = null;
+		_movePreviewAnchor = null;
+		if (MovePreview != null)
+			MovePreview.Enabled = false;
+	}
 
 	// After the player's turn is decided: also ends spell targeting and disables the spellbook buttons.
 	private void ClearTurnInput()
@@ -689,57 +734,57 @@ public partial class Arena : Node3D
 
 	// Whether the stack whose turn it is can melee the target this turn: from where it stands, or after moving
 	// to a reachable anchor next to it. False outside a turn. Doesn't check sides.
-    public bool CanCurrentStackMelee(Stack target) =>
-        Battle != null && CurrentStack != null && CurrentReachability != null
-        && Battle.CanMelee(CurrentStack, target, CurrentReachability);
+	public bool CanCurrentStackMelee(Stack target) =>
+		Battle != null && CurrentStack != null && CurrentReachability != null
+		&& Battle.CanMelee(CurrentStack, target, CurrentReachability);
 
-    public override void _Process(double delta)
-    {
-        if (IsPlayerTurn)
-            UpdateTurnHover();
-        // Every frame, not only when the pick changes, so it follows the camera
-        UpdateMeleeCursor();
-        UpdateRangedCursor();
-        UpdateSpellCursor();
-        UpdateActionPreview();
-        _userInterface?.SetHoveredStack(GetFocusedStack());
-    }
+	public override void _Process(double delta)
+	{
+		if (IsPlayerTurn)
+			UpdateTurnHover();
+		// Every frame, not only when the pick changes, so it follows the camera
+		UpdateMeleeCursor();
+		UpdateRangedCursor();
+		UpdateSpellCursor();
+		UpdateActionPreview();
+		_userInterface?.SetHoveredStack(GetFocusedStack());
+	}
 
-    // Shows under the hovered target what the action would do to it: units killed (or revived, by a spell).
+	// Shows under the hovered target what the action would do to it: units killed (or revived, by a spell).
 	// From the same amounts the abilities deal (GetDamage, SpellAbility.Evaluate), so it's what really happens.
 	// Retaliation isn't included.
-    private void UpdateActionPreview()
-    {
-        if (_userInterface == null)
-            return;
+	private void UpdateActionPreview()
+	{
+		if (_userInterface == null)
+			return;
 
-        Stack? target = null;
-        int killed = 0, revived = 0;
-        if (IsPlayerTurn && CurrentStack is Stack stack && Battle is Battle battle)
-        {
-            if (IsPickingSpellTarget)
-            {
-                if (_pickedSpell is SpellAbility spell && GetFocusedStack() is Stack hovered && _spellTargets.Contains(hovered))
-                {
-                    SpellEstimate estimate = _pickedSpellIsHero
-                        ? spell.EvaluateFromHero(stack, hovered, battle)
-                        : spell.Evaluate(stack, hovered, battle);
-                    (target, killed, revived) = (hovered, estimate.UnitsKilled, estimate.Revives);
-                }
-            }
-            else if (_pickedMeleeAttack is { } picked && stack.Unit.MeleeAttack is MeleeAttackAbility melee)
-            {
-                target = picked.Target;
-                killed = (int)target.GetUnitsKilledBy(melee.GetDamage(stack, target));
-            }
-            else if (GetFocusedRangedTarget() is Stack shot && stack.Unit.LongRangeAttack is LongRangeAttackAbility ranged)
-            {
-                target = shot;
-                killed = (int)shot.GetUnitsKilledBy(ranged.GetDamage(stack, shot));
-            }
-        }
-        _userInterface.SetActionPreview(target, killed, revived);
-    }
+		Stack? target = null;
+		int killed = 0, revived = 0;
+		if (IsPlayerTurn && CurrentStack is Stack stack && Battle is Battle battle)
+		{
+			if (IsPickingSpellTarget)
+			{
+				if (_pickedSpell is SpellAbility spell && GetFocusedStack() is Stack hovered && _spellTargets.Contains(hovered))
+				{
+					SpellEstimate estimate = _pickedSpellIsHero
+						? spell.EvaluateFromHero(stack, hovered, battle)
+						: spell.Evaluate(stack, hovered, battle);
+					(target, killed, revived) = (hovered, estimate.UnitsKilled, estimate.Revives);
+				}
+			}
+			else if (_pickedMeleeAttack is { } picked && stack.Unit.MeleeAttack is MeleeAttackAbility melee)
+			{
+				target = picked.Target;
+				killed = (int)target.GetUnitsKilledBy(melee.GetDamage(stack, target));
+			}
+			else if (GetFocusedRangedTarget() is Stack shot && stack.Unit.LongRangeAttack is LongRangeAttackAbility ranged)
+			{
+				target = shot;
+				killed = (int)shot.GetUnitsKilledBy(ranged.GetDamage(stack, shot));
+			}
+		}
+		_userInterface.SetActionPreview(target, killed, revived);
+	}
 
 	// Every frame on the player's turn: picks the attack position for the hovered melee target (red and raised),
 	// and for a 2x2 stack moves the move preview to it, or else to the hovered tile. Off while picking a spell target.
@@ -811,10 +856,10 @@ public partial class Arena : Node3D
 
 		// Shown by the current anchors: tiles under the preview enable it, the others their small tile
 		// or the stack's own double tile
-        ShowTiles(oldTiles.Concat(stack.GetTilesAt(anchor)));
-    }
+		ShowTiles(oldTiles.Concat(stack.GetTilesAt(anchor)));
+	}
 
-    // Moves the current stack: to the clicked tile for a 1x1 stack, to the move preview for a 2x2 stack
+	// Moves the current stack: to the clicked tile for a 1x1 stack, to the move preview for a 2x2 stack
 	// (the clicked tile may be any of the 4 it covers). False if it isn't the player's turn or it can't go there.
 	public bool TrySubmitMoveTo(Vector2I tile)
 	{
@@ -845,10 +890,10 @@ public partial class Arena : Node3D
 	};
 
 	// The melee target under the mouse (its unit or its tile). Null if the hovered thing isn't one.
-    private Stack? GetFocusedMeleeTarget() =>
-        GetFocusedStack() is Stack stack && _meleeTargets.Contains(stack) ? stack : null;
+	private Stack? GetFocusedMeleeTarget() =>
+		GetFocusedStack() is Stack stack && _meleeTargets.Contains(stack) ? stack : null;
 
-    // Of the positions the current stack can melee the target from, the one on the side of the target that the
+	// Of the positions the current stack can melee the target from, the one on the side of the target that the
 	// hover point (Arena-local, on the board plane) is on: the smallest angle around the target's footprint center.
 	public Vector2I? PickMeleeAttackAnchor(Stack target, Vector3 hoverPoint)
 	{
@@ -862,19 +907,19 @@ public partial class Arena : Node3D
 		Vector3 toMouse = hoverPoint - center;
 		toMouse.Y = 0;
 		// Right on the center there's no direction; keep the previous pick
-        if (toMouse.LengthSquared() < 1e-6f)
-            return _pickedMeleeAttack is { } p && p.Target == target ? p.Anchor : anchors[0];
-        toMouse = toMouse.Normalized();
+		if (toMouse.LengthSquared() < 1e-6f)
+			return _pickedMeleeAttack is { } p && p.Target == target ? p.Anchor : anchors[0];
+		toMouse = toMouse.Normalized();
 
-        return anchors.MaxBy(anchor =>
-        {
-            Vector3 toAnchor = GridToWorld(CurrentStack, anchor) - center;
-            toAnchor.Y = 0;
-            return toAnchor.Normalized().Dot(toMouse);
-        });
-    }
+		return anchors.MaxBy(anchor =>
+		{
+			Vector3 toAnchor = GridToWorld(CurrentStack, anchor) - center;
+			toAnchor.Y = 0;
+			return toAnchor.Normalized().Dot(toMouse);
+		});
+	}
 
-    // Melee attack on the target from the picked position, moving there first if needed.
+	// Melee attack on the target from the picked position, moving there first if needed.
 	// False, and nothing submitted, if it isn't the player's turn or the target can't be meleed.
 	public bool TrySubmitMeleeAttack(Stack target)
 	{
@@ -931,10 +976,10 @@ public partial class Arena : Node3D
 	#region Long range
 
 	// The ranged target under the mouse (its unit or its tile). Null if the hovered thing isn't one.
-    private Stack? GetFocusedRangedTarget() =>
-        GetFocusedStack() is Stack stack && _rangedTargets.Contains(stack) ? stack : null;
+	private Stack? GetFocusedRangedTarget() =>
+		GetFocusedStack() is Stack stack && _rangedTargets.Contains(stack) ? stack : null;
 
-    // Shoots the target from where the current stack stands. False, and nothing submitted,
+	// Shoots the target from where the current stack stands. False, and nothing submitted,
 	// if it isn't the player's turn or the target can't be shot.
 	public bool TrySubmitRangedAttack(Stack target)
 	{
@@ -949,19 +994,19 @@ public partial class Arena : Node3D
 	}
 
 	// While a ranged target is hovered on the player's turn, the mouse is replaced by the arrow.
-    private void UpdateRangedCursor()
-    {
-        if (_userInterface == null)
-            return;
-        if (IsPlayerTurn && !IsPickingSpellTarget && GetFocusedRangedTarget() != null)
-            _userInterface.ShowRangedCursor();
-        else
-            _userInterface.HideRangedCursor();
-    }
+	private void UpdateRangedCursor()
+	{
+		if (_userInterface == null)
+			return;
+		if (IsPlayerTurn && !IsPickingSpellTarget && GetFocusedRangedTarget() != null)
+			_userInterface.ShowRangedCursor();
+		else
+			_userInterface.HideRangedCursor();
+	}
 
-    #endregion
+	#endregion
 
-    #region Spells
+	#region Spells
 
 	// Called when a spell is picked in the spellbook: swaps the normal turn input for picking the spell's target.
 	private void BeginSpellTargeting(SpellAbility spell, bool isHeroSpell)
@@ -1127,42 +1172,42 @@ public partial class Arena : Node3D
 
     private async Task ExecuteTurn(Battle battle, Stack user, TurnOutput output, Reachability reachability)
     {
-        // The hero first, like the player's hero casting before their stack acts; the AI picked its target on the
-        // board as it was before the move. The shots started on the hero (RunBattle) and go to the stack after.
-        if (output.HeroSpell is var (spell, spellTarget))
-        {
-            Hero? hero = user.Hero;
-            if (hero != null && battle.SpendHeroMana(hero, spell))
-                await PlayHeroSpell(user, spell, spellTarget);
-            if (output.MoveTo != null || output.Entries.Count > 0)
-                await FocusCinematicOnStack(user);
-        }
+		// The hero first, like the player's hero casting before their stack acts; the AI picked its target on the
+		// board as it was before the move. The shots started on the hero (RunBattle) and go to the stack after.
+		if (output.HeroSpell is var (spell, spellTarget))
+		{
+			Hero? hero = user.Hero;
+			if (hero != null && battle.SpendHeroMana(hero, spell))
+				await PlayHeroSpell(user, spell, spellTarget);
+			if (output.MoveTo != null || output.Entries.Count > 0)
+				await FocusCinematicOnStack(user);
+		}
 
-        if (output.MoveTo is Vector2I moveTo)
-        {
-            if (reachability.CanReach(moveTo) && battle.TryPlaceStack(user, moveTo))
-                await AnimateMove(user, reachability.GetPath(moveTo));
-            else
+		if (output.MoveTo is Vector2I moveTo)
+		{
+			if (reachability.CanReach(moveTo) && battle.TryPlaceStack(user, moveTo))
+				await AnimateMove(user, reachability.GetPath(moveTo));
+			else
 				GD.PushWarning($"{user.Unit.Name} can't move to {moveTo}.");
-        }
+		}
 
-        var waves = new SortedDictionary<int, List<PendingAbility>>();
-        foreach (TurnEntry entry in output.Entries)
-            AddToWave(waves, entry.Wave, new PendingAbility(user, entry.Ability, entry.Target, false));
+		var waves = new SortedDictionary<int, List<PendingAbility>>();
+		foreach (TurnEntry entry in output.Entries)
+			AddToWave(waves, entry.Wave, new PendingAbility(user, entry.Ability, entry.Target, false));
 
-        // Retaliations add entries to later waves while this runs, so look up the next wave each time.
-        int wave = 0;
-        while (waves.Keys.Any(w => w >= wave))
-        {
-            wave = waves.Keys.First(w => w >= wave);
-            FocusCinematicOnWave(user, waves[wave]);
-            List<Task> tasks = waves[wave].Select(p => ExecuteAbility(battle, p, wave, waves)).ToList();
-            await Task.WhenAll(tasks);
-            wave++;
-        }
-    }
+		// Retaliations add entries to later waves while this runs, so look up the next wave each time.
+		int wave = 0;
+		while (waves.Keys.Any(w => w >= wave))
+		{
+			wave = waves.Keys.First(w => w >= wave);
+			FocusCinematicOnWave(user, waves[wave]);
+			List<Task> tasks = waves[wave].Select(p => ExecuteAbility(battle, p, wave, waves)).ToList();
+			await Task.WhenAll(tasks);
+			wave++;
+		}
+	}
 
-    // Walks the stack's model through the anchors in order. The board state has already changed.
+	// Walks the stack's model through the anchors in order. The board state has already changed.
     private async Task AnimateMove(Stack stack, List<Vector2I> path)
     {
         HideTiles(stack.GetOccupiedTiles());
@@ -1182,7 +1227,7 @@ public partial class Arena : Node3D
 
         await pending.Ability.Use(pending.User, pending.Target, this);
 
-        // The AI's stacks remember who attacked them; striking back doesn't count
+		// The AI's stacks remember who attacked them; striking back doesn't count
         if (!pending.IsRetaliation)
             _computerAI?.OnStackAttacked(pending.User, pending.Target);
 
@@ -1233,35 +1278,35 @@ public partial class Arena : Node3D
     }
 
     // Removes dead stacks from the battle (armies, round queue, board) and their units from the scene.
-    // A 2x2 stack's double tile is a child of its unit, so it goes too.
-    private void RemoveDeadStacks(Battle battle)
-    {
-        foreach (Stack stack in battle.RemoveDeadStacks())
-        {
-            // TODO: play a death animation and await it before freeing
-            stack.NodeRepresentation?.QueueFree();
-            stack.NodeRepresentation = null;
-            _userInterface?.RemoveStackLabel(stack);
-        }
-    }
+	// A 2x2 stack's double tile is a child of its unit, so it goes too.
+	private void RemoveDeadStacks(Battle battle)
+	{
+		foreach (Stack stack in battle.RemoveDeadStacks())
+		{
+			// TODO: play a death animation and await it before freeing
+			stack.NodeRepresentation?.QueueFree();
+			stack.NodeRepresentation = null;
+			_userInterface?.RemoveStackLabel(stack);
+		}
+	}
 
-    private async Task ApplyEffect(IEffect effect, Stack target)
-    {
-        if (target.IsDead)
-            return;
-        await effect.Apply(target, this);
-        effect.RemainingDuration--;
-    }
+	private async Task ApplyEffect(IEffect effect, Stack target)
+	{
+		if (target.IsDead)
+			return;
+		await effect.Apply(target, this);
+		effect.RemainingDuration--;
+	}
 
-    #endregion
+	#endregion
 
-    #region Heroes
+	#region Heroes
 
-    private UnitAnimationManager? _playerHeroModel;
-    private UnitAnimationManager? _computerHeroModel;
+	private UnitAnimationManager? _playerHeroModel;
+	private UnitAnimationManager? _computerHeroModel;
 
-    // Puts each army's hero model (PlayerHeroModel, ComputerHeroModel) where the hero stands: the player's at
-    // HeroSpellCastPosition, the computer's at the marker mirrored, both facing the other side like the units.
+	// Puts each army's hero model (PlayerHeroModel, ComputerHeroModel) where the hero stands: the player's at
+	// HeroSpellCastPosition, the computer's at the marker mirrored, both facing the other side like the units.
     // Only for armies with a hero, and only once.
     private void SpawnHeroModels()
     {
@@ -1286,36 +1331,36 @@ public partial class Arena : Node3D
         }
 
         AddChild(model);
-        // Arena-local; the computer's mirrored like GetHeroCastOrigin
-        Vector3 position = ToLocal(HeroSpellCastPosition!.GlobalPosition);
-        model.Position = playerSide ? position : new Vector3(-position.X, position.Y, position.Z);
-        model.RotationDegrees = new Vector3(0, playerSide ? -90 : 90, 0);
-        return model;
-    }
+		// Arena-local; the computer's mirrored like GetHeroCastOrigin
+		Vector3 position = ToLocal(HeroSpellCastPosition!.GlobalPosition);
+		model.Position = playerSide ? position : new Vector3(-position.X, position.Y, position.Z);
+		model.RotationDegrees = new Vector3(0, playerSide ? -90 : 90, 0);
+		return model;
+	}
 
-    // The model of the hero of the stack's army, null if it has none
+	// The model of the hero of the stack's army, null if it has none
     private UnitAnimationManager? GetHeroModel(Stack stack)
     {
         UnitAnimationManager? model = Battle?.IsPlayerStack(stack) ?? true ? _playerHeroModel : _computerHeroModel;
         return model != null && IsInstanceValid(model) ? model : null;
     }
 
-    // A hero spell with the hero's cast animation: the spell is released at the cast's hit frame, from the hero's
-    // hand (GetHeroCastOrigin, read then), and the cast finishes after it. Without a model the spell plays right away.
-    private async Task PlayHeroSpell(Stack caster, SpellAbility spell, Stack target)
-    {
-        UnitAnimation cast = GetHeroModel(caster)?.PlaySpellCast() ?? UnitAnimation.None;
-        await cast.Hit;
-        await spell.UseFromHero(caster, GetHeroCastOrigin(caster), target, this);
-        await cast.Finished;
-    }
+	// A hero spell with the hero's cast animation: the spell is released at the cast's hit frame, from the hero's
+	// hand (GetHeroCastOrigin, read then), and the cast finishes after it. Without a model the spell plays right away.
+	private async Task PlayHeroSpell(Stack caster, SpellAbility spell, Stack target)
+	{
+		UnitAnimation cast = GetHeroModel(caster)?.PlaySpellCast() ?? UnitAnimation.None;
+		await cast.Hit;
+		await spell.UseFromHero(caster, GetHeroCastOrigin(caster), target, this);
+		await cast.Finished;
+	}
 
-    #endregion
+	#endregion
 
-    #region Cinematic camera
+	#region Cinematic camera
 
-    // Starts the close shots of a turn on the acting stack (or on the given focus): input off, and the camera given
-    // CinematicLeadIn to get there. A null output is a hero spell in the middle of the player's turn. False (and
+	// Starts the close shots of a turn on the acting stack (or on the given focus): input off, and the camera given
+	// CinematicLeadIn to get there. A null output is a hero spell in the middle of the player's turn. False (and
     // nothing started) if the shots are off or the turn does nothing to show (a skipped turn).
     private async Task<bool> BeginCinematic(Stack stack, TurnOutput? output, Func<Vector3>? focus = null)
     {
@@ -1331,16 +1376,16 @@ public partial class Arena : Node3D
         return true;
     }
 
-    // From the hero's spell straight to the acting stack, without going back to the overview in between
-    private async Task FocusCinematicOnStack(Stack stack)
-    {
-        if (_cinematicSubject == null || PlayerCamera == null || stack.NodeRepresentation is not UnitNode node)
-            return;
-        PlayerCamera.SetShotFocus(FollowNodes(node));
-        await WaitCinematicLeadIn();
-    }
+	// From the hero's spell straight to the acting stack, without going back to the overview in between
+	private async Task FocusCinematicOnStack(Stack stack)
+	{
+		if (_cinematicSubject == null || PlayerCamera == null || stack.NodeRepresentation is not UnitNode node)
+			return;
+		PlayerCamera.SetShotFocus(FollowNodes(node));
+		await WaitCinematicLeadIn();
+	}
 
-    // Hero spell shots start on the hero's model, or without one on the point its spells start from
+	// Hero spell shots start on the hero's model, or without one on the point its spells start from
     // (GetHeroCastOrigin), so the spell is seen leaving the hero before its projectile or effect takes over
     // (FollowWithCamera). No CinematicFocusHeight for the point: the marker already is the launch point.
     private Func<Vector3> HeroFocus(Stack stack)
@@ -1369,25 +1414,25 @@ public partial class Arena : Node3D
         PlayerCamera.InteractionEnabled = true;
     }
 
-    // Abilities run in parallel within a wave, but the camera shows one: the acting stack's own, else the wave's
+	// Abilities run in parallel within a wave, but the camera shows one: the acting stack's own, else the wave's
     // first (a retaliation). A melee hit is framed between the attacker and the target; anything else starts on
-    // its user, and its projectile or effect takes over once it's spawned (FollowWithCamera).
-    private void FocusCinematicOnWave(Stack turnStack, List<PendingAbility> wave)
-    {
-        if (_cinematicSubject == null || PlayerCamera == null || wave.Count == 0)
-            return;
+	// its user, and its projectile or effect takes over once it's spawned (FollowWithCamera).
+	private void FocusCinematicOnWave(Stack turnStack, List<PendingAbility> wave)
+	{
+		if (_cinematicSubject == null || PlayerCamera == null || wave.Count == 0)
+			return;
 
-        PendingAbility shown = wave.FirstOrDefault(p => p.User == turnStack, wave[0]);
-        if (shown.User.NodeRepresentation is not UnitNode userNode)
-            return;
-        _cinematicSubject = shown.User;
-        PlayerCamera.SetShotFocus(shown.Ability is MeleeAttackAbility && shown.Target.NodeRepresentation is UnitNode targetNode
-            ? FollowNodes(userNode, targetNode)
-            : FollowNodes(userNode));
-    }
+		PendingAbility shown = wave.FirstOrDefault(p => p.User == turnStack, wave[0]);
+		if (shown.User.NodeRepresentation is not UnitNode userNode)
+			return;
+		_cinematicSubject = shown.User;
+		PlayerCamera.SetShotFocus(shown.Ability is MeleeAttackAbility && shown.Target.NodeRepresentation is UnitNode targetNode
+			? FollowNodes(userNode, targetNode)
+			: FollowNodes(userNode));
+	}
 
-    // Called by abilities for the projectile or effect they spawn: the shots follow it if it's the shown stack's.
-    // The camera stays where the node ended up after it's freed.
+	// Called by abilities for the projectile or effect they spawn: the shots follow it if it's the shown stack's.
+	// The camera stays where the node ended up after it's freed.
     public void FollowWithCamera(Stack user, Node3D node)
     {
         if (user == _cinematicSubject && PlayerCamera != null)

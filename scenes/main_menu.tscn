@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://mm5wijfsiwhe" path="res://assets/settings/input.tres" id="5_3ngc3"]
 [ext_resource type="Resource" uid="uid://7db8pyme20tx" path="res://assets/settings/audio.tres" id="6_fefxt"]
 [ext_resource type="Resource" uid="uid://diqv13xtgj5eb" path="res://assets/settings/mysc.tres" id="7_1sjpa"]
+[ext_resource type="PackedScene" uid="uid://bp7h6wk0dp8i7" path="res://scenes/ui/select_file.tscn" id="12_flqon"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s2dh3"]
 texture = ExtResource("2_5dd4i")
@@ -20,7 +21,7 @@ shader = ExtResource("3_lgwnu")
 shader_parameter/strength = 1.0
 shader_parameter/center_alpha = 0.626000029735
 shader_parameter/radius = 0.362000017195
-shader_parameter/softness = 0.47300002176898004
+shader_parameter/softness = 0.47300002176898
 
 [sub_resource type="LabelSettings" id="LabelSettings_5dd4i"]
 font = ExtResource("4_lgwnu")
@@ -104,6 +105,33 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flqon"]
+bg_color = Color(0.26515836, 0.042844743, 0.04317692, 1)
+border_width_bottom = 7
+border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcqid"]
+bg_color = Color(0.26515836, 0.042844743, 0.04317692, 1)
+border_width_top = 7
+border_color = Color(0.53333336, 0.28627452, 0.047058824, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ajci"]
+bg_color = Color(0.35533425, 0.07014417, 0.07015758, 1)
+border_width_bottom = 7
+border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="MainMenu" type="Control" unique_id=2050550028]
 layout_mode = 3
@@ -443,3 +471,43 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 50
 text = "EXIT TO DESKTOP"
+
+[node name="select_file" parent="." unique_id=1218259961 instance=ExtResource("12_flqon")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.0
+offset_top = -225.0
+offset_right = 245.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CancelSaveMenu" type="Button" parent="." unique_id=1991751209]
+visible = false
+custom_minimum_size = Vector2(350, 70)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = 342.0
+offset_right = 175.0
+offset_bottom = 419.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_flqon")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rcqid")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1ajci")
+text = "BACK"

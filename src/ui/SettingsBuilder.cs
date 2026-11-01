@@ -205,16 +205,19 @@ public partial class SettingsBuilder : Control
 		{
 			case ToggleSetting toggle:
 				(instance as ToggleSettingUI)?.Setup(toggle.name);
+				(instance as ToggleSettingUI)!.GetNode<CheckBox>("CheckBox").Toggled += (toggled) => Call(toggle.function!, toggled);
 				break;
 
 			case SliderSetting slider:
 				(instance as SliderSettingUI)?.Setup(
 					slider.name, slider.minValue, slider.maxValue, slider.step);
+				(instance as SliderSettingUI)!.GetNode<HSlider>("HSlider").ValueChanged += (value) => Call(setting.function!, value);
 				break;
 
 			case Dropdown dropdown:
 				(instance as DropdownSettingUI)?.Setup(
 					dropdown.name, dropdown.options);
+				(instance as DropdownSettingUI)!.GetNode<OptionButton>("OptionButton").ItemSelected += (index) => Call(dropdown.function!, index);
 				break;
 
 			case TitleSetting title:
@@ -225,5 +228,15 @@ public partial class SettingsBuilder : Control
 				GD.PushWarning($"Unknown type of Setting: {setting.name}");
 				break;
 		}
+	}
+
+	public void Fullscreen(bool _fullscreen)
+	{
+		GD.Print(_fullscreen);
+	}
+
+	public void Resolution(int _index)
+	{
+		
 	}
 }

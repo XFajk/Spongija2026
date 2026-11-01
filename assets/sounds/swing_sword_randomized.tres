@@ -1,0 +1,12 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://b1t6tuy4fgibn"]
+
+[ext_resource type="AudioStream" uid="uid://u7yxhov14ftq" path="res://assets/sounds/sword/Sword Attack 1.ogg" id="1_ip2qn"]
+[ext_resource type="AudioStream" uid="uid://d0yd5agtw8uq6" path="res://assets/sounds/sword/Sword Attack 2.ogg" id="2_h0yx8"]
+[ext_resource type="AudioStream" uid="uid://dxomxwmnmo3ds" path="res://assets/sounds/sword/Sword Attack 3.ogg" id="3_wtdnc"]
+
+[resource]
+random_pitch = 1.0594631
+streams_count = 3
+stream_0/stream = ExtResource("1_ip2qn")
+stream_1/stream = ExtResource("2_h0yx8")
+stream_2/stream = ExtResource("3_wtdnc")

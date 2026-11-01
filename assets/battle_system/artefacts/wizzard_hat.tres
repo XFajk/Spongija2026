@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Artefact" format=3 uid="uid://cpdv5gxr6hjrb"]
 
-[ext_resource type="Texture2D" uid="uid://bdq131nk2o88n" path="res://assets/ui/heal_color.png" id="1_5igqn"]
+[ext_resource type="Texture2D" uid="uid://b5nmciv4ouvf6" path="res://assets/artefacts_icons/magic_hat.png" id="1_5igqn"]
 [ext_resource type="Script" uid="uid://dro3uwa3xh26h" path="res://src/battle_system/artefacts/Artefact.cs" id="2_fq3o2"]
 
 [resource]

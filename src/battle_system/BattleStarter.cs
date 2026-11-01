@@ -39,6 +39,8 @@ public partial class BattleStarter : Node
 			}
 		}
 
+		GetNode<SaveManager>("/root/Map/SaveSystem").SaveGame(CurrentSave.CurrentSaveIndex);
+
 		SceneTransitions.EnterArena(GetTree(), playerArmy, computerArmy);
 	}
 

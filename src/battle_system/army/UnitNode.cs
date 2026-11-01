@@ -59,6 +59,25 @@ public partial class UnitNode : Area3D, IInteractable
     [Export(PropertyHint.Range, "0,0.1")]
     public float ActiveOutlineThickness { get; set; } = 0.04f;
 
+    // Sounds the unit makes itself, for models that don't play them from their animations (e.g. the forest ghost,
+    // which has no UnitAnimationManager). The move sound plays while the unit moves and stops when it arrives; the
+    // others play when their animation starts (PlayMeleeAttack, PlayRangedAttack, PlaySpellCast). None if null.
+    [ExportGroup("Sounds")]
+    [Export]
+    public SoundCue? MoveSound { get; set; }
+
+    [Export]
+    public SoundCue? MeleeSound { get; set; }
+
+    [Export]
+    public SoundCue? RangedSound { get; set; }
+
+    [Export]
+    public SoundCue? CastSound { get; set; }
+
+    // The move sound playing, stopped when the move ends
+    private AudioStreamPlayer? _moveSoundPlayer;
+
     private bool _isActive;
     private bool _hoverOutlined;
 
@@ -404,6 +423,10 @@ public partial class UnitNode : Area3D, IInteractable
         var tween = CreateTween();
         var delay = MovementTime;
 
+        StartMoveSound();
+        // Stopped when MovementCompleted is emitted, at the end of either style
+        tween.Finished += StopMoveSound;
+
         switch (MovementStyle)
         {
             case MovementStyle.Walk:
@@ -447,19 +470,59 @@ public partial class UnitNode : Area3D, IInteractable
 
     // The model's one-shot animations (UnitAnimationManager plays them); UnitAnimation.None without a manager
 
+    // Each also plays the unit's own sound for it, if it has one (#region Sounds)
+
     // Plays the model's melee attack; Hit is when the weapon connects
-    public UnitAnimation PlayMeleeAttack() => _animations?.PlayMeleeAttack() ?? UnitAnimation.None;
+    public UnitAnimation PlayMeleeAttack()
+    {
+        PlaySound(MeleeSound);
+        return _animations?.PlayMeleeAttack() ?? UnitAnimation.None;
+    }
 
     // Plays the model's ranged attack; Hit is when the shot leaves
-    public UnitAnimation PlayRangedAttack() => _animations?.PlayRangedAttack() ?? UnitAnimation.None;
+    public UnitAnimation PlayRangedAttack()
+    {
+        PlaySound(RangedSound);
+        return _animations?.PlayRangedAttack() ?? UnitAnimation.None;
+    }
 
     // Plays the model's spell cast; Hit is when the spell is released
-    public UnitAnimation PlaySpellCast() => _animations?.PlaySpellCast() ?? UnitAnimation.None;
+    public UnitAnimation PlaySpellCast()
+    {
+        PlaySound(CastSound);
+        return _animations?.PlaySpellCast() ?? UnitAnimation.None;
+    }
 
     private void SetRunning(bool running)
     {
         if (_animations != null)
             _animations.IsRunning = running;
+    }
+
+    #endregion
+
+    #region Sounds
+
+    // Under the Arena rather than the unit, so a sound plays out even if the unit dies right after
+    private Node SoundParent => (Node?)ArenaRef ?? GetParent() ?? this;
+
+    private void PlaySound(SoundCue? cue) => OneShotSound.Play(SoundParent, cue);
+
+    private void StartMoveSound()
+    {
+        StopMoveSound();
+        _moveSoundPlayer = OneShotSound.Play(SoundParent, MoveSound);
+    }
+
+    private void StopMoveSound()
+    {
+        OneShotSound.Stop(_moveSoundPlayer);
+        _moveSoundPlayer = null;
+    }
+
+    public override void _ExitTree()
+    {
+        StopMoveSound();
     }
 
     #endregion

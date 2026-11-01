@@ -18,6 +18,10 @@ public partial class NecromancySpell : SpellAbility
     [Export]
     public PackedScene? VisualEffect { get; set; }
 
+    // Played when the raising starts, for unit and hero casts alike (OneShotSound); none if null
+    [Export]
+    public SoundCue? Sound { get; set; }
+
     public NecromancySpell()
     {
         Targets = TargetSide.Allies;
@@ -56,6 +60,7 @@ public partial class NecromancySpell : SpellAbility
     // The effect on the target, then the revive. The camera follows the effect if it's showing the caster.
     private async Task RaiseTarget(Stack caster, Stack target, int amount, Arena arena)
     {
+        OneShotSound.Play(arena, Sound);
         if (VisualEffect != null && target.NodeRepresentation is UnitNode targetNode)
         {
             var effect = AbilityVisualEffect.Spawn(arena, VisualEffect, targetNode.GlobalPosition);

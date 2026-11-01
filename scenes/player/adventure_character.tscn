@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://brsn37q6tj7lh" path="res://scenes/arena/path_point.tscn" id="2_8turh"]
 [ext_resource type="Script" uid="uid://bppprk5y2vflm" path="res://src/player/Inventory.cs" id="3_8pgid"]
 [ext_resource type="PackedScene" uid="uid://c3x0do6mrfr33" path="res://scenes/arena/marker.tscn" id="3_l1a7v"]
+[ext_resource type="PackedScene" uid="uid://d1qdgtfvvi33p" path="res://scenes/orome/orome_animation_manager.tscn" id="4_8swpc"]
 [ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="4_ff6r0"]
 [ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="5_p6sce"]
 [ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="6_p6sce"]
@@ -13,17 +14,8 @@
 [ext_resource type="Resource" uid="uid://dseb7o15vd18m" path="res://assets/battle_system/abilities/spells/heal_spell.tres" id="8_l1a7v"]
 [ext_resource type="Script" uid="uid://dgn7oeraa20r2" path="res://src/battle_system/BattleStarter.cs" id="12_yyw6n"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0cso3"]
-albedo_color = Color(0.3500733, 0.54419804, 0.23764646, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_iopsf"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2klcf"]
-albedo_color = Color(0.61030936, 0.06484933, 0.09677585, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_iopsf"]
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ao2lr"]
+radius = 0.7602539
 
 [sub_resource type="Resource" id="Resource_n1psn"]
 script = ExtResource("5_p6sce")
@@ -43,7 +35,7 @@ Unit = ExtResource("6_p6sce")
 Quantity = 1
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
-[node name="AdventureCharacter" type="CharacterBody3D" unique_id=590468899 groups=["Savable"]]
+[node name="AdventureCharacter" type="CharacterBody3D" unique_id=590468899 node_paths=PackedStringArray("animationManager") groups=["Savable"]]
 collision_layer = 9
 script = ExtResource("1_f37vf")
 stopDistance = 0.5
@@ -51,19 +43,13 @@ Speed = 10.0
 point = ExtResource("2_8turh")
 finalPoint = ExtResource("3_l1a7v")
 pointsMinDistance = 2.0
+animationManager = NodePath("OromeAnimationManager")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2141599649]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-material_override = SubResource("StandardMaterial3D_0cso3")
-mesh = SubResource("CapsuleMesh_iopsf")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=577418466]
-transform = Transform3D(0.5, 0, 0, 0, 0.1, 0, 0, 0, 0.2, 0, 0.5, 0.5)
-material_override = SubResource("StandardMaterial3D_2klcf")
-mesh = SubResource("BoxMesh_iopsf")
+[node name="OromeAnimationManager" parent="." unique_id=8568467 instance=ExtResource("4_8swpc")]
+transform = Transform3D(-2.4644678, 0, -2.1545061e-07, 0, 2.4644678, 0, 2.1545061e-07, 0, -2.4644678, 0, 0, -0.08610839)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1698459459]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ao2lr")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=512623960]
@@ -84,7 +70,7 @@ MaxMana = 50
 script = ExtResource("12_yyw6n")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1110268851]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8144704, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9531927, -0.24936771)
 light_color = Color(0.6692793, 0.66263413, 0.48104638, 1)
-light_energy = 1.143
-shadow_enabled = true
+light_energy = 1.4
+omni_range = 25.0

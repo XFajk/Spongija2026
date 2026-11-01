@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="2_orc"]
 [ext_resource type="Script" uid="uid://drpx4jp4c0xup" path="res://src/battle_system/abilities/specific/BasicLongRangeAttackAbility.cs" id="3_orc"]
 [ext_resource type="PackedScene" uid="uid://dvbj01wg7irdl" path="res://scenes/units/orc_archer.tscn" id="4_orc"]
+[ext_resource type="AudioStream" uid="uid://bwwtp2yvimjfc" path="res://assets/sounds/arrow_detached_randomized.tres" id="5_arrow"]
+[ext_resource type="AudioStream" uid="uid://uw6thcyhkjwe" path="res://assets/sounds/arrow_hit_randomized.tres" id="6_arrow"]
 
 [sub_resource type="Resource" id="Resource_melee"]
 script = ExtResource("2_orc")
@@ -12,6 +14,8 @@ metadata/_custom_type_script = "uid://dbehoqcrijunt"
 
 [sub_resource type="Resource" id="Resource_ranged"]
 script = ExtResource("3_orc")
+LaunchSound = ExtResource("5_arrow")
+HitSound = ExtResource("6_arrow")
 metadata/_custom_type_script = "uid://drpx4jp4c0xup"
 
 [resource]

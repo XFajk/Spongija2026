@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://ks0pji412ps4"]
+
+[ext_resource type="Script" uid="uid://cinciw6a516fj" path="res://src/ui/SaveSystem/SaveFile.cs" id="1_ifs55"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ivg1a"]
+bg_color = Color(0.26515836, 0.042844743, 0.04317692, 1)
+border_width_bottom = 7
+border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t2bpt"]
+bg_color = Color(0.26515836, 0.042844743, 0.04317692, 1)
+border_width_top = 7
+border_color = Color(0.53333336, 0.28627452, 0.047058824, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ykf7y"]
+bg_color = Color(0.35533425, 0.07014417, 0.07015758, 1)
+border_width_bottom = 7
+border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="SaveFile" type="Button" unique_id=812007128]
+process_mode = 3
+custom_minimum_size = Vector2(0, 75)
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_ivg1a")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_t2bpt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ykf7y")
+text = "Save: File Name"
+script = ExtResource("1_ifs55")

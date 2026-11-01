@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://0hj4qlmugqoc"
+path="res://.godot/imported/Fireball Impact 1.ogg-9145e67220189422deb4dba83cbbcefb.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sounds/spell/fireball/Fireball Impact 1.ogg"
+dest_files=["res://.godot/imported/Fireball Impact 1.ogg-9145e67220189422deb4dba83cbbcefb.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

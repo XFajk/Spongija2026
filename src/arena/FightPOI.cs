@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 
 public partial class FightPOI : PointOfInterest
 {
+	[Export] public bool CanRecruit;
 	[Export] public EnemyStrategy ComputerStrategy { get; set; } = EnemyStrategy.Wild;
 	[Export] public float detectionDistance;
+	bool outside = false;
 
 	[Export] public Godot.Collections.Array<StackResource>? ComputerUnits;
 	[Export] public Godot.Collections.Array<SpellAbility>? ComputerSpells;
@@ -24,10 +26,16 @@ public partial class FightPOI : PointOfInterest
 		if (base._destroyed)
 			return;
 
-		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) <= detectionDistance && _character.poi != this && !accessed)
+		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) <= detectionDistance && _character.poi != this && !accessed && outside)
 		{
 			_character.ForceStop();
+			outside = false;
 			Access();
+		}
+
+		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) > detectionDistance)
+		{
+			outside = true;
 		}
 	}
 
@@ -48,11 +56,10 @@ public partial class FightPOI : PointOfInterest
 		Random random = new Random();
 		int _random = random.Next(2);
 
-		GD.Print(winningChance);
-
+		EndFightScreen.TriggeringFightPOI = GetPath();  // Store the path of this FightPOI for the end fight screen
 		_character?.SetupEnemyArmy(ComputerUnits!, ComputerSpells!);
 		_character?.SetupDifficulty(ComputerStrategy);
-		_character?.inventoryPanel?.GetReady(winningChance >= 600 && _random == 0, this);
+		_character?.inventoryPanel?.GetReady(winningChance >= 600 && _random == 0 && CanRecruit, this);
 
 		_character!.poi = null;
 		UnFocus();

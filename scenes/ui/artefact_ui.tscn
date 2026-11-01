@@ -6,9 +6,44 @@
 [ext_resource type="Texture2D" uid="uid://d0bogrip7idj2" path="res://assets/misc/godot_logo.svg" id="3_34fuc"]
 [ext_resource type="Texture2D" uid="uid://cudyhr601ttgg" path="res://assets/pics/ConfirmIcon.png" id="4_fufb1"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_34fuc"]
+load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mpwah"]
+texture = SubResource("CompressedTexture2D_34fuc")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fufb1"]
+load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4dviy"]
+texture = SubResource("CompressedTexture2D_fufb1")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+modulate_color = Color(0.65012825, 0.6501283, 0.6501282, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pu4ge"]
+load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hcxqw"]
+texture = SubResource("CompressedTexture2D_pu4ge")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+modulate_color = Color(0.4351923, 0.43519226, 0.43519226, 1)
+
 [node name="ArtefactUI" type="Button" unique_id=1118737442 node_paths=PackedStringArray("smallIcon", "image", "selected")]
 custom_minimum_size = Vector2(100, 100)
 theme = ExtResource("1_q0mpr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_mpwah")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4dviy")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hcxqw")
 script = ExtResource("1_bkv8t")
 smallIcons = Array[Texture2D]([ExtResource("3_34fuc"), ExtResource("4_fufb1")])
 largeIcons = Array[Texture2D]([ExtResource("3_34fuc"), ExtResource("4_fufb1")])
