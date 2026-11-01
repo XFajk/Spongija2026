@@ -50,6 +50,9 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 		Button quitButton = GetNode<Button>("/root/Map/CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer/Quit");
 		quitButton.Pressed += Quit;
 
+		Button cancelSave = GetNode<Button>("/root/Map/CanvasLayer/Canvas/select_file/CancelSaveMenu");
+		cancelSave.Pressed += CancelSaveMenu;
+
 		canMove = true;
 		inventory = GetNode<Inventory>("Inventory");
 
@@ -360,6 +363,13 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 		pauseWindow!.Hide();
 		_saves!.Show();
 		_saves!.Setup(false);
+	}
+
+	public void CancelSaveMenu()
+	{
+		pauseWindow!.Hide();
+		_saves!.Hide();
+		GetTree().Paused = false;
 	}
 
 	public void Quit()

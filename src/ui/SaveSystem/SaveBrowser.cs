@@ -48,8 +48,7 @@ public partial class SaveBrowser : Panel
 		{
 			if (_indexes.Count == 0)
 			{
-				Hide();
-				GetTree().Paused = false;
+				Setup(true);
 			}
 		}
 	}
@@ -131,5 +130,18 @@ public partial class SaveBrowser : Panel
 			GetTree().Paused = false;
 			GetTree().ReloadCurrentScene();
 		}
+	}
+
+	public void Delete(int _index, bool _save)
+	{
+		string path = ProjectSettings.GlobalizePath($"user://saves/slot_{_index}.json");
+		GD.Print(path);
+
+		if (FileAccess.FileExists($"user://saves/slot_{_index}.json"))
+		{
+			Error error = DirAccess.RemoveAbsolute(path);
+		}
+
+		Setup(_save);
 	}
 }

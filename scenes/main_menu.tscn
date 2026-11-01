@@ -10,6 +10,7 @@
 [ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="4_lgwnu"]
 [ext_resource type="Resource" uid="uid://mm5wijfsiwhe" path="res://assets/settings/input.tres" id="5_3ngc3"]
 [ext_resource type="Resource" uid="uid://7db8pyme20tx" path="res://assets/settings/audio.tres" id="6_fefxt"]
+[ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="6_rcqid"]
 [ext_resource type="Resource" uid="uid://diqv13xtgj5eb" path="res://assets/settings/mysc.tres" id="7_1sjpa"]
 [ext_resource type="PackedScene" uid="uid://bp7h6wk0dp8i7" path="res://scenes/ui/select_file.tscn" id="12_flqon"]
 
@@ -106,33 +107,6 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 corner_detail = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flqon"]
-bg_color = Color(0.26515836, 0.042844743, 0.04317692, 1)
-border_width_bottom = 7
-border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcqid"]
-bg_color = Color(0.26515836, 0.042844743, 0.04317692, 1)
-border_width_top = 7
-border_color = Color(0.53333336, 0.28627452, 0.047058824, 0)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ajci"]
-bg_color = Color(0.35533425, 0.07014417, 0.07015758, 1)
-border_width_bottom = 7
-border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
 [node name="MainMenu" type="Control" unique_id=2050550028]
 layout_mode = 3
 anchors_preset = 15
@@ -222,8 +196,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 50
-text = "PLAY"
+theme_override_fonts/font = ExtResource("6_rcqid")
+theme_override_font_sizes/font_size = 40
+text = "PlAY"
 
 [node name="SETTINGS" type="Button" parent="TitleMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=1746939519]
 custom_minimum_size = Vector2(400, 70)
@@ -232,7 +207,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 50
+theme_override_fonts/font = ExtResource("6_rcqid")
+theme_override_font_sizes/font_size = 40
 text = "SETTINGS"
 
 [node name="QUIT" type="Button" parent="TitleMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=604053133]
@@ -242,7 +218,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 50
+theme_override_fonts/font = ExtResource("6_rcqid")
+theme_override_font_sizes/font_size = 40
 text = "EXIT TO DESKTOP"
 
 [node name="SettingsMenu" type="Control" parent="." unique_id=1007258281 node_paths=PackedStringArray("Container")]
@@ -339,6 +316,7 @@ theme_override_constants/separation = 10
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme = ExtResource("4_a3bfj")
+theme_override_fonts/font = ExtResource("6_rcqid")
 theme_override_font_sizes/font_size = 40
 text = "VIDEO"
 
@@ -346,6 +324,7 @@ text = "VIDEO"
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme = ExtResource("4_a3bfj")
+theme_override_fonts/font = ExtResource("6_rcqid")
 theme_override_font_sizes/font_size = 40
 text = "INPUT"
 
@@ -353,6 +332,7 @@ text = "INPUT"
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme = ExtResource("4_a3bfj")
+theme_override_fonts/font = ExtResource("6_rcqid")
 theme_override_font_sizes/font_size = 40
 text = "AUDIO"
 
@@ -360,6 +340,7 @@ text = "AUDIO"
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme = ExtResource("4_a3bfj")
+theme_override_fonts/font = ExtResource("6_rcqid")
 theme_override_font_sizes/font_size = 40
 text = "MYSC"
 
@@ -376,6 +357,7 @@ offset_bottom = -45.0
 grow_vertical = 0
 pivot_offset_ratio = Vector2(0, 1)
 theme = ExtResource("4_a3bfj")
+theme_override_fonts/font = ExtResource("6_rcqid")
 theme_override_font_sizes/font_size = 40
 text = "BACK"
 
@@ -447,7 +429,8 @@ theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="QuitMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=641923117]
 layout_mode = 2
-theme_override_font_sizes/font_size = 50
+theme_override_fonts/font = ExtResource("6_rcqid")
+theme_override_font_sizes/font_size = 45
 text = "Are you sure you want to QUIT?"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -459,7 +442,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 50
+theme_override_fonts/font = ExtResource("6_rcqid")
+theme_override_font_sizes/font_size = 40
 text = "BACK"
 
 [node name="QUIT" type="Button" parent="QuitMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=2106075575]
@@ -469,7 +453,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 50
+theme_override_fonts/font = ExtResource("6_rcqid")
+theme_override_font_sizes/font_size = 40
 text = "EXIT TO DESKTOP"
 
 [node name="select_file" parent="." unique_id=1218259961 instance=ExtResource("12_flqon")]
@@ -486,28 +471,3 @@ offset_right = 245.0
 offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="CancelSaveMenu" type="Button" parent="." unique_id=1991751209]
-visible = false
-custom_minimum_size = Vector2(350, 70)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -175.0
-offset_top = 342.0
-offset_right = 175.0
-offset_bottom = 419.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_flqon")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_rcqid")
-theme_override_styles/hover = SubResource("StyleBoxFlat_1ajci")
-text = "BACK"

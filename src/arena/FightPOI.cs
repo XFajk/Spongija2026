@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 public partial class FightPOI : PointOfInterest
 {
+	[Export] public bool AlwaysRecruit;
 	[Export] public bool CanRecruit;
 	[Export] public EnemyStrategy ComputerStrategy { get; set; } = EnemyStrategy.Wild;
 	[Export] public float detectionDistance;
@@ -59,7 +60,15 @@ public partial class FightPOI : PointOfInterest
 		EndFightScreen.TriggeringFightPOI = GetPath();  // Store the path of this FightPOI for the end fight screen
 		_character?.SetupEnemyArmy(ComputerUnits!, ComputerSpells!);
 		_character?.SetupDifficulty(ComputerStrategy);
-		_character?.inventoryPanel?.GetReady(winningChance >= 600 && _random == 0 && CanRecruit, this);
+
+		if (AlwaysRecruit)
+		{
+			_character?.inventoryPanel?.GetReady(true, this);
+		}
+		else
+		{
+			_character?.inventoryPanel?.GetReady(winningChance >= 600 && _random == 0 && CanRecruit, this);
+		}
 
 		_character!.poi = null;
 		UnFocus();

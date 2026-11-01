@@ -58,7 +58,7 @@ public partial class MainMenu : Control
 			GD.PrintErr("Save Browser not found in QuitMenu");
 		}
 
-		cancelSaveMenu = GetNode<Button>("/root/MainMenu/CancelSaveMenu");
+		cancelSaveMenu = GetNode<Button>("/root/MainMenu/select_file/CancelSaveMenu");
 		if (cancelSaveMenu == null)
 		{
 			GD.PrintErr("Save Browser Cancel not found in QuitMenu");
