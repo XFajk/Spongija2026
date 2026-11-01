@@ -12,6 +12,10 @@ public partial class HealSpell : SpellAbility
     [Export]
     public PackedScene? VisualEffect { get; set; }
 
+    // Played when the heal starts, for unit and hero casts alike (OneShotSound); none if null
+    [Export]
+    public SoundCue? Sound { get; set; }
+
     // The same for unit and hero casts. Use and Evaluate both use this.
     private int GetHealing() => Amount;
 
@@ -41,6 +45,7 @@ public partial class HealSpell : SpellAbility
     // The effect on the target, then the heal. The camera follows the effect if it's showing the caster.
     private async Task HealTarget(Stack caster, Stack target, Arena arena)
     {
+        OneShotSound.Play(arena, Sound);
         if (VisualEffect == null || target.NodeRepresentation is not UnitNode targetNode)
         {
             target.Heal(GetHealing());

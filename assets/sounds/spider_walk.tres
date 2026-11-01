@@ -1,0 +1,14 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dda8cnhm5o4jy"]
+
+[ext_resource type="AudioStream" uid="uid://dumou5i3022k1" path="res://assets/sounds/spider/spioder_walk2.wav" id="1_2jsya"]
+[ext_resource type="AudioStream" uid="uid://1omkc2rwxfdn" path="res://assets/sounds/spider/spioder_walk3.wav" id="2_tx4pk"]
+[ext_resource type="AudioStream" uid="uid://753ledbxeku2" path="res://assets/sounds/spider/spioder_walk4.wav" id="3_2wq77"]
+[ext_resource type="AudioStream" uid="uid://c50wq3fwbrj0w" path="res://assets/sounds/spider/spioder_walk_1.wav" id="4_0ydl8"]
+
+[resource]
+random_pitch = 1.0594631
+streams_count = 4
+stream_0/stream = ExtResource("1_2jsya")
+stream_1/stream = ExtResource("2_tx4pk")
+stream_2/stream = ExtResource("3_2wq77")
+stream_3/stream = ExtResource("4_0ydl8")

@@ -656,6 +656,7 @@ public partial class Arena : Node3D
 		AddLosses(screen.opponentLostUnits, _computerStartingStacks);
 		foreach (Stack stack in _playerStartingStacks)
 			screen.survivingQuantities.Add(stack.Quantity);
+		screen.heroMana = PlayerArmy?.Hero?.Mana;
 
 		// Its own layer, so it's above the arena's interface whatever that draws
 		var layer = new CanvasLayer { Layer = 10 };

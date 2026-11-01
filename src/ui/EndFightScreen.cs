@@ -17,6 +17,10 @@ public partial class EndFightScreen : Panel
 	// inventory's slots (BattleStarter), 0 for a stack that died. Written back to the inventory before saving.
 	public List<uint> survivingQuantities = new List<uint>();
 
+	// After a win: the hero's mana left after the battle (BattleStarter gives the hero the inventory's Mana), or
+	// null if the player's army had no hero
+	public uint? heroMana;
+
 	[Export] public PackedScene? iconPrefab;
 	[Export] public Control? earnedContainer;
 	[Export] public Control? lostContainer;
@@ -76,17 +80,19 @@ public partial class EndFightScreen : Panel
 		if (_won && TriggeringFightPOI is NodePath fightPOI)
 		{
 			List<uint> survivors = survivingQuantities;
+			uint? mana = heroMana;
 			// The map's Ready comes after all its children's _Ready, so after SaveManager has loaded the old save,
 			// and before their first _Process, so the fight is gone before it could start again with the hero
 			// standing next to it.
-			map.Ready += () => ApplyWin(map, fightPOI, survivors);
+			map.Ready += () => ApplyWin(map, fightPOI, survivors, mana);
 		}
 
 		TriggeringFightPOI = null;
 		GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToNode, map);
 	}
 
-	static void ApplyWin(Node3D map, NodePath fightPOI, List<uint> survivors)
+	// The inventory becomes what the army was when the battle ended: survivors and the hero's mana
+	static void ApplyWin(Node3D map, NodePath fightPOI, List<uint> survivors, uint? heroMana)
 	{
 		if (map.GetTree().Root.GetNodeOrNull<FightPOI>(fightPOI) is FightPOI poi)
 		{
@@ -110,6 +116,11 @@ public partial class EndFightScreen : Panel
 				inventory.Units[i].Quantity = survivors[stack];
 			}
 			stack++;
+		}
+
+		if (heroMana is uint mana)
+		{
+			inventory.Mana = mana;
 		}
 
 		map.GetNode<SaveManager>("SaveSystem").SaveGame(CurrentSave.CurrentSaveIndex);

@@ -73,5 +73,4 @@ script = ExtResource("12_yyw6n")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9531927, -0.24936771)
 light_color = Color(0.6692793, 0.66263413, 0.48104638, 1)
 light_energy = 1.4
-shadow_enabled = true
 omni_range = 16.0
