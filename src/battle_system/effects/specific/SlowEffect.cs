@@ -16,6 +16,19 @@ public partial class SlowEffect : TurnEffect
         SpeedTierModifier = -2;
     }
 
+    // Slows the target with its own copy of the template (Stack.AddEffect, so a stack already slowed by it only has
+    // its turns started over), lowering speed by speedTierLoss for turns of its own turns. Used by the abilities
+    // that slow (WebBallSpell, SlowingMeleeAttackAbility), which set how much and how long.
+    public static void Inflict(Stack target, SlowEffect template, int speedTierLoss, int turns)
+    {
+        if (target.IsDead)
+            return;
+        var slow = (SlowEffect)target.AddEffect(template);
+        slow.SpeedTierModifier = -speedTierLoss;
+        slow.Duration = turns;
+        slow.RemainingDuration = turns;
+    }
+
     public override int ModifySpeedTier(int speedTier) =>
         speedTier <= MinSpeedTier ? speedTier : Math.Max(MinSpeedTier, speedTier + SpeedTierModifier);
 

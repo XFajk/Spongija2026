@@ -41,10 +41,14 @@ public class Stack
 
     public UnitNode? NodeRepresentation { get; set; }
 
+    // The quantity the stack was made with, at the start of the battle: the most Revive brings it back to.
+    public uint StartingQuantity { get; }
+
     public Stack(Unit unit, uint quantity)
     {
         Unit = unit;
         Quantity = quantity;
+        StartingQuantity = quantity;
         TopHealth = unit.MaxHealth;
         Mana = unit.StartingMana;
     }
@@ -147,6 +151,38 @@ public class Stack
         TopHealth += amount;
         return TopHealth - before;
     }
+
+    // Health Revive can still give back: the top unit's missing health plus the units lost this battle
+    public int GetRevivableHealth() =>
+        IsDead ? 0 : Math.Max(0, (int)StartingQuantity * Unit.MaxHealth - GetTotalHealth());
+
+    // How many units Revive(amount) would bring back, without changing anything
+    public uint GetUnitsRevivedBy(int amount)
+    {
+        if (amount <= 0 || IsDead)
+            return 0;
+        int total = GetTotalHealth() + Math.Min(amount, GetRevivableHealth());
+        int maxHealth = Math.Max(1, Unit.MaxHealth);
+        return (uint)((total + maxHealth - 1) / maxHealth) - Quantity;
+    }
+
+    // Necromancy: heals the top unit, then brings dead units back, up to StartingQuantity (a dead stack is gone
+    // from the battle, so it can't be revived). Returns how many units came back.
+    public uint Revive(int amount)
+    {
+        if (amount <= 0 || IsDead)
+            return 0;
+
+        uint before = Quantity;
+        int total = GetTotalHealth() + Math.Min(amount, GetRevivableHealth());
+        int maxHealth = Math.Max(1, Unit.MaxHealth);
+        Quantity = (uint)((total + maxHealth - 1) / maxHealth);
+        TopHealth = total - (int)(Quantity - 1) * maxHealth;
+        return Quantity - before;
+    }
+
+    // Whether long range attacks can't target it (a passive, e.g. the forest ghosts')
+    public bool IsImmuneToRanged => Unit.Passives.Any(p => p is RangedImmunityPassive);
 
     // Effects are Resources shared through .tres files, so every stack gets its own copy, and its visual effect plays
     // on the unit. The same effect isn't added twice: if it's already on the stack, its duration starts over instead.

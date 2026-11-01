@@ -20,13 +20,7 @@ public partial class WebBallSpell : FireBallSpell
     protected override void Hit(Stack target, int damage)
     {
         base.Hit(target, damage);
-        if (Effect == null || target.IsDead)
-            return;
-
-        // The stack's own copy, new or the one it already has
-        var slow = (SlowEffect)target.AddEffect(Effect);
-        slow.SpeedTierModifier = -SpeedTierLoss;
-        slow.Duration = Turns;
-        slow.RemainingDuration = Turns;
+        if (Effect != null)
+            SlowEffect.Inflict(target, Effect, SpeedTierLoss, Turns);
     }
 }

@@ -29,6 +29,15 @@ public partial class Arena : Node3D
 	[Export]
 	public Node3D? HeroSpellCastPosition { get; set; } = null;
 
+	// The heroes' models, standing at HeroSpellCastPosition (mirrored for the computer) if the army has a hero.
+	// The scene's root must be a UnitAnimationManager: its spell cast plays when the hero casts, and the spell
+	// leaves from its LaunchPoint. Without a model the hero is just the marker.
+	[Export]
+	public PackedScene? PlayerHeroModel { get; set; } = null;
+
+	[Export]
+	public PackedScene? ComputerHeroModel { get; set; } = null;
+
 	// Shows the camera's SubViewport on screen; converts projected points to where UI is drawn over them.
 	[Export]
 	public ViewportRect? GameViewportRect { get; set; } = null;
@@ -270,6 +279,7 @@ public partial class Arena : Node3D
 		{
 			SpawnUnitNode(stack, anchor, playerSide: true);
 		}
+		SpawnHeroModels();
 
 		await ToSignal(this, SignalName.SetupPlacementPhaseCompleted);
 
@@ -564,6 +574,8 @@ public partial class Arena : Node3D
         // After the placement phase the stacks already have their anchors, so the Battle keeps them
         Battle = new Battle(playerArmy, computerArmy, (int)AreaWidth, (int)AreaHeight, keepAnchors: !AutoBeginBattle);
         _computerAI = BattleAI.Create(computerArmy.Strategy, Battle);
+        // Already there after the placement phase
+        SpawnHeroModels();
         try
         {
             await RunBattle(Battle);
@@ -1012,10 +1024,13 @@ public partial class Arena : Node3D
 		return true;
 	}
 
-	// Where a hero casts from (global): the player's hero at HeroSpellCastPosition, the computer's at the marker
-	// mirrored to the other side of the board (X flipped, Arena-local). Without the marker, from the acting unit.
+	// Where a hero casts from (global): its model's LaunchPoint if it has one, else the player's hero at
+	// HeroSpellCastPosition, the computer's at the marker mirrored to the other side of the board (X flipped,
+	// Arena-local). Without the marker, from the acting unit.
 	public Vector3 GetHeroCastOrigin(Stack caster)
 	{
+		if (GetHeroModel(caster)?.GetLaunchPosition() is Vector3 launch)
+			return launch;
 		if (HeroSpellCastPosition == null)
 			return caster.NodeRepresentation?.GlobalPosition ?? GlobalPosition;
 		if (Battle?.IsPlayerStack(caster) ?? true)
@@ -1044,7 +1059,7 @@ public partial class Arena : Node3D
 			if (stack.Hero is Hero hero && battle.SpendHeroMana(hero, spell))
 			{
 				shots = await BeginCinematic(stack, null, HeroFocus(stack));
-				await spell.UseFromHero(stack, GetHeroCastOrigin(stack), target, this);
+				await PlayHeroSpell(stack, spell, target);
 			}
 			RemoveDeadStacks(battle);
 		}
@@ -1118,7 +1133,7 @@ public partial class Arena : Node3D
         {
             Hero? hero = user.Hero;
             if (hero != null && battle.SpendHeroMana(hero, spell))
-                await spell.UseFromHero(user, GetHeroCastOrigin(user), spellTarget, this);
+                await PlayHeroSpell(user, spell, spellTarget);
             if (output.MoveTo != null || output.Entries.Count > 0)
                 await FocusCinematicOnStack(user);
         }
@@ -1240,6 +1255,63 @@ public partial class Arena : Node3D
 
     #endregion
 
+    #region Heroes
+
+    private UnitAnimationManager? _playerHeroModel;
+    private UnitAnimationManager? _computerHeroModel;
+
+    // Puts each army's hero model (PlayerHeroModel, ComputerHeroModel) where the hero stands: the player's at
+    // HeroSpellCastPosition, the computer's at the marker mirrored, both facing the other side like the units.
+    // Only for armies with a hero, and only once.
+    private void SpawnHeroModels()
+    {
+        if (HeroSpellCastPosition == null)
+            return;
+        if (_playerHeroModel == null && PlayerArmy?.Hero != null)
+            _playerHeroModel = SpawnHeroModel(PlayerHeroModel, playerSide: true);
+        if (_computerHeroModel == null && ComputerArmy?.Hero != null)
+            _computerHeroModel = SpawnHeroModel(ComputerHeroModel, playerSide: false);
+    }
+
+    private UnitAnimationManager? SpawnHeroModel(PackedScene? scene, bool playerSide)
+    {
+        if (scene == null)
+            return null;
+        Node instance = scene.Instantiate();
+        if (instance is not UnitAnimationManager model)
+        {
+            GD.PushError($"Arena: the root of the hero model {scene.ResourcePath} is not a UnitAnimationManager");
+            instance.Free();
+            return null;
+        }
+
+        AddChild(model);
+        // Arena-local; the computer's mirrored like GetHeroCastOrigin
+        Vector3 position = ToLocal(HeroSpellCastPosition!.GlobalPosition);
+        model.Position = playerSide ? position : new Vector3(-position.X, position.Y, position.Z);
+        model.RotationDegrees = new Vector3(0, playerSide ? -90 : 90, 0);
+        return model;
+    }
+
+    // The model of the hero of the stack's army, null if it has none
+    private UnitAnimationManager? GetHeroModel(Stack stack)
+    {
+        UnitAnimationManager? model = Battle?.IsPlayerStack(stack) ?? true ? _playerHeroModel : _computerHeroModel;
+        return model != null && IsInstanceValid(model) ? model : null;
+    }
+
+    // A hero spell with the hero's cast animation: the spell is released at the cast's hit frame, from the hero's
+    // hand (GetHeroCastOrigin, read then), and the cast finishes after it. Without a model the spell plays right away.
+    private async Task PlayHeroSpell(Stack caster, SpellAbility spell, Stack target)
+    {
+        UnitAnimation cast = GetHeroModel(caster)?.PlaySpellCast() ?? UnitAnimation.None;
+        await cast.Hit;
+        await spell.UseFromHero(caster, GetHeroCastOrigin(caster), target, this);
+        await cast.Finished;
+    }
+
+    #endregion
+
     #region Cinematic camera
 
     // Starts the close shots of a turn on the acting stack (or on the given focus): input off, and the camera given
@@ -1268,11 +1340,13 @@ public partial class Arena : Node3D
         await WaitCinematicLeadIn();
     }
 
-    // There's no hero model: the hero is the point its spells start from (GetHeroCastOrigin, mirrored for the
-    // computer). Hero spell shots start there, so the spell is seen leaving the hero before its projectile or
-    // effect takes over (FollowWithCamera). No CinematicFocusHeight: the marker already is the launch point.
+    // Hero spell shots start on the hero's model, or without one on the point its spells start from
+    // (GetHeroCastOrigin), so the spell is seen leaving the hero before its projectile or effect takes over
+    // (FollowWithCamera). No CinematicFocusHeight for the point: the marker already is the launch point.
     private Func<Vector3> HeroFocus(Stack stack)
     {
+        if (GetHeroModel(stack) is UnitAnimationManager model)
+            return FollowNodes(model);
         Vector3 origin = GetHeroCastOrigin(stack);
         return () => origin;
     }

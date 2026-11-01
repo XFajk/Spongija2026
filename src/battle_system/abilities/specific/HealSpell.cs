@@ -29,7 +29,7 @@ public partial class HealSpell : SpellAbility
         if (target != user)
             casterNode.FaceTowards(target);
         // The heal starts at the cast's hit frame
-        UnitNode.UnitAnimation cast = casterNode.PlaySpellCast();
+        UnitAnimation cast = casterNode.PlaySpellCast();
         await cast.Hit;
         await Task.WhenAll(HealTarget(user, target, arena), cast.Finished);
         casterNode.FaceEnemySide();

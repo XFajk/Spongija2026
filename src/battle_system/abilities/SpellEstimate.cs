@@ -31,6 +31,18 @@ public readonly record struct SpellEstimate(
         return new SpellEstimate(Healing: Math.Min(potential, missing), PotentialHealing: potential);
     }
 
+    // Necromancy on the target: health given back to the top unit and to its dead units, capped by what it has lost
+    // (as Stack.Revive). Revives is the units brought back; PotentialRevives the units the full amount is worth.
+    public static SpellEstimate ForRevive(int potential, Stack target)
+    {
+        potential = Math.Max(0, potential);
+        return new SpellEstimate(
+            Healing: Math.Min(potential, target.GetRevivableHealth()),
+            PotentialHealing: potential,
+            Revives: (int)target.GetUnitsRevivedBy(potential),
+            PotentialRevives: potential / Math.Max(1, target.Unit.MaxHealth));
+    }
+
     // Whether the damage would wipe out the whole stack
     public bool KillsStack(Stack target) => Damage > 0 && Damage >= target.GetTotalHealth();
 

@@ -15,7 +15,8 @@ public partial class FireBallSpell : SpellAbility
     [Export(PropertyHint.Range, "0,85")]
     public float ShootAngle { get; set; } = 20f;
 
-    // Height above the units' origins (on the ground) the fireball leaves from and hits at, in meters
+    // Height above the units' origins (on the ground) the fireball hits at, in meters, and leaves from if the caster
+    // has no UnitNode.LaunchPoint
     [Export(PropertyHint.Range, "0,10")]
     public float ShootHeight { get; set; } = 0.5f;
 
@@ -33,9 +34,9 @@ public partial class FireBallSpell : SpellAbility
 
         userNode.FaceTowards(target);
         // The fireball leaves at the cast's hit frame
-        UnitNode.UnitAnimation cast = userNode.PlaySpellCast();
+        UnitAnimation cast = userNode.PlaySpellCast();
         await cast.Hit;
-        await FlyFireBall(user, userNode.GlobalPosition + Vector3.Up * ShootHeight, target, arena);
+        await FlyFireBall(user, userNode.GetLaunchPosition(ShootHeight), target, arena);
         Hit(target, GetDamage(user, fromHero: false));
 
         await cast.Finished;

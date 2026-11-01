@@ -1,19 +1,21 @@
 [gd_resource type="Resource" script_class="Unit" format=3 uid="uid://d0wwc65q72h7u"]
 
-[ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="1_6fyjn"]
+[ext_resource type="Script" uid="uid://dls7msx604j8" path="res://src/battle_system/abilities/specific/SlowingMeleeAttackAbility.cs" id="1_6fyjn"]
 [ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="1_fqv7u"]
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_6fyjn"]
 [ext_resource type="PackedScene" uid="uid://nx8lt2u5qrb6" path="res://scenes/units/spider.tscn" id="2_yv3yj"]
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_yv3yj"]
+[ext_resource type="Resource" path="res://assets/battle_system/effects/slow_effect.tres" id="4_slow"]
 
 [sub_resource type="Resource" id="Resource_fqv7u"]
 script = ExtResource("1_6fyjn")
-metadata/_custom_type_script = "uid://dbehoqcrijunt"
+Effect = ExtResource("4_slow")
+metadata/_custom_type_script = "uid://dls7msx604j8"
 
 [resource]
 script = ExtResource("3_yv3yj")
 Name = "Spider"
-Description = "Black spiders of the Deep Thicket that drop from the branches without a sound. Their bite is venomous and they are among the fastest things in the forest, but their bodies are soft, and a stack that strikes first can cut them down."
+Description = "Black spiders of the Deep Thicket that drop from the branches without a sound. Their bite is venomous and leaves strands of web that slow the bitten for a turn. They are among the fastest things in the forest, but their bodies are soft, and a stack that strikes first can cut them down."
 MaxHealth = 25
 Strength = 7
 Defense = 2

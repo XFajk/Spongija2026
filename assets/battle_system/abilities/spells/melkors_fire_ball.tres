@@ -3,12 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://pej1hmqyk87g" path="res://assets/ui/fireball_color.png" id="1_afd3j"]
 [ext_resource type="Script" uid="uid://kaqcq55yms27" path="res://src/battle_system/abilities/specific/FireBallSpell.cs" id="1_atip4"]
 [ext_resource type="Texture2D" uid="uid://cgc3ud17jn31f" path="res://assets/ui/fireball.png" id="2_qdj0e"]
+[ext_resource type="PackedScene" uid="uid://br02cttlef0ed" path="res://scenes/projectiles/fire_ball_projectile.tscn" id="3_proj"]
 
 [resource]
 script = ExtResource("1_atip4")
 Damage = 70
-ShootHeight = 10.0
+Projectile = ExtResource("3_proj")
 Name = "Melkors FireBall"
+Description = "Melkor hurls a ball of black fire at an enemy stack, dealing 70 damage that no armor can stop."
 Icon = ExtResource("2_qdj0e")
 HoveredIcon = ExtResource("1_afd3j")
 ManaCost = 20

@@ -1,15 +1,18 @@
 [gd_resource type="Resource" script_class="Unit" format=3 uid="uid://df20ojfa0878g"]
 
 [ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="1_h8mef"]
-[ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="1_hc6ia"]
+[ext_resource type="Script" uid="uid://dls7msx604j8" path="res://src/battle_system/abilities/specific/SlowingMeleeAttackAbility.cs" id="1_hc6ia"]
 [ext_resource type="PackedScene" uid="uid://lpln33qsepmn" path="res://scenes/units/big_spider.tscn" id="1_smy1f"]
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_smy1f"]
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_hc6ia"]
 [ext_resource type="Resource" uid="uid://bdthpuy62xd12" path="res://assets/battle_system/abilities/spells/web_ball_spell.tres" id="5_dcyt5"]
+[ext_resource type="Resource" path="res://assets/battle_system/effects/slow_effect.tres" id="6_slow"]
 
 [sub_resource type="Resource" id="Resource_hc6ia"]
 script = ExtResource("1_hc6ia")
-metadata/_custom_type_script = "uid://dbehoqcrijunt"
+Effect = ExtResource("6_slow")
+SpeedTierLoss = 2
+metadata/_custom_type_script = "uid://dls7msx604j8"
 
 [resource]
 script = ExtResource("3_hc6ia")

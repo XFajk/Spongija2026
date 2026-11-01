@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="NecromancySpell" format=3]
+
+[ext_resource type="Script" uid="uid://dbgph75cbek0k" path="res://src/battle_system/abilities/specific/NecromancySpell.cs" id="1_necro"]
+[ext_resource type="Texture2D" uid="uid://7wee7r36m35o" path="res://assets/ui/necromance.png" id="2_necro"]
+[ext_resource type="Texture2D" uid="uid://cj3plhcln1nu2" path="res://assets/ui/necromance_color.png" id="3_necro"]
+[ext_resource type="PackedScene" uid="uid://c88bke3litvni" path="res://scenes/visual_effects/necromancer_effect.tscn" id="4_necro"]
+
+[resource]
+script = ExtResource("1_necro")
+Amount = 60
+AmountPerCaster = 10
+VisualEffect = ExtResource("4_necro")
+Name = "Raise the Fallen"
+Description = "Calls the fallen of an allied stack back from the shadows: gives 60 health back to its top unit, then raises its dead, but never more than it started the battle with. Cast by a unit, it gives back 10 for every caster in the stack. A stack that was wiped out can't be raised."
+Targets = 1
+Icon = ExtResource("2_necro")
+HoveredIcon = ExtResource("3_necro")
+ManaCost = 15
+metadata/_custom_type_script = "uid://dbgph75cbek0k"

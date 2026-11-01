@@ -296,14 +296,15 @@ public class Battle
 
     #region Long range
 
-    // Enemies the stack can shoot: all of them, except ones it can reach in melee if it also has melee.
+    // Enemies the stack can shoot: all of them, except ones it can reach in melee if it also has melee, and ones
+    // immune to ranged attacks (RangedImmunityPassive).
     public List<Stack> GetRangedTargets(Stack stack, Reachability? reachability = null)
     {
         if (!stack.HasLongRange)
             return new();
 
         List<Stack> meleeTargets = GetMeleeTargets(stack, reachability);
-        return GetEnemies(stack).Where(e => !meleeTargets.Contains(e)).ToList();
+        return GetEnemies(stack).Where(e => !meleeTargets.Contains(e) && !e.IsImmuneToRanged).ToList();
     }
 
     public bool CanShoot(Stack stack, Reachability? reachability = null) => GetRangedTargets(stack, reachability).Count > 0;
