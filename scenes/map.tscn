@@ -202,21 +202,37 @@ font_size = 30
 outline_size = 5
 outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cgoaf"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nc68e"]
+load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhdcv"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r2y85"]
+texture = SubResource("CompressedTexture2D_nc68e")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12q1p"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v7gfb"]
+load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_icjpl"]
+texture = SubResource("CompressedTexture2D_v7gfb")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+modulate_color = Color(0.65012825, 0.6501283, 0.6501282, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vwuk8"]
+load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kycfx"]
+texture = SubResource("CompressedTexture2D_vwuk8")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+modulate_color = Color(0.4351923, 0.43519226, 0.43519226, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_litwm"]
 font = ExtResource("13_gw3fx")
@@ -1541,40 +1557,40 @@ alignment = 1
 
 [node name="Slot" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=1437054140 instance=ExtResource("23_2cfcp")]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_cgoaf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_lhdcv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_12q1p")
+theme_override_styles/normal = SubResource("StyleBoxTexture_r2y85")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_icjpl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kycfx")
 keep = true
 
 [node name="Slot2" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=2029012940 instance=ExtResource("23_2cfcp")]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_cgoaf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_lhdcv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_12q1p")
+theme_override_styles/normal = SubResource("StyleBoxTexture_r2y85")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_icjpl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kycfx")
 keep = true
 index = 1
 
 [node name="Slot3" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=613569414 instance=ExtResource("23_2cfcp")]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_cgoaf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_lhdcv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_12q1p")
+theme_override_styles/normal = SubResource("StyleBoxTexture_r2y85")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_icjpl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kycfx")
 keep = true
 index = 2
 
 [node name="Slot4" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=674906256 instance=ExtResource("23_2cfcp")]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_cgoaf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_lhdcv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_12q1p")
+theme_override_styles/normal = SubResource("StyleBoxTexture_r2y85")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_icjpl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kycfx")
 keep = true
 index = 3
 
 [node name="Slot5" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=1397593107 instance=ExtResource("23_2cfcp")]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_cgoaf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_lhdcv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_12q1p")
+theme_override_styles/normal = SubResource("StyleBoxTexture_r2y85")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_icjpl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kycfx")
 keep = true
 index = 4
 

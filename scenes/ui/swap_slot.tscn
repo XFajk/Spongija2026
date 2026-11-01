@@ -5,6 +5,38 @@
 [ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="2_hvqva"]
 [ext_resource type="Texture2D" uid="uid://je6uks5qpck7" path="res://assets/pics/SwapIcon.png" id="3_iew2l"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hvqva"]
+load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_23b2b"]
+texture = SubResource("CompressedTexture2D_hvqva")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f6jpc"]
+load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_upg6c"]
+texture = SubResource("CompressedTexture2D_f6jpc")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+modulate_color = Color(0.65012825, 0.6501283, 0.6501282, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ton4o"]
+load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kcc83"]
+texture = SubResource("CompressedTexture2D_ton4o")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+modulate_color = Color(0.4351923, 0.43519226, 0.43519226, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_p7tei"]
 font = ExtResource("2_hvqva")
 font_size = 30
@@ -15,6 +47,9 @@ outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 process_mode = 3
 custom_minimum_size = Vector2(100, 100)
 theme = ExtResource("1_hvqva")
+theme_override_styles/normal = SubResource("StyleBoxTexture_23b2b")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_upg6c")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kcc83")
 script = ExtResource("1_iew2l")
 amountText = NodePath("Amount")
 image = NodePath("TextureRect")
