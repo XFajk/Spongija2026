@@ -7,15 +7,15 @@ public partial class BattleStarter : Node
 	public EnemyStrategy ComputerStrategy;
 	Array<SpellAbility>? HeroSpells;
 	Array<StackResource>? PlayerUnits;
-	Array<StackResource>? ComputerUnits;
-	Array<SpellAbility>? ComputerHeroSpells;
+	public Array<StackResource>? ComputerUnits;
+	public Array<SpellAbility>? ComputerHeroSpells;
 
-	public void EnterBattle(SpellAbility[] spells, StackResource[] units)
+	public void EnterBattle(SpellAbility[] spells, StackResource[] units, uint _Mana)
 	{
 		GetUnits(units);
 		GetSpells(spells);
 
-		var playerArmy = new Army { Hero = new Hero { Strength = 2, Defense = 2, Knowledge = 5, Mana = 30} };
+		var playerArmy = new Army { Hero = new Hero { Strength = 2, Defense = 2, Knowledge = 5, Mana = _Mana} };
 		playerArmy.Hero.Spells.AddRange(HeroSpells!);
 		foreach (var stack in PlayerUnits!)
 		{

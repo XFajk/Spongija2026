@@ -582,7 +582,7 @@ size = Vector3(800, 40, 800)
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=405003216]
 navigation_mesh = SubResource("NavigationMesh_jvnn3")
 
-[node name="Terrain3D" type="Terrain3D" parent="NavigationRegion3D" unique_id=339997479]
+[node name="Terrain3D" type="Terrain3D" parent="NavigationRegion3D" unique_id=339997479 groups=["Terrain"]]
 data_directory = "res://assets/terrain/surface1"
 material = SubResource("Terrain3DMaterial_d5dl1")
 assets = SubResource("Terrain3DAssets_yw8f4")
@@ -601,9 +601,6 @@ mesh = SubResource("BoxMesh_etuta")
 [node name="Objects" type="Node3D" parent="." unique_id=1055363462]
 
 [node name="StartingCamp" type="Node" parent="Objects" unique_id=318612624]
-
-[node name="BigTent" parent="Objects/StartingCamp" unique_id=2107329745 instance=ExtResource("38_x2463")]
-transform = Transform3D(-0.99937487, 0, 0.03535431, 0, 1, 0, -0.03535431, 0, -0.99937487, -73.16536, 11.108642, -431.27493)
 
 [node name="outpost2" parent="Objects/StartingCamp" unique_id=1062480716 instance=ExtResource("41_fobrl")]
 transform = Transform3D(1.906062, 0, 0.60574514, 0, 2, 0, -0.60574514, 0, 1.906062, -52.071804, 10.757423, -455.56375)
@@ -702,6 +699,7 @@ transform = Transform3D(0.18196356, 0.16096957, -0.56029415, -3.7252903e-09, 0.5
 
 [node name="BigTent" parent="Objects/Camp" unique_id=1656115917 instance=ExtResource("38_x2463")]
 transform = Transform3D(0.0067356676, 0, 0.99997735, 0, 1, 0, -0.99997735, 0, 0.0067356676, -576.35596, 4.970058, -622.5393)
+visible = false
 
 [node name="log2" parent="Objects/Camp" unique_id=23926888 instance=ExtResource("39_73u5r")]
 transform = Transform3D(0.18976384, 0.024152156, -1.4877522, -0.0063390704, 1.4998019, 0.023539217, 1.4879346, 0.0033093826, 0.18984085, -560.8923, 4.543321, -628.7973)

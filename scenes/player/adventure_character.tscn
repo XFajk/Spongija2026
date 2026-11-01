@@ -28,7 +28,7 @@ albedo_color = Color(0.61030936, 0.06484933, 0.09677585, 1)
 [sub_resource type="Resource" id="Resource_n1psn"]
 script = ExtResource("5_p6sce")
 Unit = ExtResource("4_ff6r0")
-Quantity = 5
+Quantity = 12
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [sub_resource type="Resource" id="Resource_e24yl"]
@@ -43,15 +43,17 @@ Unit = ExtResource("6_p6sce")
 Quantity = 1
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
-[node name="AdventureCharacter" type="CharacterBody3D" unique_id=590468899]
+[node name="AdventureCharacter" type="CharacterBody3D" unique_id=590468899 groups=["Savable"]]
 collision_layer = 9
 script = ExtResource("1_f37vf")
 stopDistance = 0.5
+Speed = 10.0
 point = ExtResource("2_8turh")
 finalPoint = ExtResource("3_l1a7v")
 pointsMinDistance = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2141599649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_0cso3")
 mesh = SubResource("CapsuleMesh_iopsf")
 
@@ -61,6 +63,7 @@ material_override = SubResource("StandardMaterial3D_2klcf")
 mesh = SubResource("BoxMesh_iopsf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1698459459]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ao2lr")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=512623960]
@@ -69,12 +72,19 @@ target_desired_distance = 0.5
 path_height_offset = 0.25
 debug_path_custom_color = Color(0.2784467, 0.6038251, 0, 1)
 
-[node name="Inventory" type="Node" parent="." unique_id=1608058295]
+[node name="Inventory" type="Node" parent="." unique_id=1608058295 groups=["Savable"]]
 script = ExtResource("3_8pgid")
 Units = Array[Object]([SubResource("Resource_n1psn"), SubResource("Resource_e24yl"), SubResource("Resource_a11gi"), null, null])
 Spells = Array[Object]([ExtResource("7_51ulg"), ExtResource("8_l1a7v")])
 EquippedArtefacts = Array[Object]([null, null, null])
 recipes = Array[Object]([ExtResource("7_e24yl"), ExtResource("8_bwkvg")])
+MaxMana = 50
 
 [node name="BattleStarter" type="Node" parent="." unique_id=1685517769]
 script = ExtResource("12_yyw6n")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1110268851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8144704, 0)
+light_color = Color(0.6692793, 0.66263413, 0.48104638, 1)
+light_energy = 1.143
+shadow_enabled = true

@@ -3,23 +3,17 @@ using System;
 
 public partial class FloatingText : Label
 {
-	 public override void _Ready()
-	{
-		var tween = CreateTween();
-		tween.SetParallel(true);
+	private float lifetime = 0.6f;
+	private float elapsed = 0f;
+	private float moveSpeed = 150f;
 
-		tween.TweenProperty(
-			this, "position:y",
-			Position.Y - 2, 1
-		);
+	public override void _Process(double delta)
+	{		
+		elapsed += (float)delta;
 
-		tween.TweenProperty(
-			this, "modulate:a",
-			0.0f, 1
-		);
+		Position += new Vector2(0, -moveSpeed * (float)delta);
 
-		tween.Chain().TweenCallback(
-			Callable.From(QueueFree)
-		);
+		if (elapsed >= lifetime)
+			QueueFree();
 	}
 }

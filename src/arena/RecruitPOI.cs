@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-public partial class RecruitPOI : PointOfInterest
+public partial class RecruitPOI : PointOfInterest, ISavable
 {
 	[Export] StackResource[] Units = [];
 
@@ -84,14 +84,14 @@ public partial class RecruitPOI : PointOfInterest
 
 	public override async void Access()
 	{
+		base.Access();
+
 		if (!looted)
 		{
 			if (!firstTimeLooted)
 			{
 				firstTimeLooted = true;
 			}
-
-			base.Access();
 
 			_character!.canMove = false;
 
@@ -121,7 +121,7 @@ public partial class RecruitPOI : PointOfInterest
 			Container?.AddChild(popup);
 
 			// Prevod 3D pozície na 2D pozíciu obrazovky
-			Vector2 screenPosition = Camera!.UnprojectPosition(worldPosition);
+			Vector2 screenPosition = base.GetScreenPosition(Camera!, worldPosition, Container!);
 
 			popup!.Text = "+ " + Units[i]?.Quantity.ToString() + " " + Units[i]?.Unit?.Name;
 			popup!.Position = screenPosition;
@@ -174,5 +174,27 @@ public partial class RecruitPOI : PointOfInterest
 		{
 			Units = [];
 		}
+	}
+
+	public override Godot.Collections.Dictionary<string, Variant> Save()
+	{
+		var data = base.Save();
+
+		data.Add("looted", looted);
+		data.Add("maxDistance", maxDistance);
+		data.Add("currentMaxDistance", currentMaxDistance);
+		data.Add("firstTimeLooted", firstTimeLooted);
+
+		return data;
+	}
+
+	public override void Load(Godot.Collections.Dictionary data)
+	{
+		base.Load(data);
+
+		looted = (bool)data["looted"];
+		maxDistance = (float)data["maxDistance"];
+		firstTimeLooted = (bool)data["firstTimeLooted"];
+		currentMaxDistance = (float)data["currentMaxDistance"];
 	}
 }

@@ -4,11 +4,13 @@ using System.Collections.Generic;
 
 public partial class PopoutManager : Control
 {
+	[Export] AdventureCamera? camera;
 	[Export] PackedScene? popoutPrefab;
 	Godot.Collections.Array<Control> currentPopouts = new Godot.Collections.Array<Control>();
 
 	public void SpawnPopout(string _title, string _text)
 	{
+		camera?.HideCustomCursor();
 		MouseFilter = MouseFilterEnum.Stop;
 		Control _currentPopout = popoutPrefab!.Instantiate<Control>();
 		AddChild(_currentPopout);

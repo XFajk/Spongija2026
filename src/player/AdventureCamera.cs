@@ -9,7 +9,11 @@ public partial class AdventureCamera : PlayerCamera
 
 	[Export] public float Distance = 6.0f;
 	[Export] public float Height = 3.0f;
+	[Export] public float FollowHeight;
+	[Export] public float MinHeight;
+	[Export] public float MaxHeight;
 	[Export] public float MouseSensitivity = 0.005f;
+	[Export] public float MouseMovingSpeed = 0.5f;
 	[Export] public float SmoothSpeed = 10.0f;
 	[Export] Label? returnPanningButton;
 
@@ -21,10 +25,20 @@ public partial class AdventureCamera : PlayerCamera
 	Vector3 _rotatingCenter;
 	RayCast3D? _groundRaycast;
 	private bool _ignoringClick;
+	
+	[Export] Control? _cursorContainer;
+	private Sprite2D? _spellCursor;
+
+	[Export] Texture2D? cantGo;
+	[Export] Texture2D? canGo;
 
 	public override void _Ready()
 	{
 		base._Ready();
+
+		Godot.Collections.Array<Node> group = GetTree().GetNodesInGroup("Terrain");
+		Node terrain = group[0];
+		terrain.Call("set_camera", this);
 
 		map = GetWorld3D().NavigationMap;
 		_rotatingCenter = Agent!.GlobalPosition;
@@ -32,6 +46,13 @@ public partial class AdventureCamera : PlayerCamera
 		_groundRaycast.CollisionMask = (1u << 2) | (1u << 3);
 		_groundRaycast.CollideWithAreas = true;
 		_groundRaycast.CollideWithBodies = true;
+
+		_spellCursor = new Sprite2D
+		{
+			Name = "SpellCursor",
+			Visible = false,
+		};
+		_cursorContainer?.AddChild(_spellCursor);
 	}
 
 	public override void _Process(double delta)
@@ -45,14 +66,15 @@ public partial class AdventureCamera : PlayerCamera
 
 		if (_interactionRayCast.IsColliding())
 		{
-			if (_interactionRayCast.GetCollider() is CollisionObject3D obj)
+			if (_interactionRayCast.GetCollider() is PointOfInterest p)
 			{
-				if ((obj.CollisionLayer & (1u << 2)) != 0)
+				ShowCustomCursor(p.cursorIcon);
+			}
+			else if (_interactionRayCast.GetCollider() is Node obj)
+			{
+				if (obj.IsInGroup("Terrain"))
 				{
 					Vector3 hitPosition = _interactionRayCast.GetCollisionPoint();
-
-					/*Vector3 navPoint =
-					NavigationServer3D.MapGetClosestPoint(map, hitPosition);*/
 
 					if (Agent!.canMove)
 					{
@@ -64,11 +86,28 @@ public partial class AdventureCamera : PlayerCamera
 								{
 									Agent!.SetTarget(hitPosition);
 								}
+								ShowCustomCursor(canGo);
 							}
+							else
+							{
+								ShowCustomCursor(cantGo);
+							}
+						}
+						else
+						{
+							ShowCustomCursor(cantGo);
 						}
 					}
 				}
+				else
+				{
+					HideCustomCursor();
+				}
 			}
+		}
+		else
+		{
+			HideCustomCursor();
 		}
 
 		if (_panningChanged)
@@ -83,8 +122,16 @@ public partial class AdventureCamera : PlayerCamera
 		else
 		{
 			_rotatingCenter = Agent!.GlobalPosition;
+			Height = Mathf.Lerp(
+				Height,
+				FollowHeight,
+				(float)delta * SmoothSpeed
+			);
 			returnPanningButton?.Hide();
 		}
+
+		if (_spellCursor != null && _spellCursor.Visible)
+			_spellCursor.GlobalPosition = _cursorContainer!.GetGlobalMousePosition();
 
 		CameraFollow(delta);
 	}
@@ -119,22 +166,37 @@ public partial class AdventureCamera : PlayerCamera
 
 	void CameraFollow(double delta)
 	{
-		if (!_panning)
-		{
-			Vector3 offset = new Vector3(
-				Mathf.Sin(_yaw) * Distance,
-				0,
-				Mathf.Cos(_yaw) * Distance
-			);
+		Vector3 offset = new Vector3(
+			Mathf.Sin(_yaw) * Distance,
+			0,
+			Mathf.Cos(_yaw) * Distance
+		);
 
-			Vector3 desiredPosition = (_rotatingCenter + Vector3.Up * Height) + offset;
+		Vector3 desiredPosition = (_rotatingCenter + Vector3.Up * Height) + offset;
 
-			float t = 1.0f - Mathf.Exp(-SmoothSpeed * (float)delta);
+		float t = 1.0f - Mathf.Exp(-SmoothSpeed * (float)delta);
 
-			GlobalPosition = GlobalPosition.Lerp(desiredPosition, t);
+		GlobalPosition = GlobalPosition.Lerp(desiredPosition, t);
 
-			LookAt(_rotatingCenter, Vector3.Up);
-		}
+		//
+		Vector3 direction = _rotatingCenter - GlobalPosition;
+
+		if (direction.LengthSquared() < 0.0001f)
+			return;
+
+		Basis targetBasis = Basis.LookingAt(direction.Normalized(), Vector3.Up);
+
+		Quaternion targetRotation = targetBasis.GetRotationQuaternion();
+
+		Quaternion currentRotation = GlobalBasis.GetRotationQuaternion();
+
+		Quaternion smoothRotation = currentRotation.Slerp(
+			targetRotation,
+			(float)delta * SmoothSpeed * 5
+		);
+
+		GlobalBasis = new Basis(smoothRotation);
+		//LookAt(_rotatingCenter, Vector3.Up);
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -167,11 +229,28 @@ public partial class AdventureCamera : PlayerCamera
 			right.Y = 0;
 			right = right.Normalized();
 
-			_rotatingCenter += right * -motion.Relative.X * MouseSensitivity * 5;
-			_rotatingCenter += forward * -motion.Relative.Y * MouseSensitivity * 5;
+			_rotatingCenter += right * -motion.Relative.X * MouseSensitivity * MouseMovingSpeed;
+			_rotatingCenter += forward * -motion.Relative.Y * MouseSensitivity * MouseMovingSpeed;
 
-			Position += right * -motion.Relative.X * MouseSensitivity * 5;
-			Position += forward * -motion.Relative.Y * MouseSensitivity * 5;
+			Position += right * -motion.Relative.X * MouseSensitivity * MouseMovingSpeed;
+			Position += forward * -motion.Relative.Y * MouseSensitivity * MouseMovingSpeed;
+		}
+
+		if (_panningChanged)
+		{
+			if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
+			{
+				if (mouseEvent.ButtonIndex == MouseButton.WheelDown)
+				{
+					Height += 1f;
+				}
+				else if (mouseEvent.ButtonIndex == MouseButton.WheelUp)
+				{
+					Height -= 1f;
+				}
+
+				Height = Mathf.Clamp(Height, MinHeight, MaxHeight);
+			}
 		}
 	}
 
@@ -180,8 +259,8 @@ public partial class AdventureCamera : PlayerCamera
 		Vector3 closest =
 			NavigationServer3D.MapGetClosestPoint(map, pos);
 
-		//return closest.DistanceTo(pos) <= 0.5f;
-		return closest.X == pos.X && closest.Z == pos.Z;
+		return closest.DistanceTo(pos) <= 0.5f;
+		//return closest.X == pos.X && closest.Z == pos.Z;
 	}
 
 	public bool hasPath(Vector3 pos)
@@ -194,7 +273,7 @@ public partial class AdventureCamera : PlayerCamera
 		);
 
 		Vector3 endPoint = path[path.Length - 1];
-		return endPoint.DistanceTo(pos) <= 1f;
+		return endPoint.DistanceTo(pos) <= 0.5f;
 	}
 
 	public async void ResetPan()
@@ -217,5 +296,38 @@ public partial class AdventureCamera : PlayerCamera
 	public void IgnoreAdventureCurrentClick()
 	{
 		_ignoringClick = true;
+	}
+
+	public void ShowCustomCursor(Texture2D? icon)
+	{
+		if (_spellCursor == null)
+			return;
+		if (icon == null)
+		{
+			HideCustomCursor();
+			return;
+		}
+		if (_spellCursor.Texture != icon)
+		{
+			_spellCursor.Texture = icon;
+			Vector2 size = icon.GetSize();
+			_spellCursor.Scale = Vector2.One * 32 / Mathf.Max(1f, Mathf.Max(size.X, size.Y));
+		}
+		_spellCursor.GlobalPosition = _cursorContainer!.GetGlobalMousePosition();
+		_spellCursor.Visible = true;
+		UpdateMouseMode(false);
+	}
+
+	public void HideCustomCursor()
+	{
+		if (_spellCursor == null || !_spellCursor.Visible)
+			return;
+		_spellCursor.Visible = false;
+		UpdateMouseMode(true);
+	}
+
+	private void UpdateMouseMode(bool _visible)
+	{
+		Input.MouseMode = _visible ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Hidden;
 	}
 }

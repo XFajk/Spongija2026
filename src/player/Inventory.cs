@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
 
-public partial class Inventory : Node
+public partial class Inventory : Node, ISavable
 {
+	[Export] public string SaveId { get; set; } = "inventory";
+
 	public AdventureCharacter? Character;
 
 	[Export] public StackResource[]? Units;
@@ -18,6 +20,8 @@ public partial class Inventory : Node
 	[Export] public int horses;
 	[Export] public int silk;
 	[Export] public int iron;
+	public uint Mana;
+	[Export] public uint MaxMana;
 	
 	public Unit? unitSplitting;
 	public string resourceCombining = "";
@@ -85,6 +89,15 @@ public partial class Inventory : Node
 		}
 
 		UpdateUI();
+	}
+
+	public void AddMana(uint _mana)
+	{
+		Mana += _mana;
+		if (Mana > MaxMana)
+		{
+			Mana = MaxMana;
+		}
 	}
 
 	public void AddUnits(StackResource[] _units)
@@ -460,5 +473,143 @@ public partial class Inventory : Node
 		artefactIndex = 0;
 		artefactEquipped = false;
 		UpdateUI();
+	}
+
+	//Save
+	public Godot.Collections.Dictionary<string, Variant> Save()
+	{
+		var _units = new Godot.Collections.Array<Variant>();
+
+		foreach (var _unit in Units!)
+		{
+			if (_unit == null)
+			{
+				_units.Add(default(Variant));
+				continue;
+			}
+
+			_units.Add(new Godot.Collections.Dictionary
+			{
+				{ "path", _unit.ResourcePath },
+				{ "unit", _unit.Unit?.ResourcePath ?? "" },
+				{ "quantity", _unit.Quantity }
+			});
+		}
+
+		var _spells = new Godot.Collections.Array<Variant>();
+
+		foreach (var _spell in Spells!)
+		{
+			_spells.Add(new Godot.Collections.Dictionary
+			{
+				{ "path", _spell.ResourcePath },
+			});
+		}
+
+		var _equipped = new Godot.Collections.Array<Variant>();
+
+		foreach (var _equip in EquippedArtefacts!)
+		{
+			if (_equip == null)
+			{
+				_equipped.Add(default(Variant));
+				continue;
+			}
+
+			_equipped.Add(new Godot.Collections.Dictionary
+			{
+				{ "path", _equip.ResourcePath },
+			});
+		}
+
+		var owned = new Godot.Collections.Array<Variant>();
+
+		foreach (var _arte in Artefacts!)
+		{
+			owned.Add(new Godot.Collections.Dictionary
+			{
+				{ "path", _arte.ResourcePath },
+			});
+		}
+
+		return new()
+		{
+			{ "units", _units },
+			{ "spells", _spells! },
+			{ "artefacts", owned! },
+			{ "artefacts_equipped", _equipped! },
+			{ "mana", Mana },
+			{ "horses", horses },
+			{ "silk", silk },
+			{ "iron", iron },
+		};
+	}
+
+	public void Load(Godot.Collections.Dictionary data)
+	{
+		Mana = (uint)data["mana"];
+		horses = (int)data["horses"];
+		silk = (int)data["silk"];
+		iron = (int)data["iron"];
+
+		var _units = data["units"].AsGodotArray<Variant>();
+
+		Units = new StackResource[_units.Count];
+
+		for (int i = 0; i < _units.Count; i++)
+		{
+			if (_units[i].VariantType == Variant.Type.Nil)
+				continue;
+
+			var itemData = _units[i].AsGodotDictionary();
+
+			var item = new StackResource();
+
+			string path = itemData["unit"].AsString();
+
+			if (path != "")
+			{
+				item.Unit = GD.Load<Unit>(path);
+				item.Quantity = (uint)itemData["quantity"];
+			}
+
+			Units[i] = item;
+		}
+
+		var _spells = data["spells"].AsGodotArray<Variant>();
+
+		Spells = new SpellAbility[_spells.Count];
+
+		for (int i = 0; i < _spells.Count; i++)
+		{
+			var itemData = _spells[i].AsGodotDictionary();
+			string path = itemData["path"].AsString();
+			Spells[i] = GD.Load<SpellAbility>(path);
+		}
+
+		var _equipped = data["artefacts_equipped"].AsGodotArray<Variant>();
+
+		EquippedArtefacts = new Artefact[_equipped.Count];
+
+		for (int i = 0; i < _equipped.Count; i++)
+		{
+			if (_equipped[i].VariantType == Variant.Type.Nil)
+				continue;
+
+			var itemData = _equipped[i].AsGodotDictionary();
+			string path = itemData["path"].AsString();
+			EquippedArtefacts[i] = GD.Load<Artefact>(path);
+		}
+
+		var _artefacts = data["artefacts"].AsGodotArray<Variant>();
+
+		Artefacts = new Godot.Collections.Array<Artefact>();
+
+		for (int i = 0; i < _artefacts.Count; i++)
+		{
+			var itemData = _artefacts[i].AsGodotDictionary();
+			string path = itemData["path"].AsString();
+			Artefacts.Add(GD.Load<Artefact>(path));
+		}
 	}
 }

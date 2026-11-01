@@ -14,10 +14,13 @@ public partial class ResourcePOI : PointOfInterest
 	[Export]
 	public Control? Container { get; set; }
 
-	[Export] Texture2D[]? icons;
+	[Export] Texture2D? icon;
 
 	public override void Access()
 	{
+		if (base._destroyed)
+			return;
+
 		base.Access();
 		_character?.GetNode<Inventory>("Inventory").AddResource(type, Amount);
 
@@ -25,7 +28,7 @@ public partial class ResourcePOI : PointOfInterest
 
 		_character!.poi = null;
 		UnFocus();
-		QueueFree();
+		base.Destroy();
 	}
 
 	public void ShowFloatingText(Vector3 worldPosition, int amount)
@@ -35,27 +38,12 @@ public partial class ResourcePOI : PointOfInterest
 		Container?.AddChild(popup);
 
 		// Prevod 3D pozície na 2D pozíciu obrazovky
-		Vector2 screenPosition = Camera!.UnprojectPosition(worldPosition);
+		Vector2 screenPosition = base.GetScreenPosition(Camera!, worldPosition, Container!);
 
 		popup!.Text = amount >= 0 ? $"+{amount}" : amount.ToString();
 		popup!.Position = screenPosition;
 		popup!.GetNode<TextureRect>("TextureRect").Show();
-		popup!.GetNode<TextureRect>("TextureRect").Texture = GetTexture();
-	}
-
-	Texture2D GetTexture()
-	{
-		switch(type)
-		{
-			case TypeOfResource.horses:
-				return icons![0];
-			case TypeOfResource.silk:
-				return icons![1];
-			case TypeOfResource.iron:
-				return icons![2];
-			default:
-				return icons![0];
-		}
+		popup!.GetNode<TextureRect>("TextureRect").Texture = icon;
 	}
 }
 
