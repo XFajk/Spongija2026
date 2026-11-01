@@ -8,17 +8,8 @@ public partial class SaveManager : Node
 
 	public override void _Ready()
 	{
-		LoadGame(1);
+		LoadGame(CurrentSave.CurrentSaveIndex);
 	}
-
-	public override void _Process(double delta)
-	{
-		if (Input.IsActionPressed("jump"))
-		{
-			SaveGame(1);
-		}
-	}
-
 
 	public void SaveGame(int slot)
 	{

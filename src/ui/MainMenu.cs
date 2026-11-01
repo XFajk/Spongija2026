@@ -6,6 +6,7 @@ public partial class MainMenu : Control
 	private Control? _titleMenu;
 	private Control? _settingsMenu;
 	private Control? _quitMenu;
+	private SaveBrowser? _saveBrowser;
 
 	private Button? _playButton;
 	private Button? _settingsButton;
@@ -50,6 +51,12 @@ public partial class MainMenu : Control
 			GD.PrintErr("QUIT Menu Back Button not found in QuitMenu");
 		}
 
+		_saveBrowser = GetNode<SaveBrowser>("/root/MainMenu/select_file");
+		if (_saveBrowser == null)
+		{
+			GD.PrintErr("Save Browser not found in QuitMenu");
+		}
+
 		_playButton!.Pressed += OnPlayButtonPressed;
 		_settingsButton!.Pressed += OnSettingsButtonPressed;
 		_quitButton!.Pressed += OnQuitButtonPressed;
@@ -64,7 +71,9 @@ public partial class MainMenu : Control
 
 	private void OnPlayButtonPressed()
 	{
-
+		_titleMenu!.Hide();
+		_saveBrowser!.Show();
+		_saveBrowser.Setup(true);
 	}
 
 	private void OnSettingsButtonPressed()
