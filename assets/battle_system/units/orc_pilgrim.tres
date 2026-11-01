@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Unit" format=3]
+
+[ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="1_orc"]
+[ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="2_orc"]
+[ext_resource type="PackedScene" uid="uid://dmlr2ag72kaa1" path="res://scenes/units/orc_pilgrim.tscn" id="3_orc"]
+
+[sub_resource type="Resource" id="Resource_melee"]
+script = ExtResource("2_orc")
+metadata/_custom_type_script = "uid://dbehoqcrijunt"
+
+[resource]
+script = ExtResource("1_orc")
+Name = "Orc Thrall"
+Description = "Quendi who were taken in the dark before Oromë came, and twisted in Melkor's pits into something cruel and hateful. Thralls are the lowest of his orcs, driven to battle with whips and pitchforks. They are tougher and meaner than the pilgrims they once were, but no braver: they come in hordes because alone they would run."
+MaxHealth = 25
+Strength = 4
+Defense = 2
+SpeedTier = 4
+MeleeAttack = SubResource("Resource_melee")
+Model = ExtResource("3_orc")
+metadata/_custom_type_script = "uid://cj3g6btx1kotr"
