@@ -163,7 +163,7 @@ mesh = SubResource("ArrayMesh_6op78")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Highlight" unique_id=1051154522]
 transform = Transform3D(0.6666667, 0, 0, 0, 0.6666667, 0, 0, 0, 0.6666667, 0, 1.0859336, 0)
-light_color = Color(1, 0.28817058, 0.56309205, 1)
+light_color = Color(0.42306423, 0.25619233, 1, 1)
 light_energy = 1.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=581070797]
@@ -171,3 +171,7 @@ transform = Transform3D(1.4791958, 0, 0, 0, 2, 0, 0, 0, 1.4998796, 0, -0.4042968
 shape = SubResource("BoxShape3D_2klcf")
 
 [node name="Position" type="Node3D" parent="." unique_id=1455037076]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=39535962]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.96554554, 0)
+distance_fade_enabled = true

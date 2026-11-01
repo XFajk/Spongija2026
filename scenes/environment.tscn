@@ -124,7 +124,7 @@ material_override = SubResource("StandardMaterial3D_yyxhd")
 generated_size = Vector2(0.5, 0.5)
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 128.0
+lod0_range = 64.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80s2q"]
 transparency = 4
@@ -146,7 +146,7 @@ generated_faces = 3
 generated_size = Vector2(2, 2)
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 128.0
+lod0_range = 64.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_73u5r"]
 name = "fern1"
@@ -155,7 +155,7 @@ scene_file = ExtResource("3_om7ee")
 density = 0.3291215
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 128.0
+lod0_range = 64.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_3460w"]
 name = "fern2"
@@ -164,7 +164,7 @@ scene_file = ExtResource("4_6rpxt")
 density = 0.29132107
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 128.0
+lod0_range = 64.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_fobrl"]
 name = "fern3"
@@ -173,7 +173,7 @@ scene_file = ExtResource("5_qrvva")
 density = 0.24219258
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 128.0
+lod0_range = 64.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_rlnmy"]
 name = "fern4"
@@ -321,7 +321,7 @@ scene_file = ExtResource("40_3460w")
 height_offset = 0.5
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 128.0
+lod0_range = 64.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lewcq"]
 transparency = 4
@@ -586,6 +586,7 @@ navigation_mesh = SubResource("NavigationMesh_jvnn3")
 data_directory = "res://assets/terrain/surface1"
 material = SubResource("Terrain3DMaterial_d5dl1")
 assets = SubResource("Terrain3DAssets_yw8f4")
+collision_shape_size = 8
 collision_radius = 128
 collision_layer = 12
 collision_mask = 0

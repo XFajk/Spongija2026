@@ -119,3 +119,9 @@ mesh = SubResource("ArrayMesh_3og70")
 [node name="Mana" type="MeshInstance3D" parent="spring/ManaSpring" unique_id=1811365044]
 transform = Transform3D(1, 0, 0, 0, -0.08715558, -0.9961947, 0, 0.9961947, -0.08715558, -0.0048679267, 0.9294102, -1.5230598)
 mesh = SubResource("ArrayMesh_pnt07")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=851438279]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7489624, 1.41195)
+light_color = Color(0, 0, 1, 1)
+distance_fade_enabled = true
+omni_range = 6.2152967

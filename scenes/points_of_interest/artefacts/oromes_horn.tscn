@@ -207,3 +207,7 @@ transform = Transform3D(0.30958965, 0, 0, 0, 2, 0, 0, 0, 0.25182265, 0, 0.810686
 shape = SubResource("BoxShape3D_2klcf")
 
 [node name="Position" type="Node3D" parent="." unique_id=1455037076]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=693777288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7269442, 0)
+distance_fade_enabled = true

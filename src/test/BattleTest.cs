@@ -8,6 +8,10 @@ public partial class BattleTest : Node
     [Export]
     public Array<SpellAbility> HeroSpells { get; set; } = [];
 
+    // Equipped by the player's hero, in order
+    [Export]
+    public Array<Artefact> HeroArtefacts { get; set; } = [];
+
     [Export]
     public Array<StackResource> PlayerUnits { get; set; } = [];
 
@@ -21,8 +25,13 @@ public partial class BattleTest : Node
     public override void _Ready()
     {
 
-        var playerArmy = new Army { Hero = new Hero { Strength = 2, Defense = 2, Knowledge = 5, Mana = 30} };
-        playerArmy.Hero.Spells.AddRange(HeroSpells);
+        var hero = new Hero { Strength = 2, Defense = 2, Knowledge = 5 };
+        // Before the mana, which is capped by the artefacts' max mana
+        hero.Artefacts.AddRange(HeroArtefacts);
+        foreach (SpellAbility spell in HeroSpells)
+            hero.LearnSpell(spell);
+        hero.Mana = 30;
+        var playerArmy = new Army { Hero = hero };
         foreach (var stack in PlayerUnits)
         {
             if (stack.Unit != null)
@@ -40,6 +49,6 @@ public partial class BattleTest : Node
             }
         }
 
-        SceneTransitions.EnterArena(GetTree(), playerArmy, computerArmy);
+        _ = SceneTransitions.EnterArena(GetTree(), playerArmy, computerArmy);
     }
 }

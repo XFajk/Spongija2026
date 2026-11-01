@@ -23,4 +23,5 @@ Targets = 1
 Icon = ExtResource("2_necro")
 HoveredIcon = ExtResource("3_necro")
 ManaCost = 15
+MinKnowledge = 3
 metadata/_custom_type_script = "uid://dbgph75cbek0k"

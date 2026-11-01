@@ -11,9 +11,14 @@
 [ext_resource type="Script" uid="uid://da8xkfatqgrcb" path="res://src/ui/CharacterPanel.cs" id="7_blm8a"]
 [ext_resource type="LabelSettings" uid="uid://d2yjmolnb3eqi" path="res://assets/ui_themes/HighlightLabelSettings.tres" id="7_nakos"]
 [ext_resource type="PackedScene" uid="uid://3me630kro538" path="res://scenes/ui/popout.tscn" id="7_wslke"]
+[ext_resource type="Resource" uid="uid://ddfgaidqfhbat" path="res://assets/battle_system/abilities/spells/fire_ball_spell.tres" id="8_baix8"]
 [ext_resource type="Texture2D" uid="uid://b8ddb7nxoqbb7" path="res://assets/pics/cantGoIcon.png" id="8_jh32y"]
 [ext_resource type="Texture2D" uid="uid://bpk4t2bqqrf3h" path="res://assets/pics/book/BookBack.png" id="9_be0no"]
+[ext_resource type="Resource" uid="uid://bdthpuy62xd12" path="res://assets/battle_system/abilities/spells/web_ball_spell.tres" id="9_s2dh3"]
+[ext_resource type="PackedScene" uid="uid://cw5mt6sny4rlq" path="res://scenes/points_of_interest/artefacts/fighters_helmet.tscn" id="10_8kgjo"]
+[ext_resource type="PackedScene" uid="uid://crcvcp0bl0bjc" path="res://scenes/points_of_interest/artefacts/mana_pouch.tscn" id="11_ogd7i"]
 [ext_resource type="Texture2D" uid="uid://csuq8cas0opo5" path="res://assets/pics/inventory/bag_on_stickblack.png" id="12_sq6bu"]
+[ext_resource type="PackedScene" uid="uid://b3omq7rub3olq" path="res://scenes/points_of_interest/artefacts/mithril_shield.tscn" id="12_tf62m"]
 [ext_resource type="Texture2D" uid="uid://b5gh5rno637p2" path="res://assets/pics/inventory/bag_on_stickgray.png" id="13_4b7dj"]
 [ext_resource type="PackedScene" uid="uid://dojoqutc52f7o" path="res://scenes/points_of_interest/silk_resource_poi.tscn" id="13_baix8"]
 [ext_resource type="Texture2D" uid="uid://eaq1jq5w0ja5" path="res://assets/pics/book/BookBackGrey.png" id="13_c70he"]
@@ -23,7 +28,10 @@
 [ext_resource type="Texture2D" uid="uid://b1a78biqiyy4e" path="res://assets/pics/book/BookBackWhite.png" id="14_mo32q"]
 [ext_resource type="PackedScene" uid="uid://dd8qpygjqxwvm" path="res://scenes/ui/unit_slot.tscn" id="14_p7tei"]
 [ext_resource type="PackedScene" uid="uid://dexb8bit6wg3f" path="res://scenes/points_of_interest/horse_resource_poi.tscn" id="14_s2dh3"]
+[ext_resource type="PackedScene" uid="uid://bud7j5o3o7w4y" path="res://scenes/points_of_interest/artefacts/wizard_hat_poi.tscn" id="15_v7gfb"]
+[ext_resource type="PackedScene" uid="uid://cfdi0vlbjhyu4" path="res://scenes/points_of_interest/artefacts/sword_of_courage.tscn" id="16_icjpl"]
 [ext_resource type="FontFile" uid="uid://cotpgy3uit4mg" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Regular.ttf" id="16_p7tei"]
+[ext_resource type="PackedScene" uid="uid://dnhn5ddkxegh6" path="res://scenes/points_of_interest/artefacts/wizard_cane.tscn" id="17_vwuk8"]
 [ext_resource type="PackedScene" uid="uid://djoxt7jtplgwr" path="res://scenes/points_of_interest/camp_poi.tscn" id="18_r2y85"]
 [ext_resource type="PackedScene" uid="uid://c23anfnailwup" path="res://scenes/ui/artefact_ui.tscn" id="20_081xv"]
 [ext_resource type="Texture2D" uid="uid://r6lyu5hmdlly" path="res://assets/pics/swap.png" id="21_nc68e"]
@@ -39,14 +47,21 @@
 [ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="33_12q1p"]
 [ext_resource type="Theme" uid="uid://c7y84ghi423h7" path="res://assets/ui_themes/unit_slot.tres" id="34_lhdcv"]
 [ext_resource type="Texture2D" uid="uid://d0ae0e4vsrswn" path="res://assets/ui/BookBackBlack.png" id="41_fq3dv"]
+[ext_resource type="PackedScene" uid="uid://bbca8on0i7dje" path="res://scenes/points_of_interest/spell_poi.tscn" id="48_7s432"]
 [ext_resource type="Theme" uid="uid://brqf071jtaftc" path="res://assets/ui_themes/main_menu_ui_theme.tres" id="49_ogd7i"]
 [ext_resource type="Script" uid="uid://dsh7utydx6qkr" path="res://src/save_system/SaveManager.cs" id="49_s2dh3"]
 [ext_resource type="Script" uid="uid://dvqihq641myar" path="res://src/ui/PauseMenu.cs" id="50_tf62m"]
 [ext_resource type="PackedScene" uid="uid://bp7h6wk0dp8i7" path="res://scenes/ui/select_file.tscn" id="51_nc68e"]
 [ext_resource type="Script" uid="uid://dgxys3vbibvpt" path="res://src/ui/BlackScreen.cs" id="51_r2y85"]
+[ext_resource type="PackedScene" uid="uid://b48evc5lmrr26" path="res://scenes/visual_effects/fire_flies.tscn" id="52_fq3dv"]
 [ext_resource type="Environment" uid="uid://oi2ubom7ugak" path="res://assets/misc/new_environment.tres" id="52_tf62m"]
 [ext_resource type="Script" uid="uid://swwcjjqiscph" path="res://src/ui/Tutorial.cs" id="53_ogd7i"]
 [ext_resource type="PackedScene" uid="uid://bw2n3jxff7m3j" path="res://scenes/environment.tscn" id="53_tf62m"]
+[ext_resource type="PackedScene" uid="uid://bo8uppegn6g8g" path="res://scenes/points_of_interest/artefacts/oromes_horn.tscn" id="55_nc68e"]
+[ext_resource type="PackedScene" uid="uid://mvghk1os8qst" path="res://scenes/visual_effects/kemp_fire.tscn" id="56_r2y85"]
+[ext_resource type="PackedScene" uid="uid://xj1befbnvato" path="res://scenes/points_of_interest/artefacts/necromancer_dagger.tscn" id="57_w5y4v"]
+[ext_resource type="Script" uid="uid://bpulslght6n3w" path="res://src/environment/PulsingLight.cs" id="61_kycfx"]
+[ext_resource type="AudioStream" uid="uid://d2taygdmuk8h2" path="res://assets/sounds/book/book2.ogg" id="62_bksnd"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r2y85"]
 load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
@@ -278,13 +293,19 @@ GameViewport = NodePath("../SubViewport")
 
 [node name="PointsOfInterest" type="Node3D" parent="." unique_id=810958568]
 
-[node name="spring_poi" parent="PointsOfInterest" unique_id=2127545491 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("2_s2dh3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -357, 4, -446)
+[node name="spring_poi" parent="PointsOfInterest" unique_id=2127545491 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("2_s2dh3")]
+transform = Transform3D(0.4380287, 0, -0.44511515, 0, 0.6244971, 0, 0.44511515, 0, 0.4380287, -571.7116, 5.5975714, -613.51605)
 MaxAmount = 30
-RestoringSpeed = 5.0
 Camera = NodePath("../../SubViewport/PlayerCamera")
 Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
-SaveId = "spring"
+SaveId = "spring1"
+
+[node name="spiderspring_poi2" parent="PointsOfInterest" unique_id=1105177264 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("2_s2dh3")]
+transform = Transform3D(0.8918572, 0, -1.1293753, 0, 1.4390615, 0, 1.1293753, 0, 0.8918572, -423.61993, 29.615301, -777.7555)
+MaxAmount = 60
+Camera = NodePath("../../SubViewport/PlayerCamera")
+Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
+SaveId = "SpiderSpringofmanga"
 
 [node name="Camp" parent="PointsOfInterest" unique_id=157508729 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("18_r2y85")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -73.00316, 11.110363, -431.28476)
@@ -691,11 +712,69 @@ Camera = NodePath("../../../SubViewport/PlayerCamera")
 Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
 SaveId = "horse18"
 
+[node name="Spells" type="Node3D" parent="PointsOfInterest" unique_id=627992196]
+
+[node name="FireballSpell" parent="PointsOfInterest/Spells" unique_id=1250873675 instance=ExtResource("48_7s432")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -414.11566, 3.8964715, -416.60123)
+Spell = ExtResource("8_baix8")
+SaveId = "FireBallSpell"
+
+[node name="spell_poi" parent="PointsOfInterest/Spells" unique_id=1793646282 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("48_7s432")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -413.31467, 30.26011, -791.78564)
+Spell = ExtResource("9_s2dh3")
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "WebBallSpell"
+metadata/_edit_group_ = true
+
+[node name="Artefacts" type="Node3D" parent="PointsOfInterest" unique_id=570696572]
+
+[node name="necromancer_dagger" parent="PointsOfInterest/Artefacts" unique_id=2000296551 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("57_w5y4v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -561.69745, 36.949272, -895.47906)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="oromes_horn" parent="PointsOfInterest/Artefacts" unique_id=492435077 instance=ExtResource("55_nc68e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -568.2592, 5.3634076, -630.11084)
+
+[node name="fighters_helmet" parent="PointsOfInterest/Artefacts" unique_id=1801824249 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("10_8kgjo")]
+transform = Transform3D(0.44506988, 0, -0.89549583, 0, 1, 0, 0.89549583, 0, 0.44506988, -336.1929, 3.0407605, -419.80338)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="mana_pouch" parent="PointsOfInterest/Artefacts" unique_id=255081392 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("11_ogd7i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -397.42508, 33.005272, -779.40076)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="mithril_shield" parent="PointsOfInterest/Artefacts" unique_id=1080352660 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("12_tf62m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -370.1349, 3.004427, -364.336)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="wizard_hat_poi" parent="PointsOfInterest/Artefacts" unique_id=1997912767 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("15_v7gfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.45299, 13.098531, -434.46005)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="sword_of_courage" parent="PointsOfInterest/Artefacts" unique_id=15973466 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("16_icjpl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -682.48303, 44.66504, -469.51584)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="wizard_cane" parent="PointsOfInterest/Artefacts" unique_id=756606375 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("17_vwuk8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -357.07538, 21.314384, -620.36475)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
 [node name="SubViewport" type="SubViewport" parent="." unique_id=2116964362]
+audio_listener_enable_3d = true
 size = Vector2i(1280, 720)
 
 [node name="PlayerCamera" parent="SubViewport" unique_id=118941473 node_paths=PackedStringArray("Agent", "returnPanningButton", "_cursorContainer") instance=ExtResource("2_paxxb")]
 transform = Transform3D(1, 0, 0, 0, 0.3321821, 0.9432153, 0, -0.9432153, 0.3321821, -412.57367, 127.85014, -434.07703)
+doppler_tracking = 1
+current = true
 script = ExtResource("4_0cso3")
 Agent = NodePath("../../AdventureCharacter")
 Distance = 8.0
@@ -717,11 +796,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.4965672, 3.1734376)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=472189251]
 transform = Transform3D(0.8660254, -0.3535534, 0.3535534, 0, 0.7071068, 0.7071068, -0.5, -0.61237246, 0.61237246, 0, 4, 0)
 light_color = Color(0.049423575, 0.11703893, 0.32706, 1)
-light_energy = 0.75
+light_energy = 6.0
 shadow_enabled = true
 
 [node name="AdventureCharacter" parent="." unique_id=590468899 node_paths=PackedStringArray("container", "pauseWindow", "_saves") instance=ExtResource("4_2klcf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -382.47223, 3.6384203, -457.84418)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.02108, 11.304167, -454.86435)
 container = NodePath("../PointsContainer")
 pauseWindow = NodePath("../CanvasLayer/Canvas/PauseMenu")
 _saves = NodePath("../CanvasLayer/Canvas/select_file")
@@ -770,6 +849,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="BookSound" type="AudioStreamPlayer" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=1146025873]
+stream = ExtResource("62_bksnd")
+pitch_scale = 1.75
+bus = &"SFX"
 
 [node name="SpellBook" type="AnimatedSprite2D" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=39295325]
 position = Vector2(563, 361)
@@ -1981,3 +2065,260 @@ PopoutManager = NodePath("../CanvasLayer/Canvas/PopoutContainer")
 script = ExtResource("49_s2dh3")
 
 [node name="Node3D" parent="." unique_id=1448908437 instance=ExtResource("53_tf62m")]
+
+[node name="VFX" type="Node" parent="." unique_id=1645687977]
+
+[node name="GPUParticles3D" parent="VFX" unique_id=1800348512 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -265.32074, 16.958246, -609.35834)
+
+[node name="GPUParticles3D2" parent="VFX" unique_id=723323951 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -282.1534, 23.995907, -629.07074)
+
+[node name="GPUParticles3D3" parent="VFX" unique_id=2131069545 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -278.01694, 25.472843, -639.30475)
+
+[node name="GPUParticles3D4" parent="VFX" unique_id=52755286 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -305.01306, 21.732702, -612.6133)
+
+[node name="GPUParticles3D5" parent="VFX" unique_id=1162532668 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -323.55695, 23.753916, -619.26794)
+
+[node name="GPUParticles3D6" parent="VFX" unique_id=1268619872 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -331.81625, 31.087975, -663.43744)
+
+[node name="GPUParticles3D7" parent="VFX" unique_id=1959887457 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -335.36072, 33.7308, -692.8953)
+
+[node name="GPUParticles3D8" parent="VFX" unique_id=290973512 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -331.40857, 45.418404, -757.96704)
+
+[node name="FireFlies3" parent="VFX" unique_id=1489733072 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -537.36566, 5.9430237, -597.4433)
+
+[node name="FireFlies4" parent="VFX" unique_id=1027525146 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -523.70776, 6.0586276, -602.83746)
+
+[node name="FireFlies5" parent="VFX" unique_id=1006272717 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -511.2317, 6.0586314, -625.8599)
+
+[node name="FireFlies6" parent="VFX" unique_id=343333647 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -527.83923, 5.8919206, -587.17017)
+
+[node name="FireFlies7" parent="VFX" unique_id=336775353 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -522.4528, 6.087254, -646.7671)
+
+[node name="FireFlies8" parent="VFX" unique_id=2013914256 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -556.84235, 6.507632, -650.39233)
+
+[node name="FireFlies9" parent="VFX" unique_id=90630328 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -601.0901, 8.394318, -677.0987)
+
+[node name="FireFlies10" parent="VFX" unique_id=809443489 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -629.2777, 8.1995325, -659.0123)
+
+[node name="FireFlies11" parent="VFX" unique_id=1587860748 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -649.64166, 10.722524, -617.37756)
+
+[node name="FireFlies12" parent="VFX" unique_id=883053521 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -646.9818, 14.470376, -581.9235)
+
+[node name="FireFlies13" parent="VFX" unique_id=318460304 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -606.11395, 25.20752, -805.4169)
+
+[node name="FireFlies14" parent="VFX" unique_id=637150499 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -847.4255, 25.202316, -626.084)
+
+[node name="FireFlies15" parent="VFX" unique_id=419784466 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -817.46796, 22.70256, -653.73926)
+
+[node name="FireFlies16" parent="VFX" unique_id=7374516 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -756.07556, 13.806207, -674.97565)
+
+[node name="FireFlies17" parent="VFX" unique_id=1346393765 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -877.8421, 22.051573, -735.14984)
+
+[node name="FireFlies18" parent="VFX" unique_id=710512001 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -878.4203, 21.66229, -727.81915)
+
+[node name="FireFlies19" parent="VFX" unique_id=1315014939 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -879.43756, 21.809973, -719.6789)
+
+[node name="FireFlies20" parent="VFX" unique_id=205302011 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -882.7088, 20.801224, -728.70435)
+
+[node name="FireFlies21" parent="VFX" unique_id=861294897 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.97394, 8.592665, -600.1897)
+
+[node name="FireFlies22" parent="VFX" unique_id=231621524 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.794, 8.426821, -613.50104)
+
+[node name="FireFlies23" parent="VFX" unique_id=1562169789 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.91129, 9.418181, -579.9958)
+
+[node name="FireFlies24" parent="VFX" unique_id=2132340630 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -92.35394, 9.418181, -584.353)
+
+[node name="FireFlies25" parent="VFX" unique_id=1984742059 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.738945, 8.874543, -626.9058)
+
+[node name="FireFlies26" parent="VFX" unique_id=383189493 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.86801, 12.222174, -665.76044)
+
+[node name="FireFlies27" parent="VFX" unique_id=354356342 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -162.68808, 9.418181, -679.0718)
+
+[node name="FireFlies28" parent="VFX" unique_id=1094525681 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -145.80536, 9.418181, -645.5665)
+
+[node name="FireFlies29" parent="VFX" unique_id=779304524 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -125.24801, 9.418181, -649.92377)
+
+[node name="FireFlies30" parent="VFX" unique_id=153360356 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.63301, 12.605599, -692.47656)
+
+[node name="FireFlies31" parent="VFX" unique_id=540549952 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103.55718, 9.0014305, -554.10876)
+
+[node name="FireFlies32" parent="VFX" unique_id=2056488388 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -119.37725, 8.357169, -567.4201)
+
+[node name="FireFlies33" parent="VFX" unique_id=844230368 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.49453, 7.9888697, -533.91486)
+
+[node name="FireFlies34" parent="VFX" unique_id=1648157030 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.93718, 9.418181, -538.2721)
+
+[node name="FireFlies36" parent="VFX" unique_id=1111915358 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(0.996027, -0.089051634, 0, 0.089051634, 0.996027, 0, 0, 0, 1, -91.02403, 6.6517377, -501.10403)
+
+[node name="FireFlies37" parent="VFX" unique_id=160545401 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(0.996027, -0.089051634, 0, 0.089051634, 0.996027, 0, 0, 0, 1, -70.54836, 8.482404, -505.46127)
+
+[node name="FireFlies35" parent="VFX" unique_id=116006538 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.32218, 9.418178, -580.8249)
+
+[node name="KempFire" parent="VFX" unique_id=1357834033 instance=ExtResource("56_r2y85")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.55895, 11.369202, -443.80463)
+
+[node name="KempFire2" parent="VFX" unique_id=832529064 instance=ExtResource("56_r2y85")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -560.61426, 4.952624, -625.71985)
+
+[node name="PulsingLight" type="OmniLight3D" parent="VFX" unique_id=667314247]
+transform = Transform3D(0.8379422, 0, 0.5457591, 0, 1, 0, -0.5457591, 0, 0.8379422, -740.1482, 83.04238, -462.3099)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight2" type="OmniLight3D" parent="VFX" unique_id=1265590898]
+transform = Transform3D(0.8379422, 0, 0.5457591, 0, 1, 0, -0.5457591, 0, 0.8379422, -744.0303, 83.04238, -458.14612)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight3" type="OmniLight3D" parent="VFX" unique_id=1460572249]
+transform = Transform3D(-0.9893891, 0, 0.14528951, 0, 1, 0, -0.14528951, 0, -0.9893891, -724.0151, 83.04238, -429.8092)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight4" type="OmniLight3D" parent="VFX" unique_id=1350654856]
+transform = Transform3D(-0.9893891, 0, 0.14528951, 0, 1, 0, -0.14528951, 0, -0.9893891, -718.34924, 83.04238, -430.3622)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight5" type="OmniLight3D" parent="VFX" unique_id=199626137]
+transform = Transform3D(-0.25498283, 0, 0.96694565, 0, 1, 0, -0.96694565, 0, -0.25498283, -738.75183, 83.04238, -399.6678)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight6" type="OmniLight3D" parent="VFX" unique_id=345506201]
+transform = Transform3D(-0.25498283, 0, 0.96694565, 0, 1, 0, -0.96694565, 0, -0.25498283, -736.01794, 83.04238, -394.6745)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight7" type="OmniLight3D" parent="VFX" unique_id=300512291]
+transform = Transform3D(0.5841798, 0, 0.8116244, 0, 1, 0, -0.8116244, 0, 0.5841798, -773.21356, 83.04238, -399.57718)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight8" type="OmniLight3D" parent="VFX" unique_id=949155553]
+transform = Transform3D(0.5841798, 0, 0.8116244, 0, 1, 0, -0.8116244, 0, 0.5841798, -775.32916, 83.04238, -394.2922)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight9" type="OmniLight3D" parent="VFX" unique_id=361883537]
+transform = Transform3D(-0.99445426, 0, 0.105169974, 0, 1, 0, -0.105169974, 0, -0.99445426, -797.9701, 83.1685, -428.26746)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight10" type="OmniLight3D" parent="VFX" unique_id=1952656644]
+transform = Transform3D(-0.99445426, 0, 0.105169974, 0, 1, 0, -0.105169974, 0, -0.99445426, -792.3313, 83.1685, -429.04907)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight11" type="OmniLight3D" parent="VFX" unique_id=1700696891]
+transform = Transform3D(0.067221165, 0, 0.99773806, 0, 1, 0, -0.99773806, 0, 0.067221165, -779.03784, 83.1685, -462.6724)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight12" type="OmniLight3D" parent="VFX" unique_id=1329099550]
+transform = Transform3D(0.067221165, 0, 0.99773806, 0, 1, 0, -0.99773806, 0, 0.067221165, -778.042, 83.1685, -457.06747)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"

@@ -321,12 +321,12 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 	public void EnterFight()
 	{
 		GetTree().Paused = false;
-		GetNode<BattleStarter>("BattleStarter").EnterBattle(inventory!.Spells!, inventory!.Units!, inventory!.Mana);
+		GetNode<BattleStarter>("BattleStarter").EnterBattle(inventory!.CreateHero(), inventory!.Units!);
 	}
 
-	public void SetupEnemyArmy(Godot.Collections.Array<StackResource> units, Godot.Collections.Array<SpellAbility> spells)
+	public void SetupEnemyArmy(Godot.Collections.Array<StackResource> units)
 	{
-		GetNode<BattleStarter>("BattleStarter").SetupEnemyArmy(units, spells);
+		GetNode<BattleStarter>("BattleStarter").SetupEnemyArmy(units);
 	}
 
 	public void SetupDifficulty(EnemyStrategy enemyStrategy)

@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://dstktltp3m7na"]
 
 [ext_resource type="Script" uid="uid://d2stktlt5w3ky" path="res://src/ui/StackTooltip.cs" id="1_stktt"]
+[ext_resource type="Theme" uid="uid://bjx58o26db5so" path="res://assets/ui_themes/fantasy.tres" id="2_fntsy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font_size = 20
 
 [node name="StackTooltip" type="PanelContainer" unique_id=1306724519]
 custom_minimum_size = Vector2(260, 0)
+theme = ExtResource("2_fntsy")
 mouse_filter = 2
 script = ExtResource("1_stktt")
 

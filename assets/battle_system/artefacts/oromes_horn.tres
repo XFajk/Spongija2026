@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="Artefact" format=3 uid="uid://bc87qlraj571l"]
+[gd_resource type="Resource" script_class="StatArtefact" format=3 uid="uid://bc87qlraj571l"]
 
 [ext_resource type="Texture2D" uid="uid://d16il68sll4kx" path="res://assets/artefacts_icons/horn.png" id="1_14lww"]
-[ext_resource type="Script" uid="uid://dro3uwa3xh26h" path="res://src/battle_system/artefacts/Artefact.cs" id="1_n7l6k"]
+[ext_resource type="Script" uid="uid://cstatart7q1xa" path="res://src/battle_system/artefacts/StatArtefact.cs" id="1_n7l6k"]
 
 [resource]
 script = ExtResource("1_n7l6k")
+Strength = 3
 Name = "Orome´s Horn"
+Description = "Valaróma, the great horn of the Hunter. At its call the servants of darkness flee and the Elves strike without fear."
 Icon = ExtResource("1_14lww")
-metadata/_custom_type_script = "uid://dro3uwa3xh26h"
+metadata/_custom_type_script = "uid://cstatart7q1xa"

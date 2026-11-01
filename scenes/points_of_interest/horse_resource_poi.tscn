@@ -379,3 +379,9 @@ mesh = SubResource("ArrayMesh_b3b4i")
 [node name="Mesh_003" type="MeshInstance3D" parent="kon_kakaovy" unique_id=1207224624]
 transform = Transform3D(0.43667457, 0, 0, 0, 0.42875904, 0, 0, 0, 0.4177686, 0, 1.8053997, 0.9430151)
 mesh = SubResource("ArrayMesh_jo14k")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1876365657]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2588817, 0)
+light_color = Color(0, 0.72089845, 0.46223235, 1)
+distance_fade_enabled = true
+omni_range = 5.419807

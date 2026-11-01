@@ -14,7 +14,7 @@ metadata/_custom_type_script = "uid://bpefgv47nx5g2"
 
 [resource]
 script = ExtResource("1_6sd0w")
-Amount = 40
+Amount = 200
 VisualEffect = ExtResource("2_lifjy")
 Sound = SubResource("Resource_sound")
 Name = "Heal Spell"

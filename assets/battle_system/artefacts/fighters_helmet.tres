@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="Artefact" format=3 uid="uid://cwqr0302b8gbw"]
+[gd_resource type="Resource" script_class="StatArtefact" format=3 uid="uid://cwqr0302b8gbw"]
 
 [ext_resource type="Texture2D" uid="uid://b3n5vjqxifi12" path="res://assets/artefacts_icons/battle_helmet.png" id="1_4sbf0"]
-[ext_resource type="Script" uid="uid://dro3uwa3xh26h" path="res://src/battle_system/artefacts/Artefact.cs" id="1_kg6ff"]
+[ext_resource type="Script" uid="uid://cstatart7q1xa" path="res://src/battle_system/artefacts/StatArtefact.cs" id="1_kg6ff"]
 
 [resource]
 script = ExtResource("1_kg6ff")
+Strength = 1
 Name = "Fighter´s Helmet"
+Description = "A plain, dented helmet. Whoever leads in it is followed with a firmer step."
 BodyPart = 0
 Icon = ExtResource("1_4sbf0")
-metadata/_custom_type_script = "uid://dro3uwa3xh26h"
+metadata/_custom_type_script = "uid://cstatart7q1xa"

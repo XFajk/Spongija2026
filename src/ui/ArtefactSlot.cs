@@ -21,10 +21,16 @@ public partial class ArtefactSlot : Button
 	}
 
 
-	public void Setup(Texture2D texture, ArtefactBodyPart _part)
+	// The artefact shown in the slot, null while it's empty; hovering shows its tooltip
+	Artefact? artefact;
+
+	public void Setup(Artefact _artefact)
 	{
-		part = _part;
-		image!.Texture = texture;
+		artefact = _artefact;
+		part = _artefact.BodyPart;
+		image!.Texture = _artefact.Icon;
+		// Godot shows a tooltip only for a non-empty TooltipText; _MakeCustomTooltip draws it instead
+		TooltipText = _artefact.Name;
 
 		smallIcon?.Show();
 
@@ -33,10 +39,15 @@ public partial class ArtefactSlot : Button
 
 	public void Reset()
 	{
+		artefact = null;
+		TooltipText = "";
 		smallIcon?.Hide();
 
 		image!.Texture = largeIcons![GetPartNumber()];
 	}
+
+	public override GodotObject? _MakeCustomTooltip(string forText) =>
+		artefact != null ? ArtefactTooltip.Create(artefact) : null;
 
 	public void Select()
 	{

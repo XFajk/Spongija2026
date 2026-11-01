@@ -16,4 +16,5 @@ Description = "Spits a ball of web at an enemy stack. It deals a little damage a
 Icon = ExtResource("3_bv0lv")
 HoveredIcon = ExtResource("2_hdubd")
 ManaCost = 20
+MinKnowledge = 3
 metadata/_custom_type_script = "uid://dms411lu6oxqm"

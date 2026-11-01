@@ -15,6 +15,8 @@ public partial class SpellDisplay : Control
 	private Button? _backPageButton;
 	private ProgressBar? _manaBar;
 	private Label? _manaLabel;
+	// Played with every book animation: opening and each page flip
+	private AudioStreamPlayer? _bookSound;
 
 	private readonly List<SpellButton> _spellButtons = [];
 
@@ -41,6 +43,7 @@ public partial class SpellDisplay : Control
 		_backPageButton.Pressed += OnBackPageButtonPressed;
 		_manaBar = GetNode<ProgressBar>("BookInterface/ProgressBar");
 		_manaLabel = GetNode<Label>("BookInterface/ProgressBar/ManaLable");
+		_bookSound = GetNodeOrNull<AudioStreamPlayer>("BookInterface/BookSound");
 
 		CollectSpellButtons(_spellButtonsRoot!);
 	}
@@ -128,6 +131,7 @@ public partial class SpellDisplay : Control
 		_spellButtonsRoot!.Visible = false;
 		_nextPageButton!.Visible = false;
 		_backPageButton!.Visible = false;
+		_bookSound?.Play();
 
 		// Setting the animation resets the frame to 0, so the frame is set after it
 		_spellBook!.Animation = animation;

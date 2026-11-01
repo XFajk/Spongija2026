@@ -10,7 +10,6 @@ public partial class FightPOI : PointOfInterest
 	bool outside = false;
 
 	[Export] public Godot.Collections.Array<StackResource>? ComputerUnits;
-	[Export] public Godot.Collections.Array<SpellAbility>? ComputerSpells;
 
 	[Export]
 	public PackedScene? FloatingTextScene { get; set; }
@@ -57,7 +56,7 @@ public partial class FightPOI : PointOfInterest
 		int _random = random.Next(2);
 
 		EndFightScreen.TriggeringFightPOI = GetPath();  // Store the path of this FightPOI for the end fight screen
-		_character?.SetupEnemyArmy(ComputerUnits!, ComputerSpells!);
+		_character?.SetupEnemyArmy(ComputerUnits!);
 		_character?.SetupDifficulty(ComputerStrategy);
 		_character?.inventoryPanel?.GetReady(winningChance >= 600 && _random == 0 && CanRecruit, this);
 

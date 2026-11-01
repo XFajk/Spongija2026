@@ -115,3 +115,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4836316, 0)
 shape = SubResource("BoxShape3D_2klcf")
 
 [node name="Position" type="Node3D" parent="." unique_id=1668775871]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1668833305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.13686192, 0)
+light_color = Color(0.8205833, 0.49023324, 1.347661e-06, 1)
+distance_fade_enabled = true

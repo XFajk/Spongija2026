@@ -165,7 +165,7 @@ public partial class CharacterPanel : Panel
 		{
 			if (inventory.EquippedArtefacts[i] != null)
 			{
-				equippedArtefacts?[i].Setup(_inventory?.EquippedArtefacts?[i].Icon!, _inventory!.EquippedArtefacts![i].BodyPart!);
+				equippedArtefacts?[i].Setup(inventory.EquippedArtefacts[i]);
 			}
 			else
 			{
@@ -185,7 +185,7 @@ public partial class CharacterPanel : Panel
 			for (int i = 0; i < inventory!.Artefacts.Count; i++)
 			{
 				artefacts![i].index = i;
-				artefacts[i].Setup(inventory.Artefacts[i].Icon!, inventory.Artefacts[i].BodyPart);
+				artefacts[i].Setup(inventory.Artefacts[i]);
 				newList.Add(artefacts[i]);
 			}
 
@@ -198,7 +198,7 @@ public partial class CharacterPanel : Panel
 				ArtefactSlot _prefab = artefactUIPrefab!.Instantiate<ArtefactSlot>();
 				artefactUIContainer?.AddChild(_prefab);
 				_prefab.index = i;
-				_prefab.Setup(_inventory.Artefacts[i].Icon!, _inventory.Artefacts[i].BodyPart);
+				_prefab.Setup(_inventory.Artefacts[i]);
 				artefacts?.Add(_prefab);
 			}
 		}

@@ -68,7 +68,26 @@ public partial class Arena : Node3D
 	// Seconds the camera takes to go back to the board overview after the turn
 	[Export(PropertyHint.Range, "0.1,3")]
 	public float CinematicReturnDuration { get; set; } = 0.6f;
+
+	// A battle with any of EvilArenaUnits (Melkor) is fought on the hill among the ruins (HillScenery and
+	// EvilArenaDeco shown, ForestScenery hidden); every other battle in the forest
+	[ExportGroup("Scenery")]
+	[Export]
+	public Node3D? ForestScenery { get; set; } = null;
+
+	[Export]
+	public Node3D? HillScenery { get; set; } = null;
+
+	[Export]
+	public Node3D? EvilArenaDeco { get; set; } = null;
+
+	[Export]
+	public Godot.Collections.Array<Unit> EvilArenaUnits { get; set; } = [];
 	[ExportGroup("")]
+
+	// Seconds the arena takes to fade in from black (ScreenFade), e.g. after the map faded out to it
+	[Export(PropertyHint.Range, "0,3")]
+	public float FadeInDuration { get; set; } = 1f;
 
     public const uint AreaWidth = 20;
 
@@ -183,6 +202,10 @@ public partial class Arena : Node3D
 
 	public override void _Ready()
 	{
+		// The armies are set before the arena enters the tree (SceneTransitions.EnterArena)
+		ShowScenery();
+		_ = ScreenFade.FadeIn(GetTree(), FadeInDuration);
+
 		var smallTile = GD.Load<PackedScene>(SmallTileScene);
 
 		Node3D smallTileBoard = new Node3D()
@@ -243,6 +266,23 @@ public partial class Arena : Node3D
 		{
 			SetupPlacementPhase();
 		}
+	}
+
+	#endregion
+
+	#region Scenery
+
+	// The hill and the ruins if either army has one of EvilArenaUnits, else the forest
+	private void ShowScenery()
+	{
+		IEnumerable<Stack> stacks = (PlayerArmy?.Stacks ?? []).Concat(ComputerArmy?.Stacks ?? []);
+		bool evil = stacks.Any(s => EvilArenaUnits.Contains(s.Unit));
+		if (ForestScenery != null)
+			ForestScenery.Visible = !evil;
+		if (HillScenery != null)
+			HillScenery.Visible = evil;
+		if (EvilArenaDeco != null)
+			EvilArenaDeco.Visible = evil;
 	}
 
 	#endregion
