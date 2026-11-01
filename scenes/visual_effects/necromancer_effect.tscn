@@ -58,6 +58,7 @@ Duration = 3.0
 metadata/_custom_type_script = "uid://d6vhqgkd2emd"
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=319096505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 material_override = SubResource("StandardMaterial3D_8utch")
 amount = 15
 process_material = SubResource("ParticleProcessMaterial_mes6x")

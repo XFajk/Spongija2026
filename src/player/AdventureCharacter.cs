@@ -26,6 +26,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 	public bool movingToPoint;
 	[Export] PauseMenu? pauseWindow;
 	[Export] SaveBrowser? _saves;
+	[Export] UnitAnimationManager? animationManager;
 
 	public override void _Ready()
 	{
@@ -122,6 +123,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 			movingToPoint = false;
 			Velocity = Vector3.Zero;
 			MoveAndSlide();
+			SetRunning(false);
 
 			if (points.Count > 0)
 			{
@@ -160,6 +162,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 		Velocity = direction * Speed;
 
 		MoveAndSlide();
+		SetRunning(true);
 
 		for (int i = 0; i < points.Count; i++)
 		{
@@ -240,6 +243,15 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 					points.Add(_point);
 				}
 			}
+		}
+	}
+
+	// Plays the model's run animation (UnitAnimationManager's state machine reads IsRunning)
+	void SetRunning(bool running)
+	{
+		if (animationManager != null)
+		{
+			animationManager.IsRunning = running;
 		}
 	}
 

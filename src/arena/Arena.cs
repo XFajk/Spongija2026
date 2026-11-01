@@ -15,6 +15,7 @@ public partial class Arena : Node3D
 	public const string SmallTileScene = "uid://c16eba65w4ptq";
 	public const string DoubleTileScene = "uid://fahq2oemfim8";
 	public const string ArenaUserInterfaceScene = "uid://cd3eg1hleix2";
+	public const string EndFightScreenScene = "uid://ce5i5duugw3fw";
 
 	[Export]
 	public Node3D? SetupBoardCameraPosition { get; set; } = null;
@@ -87,6 +88,11 @@ public partial class Arena : Node3D
 	// Set by SceneTransitions.EnterArena.
 	public Army? PlayerArmy { get; private set; }
 	public Army? ComputerArmy { get; private set; }
+
+	// Both sides' stacks as the battle began, in the armies' order: dead stacks are removed from the armies, but the
+	// end screen counts their losses too.
+	private List<Stack> _playerStartingStacks = [];
+	private List<Stack> _computerStartingStacks = [];
 
 	public Battle? Battle { get; private set; }
 
@@ -247,6 +253,8 @@ public partial class Arena : Node3D
 	{
 		PlayerArmy = playerArmy;
 		ComputerArmy = computerArmy;
+		_playerStartingStacks = [.. playerArmy.Stacks];
+		_computerStartingStacks = [.. computerArmy.Stacks];
 	}
 
 	// Setup the Scene to let the player place their units before the battle begins.
@@ -630,6 +638,43 @@ public partial class Arena : Node3D
 		CurrentStack = null;
 		battle.EndBattle();
 		BattleEnded?.Invoke(battle.Winner);
+		ShowEndFightScreen(battle.Winner == PlayerArmy);
+	}
+
+	#endregion
+
+	#region End of battle
+
+	// The end screen over everything: the units each side lost. Its confirm button goes back to the adventure map.
+	private void ShowEndFightScreen(bool won)
+	{
+		if (PlayerCamera != null)
+			PlayerCamera.InteractionEnabled = false;
+
+		var screen = GD.Load<PackedScene>(EndFightScreenScene).Instantiate<EndFightScreen>();
+		AddLosses(screen.playerLostUnits, _playerStartingStacks);
+		AddLosses(screen.opponentLostUnits, _computerStartingStacks);
+		foreach (Stack stack in _playerStartingStacks)
+			screen.survivingQuantities.Add(stack.Quantity);
+		screen.heroMana = PlayerArmy?.Hero?.Mana;
+
+		// Its own layer, so it's above the arena's interface whatever that draws
+		var layer = new CanvasLayer { Layer = 10 };
+		AddChild(layer);
+		layer.AddChild(screen);
+		screen.SetWon(won);
+		screen.Setup();
+		screen.Show();
+	}
+
+	// One entry per stack that lost units, with how many it lost
+	private static void AddLosses(Godot.Collections.Array<StackResource> losses, List<Stack> startingStacks)
+	{
+		foreach (Stack stack in startingStacks)
+		{
+			if (stack.StartingQuantity > stack.Quantity)
+				losses.Add(new StackResource { Unit = stack.Unit, Quantity = stack.StartingQuantity - stack.Quantity });
+		}
 	}
 
 	#endregion
