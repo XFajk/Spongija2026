@@ -1,14 +1,14 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
+// Scenes store the value as a number, so Teleport keeps 2 (1 was Dash, removed)
 public enum MovementStyle
 {
-    Walk,
-    Dash,
-    Teleport,
+    // Moves tile by tile, playing the model's run animation
+    Walk = 0,
+    // Jumps tile by tile, no animation
+    Teleport = 2,
 }
 
 public partial class UnitNode : Area3D, IInteractable
@@ -39,6 +39,11 @@ public partial class UnitNode : Area3D, IInteractable
     [Export(PropertyHint.Range, "0.1,1")]
     public float MovementTime { get; set; } = 0.1f;
 
+    // Where the unit's projectiles leave from (a hand, a bow): e.g. a Marker3D under a BoneAttachment3D, so it
+    // follows the animation. Read at the attack's hit frame. If not set, abilities use their own height above the unit.
+    [Export]
+    public Node3D? LaunchPoint { get; set; }
+
 
     public Interactable? UnitInteractable { get; private set; } = null;
 
@@ -56,6 +61,12 @@ public partial class UnitNode : Area3D, IInteractable
 
     private bool _isActive;
     private bool _hoverOutlined;
+
+    // The visual effects of the effects on the stack (ShowEffect), children of this node so they follow the unit
+    private readonly Dictionary<IEffect, AbilityVisualEffect> _effectVisuals = new();
+
+    // The model's animations; null for models without them
+    private UnitAnimationManager? _animations;
 
     // Whether it's this unit's turn: shows the active outline. Set by Arena.CurrentStack.
     public bool IsActive
@@ -76,14 +87,21 @@ public partial class UnitNode : Area3D, IInteractable
     {
         UnitInteractable = this.FindDescendant<Interactable>();
         Meshes = this.FindDescendants<MeshInstance3D>();
+        _animations = this.FindDescendant<UnitAnimationManager>();
 
-        // Give each unit its own materials, so outlining one doesn't outline every unit sharing the scene
+        // Give each unit its own materials, so outlining one doesn't outline every unit sharing the scene.
+        // Imported models (.glb) keep their materials on the Mesh resource, not in the node's surface overrides,
+        // so each surface's material (the override if set, else the mesh's own) is copied into the overrides.
+        // The outline and ghost effects only touch the overrides.
         foreach (var mesh in Meshes)
         {
-            for (int i = 0; i < mesh.GetSurfaceOverrideMaterialCount(); i++)
+            if (mesh.Mesh == null)
+                continue;
+            for (int i = 0; i < mesh.Mesh.GetSurfaceCount(); i++)
             {
-                if (mesh.GetActiveMaterial(i) is StandardMaterial3D material)
-                    mesh.SetSurfaceOverrideMaterial(i, (StandardMaterial3D)material.Duplicate());
+                Material? material = mesh.GetSurfaceOverrideMaterial(i) ?? mesh.Mesh.SurfaceGetMaterial(i);
+                if (material is StandardMaterial3D standard)
+                    mesh.SetSurfaceOverrideMaterial(i, (StandardMaterial3D)standard.Duplicate());
             }
         }
 
@@ -310,6 +328,25 @@ public partial class UnitNode : Area3D, IInteractable
         }
     }
 
+    // Plays the effect's visual effect on the unit (at its origin, the footprint center on the ground) until
+    // HideEffect. Called by Stack.AddEffect; the visual should be Endless, as nothing frees it when it finishes.
+    public void ShowEffect(IEffect effect)
+    {
+        if (effect.VisualEffect == null || _effectVisuals.ContainsKey(effect))
+            return;
+
+        var visual = AbilityVisualEffect.Spawn(this, effect.VisualEffect, GlobalPosition);
+        if (visual != null)
+            _effectVisuals[effect] = visual;
+    }
+
+    // Called by Stack.RemoveExpiredEffects. The visuals also go with the unit when it's freed.
+    public void HideEffect(IEffect effect)
+    {
+        if (_effectVisuals.Remove(effect, out AbilityVisualEffect? visual) && IsInstanceValid(visual))
+            visual.QueueFree();
+    }
+
     #endregion
 
     #region Stack and movement
@@ -324,6 +361,12 @@ public partial class UnitNode : Area3D, IInteractable
     // with their 4 tiles. Arena-local, like Position, since the unit is a child of the Arena.
     private Vector3 GridToLocal(Vector2I anchor) =>
         CurrentStack != null ? Arena.GridToWorld(CurrentStack, anchor) : Arena.GridToWorld(anchor);
+
+    // Where a projectile leaves the unit: LaunchPoint if set, else height meters above the unit's origin (global).
+    // The model's own UnitAnimationManager.LaunchPoint counts too.
+    public Vector3 GetLaunchPosition(float height) =>
+        LaunchPoint != null && IsInstanceValid(LaunchPoint) ? LaunchPoint.GlobalPosition
+        : _animations?.GetLaunchPosition() ?? GlobalPosition + Vector3.Up * height;
 
     // Turns the unit to face where it would stand with its anchor on the grid point (for its own moves).
     public void FaceTowards(Vector2I anchor) => FaceTowardsLocal(GridToLocal(anchor));
@@ -363,16 +406,16 @@ public partial class UnitNode : Area3D, IInteractable
 
         switch (MovementStyle)
         {
-            // TODO: Dash has no animation yet, so it walks; otherwise MovementCompleted would never fire
-            case MovementStyle.Dash:
             case MovementStyle.Walk:
                 tween.SetParallel(false);
+                tween.TweenCallback(Callable.From(() => SetRunning(true)));
                 foreach (Vector2I point in gridPath)
                 {
                     tween.TweenCallback(Callable.From(() => FaceTowards(point)));
                     // Engine property name (snake_case), not the C# one
                     tween.TweenProperty(this, "position", GridToLocal(point), delay);
                 }
+                tween.TweenCallback(Callable.From(() => SetRunning(false)));
                 tween.TweenCallback(Callable.From(FaceEnemySide));
                 tween.TweenCallback(Callable.From(() => EmitSignal(SignalName.MovementCompleted)));
                 break;
@@ -396,6 +439,27 @@ public partial class UnitNode : Area3D, IInteractable
                 tween.TweenCallback(Callable.From(() => EmitSignal(SignalName.MovementCompleted)));
                 break;
         }
+    }
+
+    #endregion
+
+    #region Animations
+
+    // The model's one-shot animations (UnitAnimationManager plays them); UnitAnimation.None without a manager
+
+    // Plays the model's melee attack; Hit is when the weapon connects
+    public UnitAnimation PlayMeleeAttack() => _animations?.PlayMeleeAttack() ?? UnitAnimation.None;
+
+    // Plays the model's ranged attack; Hit is when the shot leaves
+    public UnitAnimation PlayRangedAttack() => _animations?.PlayRangedAttack() ?? UnitAnimation.None;
+
+    // Plays the model's spell cast; Hit is when the spell is released
+    public UnitAnimation PlaySpellCast() => _animations?.PlaySpellCast() ?? UnitAnimation.None;
+
+    private void SetRunning(bool running)
+    {
+        if (_animations != null)
+            _animations.IsRunning = running;
     }
 
     #endregion

@@ -27,10 +27,22 @@ public partial class BasicMeleeAttackAbility : MeleeAttackAbility
 
         if (maybeUserNode is not UnitNode userNode || maybeTargetNode is not UnitNode targetNode)
         {
-            target.TakeDamage(GetDamage(user, target));
+            Hit(user, target);
             return;
         }
 
+        userNode.FaceTowards(target);
+        UnitAnimation attack = userNode.PlayMeleeAttack();
+        if (await attack.Hit)
+        {
+            // The number drops when the weapon connects; the swing still finishes before the turn goes on
+            Hit(user, target);
+            await attack.Finished;
+            userNode.FaceEnemySide();
+            return;
+        }
+
+        // No attack animation on the model: a lunge instead.
         // Local positions: both units are children of the Arena, so this works wherever the Arena is
         Vector3 start = userNode.Position;
         Vector3 direction = targetNode.Position - start;
@@ -38,20 +50,25 @@ public partial class BasicMeleeAttackAbility : MeleeAttackAbility
         direction = direction.Normalized();
 
         var tween = userNode.CreateTween();
-        tween.TweenCallback(Callable.From(() => userNode.FaceTowards(target)));
         // One springy motion out toward the target and back, instead of two tweens that stop in between
         tween.TweenMethod(
             Callable.From<float>(t => userNode.Position = start + direction * LungeDistance * Lunge(t)),
             0f, 1f, LungeDuration);
         tween.TweenCallback(Callable.From(() =>
         {
-            target.TakeDamage(GetDamage(user, target));
+            Hit(user, target);
             userNode.Position = start;
             userNode.FaceEnemySide();
             tcs.SetResult();
         }));
 
         await tcs.Task;
+    }
+
+    // What the attack does when it connects; subclasses add to it (SlowingMeleeAttackAbility)
+    protected virtual void Hit(Stack user, Stack target)
+    {
+        target.TakeDamage(GetDamage(user, target));
     }
 
     // A damped spring over t = 0..1: 0 at the start, a full swing out (peak 1 at t ~ 0.12), a small recoil behind

@@ -5,10 +5,7 @@
 [ext_resource type="Shader" uid="uid://bbnrf4slx630h" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="3_yjyyu"]
 [ext_resource type="Script" uid="uid://chokdldst71i5" path="res://addons/GPUTrail/GPUTrail3D.gd" id="4_736wf"]
 [ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://addons/GPUTrail/defaults/texture.tres" id="4_4850o"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_mes6x"]
-radius = 0.1
-height = 0.2
+[ext_resource type="PackedScene" uid="uid://ckaiincrhfye7" path="res://assets/projectiles_spell_and_effects_models/arrow.glb" id="6_yjyyu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u7whr"]
 shader = ExtResource("2_4850o")
@@ -43,14 +40,12 @@ shader_parameter/flags = 44
 material = SubResource("ShaderMaterial_2f0yc")
 
 [node name="BasicProjectile" type="Node3D" unique_id=1046840463]
+transform = Transform3D(0.95720845, 0.2893994, 0, -0.2893994, 0.95720845, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_y2i4i")
 metadata/_custom_type_script = "uid://ci0pvfipsx5gw"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=194670190]
-mesh = SubResource("SphereMesh_mes6x")
-
 [node name="GPUTrail3D" type="GPUParticles3D" parent="." unique_id=1653918079]
-transform = Transform3D(0.10038854, 0, 0, 0, 0.10038854, 0, 0, 0, 0.10038854, 0, 0, 0)
+transform = Transform3D(0.017853929, 9.313226e-10, 0, -9.313226e-10, 0.017853929, 0, 0, 0, 0.017853929, 0, 0, -0.08805457)
 amount = 18
 lifetime = 18.0
 explosiveness = 1.0
@@ -65,3 +60,6 @@ curve = SubResource("CurveTexture_gcdtq")
 billboard = true
 _defaults_have_been_set = true
 metadata/_custom_type_script = "uid://chokdldst71i5"
+
+[node name="arrow" parent="." unique_id=39069861 instance=ExtResource("6_yjyyu")]
+transform = Transform3D(-0.8324959, -0.5540311, -8.368182e-08, -0.554031, 0.8324961, -2.5300098e-08, 8.368182e-08, 2.5300098e-08, -1, 0, 0, 0)

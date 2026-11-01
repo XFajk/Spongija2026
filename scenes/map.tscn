@@ -42,7 +42,7 @@
 [ext_resource type="Script" uid="uid://crl5qc0vw008e" path="res://src/ui/SpellDisplay.cs" id="25_4qxv8"]
 [ext_resource type="SpriteFrames" uid="uid://ccufku72ig3ug" path="res://assets/ui/book/book_animations.tres" id="25_6ek7f"]
 [ext_resource type="PackedScene" uid="uid://b011mxkc5of83" path="res://scenes/ui/spell_button.tscn" id="26_4qxv8"]
-[ext_resource type="Shader" uid="uid://bmnbarsh4d3rq" path="res://src/shaders/mana_bar.gdshader" id="27_fq663"]
+[ext_resource type="Shader" uid="uid://dxdtuyu7opueg" path="res://src/shaders/mana_bar.gdshader" id="27_fq663"]
 [ext_resource type="Theme" uid="uid://dekw64qwcbodv" path="res://assets/ui_themes/mana_bar_theme.tres" id="28_mniao"]
 [ext_resource type="LabelSettings" uid="uid://cc2gqaoowh1kc" path="res://assets/misc/arena_ui_button_lables.tres" id="29_yfm5w"]
 [ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="33_12q1p"]

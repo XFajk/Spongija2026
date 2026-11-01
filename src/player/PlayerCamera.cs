@@ -18,6 +18,9 @@ public partial class PlayerCamera : Camera3D
 	// Set by IgnoreCurrentClick until interact is released
 	private bool _ignoringClick;
 
+	// While false, nothing in the world is hovered or clicked (e.g. during the arena's cinematic shots)
+	public bool InteractionEnabled { get; set; } = true;
+
 	// The click being held was used by the UI (e.g. it closed the spellbook), so it doesn't start an interaction.
 	// Interact counts as released until the button really is.
 	public void IgnoreCurrentClick()
@@ -44,6 +47,13 @@ public partial class PlayerCamera : Camera3D
 			CurrentFocusedNode = null;
 		if (!IsAlive(CurrentInteractedNode))
 			CurrentInteractedNode = null;
+
+		if (!InteractionEnabled)
+		{
+			CurrentInteractedNode = null;
+			SetFocus(null);
+			return;
+		}
 
 		var hovered = GetHoveredInteractable();
 

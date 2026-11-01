@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Unit" format=3]
+
+[ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="1_orc"]
+[ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="2_orc"]
+[ext_resource type="PackedScene" uid="uid://bs301ou6e73rc" path="res://scenes/units/orc_warrior.tscn" id="3_orc"]
+
+[sub_resource type="Resource" id="Resource_melee"]
+script = ExtResource("2_orc")
+metadata/_custom_type_script = "uid://dbehoqcrijunt"
+
+[resource]
+script = ExtResource("1_orc")
+Name = "Orc Warrior"
+Description = "Melkor's soldiers, clad in black iron hammered in the forges under the mountains. They hit harder than an elven warrior and take a beating well, but their armor is crude, and a well-placed blade finds the gaps. They give back every blow they take."
+MaxHealth = 55
+Strength = 10
+Defense = 6
+SpeedTier = 5
+MeleeAttack = SubResource("Resource_melee")
+Model = ExtResource("3_orc")
+metadata/_custom_type_script = "uid://cj3g6btx1kotr"
