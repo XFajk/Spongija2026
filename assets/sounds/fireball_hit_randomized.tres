@@ -1,0 +1,10 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://cce7cracqjj28"]
+
+[ext_resource type="AudioStream" uid="uid://0hj4qlmugqoc" path="res://assets/sounds/spell/fireball/Fireball Impact 1.ogg" id="1_2crbh"]
+[ext_resource type="AudioStream" uid="uid://536s3ux0n0io" path="res://assets/sounds/spell/fireball/Fireball Impact 2.ogg" id="2_ebw2r"]
+
+[resource]
+random_pitch = 1.0594631
+streams_count = 2
+stream_0/stream = ExtResource("1_2crbh")
+stream_1/stream = ExtResource("2_ebw2r")

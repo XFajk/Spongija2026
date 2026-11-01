@@ -1,0 +1,10 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dvjvgmriqjfxx"]
+
+[ext_resource type="AudioStream" uid="uid://lffcg13luheu" path="res://assets/sounds/sword/Sword Impact Hit 1.ogg" id="1_jthjk"]
+[ext_resource type="AudioStream" uid="uid://bdj62n0ypx788" path="res://assets/sounds/sword/Sword Impact Hit 2.ogg" id="2_jp015"]
+
+[resource]
+random_pitch = 1.0594631
+streams_count = 2
+stream_0/stream = ExtResource("1_jthjk")
+stream_1/stream = ExtResource("2_jp015")

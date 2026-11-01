@@ -18,6 +18,17 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
     [Export(PropertyHint.Range, "0,3")]
     public float ShootHeight { get; set; } = 0.5f;
 
+    // Played when the projectile leaves and when it lands (OneShotSound); none if null
+    [ExportGroup("Sounds")]
+    [Export]
+    public AudioStream? LaunchSound { get; set; }
+
+    [Export]
+    public AudioStream? HitSound { get; set; }
+
+    [Export]
+    public StringName SoundBus { get; set; } = "SFX";
+
     public override int GetDamage(Stack user, Stack target) => Battle.CalculateDamage(user, target, BasicAttackMultiplier);
 
     public override async Task Use(Stack user, Stack target, Arena arena)
@@ -41,9 +52,11 @@ public partial class BasicLongRangeAttackAbility : LongRangeAttackAbility
         var projectile = Projectile.Spawn(arena, GD.Load<PackedScene>(ProjectileScene), start, end, ShootAngle);
         if (projectile != null)
         {
+            OneShotSound.Play(arena, LaunchSound, SoundBus);
             arena.FollowWithCamera(user, projectile);
             await projectile.ToSignal(projectile, Projectile.SignalName.Landed);
             projectile.QueueFree();
+            OneShotSound.Play(arena, HitSound, SoundBus);
         }
         // Outside the if, so the hit still lands when the projectile fails to spawn
         target.TakeDamage(GetDamage(user, target));
