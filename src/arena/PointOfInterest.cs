@@ -13,7 +13,7 @@ public partial class PointOfInterest : Area3D, IInteractable, ISavable
 	[Export] public float outlineWidth;
 	[Export] public Color outlineColor;
 	protected AdventureCharacter? _character;
-	private Node3D? highlight;
+	protected Node3D? highlight;
 	private Node3D? _position;
 	bool _keepHighlighted;
 	public bool accessed;

@@ -7,6 +7,7 @@ public partial class FightPOI : PointOfInterest
 	[Export] public bool CanRecruit;
 	[Export] public EnemyStrategy ComputerStrategy { get; set; } = EnemyStrategy.Wild;
 	[Export] public float detectionDistance;
+	bool outside = false;
 
 	[Export] public Godot.Collections.Array<StackResource>? ComputerUnits;
 	[Export] public Godot.Collections.Array<SpellAbility>? ComputerSpells;
@@ -25,10 +26,16 @@ public partial class FightPOI : PointOfInterest
 		if (base._destroyed)
 			return;
 
-		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) <= detectionDistance && _character.poi != this && !accessed)
+		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) <= detectionDistance && _character.poi != this && !accessed && outside)
 		{
 			_character.ForceStop();
+			outside = false;
 			Access();
+		}
+
+		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) > detectionDistance)
+		{
+			outside = true;
 		}
 	}
 

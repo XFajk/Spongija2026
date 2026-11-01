@@ -171,6 +171,13 @@ public partial class Inventory : Node, ISavable
 		UpdateUI();
 	}
 
+	public void AddSpell(SpellAbility _spell)
+	{
+		SpellAbility _newSpell = _spell;
+		Spells = Spells!.Append(_newSpell).ToArray();
+		UpdateUI();
+	}
+
 	public void StartSplitting(int index)
 	{
 		Character?.inventoryPanel?.ResetCombining();

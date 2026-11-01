@@ -7,6 +7,7 @@ public partial class MainMenu : Control
 	private Control? _settingsMenu;
 	private Control? _quitMenu;
 	private SaveBrowser? _saveBrowser;
+	private Button? cancelSaveMenu;
 
 	private Button? _playButton;
 	private Button? _settingsButton;
@@ -57,7 +58,14 @@ public partial class MainMenu : Control
 			GD.PrintErr("Save Browser not found in QuitMenu");
 		}
 
+		cancelSaveMenu = GetNode<Button>("/root/MainMenu/CancelSaveMenu");
+		if (cancelSaveMenu == null)
+		{
+			GD.PrintErr("Save Browser Cancel not found in QuitMenu");
+		}
+
 		_playButton!.Pressed += OnPlayButtonPressed;
+		cancelSaveMenu!.Pressed += OnCancelSaveButtonPressed;
 		_settingsButton!.Pressed += OnSettingsButtonPressed;
 		_quitButton!.Pressed += OnQuitButtonPressed;
 
@@ -73,7 +81,15 @@ public partial class MainMenu : Control
 	{
 		_titleMenu!.Hide();
 		_saveBrowser!.Show();
+		cancelSaveMenu!.Show();
 		_saveBrowser.Setup(true);
+	}
+
+	public void OnCancelSaveButtonPressed()
+	{
+		_titleMenu!.Show();
+		_saveBrowser!.Hide();
+		cancelSaveMenu!.Hide();
 	}
 
 	private void OnSettingsButtonPressed()
