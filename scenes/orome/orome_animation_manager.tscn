@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c80oemdlf3jld" path="res://assets/unit_models/cape_verde.png" id="2_tyq5x"]
 [ext_resource type="Texture2D" uid="uid://cjnyc0vpv242w" path="res://assets/unit_models/hairy_legs.png" id="3_5aex2"]
 [ext_resource type="Texture2D" uid="uid://bi15yvyhilk21" path="res://assets/unit_models/XAVIER.png" id="4_mgfcu"]
+[ext_resource type="AudioStream" uid="uid://cd167ikf85il1" path="res://assets/sounds/run_dirt_sound_randomized.tres" id="5_5aex2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q8bq1"]
 resource_name = "cape verde"
@@ -4037,8 +4038,24 @@ tracks/89/path = NodePath("Stream")
 tracks/89/interp = 1
 tracks/89/loop_wrap = true
 tracks/89/keys = {
-"clips": [],
-"times": PackedFloat32Array()
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_5aex2")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_5aex2")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_5aex2")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_5aex2")
+}],
+"times": PackedFloat32Array(0, 0.13333334, 0.70000005, 0.93333334)
 }
 tracks/89/use_blend = true
 
@@ -9167,21 +9184,21 @@ bones/28/parent = 27
 bones/28/rest = Transform3D(1, -1.5929704e-12, -9.663383e-13, 1.592971e-12, 0.9999999, 3.4272674e-07, 9.663379e-13, -3.4272674e-07, 0.9999999, -1.0981647e-12, 0.12883252, -2.9802322e-08)
 bones/28/enabled = true
 bones/28/position = Vector3(-1.0981647e-12, 0.12883252, -2.9802322e-08)
-bones/28/rotation = Quaternion(-0.46688968, -0.0013683713, -0.07245065, 0.88134164)
+bones/28/rotation = Quaternion(-0.43521765, 0.00013033199, 0.007877097, 0.9002908)
 bones/28/scale = Vector3(1, 0.9999999, 0.9999999)
 bones/29/name = "Tail.002"
 bones/29/parent = 28
 bones/29/rest = Transform3D(0.99999994, -2.7421902e-07, -7.17033e-09, 2.7421885e-07, 0.9986325, 0.05227927, -7.1754465e-09, -0.05227928, 0.9986324, -2.7167916e-12, 0.12883264, -8.940697e-08)
 bones/29/enabled = true
 bones/29/position = Vector3(-2.7167916e-12, 0.12883264, -8.940697e-08)
-bones/29/rotation = Quaternion(-0.30652836, 0.0009531023, -0.043501806, 0.9508665)
+bones/29/rotation = Quaternion(-0.33845186, -0.0001559187, 0.0056336788, 0.94096696)
 bones/29/scale = Vector3(0.99999994, 0.99999994, 0.9999998)
 bones/30/name = "Tail.003"
 bones/30/parent = 29
 bones/30/rest = Transform3D(0.99999994, 3.2333153e-07, -9.974714e-09, -3.2333148e-07, 0.9980983, -0.06164235, -9.975168e-09, 0.06164235, 0.9980983, 2.5519918e-12, 0.22435048, -5.066395e-07)
 bones/30/enabled = true
 bones/30/position = Vector3(2.5519918e-12, 0.22435048, -5.066395e-07)
-bones/30/rotation = Quaternion(-0.053246938, 0.0013990408, -0.0143207, 0.9984777)
+bones/30/rotation = Quaternion(-0.08461008, -0.0001921823, 0.0024384898, 0.99641114)
 bones/30/scale = Vector3(0.99999994, 1, 1)
 bones/31/name = "Tail.003_end"
 bones/31/parent = 30
@@ -9308,7 +9325,7 @@ bones/48/rest = Transform3D(1, -4.5317532e-07, -4.838968e-08, 4.531732e-07, 0.97
 bones/48/enabled = true
 bones/48/position = Vector3(8.155773e-07, 0.10060847, 0.38008517)
 bones/48/rotation = Quaternion(-0.106197536, 5.035135e-12, 2.2787576e-07, 0.99434507)
-bones/48/scale = Vector3(1.0035576, 1.0035576, 1.0035577)
+bones/48/scale = Vector3(1.0528809, 1.0528809, 1.052881)
 bones/49/name = "Chest_end"
 bones/49/parent = 48
 bones/49/rest = Transform3D(1, -6.6433255e-14, 4.5474735e-13, 6.64332e-14, 1, 1.0430813e-07, -4.5474735e-13, -1.0430813e-07, 1, 4.5070935e-14, 0.38214934, -2.3841858e-07)
@@ -9537,7 +9554,7 @@ bones/81/name = "Tail.IK"
 bones/81/parent = 21
 bones/81/rest = Transform3D(1, 2.2737368e-13, -5.2452074e-06, 4.6914556e-06, 0.44721365, 0.8944272, 2.3457287e-06, -0.8944272, 0.44721365, -1.5494665e-16, 1.6202824, -1.5196917)
 bones/81/enabled = true
-bones/81/position = Vector3(0.05111162, 0.82370317, -1.1609826)
+bones/81/position = Vector3(-0.0544323, 0.8237778, -1.1609555)
 bones/81/rotation = Quaternion(-0.5257311, -2.23092e-06, 1.3787842e-06, 0.85065085)
 bones/81/scale = Vector3(1, 1, 1)
 bones/82/name = "Tail.IK_end"
