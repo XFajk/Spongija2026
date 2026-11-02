@@ -84,6 +84,8 @@
 [ext_resource type="Resource" path="res://assets/battle_system/units/orc_shaman.tres" id="99_orcshaman"]
 [ext_resource type="Resource" uid="uid://cbq4xjm6ju4ll" path="res://assets/battle_system/units/forest_ghost.tres" id="100_ghost"]
 [ext_resource type="Resource" uid="uid://cvkx8nuc22xf0" path="res://assets/battle_system/units/melkor.tres" id="101_melkor"]
+[ext_resource type="Script" uid="uid://bmusiccue8r4t" path="res://src/helpers/MusicCue.cs" id="102_mcue"]
+[ext_resource type="AudioStream" uid="uid://wbmkb4f5p3ke" path="res://assets/music/advature_song.ogg" id="103_music"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r2y85"]
 load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
@@ -3160,6 +3162,10 @@ _Character = NodePath("../AdventureCharacter")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Finish" unique_id=1257840113]
 transform = Transform3D(10.8, 0, 0, 0, 11.1, 0, 0, 0, 22.72, 0, 0, 0)
 shape = SubResource("BoxShape3D_iopsf")
+
+[node name="MusicCue" type="Node" parent="." unique_id=1730515201]
+script = ExtResource("102_mcue")
+Track = ExtResource("103_music")
 
 [editable path="Fights/OrcFightPOI_3(2)"]
 [editable path="Fights/OrcFightPOI_3"]

@@ -9,6 +9,8 @@
 [ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="4_lgwnu"]
 [ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="6_rcqid"]
 [ext_resource type="PackedScene" uid="uid://bp7h6wk0dp8i7" path="res://scenes/ui/select_file.tscn" id="12_flqon"]
+[ext_resource type="Script" uid="uid://bmusiccue8r4t" path="res://src/helpers/MusicCue.cs" id="13_mcue"]
+[ext_resource type="AudioStream" uid="uid://bk3kki2wd7r5n" path="res://assets/music/main_menu.ogg" id="14_music"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s2dh3"]
 texture = ExtResource("2_jk1qb")
@@ -374,3 +376,7 @@ offset_right = 245.0
 offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MusicCue" type="Node" parent="." unique_id=1730515202]
+script = ExtResource("13_mcue")
+Track = ExtResource("14_music")
