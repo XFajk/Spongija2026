@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bc7ve3jy65u7a"]
 
 [ext_resource type="Script" uid="uid://b5jive522rs6g" path="res://src/arena/FightPOI.cs" id="1_ga7ul"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 [ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="2_kyun7"]
 [ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="3_a1im1"]
 [ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="4_wyhof"]
@@ -18,9 +19,6 @@ Unit = ExtResource("4_wyhof")
 Quantity = 1
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
-load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
 size = Vector3(6.4588623, 1, 2.3812866)
 
@@ -31,7 +29,7 @@ detectionDistance = 5.0
 ComputerUnits = Array[Object]([SubResource("Resource_la2vj"), SubResource("Resource_5cjpp")])
 SaveId = "fight_poi"
 stopDistance = 1.5
-cursorIcon = SubResource("CompressedTexture2D_nakos")
+cursorIcon = ExtResource("poi_icon")
 
 [node name="SmallSpiderAnimationManger" parent="." unique_id=619856624 instance=ExtResource("5_kyun7")]
 transform = Transform3D(0.3980672, 0, 0, 0, 0.3980672, 0, 0, 0, 0.3980672, 0, -0.0064790845, 0)

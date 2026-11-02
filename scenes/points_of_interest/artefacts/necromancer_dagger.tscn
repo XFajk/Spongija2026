@@ -1,12 +1,10 @@
 [gd_scene format=4 uid="uid://xj1befbnvato"]
 
 [ext_resource type="Script" uid="uid://w2lj0wq3830v" path="res://src/arena/ArtefactPOI.cs" id="1_otqox"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 [ext_resource type="Resource" uid="uid://c0vftawr4xuyk" path="res://assets/battle_system/artefacts/necromancer_dagger.tres" id="2_blpw8"]
 [ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="3_3o1vk"]
 [ext_resource type="Texture2D" uid="uid://cmn8aayki2xql" path="res://assets/artefact_models/necromancer_dagger_bone.png" id="4_rxkhr"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
-load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qu500"]
 resource_name = "boneee"
@@ -98,7 +96,7 @@ FloatingTextScene = ExtResource("3_3o1vk")
 SaveId = "dagger"
 _mesh = NodePath("MeshInstance3D")
 stopDistance = 1.5
-cursorIcon = SubResource("CompressedTexture2D_nakos")
+cursorIcon = ExtResource("poi_icon")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1861637635]
 transform = Transform3D(2, 0, 0, 0, -0.46691582, -1.9447339, 0, 1.9447339, -0.46691582, 0.004821419, 0.886371, 0.11830026)

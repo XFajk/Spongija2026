@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://cfsvco3a36qfu"]
 
 [ext_resource type="PackedScene" uid="uid://d2vdux1r2w61k" path="res://scenes/player/viewport_rect.tscn" id="1_gldc4"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
+[ext_resource type="Texture2D" uid="uid://bqoub3vguef5x" path="res://assets/pics/ramcek.png" id="slot_frame"]
 [ext_resource type="PackedScene" uid="uid://d3siemxsgpj3l" path="res://scenes/player/player_camera.tscn" id="2_paxxb"]
 [ext_resource type="PackedScene" uid="uid://ns4005pgsiuv" path="res://scenes/points_of_interest/spring_poi.tscn" id="2_s2dh3"]
 [ext_resource type="Script" uid="uid://bknow4djldqy" path="res://src/player/AdventureCamera.cs" id="4_0cso3"]
@@ -84,12 +86,8 @@
 [ext_resource type="Resource" path="res://assets/battle_system/units/orc_shaman.tres" id="99_orcshaman"]
 [ext_resource type="Resource" uid="uid://cbq4xjm6ju4ll" path="res://assets/battle_system/units/forest_ghost.tres" id="100_ghost"]
 [ext_resource type="Resource" uid="uid://cvkx8nuc22xf0" path="res://assets/battle_system/units/melkor.tres" id="101_melkor"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r2y85"]
-load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w5y4v"]
-load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
+[ext_resource type="Script" uid="uid://bmusiccue8r4t" path="res://src/helpers/MusicCue.cs" id="102_mcue"]
+[ext_resource type="AudioStream" uid="uid://wbmkb4f5p3ke" path="res://assets/music/advature_song.ogg" id="103_music"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_081xv"]
 noise_type = 2
@@ -203,32 +201,23 @@ font_size = 30
 outline_size = 5
 outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nc68e"]
-load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r2y85"]
-texture = SubResource("CompressedTexture2D_nc68e")
+texture = ExtResource("slot_frame")
 expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v7gfb"]
-load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_icjpl"]
-texture = SubResource("CompressedTexture2D_v7gfb")
+texture = ExtResource("slot_frame")
 expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 modulate_color = Color(0.65012825, 0.6501283, 0.6501282, 1)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vwuk8"]
-load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kycfx"]
-texture = SubResource("CompressedTexture2D_vwuk8")
+texture = ExtResource("slot_frame")
 expand_margin_left = 5.0
 expand_margin_top = 5.0
 expand_margin_right = 5.0
@@ -690,14 +679,14 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -73.
 Camera = NodePath("../../SubViewport/PlayerCamera")
 Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
 SaveId = "base_camp"
-cursorIcon = SubResource("CompressedTexture2D_r2y85")
+cursorIcon = ExtResource("poi_icon")
 
 [node name="Camp2" parent="PointsOfInterest" unique_id=2107680859 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("18_r2y85")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -576.353, 4.9593945, -622.5217)
 Camera = NodePath("../../SubViewport/PlayerCamera")
 Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
 SaveId = "camp"
-cursorIcon = SubResource("CompressedTexture2D_w5y4v")
+cursorIcon = ExtResource("poi_icon")
 
 [node name="Iron" type="Node3D" parent="PointsOfInterest" unique_id=1363389317]
 
@@ -3160,6 +3149,10 @@ _Character = NodePath("../AdventureCharacter")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Finish" unique_id=1257840113]
 transform = Transform3D(10.8, 0, 0, 0, 11.1, 0, 0, 0, 22.72, 0, 0, 0)
 shape = SubResource("BoxShape3D_iopsf")
+
+[node name="MusicCue" type="Node" parent="." unique_id=1730515201]
+script = ExtResource("102_mcue")
+Track = ExtResource("103_music")
 
 [editable path="Fights/OrcFightPOI_3(2)"]
 [editable path="Fights/OrcFightPOI_3"]

@@ -1,13 +1,11 @@
 [gd_scene format=4 uid="uid://bud7j5o3o7w4y"]
 
 [ext_resource type="Script" uid="uid://w2lj0wq3830v" path="res://src/arena/ArtefactPOI.cs" id="1_edmn8"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 [ext_resource type="Resource" uid="uid://cpdv5gxr6hjrb" path="res://assets/battle_system/artefacts/wizzard_hat.tres" id="2_nbmxp"]
 [ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="3_14gk1"]
 [ext_resource type="Texture2D" uid="uid://dq7h8f4ixyipa" path="res://assets/artefact_models/Cylinder_madari.png" id="4_56klv"]
 [ext_resource type="Texture2D" uid="uid://cpqstn2fv82fm" path="res://assets/artefact_models/Cylinder_kokot pica.png" id="5_bp1id"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
-load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rbqd0"]
 resource_name = "ciapkaaa"
@@ -150,7 +148,7 @@ FloatingTextScene = ExtResource("3_14gk1")
 SaveId = "wizard_hat"
 _mesh = NodePath("MeshInstance3D")
 stopDistance = 1.5
-cursorIcon = SubResource("CompressedTexture2D_nakos")
+cursorIcon = ExtResource("poi_icon")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2128491253]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -0.07039227, -0.9532861, -0.01838533)

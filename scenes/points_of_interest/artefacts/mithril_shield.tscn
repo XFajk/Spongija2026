@@ -1,12 +1,10 @@
 [gd_scene format=4 uid="uid://b3omq7rub3olq"]
 
 [ext_resource type="Script" uid="uid://w2lj0wq3830v" path="res://src/arena/ArtefactPOI.cs" id="1_4sk1n"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 [ext_resource type="Resource" uid="uid://defcc54wv0c5j" path="res://assets/battle_system/artefacts/mithril_shield.tres" id="2_wgyjk"]
 [ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="3_josfm"]
 [ext_resource type="Texture2D" uid="uid://b8xpr0h6blvd4" path="res://assets/artefact_models/Stit_esmeralda.png" id="4_m60uj"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
-load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q7ypa"]
 resource_name = "esmerald"
@@ -100,7 +98,7 @@ FloatingTextScene = ExtResource("3_josfm")
 SaveId = "shield"
 _mesh = NodePath("MeshInstance3D")
 stopDistance = 1.5
-cursorIcon = SubResource("CompressedTexture2D_nakos")
+cursorIcon = ExtResource("poi_icon")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1861637635]
 transform = Transform3D(0.31281567, 0.9498139, 0, -0.9498139, 0.31281567, 0, 0, 0, 1, 0, 1.2126894, 0.013860539)

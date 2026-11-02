@@ -71,6 +71,7 @@ Export preset names (`Windows`, `Linux`, `macOS`) come from `export_presets.cfg`
 - `main` is the development branch. `stable` and `playtest` are release branches.
 - `.github/workflows/itch-deploy.yml`: pushing to `stable` or `playtest` exports all three platforms and pushes them to itch.io via butler. Channels are `<platform>-<branch>`, e.g. `windows-playtest`. PRs into those branches only build, as a required check, and never deploy.
 - The macOS build is exported on Linux and then re-signed ad-hoc with `codesign` on a macOS runner, followed by a headless smoke-launch. Godot's Linux-side signer produces a signature that macOS kills at launch, so don't remove this step.
+- The export step builds the C# (`--build-solutions`) before importing (twice) and exporting. Without the built assembly, Godot doesn't know the scripts' exported properties, and C# `[Export]` node arrays (the inventory's unit and artefact slots) came out empty in builds, so the panel showed placeholders. `project.godot` also sets `editor/export/convert_text_resources_to_binary=false`, so exports ship the same text scenes the editor loads.
 - The Godot version is pinned in three places that must stay in sync: `GODOT_VERSION` in the workflow, `Spongija2026.csproj`, and `global.json`.
 
 ## Assets

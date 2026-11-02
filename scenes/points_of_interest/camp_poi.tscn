@@ -1,13 +1,11 @@
 [gd_scene format=3 uid="uid://djoxt7jtplgwr"]
 
 [ext_resource type="PackedScene" uid="uid://mwvl42up2ehw" path="res://scenes/points_of_interest/big_tent.tscn" id="1_qgrg2"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 [ext_resource type="Script" uid="uid://c1dptpvhm8nuh" path="res://src/arena/RecruitPOI.cs" id="1_u15sa"]
 [ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="2_d2ut0"]
 [ext_resource type="Resource" uid="uid://vmbdbqx2frwv" path="res://assets/battle_system/units/warrior_quendi.tres" id="3_1qia5"]
 [ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="4_c2fhb"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u15sa"]
-load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iopsf"]
 size = Vector3(1, 3.9570313, 1)
@@ -21,7 +19,7 @@ metersForPilgrim = 2.0
 metersForWarrior = 20.0
 FloatingTextScene = ExtResource("4_c2fhb")
 stopDistance = 5.0
-cursorIcon = SubResource("CompressedTexture2D_u15sa")
+cursorIcon = ExtResource("poi_icon")
 
 [node name="BigTent" parent="." unique_id=2107329745 instance=ExtResource("1_qgrg2")]
 

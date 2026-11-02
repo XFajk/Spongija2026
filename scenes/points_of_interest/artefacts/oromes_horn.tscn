@@ -1,13 +1,11 @@
 [gd_scene format=4 uid="uid://bo8uppegn6g8g"]
 
 [ext_resource type="Script" uid="uid://w2lj0wq3830v" path="res://src/arena/ArtefactPOI.cs" id="1_rnn8a"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 [ext_resource type="Resource" uid="uid://bc87qlraj571l" path="res://assets/battle_system/artefacts/oromes_horn.tres" id="2_xsxhy"]
 [ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="3_r1kak"]
 [ext_resource type="Texture2D" uid="uid://detbmehggubug" path="res://assets/artefact_models/syfon_goy3.png" id="4_daxmm"]
 [ext_resource type="Texture2D" uid="uid://ojpyr6ou5rr6" path="res://assets/artefact_models/syfon_goy2.png" id="5_7yl8j"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
-load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4gdy4"]
 resource_name = "Material.001"
@@ -183,7 +181,7 @@ FloatingTextScene = ExtResource("3_r1kak")
 SaveId = "horn"
 _mesh = NodePath("MeshInstance3D")
 stopDistance = 1.5
-cursorIcon = SubResource("CompressedTexture2D_nakos")
+cursorIcon = ExtResource("poi_icon")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1494336331]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -0.09215996, 0.84722745, -0.039458275)
