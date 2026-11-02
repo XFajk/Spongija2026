@@ -307,58 +307,10 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 corner_detail = 5
 
-[sub_resource type="Resource" id="Stack_wolf1_a"]
-script = ExtResource("90_stack")
-Unit = ExtResource("92_cub")
-Quantity = 10
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_wolf1_b"]
-script = ExtResource("90_stack")
-Unit = ExtResource("92_cub")
-Quantity = 8
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_wolf1_c"]
-script = ExtResource("90_stack")
-Unit = ExtResource("93_wolf")
-Quantity = 3
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_wiz1_a"]
+[sub_resource type="Resource" id="Stack_wiz3_a"]
 script = ExtResource("90_stack")
 Unit = ExtResource("91_wizard")
-Quantity = 5
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_orc2_a"]
-script = ExtResource("90_stack")
-Unit = ExtResource("96_thrall")
 Quantity = 12
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_orc2_b"]
-script = ExtResource("90_stack")
-Unit = ExtResource("96_thrall")
-Quantity = 8
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_orc2_c"]
-script = ExtResource("90_stack")
-Unit = ExtResource("97_orcwarrior")
-Quantity = 4
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_orc2_d"]
-script = ExtResource("90_stack")
-Unit = ExtResource("99_orcshaman")
-Quantity = 3
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_wiz2_a"]
-script = ExtResource("90_stack")
-Unit = ExtResource("91_wizard")
-Quantity = 8
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [sub_resource type="Resource" id="Stack_orc3a_a"]
@@ -421,6 +373,24 @@ Unit = ExtResource("99_orcshaman")
 Quantity = 5
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
+[sub_resource type="Resource" id="Stack_ghost4_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 40
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost4_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 35
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost4_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
 [sub_resource type="Resource" id="Stack_ghost3a_a"]
 script = ExtResource("90_stack")
 Unit = ExtResource("100_ghost")
@@ -439,22 +409,52 @@ Unit = ExtResource("100_ghost")
 Quantity = 16
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
-[sub_resource type="Resource" id="Stack_ghost3b_a"]
+[sub_resource type="Resource" id="Stack_wiz1_a"]
 script = ExtResource("90_stack")
-Unit = ExtResource("100_ghost")
-Quantity = 18
+Unit = ExtResource("91_wizard")
+Quantity = 5
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
-[sub_resource type="Resource" id="Stack_ghost3b_b"]
+[sub_resource type="Resource" id="Stack_wolf1_a"]
 script = ExtResource("90_stack")
-Unit = ExtResource("100_ghost")
-Quantity = 16
+Unit = ExtResource("92_cub")
+Quantity = 10
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
-[sub_resource type="Resource" id="Stack_ghost3b_c"]
+[sub_resource type="Resource" id="Stack_wolf1_b"]
 script = ExtResource("90_stack")
-Unit = ExtResource("100_ghost")
-Quantity = 16
+Unit = ExtResource("92_cub")
+Quantity = 8
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_wolf1_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 3
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc2_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 12
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc2_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 8
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc2_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 4
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc2_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("99_orcshaman")
+Quantity = 3
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [sub_resource type="Resource" id="Stack_spider3_a"]
@@ -475,10 +475,46 @@ Unit = ExtResource("94_spider")
 Quantity = 20
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
-[sub_resource type="Resource" id="Stack_wiz3_a"]
+[sub_resource type="Resource" id="Stack_bspider4_a"]
 script = ExtResource("90_stack")
-Unit = ExtResource("91_wizard")
-Quantity = 12
+Unit = ExtResource("95_bigspider")
+Quantity = 1
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bspider4_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 40
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bspider4_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 40
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bspider4_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3b_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 18
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3b_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 16
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3b_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 16
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [sub_resource type="Resource" id="Stack_orc4a_a"]
@@ -541,48 +577,6 @@ Unit = ExtResource("99_orcshaman")
 Quantity = 10
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
-[sub_resource type="Resource" id="Stack_ghost4_a"]
-script = ExtResource("90_stack")
-Unit = ExtResource("100_ghost")
-Quantity = 40
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_ghost4_b"]
-script = ExtResource("90_stack")
-Unit = ExtResource("100_ghost")
-Quantity = 35
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_ghost4_c"]
-script = ExtResource("90_stack")
-Unit = ExtResource("100_ghost")
-Quantity = 30
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_bspider4_a"]
-script = ExtResource("90_stack")
-Unit = ExtResource("95_bigspider")
-Quantity = 1
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_bspider4_b"]
-script = ExtResource("90_stack")
-Unit = ExtResource("94_spider")
-Quantity = 40
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_bspider4_c"]
-script = ExtResource("90_stack")
-Unit = ExtResource("94_spider")
-Quantity = 40
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
-[sub_resource type="Resource" id="Stack_bspider4_d"]
-script = ExtResource("90_stack")
-Unit = ExtResource("94_spider")
-Quantity = 30
-metadata/_custom_type_script = "uid://fu32st3u88jr"
-
 [sub_resource type="Resource" id="Stack_bwolf4_a"]
 script = ExtResource("90_stack")
 Unit = ExtResource("93_wolf")
@@ -611,6 +605,12 @@ metadata/_custom_type_script = "uid://fu32st3u88jr"
 script = ExtResource("90_stack")
 Unit = ExtResource("92_cub")
 Quantity = 15
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_wiz2_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("91_wizard")
+Quantity = 8
 metadata/_custom_type_script = "uid://fu32st3u88jr"
 
 [sub_resource type="Resource" id="Stack_swolf4_a"]
@@ -1097,9 +1097,9 @@ SaveId = "FireBallSpell"
 [node name="spell_poi" parent="PointsOfInterest/Spells" unique_id=1793646282 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("48_7s432")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -413.31467, 30.26011, -791.78564)
 Spell = ExtResource("9_s2dh3")
-SaveId = "WebBallSpell"
 Camera = NodePath("../../../SubViewport/PlayerCamera")
 Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "WebBallSpell"
 metadata/_edit_group_ = true
 
 [node name="Artefacts" type="Node3D" parent="PointsOfInterest" unique_id=570696572]
@@ -1146,7 +1146,7 @@ Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=2116964362]
 audio_listener_enable_3d = true
-size = Vector2i(1280, 720)
+size = Vector2i(960, 540)
 
 [node name="PlayerCamera" parent="SubViewport" unique_id=118941473 node_paths=PackedStringArray("Agent", "returnPanningButton", "_cursorContainer") instance=ExtResource("2_paxxb")]
 transform = Transform3D(1, 0, 0, 0, 0.3321821, 0.9432153, 0, -0.9432153, 0.3321821, -412.57367, 127.85014, -434.07703)
@@ -2864,10 +2864,10 @@ SaveId = "fight_wizard_1"
 transform = Transform3D(-0.93509644, 0, 0.35439333, 0, 1, 0, -0.35439333, 0, -0.93509644, -96.35902, 6.865777, -532.7197)
 CanRecruit = true
 ComputerUnits = Array[Object]([SubResource("Stack_wolf1_a"), SubResource("Stack_wolf1_b"), SubResource("Stack_wolf1_c")])
-SaveId = "fight_wolf_1"
 FloatingTextScene = ExtResource("4_fq663")
 Camera = NodePath("../../SubViewport/PlayerCamera")
 Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
+SaveId = "fight_wolf_1"
 
 [node name="CollisionShape3D" parent="Fights/WolfFightPOI_1" index="0" unique_id=377279175]
 transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -4.4842224, 1.2947521, 0.61590576)

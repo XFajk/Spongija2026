@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmssu5cou4bkg"
-path.s3tc="res://.godot/imported/swamp_albedo_height.png-2c996b6784c7cdde3d06076ee03d8574.s3tc.ctex"
-path.etc2="res://.godot/imported/swamp_albedo_height.png-2c996b6784c7cdde3d06076ee03d8574.etc2.ctex"
+path="res://.godot/imported/swamp_albedo_height.png-2c996b6784c7cdde3d06076ee03d8574.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/terrain/ground_textures/swamp_albedo_height.png"
-dest_files=["res://.godot/imported/swamp_albedo_height.png-2c996b6784c7cdde3d06076ee03d8574.s3tc.ctex", "res://.godot/imported/swamp_albedo_height.png-2c996b6784c7cdde3d06076ee03d8574.etc2.ctex"]
+dest_files=["res://.godot/imported/swamp_albedo_height.png-2c996b6784c7cdde3d06076ee03d8574.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

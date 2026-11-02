@@ -444,14 +444,10 @@ data = {
 "width": 1024
 }
 
-[sub_resource type="ImageTexture" id="ImageTexture_e3xjf"]
-image = SubResource("Image_xdke8")
-
 [sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_0bmnx"]
 name = "CESTA_albedo_height"
 id = 7
 albedo_texture = ExtResource("40_xdke8")
-normal_texture = SubResource("ImageTexture_e3xjf")
 
 [sub_resource type="Terrain3DAssets" id="Terrain3DAssets_yw8f4"]
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_ofm7x"), SubResource("Terrain3DMeshAsset_3am05"), SubResource("Terrain3DMeshAsset_73u5r"), SubResource("Terrain3DMeshAsset_3460w"), SubResource("Terrain3DMeshAsset_fobrl"), SubResource("Terrain3DMeshAsset_rlnmy"), SubResource("Terrain3DMeshAsset_b0cvu"), SubResource("Terrain3DMeshAsset_vvqaq"), SubResource("Terrain3DMeshAsset_uoiqa"), SubResource("Terrain3DMeshAsset_ghe3b"), SubResource("Terrain3DMeshAsset_xxa8p"), SubResource("Terrain3DMeshAsset_2m713"), SubResource("Terrain3DMeshAsset_w8v73"), SubResource("Terrain3DMeshAsset_6r0n0"), SubResource("Terrain3DMeshAsset_3wnr2"), SubResource("Terrain3DMeshAsset_b7sw3"), SubResource("Terrain3DMeshAsset_3527y"), SubResource("Terrain3DMeshAsset_xdke8"), SubResource("Terrain3DMeshAsset_mv1rp"), SubResource("Terrain3DMeshAsset_e3xjf"), SubResource("Terrain3DMeshAsset_0bmnx"), SubResource("Terrain3DMeshAsset_add30"), SubResource("Terrain3DMeshAsset_2poc3"), SubResource("Terrain3DMeshAsset_cwyve")])

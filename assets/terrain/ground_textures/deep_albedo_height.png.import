@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cfoh2go5jprd7"
-path.s3tc="res://.godot/imported/deep_albedo_height.png-4aff088b9b8df410a9ef9ed9f5bc37ca.s3tc.ctex"
-path.etc2="res://.godot/imported/deep_albedo_height.png-4aff088b9b8df410a9ef9ed9f5bc37ca.etc2.ctex"
+path="res://.godot/imported/deep_albedo_height.png-4aff088b9b8df410a9ef9ed9f5bc37ca.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/terrain/ground_textures/deep_albedo_height.png"
-dest_files=["res://.godot/imported/deep_albedo_height.png-4aff088b9b8df410a9ef9ed9f5bc37ca.s3tc.ctex", "res://.godot/imported/deep_albedo_height.png-4aff088b9b8df410a9ef9ed9f5bc37ca.etc2.ctex"]
+dest_files=["res://.godot/imported/deep_albedo_height.png-4aff088b9b8df410a9ef9ed9f5bc37ca.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

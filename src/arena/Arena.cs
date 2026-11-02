@@ -202,6 +202,10 @@ public partial class Arena : Node3D
 
 	public override void _Ready()
 	{
+		// The map pauses the tree for its popouts and panels, and the pause outlives the scene change. A paused
+		// arena still shows hover but takes no clicks, so the battle could never start.
+		GetTree().Paused = false;
+
 		// The armies are set before the arena enters the tree (SceneTransitions.EnterArena)
 		ShowScenery();
 		_ = ScreenFade.FadeIn(GetTree(), FadeInDuration);

@@ -313,6 +313,10 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 
 	public void ForceStop()
 	{
+		// An interrupted walk isn't a finished one: without this the first-walk tutorial popout opens (and pauses
+		// the tree) on the next physics frame, e.g. right after a fight's Fight button unpaused it
+		movingToPoint = false;
+
 		for (int i = 0; i < points.Count; i++)
 		{
 			points[i].QueueFree();

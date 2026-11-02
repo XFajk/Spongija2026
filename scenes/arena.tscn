@@ -307,7 +307,7 @@ shadow_enabled = true
 GameViewport = NodePath("../SubViewport")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=253654758]
-size = Vector2i(1280, 720)
+size = Vector2i(960, 540)
 
 [node name="ArenaCamera" type="Camera3D" parent="SubViewport" unique_id=547754814]
 environment = ExtResource("19_7wjmx")

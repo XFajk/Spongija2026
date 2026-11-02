@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://domsu0l82h20f"
-path.s3tc="res://.godot/imported/rock2_normal_roughness.png-3bd2b03b6c4999ab341eed5b02b07393.s3tc.ctex"
-path.etc2="res://.godot/imported/rock2_normal_roughness.png-3bd2b03b6c4999ab341eed5b02b07393.etc2.ctex"
+path="res://.godot/imported/rock2_normal_roughness.png-3bd2b03b6c4999ab341eed5b02b07393.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/terrain/ground_textures/rock2_normal_roughness.png"
-dest_files=["res://.godot/imported/rock2_normal_roughness.png-3bd2b03b6c4999ab341eed5b02b07393.s3tc.ctex", "res://.godot/imported/rock2_normal_roughness.png-3bd2b03b6c4999ab341eed5b02b07393.etc2.ctex"]
+dest_files=["res://.godot/imported/rock2_normal_roughness.png-3bd2b03b6c4999ab341eed5b02b07393.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
