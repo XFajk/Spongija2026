@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://trwdn7gc4m2u" path="res://src/ui/MainMenu.cs" id="1_g0mf2"]
 [ext_resource type="Theme" uid="uid://brqf071jtaftc" path="res://assets/ui_themes/main_menu_ui_theme.tres" id="1_xsbw3"]
-[ext_resource type="Texture2D" uid="uid://b0d4e1rffedix" path="res://assets/misc/bkTest.png" id="2_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://c42dur6xviftr" path="res://assets/pics/Background.png" id="2_jk1qb"]
 [ext_resource type="Script" uid="uid://cjev6goupr6st" path="res://src/ui/SettingsBuilder.cs" id="3_e5b5k"]
 [ext_resource type="Shader" uid="uid://dynufpf531jyg" path="res://src/shaders/vignette_ui_effect.gdshader" id="3_lgwnu"]
 [ext_resource type="Resource" uid="uid://ch16y2n442y74" path="res://assets/settings/settings.tres" id="4_8t0lc"]
@@ -11,13 +11,13 @@
 [ext_resource type="PackedScene" uid="uid://bp7h6wk0dp8i7" path="res://scenes/ui/select_file.tscn" id="12_flqon"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s2dh3"]
-texture = ExtResource("2_5dd4i")
+texture = ExtResource("2_jk1qb")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iopsf"]
 shader = ExtResource("3_lgwnu")
 shader_parameter/strength = 1.0
-shader_parameter/center_alpha = 0.626000029735
-shader_parameter/radius = 0.362000017195
+shader_parameter/center_alpha = 0.64800003078
+shader_parameter/radius = 0.25200001197
 shader_parameter/softness = 0.47300002176898
 
 [sub_resource type="LabelSettings" id="LabelSettings_5dd4i"]
