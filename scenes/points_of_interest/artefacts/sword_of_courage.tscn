@@ -1,13 +1,11 @@
 [gd_scene format=4 uid="uid://cfdi0vlbjhyu4"]
 
 [ext_resource type="Script" uid="uid://w2lj0wq3830v" path="res://src/arena/ArtefactPOI.cs" id="1_uh82m"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 [ext_resource type="Resource" uid="uid://cy7b18dunqpbt" path="res://assets/battle_system/artefacts/sword_of_courage.tres" id="2_taq7f"]
 [ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="3_d7cub"]
 [ext_resource type="Texture2D" uid="uid://0yydwwm4gpnf" path="res://assets/artefact_models/mec_chod_prec_modre wafle (vygoogli si).png" id="4_blbnr"]
 [ext_resource type="Texture2D" uid="uid://cuojh4wlh14er" path="res://assets/artefact_models/mec_chod_prec_Stylized_BaseMetal_02_basecolor.jpg" id="5_pbwcu"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
-load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1tpui"]
 resource_name = "blue waffles"
@@ -321,7 +319,7 @@ FloatingTextScene = ExtResource("3_d7cub")
 SaveId = "sword_of_courage"
 _mesh = NodePath("MeshInstance3D")
 stopDistance = 1.5
-cursorIcon = SubResource("CompressedTexture2D_nakos")
+cursorIcon = ExtResource("poi_icon")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1861637635]
 transform = Transform3D(-1.1920929e-07, 4.3711392e-08, 0.99999994, -4.3711392e-08, -1, 4.3711385e-08, 0.99999994, -4.3711385e-08, 1.7881393e-07, 0, 0.5248011, 0)

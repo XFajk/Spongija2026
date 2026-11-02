@@ -1,12 +1,10 @@
 [gd_scene format=4 uid="uid://dexb8bit6wg3f"]
 
 [ext_resource type="Script" uid="uid://428dhvbojk24" path="res://src/arena/ResourcePOI.cs" id="1_euu6t"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 [ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="2_4uoyp"]
 [ext_resource type="Texture2D" uid="uid://b3pd54pr1eff3" path="res://assets/ui/cobweb_slow_color.png" id="3_u0fjm"]
 [ext_resource type="Material" uid="uid://bnwoy4thqykl" path="res://assets/misc/horseMatOutline.tres" id="4_x54ro"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
-load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
 size = Vector3(1, 1.6958008, 1)
@@ -351,7 +349,7 @@ FloatingTextScene = ExtResource("2_4uoyp")
 icon = ExtResource("3_u0fjm")
 _mesh = NodePath("kon_kakaovy/HeroHorseMesh")
 stopDistance = 1.5
-cursorIcon = SubResource("CompressedTexture2D_nakos")
+cursorIcon = ExtResource("poi_icon")
 outlineWidth = 0.05
 outlineColor = Color(0.92401576, 0.5846732, 7.70092e-07, 1)
 

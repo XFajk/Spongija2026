@@ -1,13 +1,11 @@
 [gd_scene format=4 uid="uid://crcvcp0bl0bjc"]
 
 [ext_resource type="Script" uid="uid://w2lj0wq3830v" path="res://src/arena/ArtefactPOI.cs" id="1_p0jbu"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 [ext_resource type="Resource" uid="uid://c7thoe6q17b3v" path="res://assets/battle_system/artefacts/mana_pouch.tres" id="2_tm3wx"]
 [ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="3_cixoc"]
 [ext_resource type="Texture2D" uid="uid://c801f10muc5s4" path="res://assets/artefact_models/Mana_Pic_mana_pouch.png" id="4_2mqj0"]
 [ext_resource type="Texture2D" uid="uid://blj08rs8d6oxa" path="res://assets/artefact_models/Mana_Pic_corque.png" id="5_87vqw"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
-load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s15v2"]
 resource_name = "Material.005"
@@ -181,7 +179,7 @@ FloatingTextScene = ExtResource("3_cixoc")
 SaveId = "mana_pouch"
 _mesh = NodePath("MeshInstance3D")
 stopDistance = 1.5
-cursorIcon = SubResource("CompressedTexture2D_nakos")
+cursorIcon = ExtResource("poi_icon")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1861637635]
 transform = Transform3D(0.4, 0, 0, 0, 0.32892546, -0.2276138, 0, 0.2276138, 0.32892546, 0, 0.3297484, 0.08020902)
