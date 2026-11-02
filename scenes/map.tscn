@@ -1176,9 +1176,11 @@ light_color = Color(0.049423575, 0.11703893, 0.32706, 1)
 light_energy = 6.0
 shadow_enabled = true
 
-[node name="AdventureCharacter" parent="." unique_id=590468899 node_paths=PackedStringArray("container") instance=ExtResource("4_2klcf")]
+[node name="AdventureCharacter" parent="." unique_id=590468899 node_paths=PackedStringArray("container", "pauseWindow", "_saves") instance=ExtResource("4_2klcf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.02108, 11.304167, -454.86435)
 container = NodePath("../PointsContainer")
+pauseWindow = NodePath("../CanvasLayer/Canvas/PauseMenu")
+_saves = NodePath("../CanvasLayer/Canvas/select_file")
 
 [node name="PointsContainer" type="Node3D" parent="." unique_id=1683784706]
 
