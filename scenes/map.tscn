@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://cfsvco3a36qfu"]
 
 [ext_resource type="PackedScene" uid="uid://d2vdux1r2w61k" path="res://scenes/player/viewport_rect.tscn" id="1_gldc4"]
-[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
-[ext_resource type="Texture2D" uid="uid://bqoub3vguef5x" path="res://assets/pics/ramcek.png" id="slot_frame"]
 [ext_resource type="PackedScene" uid="uid://d3siemxsgpj3l" path="res://scenes/player/player_camera.tscn" id="2_paxxb"]
 [ext_resource type="PackedScene" uid="uid://ns4005pgsiuv" path="res://scenes/points_of_interest/spring_poi.tscn" id="2_s2dh3"]
 [ext_resource type="Script" uid="uid://bknow4djldqy" path="res://src/player/AdventureCamera.cs" id="4_0cso3"]
@@ -88,6 +86,7 @@
 [ext_resource type="Resource" uid="uid://cvkx8nuc22xf0" path="res://assets/battle_system/units/melkor.tres" id="101_melkor"]
 [ext_resource type="Script" uid="uid://bmusiccue8r4t" path="res://src/helpers/MusicCue.cs" id="102_mcue"]
 [ext_resource type="AudioStream" uid="uid://wbmkb4f5p3ke" path="res://assets/music/advature_song.ogg" id="103_music"]
+[ext_resource type="Texture2D" uid="uid://bqoub3vguef5x" path="res://assets/pics/ramcek.png" id="slot_frame"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_081xv"]
 noise_type = 2
@@ -679,14 +678,12 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -73.
 Camera = NodePath("../../SubViewport/PlayerCamera")
 Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
 SaveId = "base_camp"
-cursorIcon = ExtResource("poi_icon")
 
 [node name="Camp2" parent="PointsOfInterest" unique_id=2107680859 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("18_r2y85")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -576.353, 4.9593945, -622.5217)
 Camera = NodePath("../../SubViewport/PlayerCamera")
 Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
 SaveId = "camp"
-cursorIcon = ExtResource("poi_icon")
 
 [node name="Iron" type="Node3D" parent="PointsOfInterest" unique_id=1363389317]
 
@@ -3143,6 +3140,8 @@ SaveId = "horse19"
 
 [node name="Finish" type="Area3D" parent="." unique_id=2063654543 node_paths=PackedStringArray("_Character")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.7, -873.48254, 23.692741, -724.8658)
+collision_layer = 0
+collision_mask = 8
 script = ExtResource("84_ixmst")
 _Character = NodePath("../AdventureCharacter")
 
