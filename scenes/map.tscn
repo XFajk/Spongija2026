@@ -71,6 +71,7 @@
 [ext_resource type="PackedScene" uid="uid://b2ob3yorvrlrh" path="res://scenes/points_of_interest/battles/boss_wolf_fight_poi.tscn" id="69_7ilj0"]
 [ext_resource type="PackedScene" uid="uid://boah5rjp64hh2" path="res://scenes/points_of_interest/battles/wolf_spider_fight_poi.tscn" id="70_b7dnk"]
 [ext_resource type="PackedScene" uid="uid://bub7ijuy0frg" path="res://scenes/points_of_interest/battles/malkor_fight_poi.tscn" id="71_13p8c"]
+[ext_resource type="Script" uid="uid://nug3vvfwdm3f" path="res://src/arena/Finish.cs" id="84_ixmst"]
 [ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="90_stack"]
 [ext_resource type="Resource" uid="uid://c72a0ew85gt6u" path="res://assets/battle_system/units/wizard_quendi.tres" id="91_wizard"]
 [ext_resource type="Resource" uid="uid://7tcdw1qoic5w" path="res://assets/battle_system/units/small_wolf.tres" id="92_cub"]
@@ -660,6 +661,8 @@ script = ExtResource("90_stack")
 Unit = ExtResource("97_orcwarrior")
 Quantity = 20
 metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iopsf"]
 
 [node name="Map" type="Node3D" unique_id=1745784945]
 
@@ -3148,6 +3151,15 @@ transform = Transform3D(-0.22090228, -0.03451535, -0.19244698, -0.028066982, 0.2
 [node name="horse_resource_poi" parent="." unique_id=1596719709 groups=["Savable"] instance=ExtResource("14_s2dh3")]
 transform = Transform3D(-0.9867752, 0, -0.16209468, 0, 1, 0, 0.16209468, 0, -0.9867752, -686.842, 43.795025, -499.21982)
 SaveId = "horse19"
+
+[node name="Finish" type="Area3D" parent="." unique_id=2063654543 node_paths=PackedStringArray("_Character")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.7, -873.48254, 23.692741, -724.8658)
+script = ExtResource("84_ixmst")
+_Character = NodePath("../AdventureCharacter")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Finish" unique_id=1257840113]
+transform = Transform3D(10.8, 0, 0, 0, 11.1, 0, 0, 0, 22.72, 0, 0, 0)
+shape = SubResource("BoxShape3D_iopsf")
 
 [editable path="Fights/OrcFightPOI_3(2)"]
 [editable path="Fights/OrcFightPOI_3"]
