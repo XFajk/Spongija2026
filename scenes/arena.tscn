@@ -117,6 +117,7 @@ lod0_range = 128.0
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_41jku"]
 name = "tree1"
 id = 2
+enabled = false
 scene_file = ExtResource("6_41jku")
 density = 0.51
 last_lod = 0
@@ -126,6 +127,7 @@ lod0_range = 128.0
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_ajq0i"]
 name = "tree2"
 id = 3
+enabled = false
 scene_file = ExtResource("7_ajq0i")
 density = 0.24
 last_lod = 0
@@ -135,6 +137,7 @@ lod0_range = 128.0
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_xsx6r"]
 name = "tree3"
 id = 4
+enabled = false
 scene_file = ExtResource("8_8vbsj")
 density = 0.365
 last_lod = 0
@@ -144,6 +147,7 @@ lod0_range = 128.0
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_a43o1"]
 name = "tree4"
 id = 5
+enabled = false
 scene_file = ExtResource("9_8vbsj")
 density = 2.835
 last_lod = 0
