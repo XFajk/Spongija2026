@@ -11,9 +11,14 @@
 [ext_resource type="Script" uid="uid://da8xkfatqgrcb" path="res://src/ui/CharacterPanel.cs" id="7_blm8a"]
 [ext_resource type="LabelSettings" uid="uid://d2yjmolnb3eqi" path="res://assets/ui_themes/HighlightLabelSettings.tres" id="7_nakos"]
 [ext_resource type="PackedScene" uid="uid://3me630kro538" path="res://scenes/ui/popout.tscn" id="7_wslke"]
+[ext_resource type="Resource" uid="uid://ddfgaidqfhbat" path="res://assets/battle_system/abilities/spells/fire_ball_spell.tres" id="8_baix8"]
 [ext_resource type="Texture2D" uid="uid://b8ddb7nxoqbb7" path="res://assets/pics/cantGoIcon.png" id="8_jh32y"]
 [ext_resource type="Texture2D" uid="uid://bpk4t2bqqrf3h" path="res://assets/pics/book/BookBack.png" id="9_be0no"]
+[ext_resource type="Resource" uid="uid://bdthpuy62xd12" path="res://assets/battle_system/abilities/spells/web_ball_spell.tres" id="9_s2dh3"]
+[ext_resource type="PackedScene" uid="uid://cw5mt6sny4rlq" path="res://scenes/points_of_interest/artefacts/fighters_helmet.tscn" id="10_8kgjo"]
+[ext_resource type="PackedScene" uid="uid://crcvcp0bl0bjc" path="res://scenes/points_of_interest/artefacts/mana_pouch.tscn" id="11_ogd7i"]
 [ext_resource type="Texture2D" uid="uid://csuq8cas0opo5" path="res://assets/pics/inventory/bag_on_stickblack.png" id="12_sq6bu"]
+[ext_resource type="PackedScene" uid="uid://b3omq7rub3olq" path="res://scenes/points_of_interest/artefacts/mithril_shield.tscn" id="12_tf62m"]
 [ext_resource type="Texture2D" uid="uid://b5gh5rno637p2" path="res://assets/pics/inventory/bag_on_stickgray.png" id="13_4b7dj"]
 [ext_resource type="PackedScene" uid="uid://dojoqutc52f7o" path="res://scenes/points_of_interest/silk_resource_poi.tscn" id="13_baix8"]
 [ext_resource type="Texture2D" uid="uid://eaq1jq5w0ja5" path="res://assets/pics/book/BookBackGrey.png" id="13_c70he"]
@@ -23,9 +28,14 @@
 [ext_resource type="Texture2D" uid="uid://b1a78biqiyy4e" path="res://assets/pics/book/BookBackWhite.png" id="14_mo32q"]
 [ext_resource type="PackedScene" uid="uid://dd8qpygjqxwvm" path="res://scenes/ui/unit_slot.tscn" id="14_p7tei"]
 [ext_resource type="PackedScene" uid="uid://dexb8bit6wg3f" path="res://scenes/points_of_interest/horse_resource_poi.tscn" id="14_s2dh3"]
+[ext_resource type="PackedScene" uid="uid://bud7j5o3o7w4y" path="res://scenes/points_of_interest/artefacts/wizard_hat_poi.tscn" id="15_v7gfb"]
+[ext_resource type="PackedScene" uid="uid://cfdi0vlbjhyu4" path="res://scenes/points_of_interest/artefacts/sword_of_courage.tscn" id="16_icjpl"]
 [ext_resource type="FontFile" uid="uid://cotpgy3uit4mg" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Regular.ttf" id="16_p7tei"]
+[ext_resource type="PackedScene" uid="uid://dnhn5ddkxegh6" path="res://scenes/points_of_interest/artefacts/wizard_cane.tscn" id="17_vwuk8"]
 [ext_resource type="PackedScene" uid="uid://djoxt7jtplgwr" path="res://scenes/points_of_interest/camp_poi.tscn" id="18_r2y85"]
+[ext_resource type="PackedScene" uid="uid://cby2hni2tahrg" path="res://scenes/points_of_interest/battles/wolf_fight_poi.tscn" id="18_sp2wr"]
 [ext_resource type="PackedScene" uid="uid://c23anfnailwup" path="res://scenes/ui/artefact_ui.tscn" id="20_081xv"]
+[ext_resource type="PackedScene" uid="uid://bih8fm6gbgeor" path="res://scenes/points_of_interest/battles/wizard_fight_poi.tscn" id="20_o4st3"]
 [ext_resource type="Texture2D" uid="uid://r6lyu5hmdlly" path="res://assets/pics/swap.png" id="21_nc68e"]
 [ext_resource type="Texture2D" uid="uid://cnt4a1ofuqcj5" path="res://assets/pics/CombineIcon.png" id="22_2cfcp"]
 [ext_resource type="PackedScene" uid="uid://wka7hhiahe1k" path="res://scenes/ui/swap_slot.tscn" id="23_2cfcp"]
@@ -39,14 +49,28 @@
 [ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="33_12q1p"]
 [ext_resource type="Theme" uid="uid://c7y84ghi423h7" path="res://assets/ui_themes/unit_slot.tres" id="34_lhdcv"]
 [ext_resource type="Texture2D" uid="uid://d0ae0e4vsrswn" path="res://assets/ui/BookBackBlack.png" id="41_fq3dv"]
+[ext_resource type="PackedScene" uid="uid://bbca8on0i7dje" path="res://scenes/points_of_interest/spell_poi.tscn" id="48_7s432"]
 [ext_resource type="Theme" uid="uid://brqf071jtaftc" path="res://assets/ui_themes/main_menu_ui_theme.tres" id="49_ogd7i"]
 [ext_resource type="Script" uid="uid://dsh7utydx6qkr" path="res://src/save_system/SaveManager.cs" id="49_s2dh3"]
 [ext_resource type="Script" uid="uid://dvqihq641myar" path="res://src/ui/PauseMenu.cs" id="50_tf62m"]
 [ext_resource type="PackedScene" uid="uid://bp7h6wk0dp8i7" path="res://scenes/ui/select_file.tscn" id="51_nc68e"]
 [ext_resource type="Script" uid="uid://dgxys3vbibvpt" path="res://src/ui/BlackScreen.cs" id="51_r2y85"]
+[ext_resource type="PackedScene" uid="uid://b48evc5lmrr26" path="res://scenes/visual_effects/fire_flies.tscn" id="52_fq3dv"]
 [ext_resource type="Environment" uid="uid://oi2ubom7ugak" path="res://assets/misc/new_environment.tres" id="52_tf62m"]
 [ext_resource type="Script" uid="uid://swwcjjqiscph" path="res://src/ui/Tutorial.cs" id="53_ogd7i"]
 [ext_resource type="PackedScene" uid="uid://bw2n3jxff7m3j" path="res://scenes/environment.tscn" id="53_tf62m"]
+[ext_resource type="PackedScene" uid="uid://bo8uppegn6g8g" path="res://scenes/points_of_interest/artefacts/oromes_horn.tscn" id="55_nc68e"]
+[ext_resource type="PackedScene" uid="uid://mvghk1os8qst" path="res://scenes/visual_effects/kemp_fire.tscn" id="56_r2y85"]
+[ext_resource type="PackedScene" uid="uid://xj1befbnvato" path="res://scenes/points_of_interest/artefacts/necromancer_dagger.tscn" id="57_w5y4v"]
+[ext_resource type="Script" uid="uid://bpulslght6n3w" path="res://src/environment/PulsingLight.cs" id="61_kycfx"]
+[ext_resource type="AudioStream" uid="uid://d2taygdmuk8h2" path="res://assets/sounds/book/book2.ogg" id="62_bksnd"]
+[ext_resource type="PackedScene" uid="uid://gi0jwayfph6a" path="res://scenes/points_of_interest/battles/ghost_fight_poi.tscn" id="63_14ag1"]
+[ext_resource type="PackedScene" uid="uid://cb5kdjmwdxl5v" path="res://scenes/points_of_interest/battles/boss_spider_fight_poi.tscn" id="63_sp2wr"]
+[ext_resource type="PackedScene" uid="uid://dfqy1cw4npj7m" path="res://scenes/points_of_interest/battles/orcs_fight_poi.tscn" id="65_f4upa"]
+[ext_resource type="PackedScene" uid="uid://bc7ve3jy65u7a" path="res://scenes/points_of_interest/battles/spider_fight_poi.tscn" id="66_fvbyp"]
+[ext_resource type="PackedScene" uid="uid://b2ob3yorvrlrh" path="res://scenes/points_of_interest/battles/boss_wolf_fight_poi.tscn" id="69_7ilj0"]
+[ext_resource type="PackedScene" uid="uid://boah5rjp64hh2" path="res://scenes/points_of_interest/battles/wolf_spider_fight_poi.tscn" id="70_b7dnk"]
+[ext_resource type="PackedScene" uid="uid://bub7ijuy0frg" path="res://scenes/points_of_interest/battles/malkor_fight_poi.tscn" id="71_13p8c"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r2y85"]
 load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
@@ -278,13 +302,19 @@ GameViewport = NodePath("../SubViewport")
 
 [node name="PointsOfInterest" type="Node3D" parent="." unique_id=810958568]
 
-[node name="spring_poi" parent="PointsOfInterest" unique_id=2127545491 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("2_s2dh3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -357, 4, -446)
+[node name="spring_poi" parent="PointsOfInterest" unique_id=2127545491 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("2_s2dh3")]
+transform = Transform3D(0.4380287, 0, -0.44511515, 0, 0.6244971, 0, 0.44511515, 0, 0.4380287, -571.7116, 5.5975714, -613.51605)
 MaxAmount = 30
-RestoringSpeed = 5.0
 Camera = NodePath("../../SubViewport/PlayerCamera")
 Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
-SaveId = "spring"
+SaveId = "spring1"
+
+[node name="spiderspring_poi2" parent="PointsOfInterest" unique_id=1105177264 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("2_s2dh3")]
+transform = Transform3D(0.8918572, 0, -1.1293753, 0, 1.4390615, 0, 1.1293753, 0, 0.8918572, -423.61993, 29.615301, -777.7555)
+MaxAmount = 60
+Camera = NodePath("../../SubViewport/PlayerCamera")
+Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
+SaveId = "SpiderSpringofmanga"
 
 [node name="Camp" parent="PointsOfInterest" unique_id=157508729 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("18_r2y85")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -73.00316, 11.110363, -431.28476)
@@ -678,7 +708,7 @@ Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
 SaveId = "horse16"
 
 [node name="horse_resource_poi17" parent="PointsOfInterest/Horses" unique_id=1529638579 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
-transform = Transform3D(0.4057768, 0.16329022, 0.8992672, -0.092621505, 0.98619235, -0.13728061, -0.90926677, -0.027586186, 0.41529807, -643.3269, 16.95854, -558.6111)
+transform = Transform3D(0.4057768, 0.16329022, 0.8992672, -0.092621505, 0.98619235, -0.13728061, -0.90926677, -0.027586186, 0.41529807, -652.6994, 16.39455, -590.0053)
 Amount = 2
 Camera = NodePath("../../../SubViewport/PlayerCamera")
 Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
@@ -691,11 +721,71 @@ Camera = NodePath("../../../SubViewport/PlayerCamera")
 Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
 SaveId = "horse18"
 
+[node name="Spells" type="Node3D" parent="PointsOfInterest" unique_id=627992196]
+
+[node name="FireballSpell" parent="PointsOfInterest/Spells" unique_id=1250873675 instance=ExtResource("48_7s432")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -414.11566, 3.8964715, -416.60123)
+Spell = ExtResource("8_baix8")
+SaveId = "FireBallSpell"
+
+[node name="spell_poi" parent="PointsOfInterest/Spells" unique_id=1793646282 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("48_7s432")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -413.31467, 30.26011, -791.78564)
+Spell = ExtResource("9_s2dh3")
+SaveId = "WebBallSpell"
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+metadata/_edit_group_ = true
+
+[node name="Artefacts" type="Node3D" parent="PointsOfInterest" unique_id=570696572]
+
+[node name="necromancer_dagger" parent="PointsOfInterest/Artefacts" unique_id=2000296551 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("57_w5y4v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -561.69745, 36.949272, -895.47906)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="oromes_horn" parent="PointsOfInterest/Artefacts" unique_id=492435077 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("55_nc68e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -568.2592, 5.3634076, -630.11084)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="fighters_helmet" parent="PointsOfInterest/Artefacts" unique_id=1801824249 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("10_8kgjo")]
+transform = Transform3D(0.44506988, 0, -0.89549583, 0, 1, 0, 0.89549583, 0, 0.44506988, -336.1929, 3.0407605, -419.80338)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="mana_pouch" parent="PointsOfInterest/Artefacts" unique_id=255081392 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("11_ogd7i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -397.42508, 33.005272, -779.40076)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="mithril_shield" parent="PointsOfInterest/Artefacts" unique_id=1080352660 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("12_tf62m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -370.1349, 3.004427, -364.336)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="wizard_hat_poi" parent="PointsOfInterest/Artefacts" unique_id=1997912767 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("15_v7gfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.45299, 13.098531, -434.46005)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="sword_of_courage" parent="PointsOfInterest/Artefacts" unique_id=15973466 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("16_icjpl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -682.48303, 44.66504, -469.51584)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="wizard_cane" parent="PointsOfInterest/Artefacts" unique_id=756606375 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("17_vwuk8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -357.07538, 21.314384, -620.36475)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
 [node name="SubViewport" type="SubViewport" parent="." unique_id=2116964362]
+audio_listener_enable_3d = true
 size = Vector2i(1280, 720)
 
 [node name="PlayerCamera" parent="SubViewport" unique_id=118941473 node_paths=PackedStringArray("Agent", "returnPanningButton", "_cursorContainer") instance=ExtResource("2_paxxb")]
 transform = Transform3D(1, 0, 0, 0, 0.3321821, 0.9432153, 0, -0.9432153, 0.3321821, -412.57367, 127.85014, -434.07703)
+doppler_tracking = 1
+current = true
 script = ExtResource("4_0cso3")
 Agent = NodePath("../../AdventureCharacter")
 Distance = 8.0
@@ -717,14 +807,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.4965672, 3.1734376)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=472189251]
 transform = Transform3D(0.8660254, -0.3535534, 0.3535534, 0, 0.7071068, 0.7071068, -0.5, -0.61237246, 0.61237246, 0, 4, 0)
 light_color = Color(0.049423575, 0.11703893, 0.32706, 1)
-light_energy = 0.75
+light_energy = 6.0
 shadow_enabled = true
 
-[node name="AdventureCharacter" parent="." unique_id=590468899 node_paths=PackedStringArray("container", "pauseWindow", "_saves") instance=ExtResource("4_2klcf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -382.47223, 3.6384203, -457.84418)
+[node name="AdventureCharacter" parent="." unique_id=590468899 node_paths=PackedStringArray("container") instance=ExtResource("4_2klcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.02108, 11.304167, -454.86435)
 container = NodePath("../PointsContainer")
-pauseWindow = NodePath("../CanvasLayer/Canvas/PauseMenu")
-_saves = NodePath("../CanvasLayer/Canvas/select_file")
 
 [node name="PointsContainer" type="Node3D" parent="." unique_id=1683784706]
 
@@ -770,6 +858,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="BookSound" type="AudioStreamPlayer" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=1146025873]
+stream = ExtResource("62_bksnd")
+pitch_scale = 1.75
+bus = &"SFX"
 
 [node name="SpellBook" type="AnimatedSprite2D" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=39295325]
 position = Vector2(563, 361)
@@ -1981,3 +2074,667 @@ PopoutManager = NodePath("../CanvasLayer/Canvas/PopoutContainer")
 script = ExtResource("49_s2dh3")
 
 [node name="Node3D" parent="." unique_id=1448908437 instance=ExtResource("53_tf62m")]
+
+[node name="VFX" type="Node" parent="." unique_id=1645687977]
+
+[node name="GPUParticles3D" parent="VFX" unique_id=1800348512 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -265.32074, 16.958246, -609.35834)
+
+[node name="GPUParticles3D2" parent="VFX" unique_id=723323951 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -282.1534, 23.995907, -629.07074)
+
+[node name="GPUParticles3D3" parent="VFX" unique_id=2131069545 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -278.01694, 25.472843, -639.30475)
+
+[node name="GPUParticles3D4" parent="VFX" unique_id=52755286 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -305.01306, 21.732702, -612.6133)
+
+[node name="GPUParticles3D5" parent="VFX" unique_id=1162532668 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -323.55695, 23.753916, -619.26794)
+
+[node name="GPUParticles3D6" parent="VFX" unique_id=1268619872 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -331.81625, 31.087975, -663.43744)
+
+[node name="GPUParticles3D7" parent="VFX" unique_id=1959887457 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -335.36072, 33.7308, -692.8953)
+
+[node name="GPUParticles3D8" parent="VFX" unique_id=290973512 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -331.40857, 45.418404, -757.96704)
+
+[node name="FireFlies3" parent="VFX" unique_id=1489733072 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -537.36566, 5.9430237, -597.4433)
+
+[node name="FireFlies4" parent="VFX" unique_id=1027525146 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -523.70776, 6.0586276, -602.83746)
+
+[node name="FireFlies5" parent="VFX" unique_id=1006272717 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -511.2317, 6.0586314, -625.8599)
+
+[node name="FireFlies6" parent="VFX" unique_id=343333647 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -527.83923, 5.8919206, -587.17017)
+
+[node name="FireFlies7" parent="VFX" unique_id=336775353 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -522.4528, 6.087254, -646.7671)
+
+[node name="FireFlies8" parent="VFX" unique_id=2013914256 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -556.84235, 6.507632, -650.39233)
+
+[node name="FireFlies9" parent="VFX" unique_id=90630328 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -601.0901, 8.394318, -677.0987)
+
+[node name="FireFlies10" parent="VFX" unique_id=809443489 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -629.2777, 8.1995325, -659.0123)
+
+[node name="FireFlies11" parent="VFX" unique_id=1587860748 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -649.64166, 10.722524, -617.37756)
+
+[node name="FireFlies12" parent="VFX" unique_id=883053521 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -646.9818, 14.470376, -581.9235)
+
+[node name="FireFlies13" parent="VFX" unique_id=318460304 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -606.11395, 25.20752, -805.4169)
+
+[node name="FireFlies14" parent="VFX" unique_id=637150499 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -847.4255, 25.202316, -626.084)
+
+[node name="FireFlies15" parent="VFX" unique_id=419784466 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -817.46796, 22.70256, -653.73926)
+
+[node name="FireFlies16" parent="VFX" unique_id=7374516 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -756.07556, 13.806207, -674.97565)
+
+[node name="FireFlies17" parent="VFX" unique_id=1346393765 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -877.8421, 22.051573, -735.14984)
+
+[node name="FireFlies18" parent="VFX" unique_id=710512001 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -878.4203, 21.66229, -727.81915)
+
+[node name="FireFlies19" parent="VFX" unique_id=1315014939 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -879.43756, 21.809973, -719.6789)
+
+[node name="FireFlies20" parent="VFX" unique_id=205302011 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -882.7088, 20.801224, -728.70435)
+
+[node name="FireFlies21" parent="VFX" unique_id=861294897 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.97394, 8.592665, -600.1897)
+
+[node name="FireFlies22" parent="VFX" unique_id=231621524 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.794, 8.426821, -613.50104)
+
+[node name="FireFlies23" parent="VFX" unique_id=1562169789 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.91129, 9.418181, -579.9958)
+
+[node name="FireFlies24" parent="VFX" unique_id=2132340630 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -92.35394, 9.418181, -584.353)
+
+[node name="FireFlies25" parent="VFX" unique_id=1984742059 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.738945, 8.874543, -626.9058)
+
+[node name="FireFlies26" parent="VFX" unique_id=383189493 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.86801, 12.222174, -665.76044)
+
+[node name="FireFlies27" parent="VFX" unique_id=354356342 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -162.68808, 9.418181, -679.0718)
+
+[node name="FireFlies28" parent="VFX" unique_id=1094525681 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -145.80536, 9.418181, -645.5665)
+
+[node name="FireFlies29" parent="VFX" unique_id=779304524 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -125.24801, 9.418181, -649.92377)
+
+[node name="FireFlies30" parent="VFX" unique_id=153360356 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.63301, 12.605599, -692.47656)
+
+[node name="FireFlies31" parent="VFX" unique_id=540549952 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103.55718, 9.0014305, -554.10876)
+
+[node name="FireFlies32" parent="VFX" unique_id=2056488388 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -119.37725, 8.357169, -567.4201)
+
+[node name="FireFlies33" parent="VFX" unique_id=844230368 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.49453, 7.9888697, -533.91486)
+
+[node name="FireFlies34" parent="VFX" unique_id=1648157030 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.93718, 9.418181, -538.2721)
+
+[node name="FireFlies36" parent="VFX" unique_id=1111915358 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(0.996027, -0.089051634, 0, 0.089051634, 0.996027, 0, 0, 0, 1, -91.02403, 6.6517377, -501.10403)
+
+[node name="FireFlies37" parent="VFX" unique_id=160545401 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(0.996027, -0.089051634, 0, 0.089051634, 0.996027, 0, 0, 0, 1, -70.54836, 8.482404, -505.46127)
+
+[node name="FireFlies35" parent="VFX" unique_id=116006538 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.32218, 9.418178, -580.8249)
+
+[node name="KempFire" parent="VFX" unique_id=1357834033 instance=ExtResource("56_r2y85")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.55895, 11.369202, -443.80463)
+
+[node name="KempFire2" parent="VFX" unique_id=832529064 instance=ExtResource("56_r2y85")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -560.61426, 4.952624, -625.71985)
+
+[node name="PulsingLight" type="OmniLight3D" parent="VFX" unique_id=667314247]
+transform = Transform3D(0.8379422, 0, 0.5457591, 0, 1, 0, -0.5457591, 0, 0.8379422, -740.1482, 83.04238, -462.3099)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight2" type="OmniLight3D" parent="VFX" unique_id=1265590898]
+transform = Transform3D(0.8379422, 0, 0.5457591, 0, 1, 0, -0.5457591, 0, 0.8379422, -744.0303, 83.04238, -458.14612)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight3" type="OmniLight3D" parent="VFX" unique_id=1460572249]
+transform = Transform3D(-0.9893891, 0, 0.14528951, 0, 1, 0, -0.14528951, 0, -0.9893891, -724.0151, 83.04238, -429.8092)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight4" type="OmniLight3D" parent="VFX" unique_id=1350654856]
+transform = Transform3D(-0.9893891, 0, 0.14528951, 0, 1, 0, -0.14528951, 0, -0.9893891, -718.34924, 83.04238, -430.3622)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight5" type="OmniLight3D" parent="VFX" unique_id=199626137]
+transform = Transform3D(-0.25498283, 0, 0.96694565, 0, 1, 0, -0.96694565, 0, -0.25498283, -738.75183, 83.04238, -399.6678)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight6" type="OmniLight3D" parent="VFX" unique_id=345506201]
+transform = Transform3D(-0.25498283, 0, 0.96694565, 0, 1, 0, -0.96694565, 0, -0.25498283, -736.01794, 83.04238, -394.6745)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight7" type="OmniLight3D" parent="VFX" unique_id=300512291]
+transform = Transform3D(0.5841798, 0, 0.8116244, 0, 1, 0, -0.8116244, 0, 0.5841798, -773.21356, 83.04238, -399.57718)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight8" type="OmniLight3D" parent="VFX" unique_id=949155553]
+transform = Transform3D(0.5841798, 0, 0.8116244, 0, 1, 0, -0.8116244, 0, 0.5841798, -775.32916, 83.04238, -394.2922)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight9" type="OmniLight3D" parent="VFX" unique_id=361883537]
+transform = Transform3D(-0.99445426, 0, 0.105169974, 0, 1, 0, -0.105169974, 0, -0.99445426, -797.9701, 83.1685, -428.26746)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight10" type="OmniLight3D" parent="VFX" unique_id=1952656644]
+transform = Transform3D(-0.99445426, 0, 0.105169974, 0, 1, 0, -0.105169974, 0, -0.99445426, -792.3313, 83.1685, -429.04907)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight11" type="OmniLight3D" parent="VFX" unique_id=1700696891]
+transform = Transform3D(0.067221165, 0, 0.99773806, 0, 1, 0, -0.99773806, 0, 0.067221165, -779.03784, 83.1685, -462.6724)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight12" type="OmniLight3D" parent="VFX" unique_id=1329099550]
+transform = Transform3D(0.067221165, 0, 0.99773806, 0, 1, 0, -0.99773806, 0, 0.067221165, -778.042, 83.1685, -457.06747)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="Fights" type="Node3D" parent="." unique_id=2039341038]
+
+[node name="WizardFightPOI3" parent="Fights" unique_id=1766287576 instance=ExtResource("20_o4st3")]
+transform = Transform3D(-0.6099473, 0, 0.79244196, 0, 1, 0, -0.79244196, 0, -0.6099473, -680.2528, 43.240017, -478.70523)
+
+[node name="OrcFightPOI_3(2)" parent="Fights" unique_id=930582041 instance=ExtResource("65_f4upa")]
+transform = Transform3D(-0.12937899, 0, -0.9915953, 0.027591955, 0.9996128, -0.0036000768, 0.9912114, -0.027825829, -0.12932889, -274.9477, 3.642126, -359.26062)
+
+[node name="CollisionShape3D" parent="Fights/OrcFightPOI_3(2)" index="0" unique_id=377279175]
+transform = Transform3D(1.0000001, -3.7252903e-09, 1.4901161e-08, 0, 2.0000002, 0, 0, 4.656613e-10, 1, 2.9164734, 2.495144, -0.6851196)
+
+[node name="Position" parent="Fights/OrcFightPOI_3(2)" index="1" unique_id=731218837]
+transform = Transform3D(1.0000005, -5.5879354e-09, 5.9604645e-08, -1.8626451e-09, 1.0000005, 2.3283064e-10, 0, 6.9849193e-10, 1, 5.422119, 0.74653435, 5.9229126)
+
+[node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_3(2)" index="2" unique_id=1294747214]
+transform = Transform3D(-0.70359474, 0.049576707, 0.7088703, 0.044469535, 0.9986805, -0.025706735, -0.7092091, 0.013435992, -0.70487064, 9.678162, -0.29071426, -13.384735)
+
+[node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_3(2)" index="4" unique_id=462772970]
+transform = Transform3D(0.8305834, 0.0066818446, 0.5568545, 0.0026707333, 0.999869, -0.01598126, -0.5568882, 0.0147609785, 0.8304564, 11.753204, 0.41980362, -3.846466)
+
+[node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_3(2)" index="5" unique_id=932492625]
+transform = Transform3D(1.0000002, -3.7252903e-09, 2.9802322e-08, 0, 1.0000002, 0, 0, 4.656613e-10, 1, -0.86779785, -9.172037, -9.560181)
+
+[node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_3(2)" index="6" unique_id=80057487]
+transform = Transform3D(0.8403512, 0.0024545994, -0.5420371, 0.006358752, 0.99987656, 0.014386253, 0.5420053, -0.015536187, 0.8402314, -4.1016846, 0.13685131, -5.3370667)
+
+[node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_3(2)" index="7" unique_id=1267255889]
+transform = Transform3D(1.0000001, -1.8626451e-09, 1.4901161e-08, 0, 1.0000001, 0, 0, 2.3283064e-10, 1, 2.9048767, -6.257456, 0.022521973)
+
+[node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_3(2)" index="8" unique_id=1526642559]
+transform = Transform3D(0.8603704, 0.0056896023, 0.509638, 0.0020186044, 0.99989206, -0.014570602, -0.5096658, 0.013564871, 0.8602657, 3.2886658, 0.07426071, 0.3451233)
+
+[node name="Highlight" parent="Fights/OrcFightPOI_3(2)" index="10" unique_id=80949497]
+transform = Transform3D(0.9999999, 9.313226e-09, 0, -3.7252903e-09, 1.0000001, -9.313226e-10, 0, 4.656613e-10, 0.99999994, 0.9154358, 1.9590282, -4.3602905)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/OrcFightPOI_3(2)" unique_id=74662947]
+transform = Transform3D(0.99999994, 1.1175871e-08, 1.4901161e-08, -5.5879354e-09, 1.0000001, -1.1641532e-09, 0, 4.656613e-10, 0.99999994, 9.823029, 1.686718, -11.700867)
+light_color = Color(0.43529412, 0.7137255, 0.12156863, 1)
+light_energy = 1.505
+distance_fade_enabled = true
+omni_range = 7.224954
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Fights/OrcFightPOI_3(2)" unique_id=1742662527]
+transform = Transform3D(0.9999999, 1.3038516e-08, 1.4901161e-08, -7.450581e-09, 1.0000001, -1.1641532e-09, 0, 4.656613e-10, 0.99999994, 10.819519, 1.686718, -4.0635986)
+light_color = Color(0.43529412, 0.7137255, 0.12156863, 1)
+light_energy = 1.505
+distance_fade_enabled = true
+omni_range = 7.224954
+
+[node name="OrcFightPOI_3" parent="Fights" unique_id=1468284967 instance=ExtResource("65_f4upa")]
+transform = Transform3D(-0.9260946, -0.09986585, -0.36383453, -0.09294989, 0.9950009, -0.036517195, 0.36566252, 0, -0.9307475, -509.3109, 4.264942, -547.06573)
+
+[node name="Position" parent="Fights/OrcFightPOI_3" index="1" unique_id=731218837]
+transform = Transform3D(1.0000006, -7.7222335e-09, 0, 1.626336e-08, 1.0000006, -3.4673067e-09, -8.940697e-08, 6.9145867e-10, 1.0000006, 4.452667, 0.6152153, 5.4293213)
+
+[node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_3" index="2" unique_id=1294747214]
+transform = Transform3D(1.0000006, -7.7222335e-09, 0, 1.626336e-08, 1.0000006, -3.4673067e-09, -8.940697e-08, 6.9145867e-10, 1.0000006, 8.81778, 1.2017326, -0.9680786)
+
+[node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_3" index="4" unique_id=462772970]
+transform = Transform3D(1.0000002, 7.450581e-09, 0, 8.81278e-09, 1.0000002, 2.5798474e-10, -2.9802322e-08, 3.7252903e-09, 1.0000002, -4.12381, -0.29123306, 0.24829102)
+
+[node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_3" index="5" unique_id=932492625]
+transform = Transform3D(1.0000001, 0, 0, 1.3621991e-09, 1.0000001, 2.579852e-10, -2.9802322e-08, 0, 1.0000001, 1.3208923, -14.1396675, -4.3638306)
+
+[node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_3" index="6" unique_id=80057487]
+transform = Transform3D(1.0000001, 0, 0, 1.3621991e-09, 1.0000001, 2.579852e-10, -2.9802322e-08, 0, 1.0000001, -1.8223877, -16.985958, 0.62335205)
+
+[node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_3" index="7" unique_id=1267255889]
+transform = Transform3D(0.9886877, -0.14963135, -0.010410547, 0.14997865, 0.9852483, 0.08242394, -0.0020765066, -0.08305283, 0.9965439, 3.1116028, 0.583477, -3.788147)
+
+[node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_3" index="8" unique_id=1526642559]
+transform = Transform3D(1.0000001, 0, 0, 1.3621991e-09, 1.0000001, 2.579852e-10, -2.9802322e-08, 0, 1.0000001, 9.895233, -42.403275, 1.5561523)
+
+[node name="OmniLight3D" parent="Fights/OrcFightPOI_3" index="9" unique_id=1171793999]
+transform = Transform3D(1.0000001, -5.017352e-10, 5.9604645e-08, 1.3621992e-09, 1.0000001, 2.579852e-10, -5.9604645e-08, 1.2771033e-09, 1.0000001, -2.3104553, 1.8126259, 0.7755127)
+
+[node name="Highlight" parent="Fights/OrcFightPOI_3" index="10" unique_id=80949497]
+transform = Transform3D(1.0000001, -5.017352e-10, 5.9604645e-08, 1.3621992e-09, 1.0000001, 2.579852e-10, -5.9604645e-08, 1.2771033e-09, 1.0000001, 2.0302124, 1.8142815, 0.7976074)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/OrcFightPOI_3" unique_id=1563121493]
+transform = Transform3D(1.0000001, -5.017352e-10, 5.9604645e-08, 1.3621992e-09, 1.0000001, 2.579852e-10, -5.9604645e-08, 1.2771033e-09, 1.0000001, 7.7518005, 2.7192574, -0.13330078)
+light_color = Color(0.43529412, 0.7137255, 0.12156863, 1)
+light_energy = 1.505
+distance_fade_enabled = true
+omni_range = 7.224954
+
+[node name="GhostFightPOI_4" parent="Fights" unique_id=177381057 instance=ExtResource("63_14ag1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -514.1456, 37.541878, -836.0322)
+
+[node name="CollisionShape3D" parent="Fights/GhostFightPOI_4" index="0" unique_id=377279175]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0.11248779, 0.4156456, 0.54626465)
+
+[node name="lesny_duch2" parent="Fights/GhostFightPOI_4" index="2" unique_id=669519904]
+transform = Transform3D(-0.08768001, 0, -0.28690106, 0, 0.29999998, 0, 0.28690106, 0, -0.08768001, 0.14190674, -0.067108154, -0.07891846)
+
+[node name="lesny_duch6" parent="Fights/GhostFightPOI_4" index="3" unique_id=1966808096]
+transform = Transform3D(-0.11762819, 0, 0.27597755, 0, 0.29999998, 0, -0.27597755, 0, -0.11762819, -5.4450073, -0.9496994, 6.376953)
+
+[node name="lesny_duch3" parent="Fights/GhostFightPOI_4" index="4" unique_id=1381636873]
+transform = Transform3D(0.29418352, 0, -0.058788218, 0, 0.29999998, 0, 0.058788218, 0, 0.29418352, 0.510437, -1.1953278, 1.2780762)
+
+[node name="lesny_duch4" parent="Fights/GhostFightPOI_4" index="5" unique_id=1875774799]
+transform = Transform3D(-0.2849051, 0, -0.09396313, 0, 0.29999998, 0, 0.09396313, 0, -0.2849051, -1.953125, 1.0524979, -6.7875366)
+
+[node name="lesny_duch5" parent="Fights/GhostFightPOI_4" index="6" unique_id=95008749]
+transform = Transform3D(0.2185512, 0, -0.20551243, 0, 0.29999998, 0, 0.20551243, 0, 0.2185512, 7.6309204, -1.0503006, 0.22601318)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/GhostFightPOI_4" unique_id=137000280]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0004883, 0.23586273, 6.3115845)
+light_energy = 1.8
+distance_fade_enabled = true
+omni_range = 2.4534316
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Fights/GhostFightPOI_4" unique_id=142038232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.1390076, -0.6365738, 0.31072998)
+light_energy = 1.8
+distance_fade_enabled = true
+omni_range = 2.4534316
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Fights/GhostFightPOI_4" unique_id=744102046]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6607056, 0.44776154, -6.982544)
+light_energy = 1.8
+distance_fade_enabled = true
+omni_range = 2.4534316
+
+[node name="GhostFightPOI_3" parent="Fights" unique_id=448983409 instance=ExtResource("63_14ag1")]
+transform = Transform3D(0.7571021, 0, 0.65329665, 0, 1, 0, -0.65329665, 0, 0.7571021, -441.637, 39.029602, -881.2743)
+
+[node name="lesny_duch2" parent="Fights/GhostFightPOI_3" index="2" unique_id=669519904]
+transform = Transform3D(0.29999995, 0, -5.9604645e-08, 0, 0.3, 0, 5.9604645e-08, 0, 0.29999995, -3.8840942, -5.643326, 0.3595581)
+
+[node name="lesny_duch6" parent="Fights/GhostFightPOI_3" index="3" unique_id=1966808096]
+transform = Transform3D(0.3, 0, -2.9802322e-08, 0, 0.3, 0, 2.9802322e-08, 0, 0.3, 0.2642212, -0.067108154, 1.8652344)
+
+[node name="lesny_duch3" parent="Fights/GhostFightPOI_3" index="4" unique_id=1381636873]
+transform = Transform3D(0.3, 0, -2.9802322e-08, 0, 0.3, 0, 2.9802322e-08, 0, 0.3, 0.5104675, -5.5743446, 1.2779541)
+
+[node name="WizardFightPOI" parent="Fights" unique_id=1846563086 instance=ExtResource("20_o4st3")]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -135.55576, 17.843723, -748.4114)
+
+[node name="WolfFightPOI_1" parent="Fights" unique_id=3425108 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("18_sp2wr")]
+transform = Transform3D(-0.93509644, 0, 0.35439333, 0, 1, 0, -0.35439333, 0, -0.93509644, -96.35902, 6.865777, -532.7197)
+FloatingTextScene = ExtResource("4_fq663")
+Camera = NodePath("../../SubViewport/PlayerCamera")
+Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
+
+[node name="CollisionShape3D" parent="Fights/WolfFightPOI_1" index="0" unique_id=377279175]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -4.4842224, 1.2947521, 0.61590576)
+
+[node name="WolfAnimationManager" parent="Fights/WolfFightPOI_1" index="2" unique_id=255804674]
+transform = Transform3D(0.35814622, 0, 0.32704175, 0, 0.485, 0, -0.32704175, 0, 0.35814622, -6.7651367, 0.034267426, 2.2187195)
+
+[node name="WolfAnimationManager2" parent="Fights/WolfFightPOI_1" index="3" unique_id=800470486]
+transform = Transform3D(0.42272568, 0, 0.23775606, 0, 0.485, 0, -0.23775606, 0, 0.42272568, -3.946106, 0.034267426, 0.40298462)
+
+[node name="WolfAnimationManager3" parent="Fights/WolfFightPOI_1" index="4" unique_id=42042200]
+transform = Transform3D(0.46442923, 0, -0.13975155, 0, 0.485, 0, 0.13975155, 0, 0.46442923, 8.794525, 0.034267426, -3.0369873)
+
+[node name="WolfAnimationManager5" parent="Fights/WolfFightPOI_1" index="6" unique_id=1436838103]
+transform = Transform3D(0.015963867, 0, 0.4847372, 0, 0.48500007, 0, -0.4847372, 0, 0.015963867, -12.505951, 0.034267426, 3.4583435)
+
+[node name="OmniLight3D" parent="Fights/WolfFightPOI_1" index="7" unique_id=1736713150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6289063, 1, 0.9963379)
+
+[node name="Highlight" parent="Fights/WolfFightPOI_1" index="8" unique_id=1744055232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.422638, 2.0970955, 1.2971497)
+light_energy = 3.246
+omni_range = 11.857084
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/WolfFightPOI_1" unique_id=1908677474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.168213, 1, -3.4746704)
+light_color = Color(0.74978, 0.74978, 0.74977994, 1)
+light_energy = 1.281
+distance_fade_enabled = true
+omni_range = 6.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Fights/WolfFightPOI_1" unique_id=1394934183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.197327, 1, 4.6226807)
+light_color = Color(0.74978, 0.74978, 0.74977994, 1)
+light_energy = 1.281
+distance_fade_enabled = true
+omni_range = 6.0
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Fights/WolfFightPOI_1" unique_id=1389301813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.88855, 1, 2.6106873)
+light_color = Color(0.74978, 0.74978, 0.74977994, 1)
+light_energy = 1.281
+distance_fade_enabled = true
+omni_range = 6.0
+
+[node name="OrcFightPOI_2" parent="Fights" unique_id=862020828 instance=ExtResource("65_f4upa")]
+transform = Transform3D(0.9961949, 0, 0.087153405, 0, 1, 0, -0.087153405, 0, 0.9961949, -133.48764, 11.041119, -672.6398)
+
+[node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_2" index="2" unique_id=1294747214]
+transform = Transform3D(0.89544183, 0, 0.44517845, 0, 1, 0, -0.44517845, 0, 0.89544183, 9.6377945, 0, -1.0134888)
+
+[node name="OrcPilgrimAnimationManager2" parent="Fights/OrcFightPOI_2" index="3" unique_id=195025782]
+transform = Transform3D(-0.8478078, 0, -0.53030384, 0, 1, 0, 0.53030384, 0, -0.8478078, -0.20536804, 0, 2.347412)
+
+[node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_2" index="4" unique_id=462772970]
+transform = Transform3D(0.9329026, 0, -0.36012846, 0, 1, 0, 0.36012846, 0, 0.9329026, -2.254593, 0, -2.5100098)
+
+[node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_2" index="5" unique_id=932492625]
+transform = Transform3D(0.36712092, 0, 0.9301732, 0, 1, 0, -0.9301732, 0, 0.36712092, -8.438835, 0, -0.269104)
+
+[node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_2" index="6" unique_id=80057487]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4091644, -7.0912085, 6.1035156e-05)
+
+[node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_2" index="7" unique_id=1267255889]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0775757, -8.662414, 0)
+
+[node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_2" index="8" unique_id=1526642559]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.934021, -7.083748, 0)
+
+[node name="SpiderFightPOI_3" parent="Fights" unique_id=1508952852 instance=ExtResource("66_fvbyp")]
+transform = Transform3D(-0.96268517, 0, -0.27062392, 0, 1, 0, 0.27062392, 0, -0.96268517, -320.4894, 35.57411, -715.7498)
+
+[node name="SmallSpiderAnimationManger2" parent="Fights/SpiderFightPOI_3" index="1" unique_id=572566947]
+transform = Transform3D(0.35512868, 0, -0.17983621, 0, 0.3980672, 0, 0.17983621, 0, 0.35512868, -3.668869, -0.006477356, -0.46466064)
+
+[node name="SmallSpiderAnimationManger3" parent="Fights/SpiderFightPOI_3" index="2" unique_id=74725257]
+transform = Transform3D(0.3180853, 0, 0.23933071, 0, 0.3980672, 0, -0.23933071, 0, 0.3180853, 2.2950745, -0.006477356, -0.8551636)
+
+[node name="BossSpiderPOI_4" parent="Fights" unique_id=2119744132 instance=ExtResource("63_sp2wr")]
+transform = Transform3D(0.92402565, 0, -0.38233045, 0, 1, 0, 0.38233045, 0, 0.92402565, -408.7055, 33.290417, -813.428)
+
+[node name="Position" parent="Fights/BossSpiderPOI_4" index="1" unique_id=731218837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.752136, 3.1940193, -3.2871704)
+
+[node name="SpiderAnimationManger" parent="Fights/BossSpiderPOI_4" index="2" unique_id=619856624]
+transform = Transform3D(0.98276037, -0.18474601, 0.0071331263, 0.18474601, 0.9798089, -0.07644162, 0.007133156, 0.07644162, 0.9970485, 2.767395, 0.08828354, -0.4607544)
+
+[node name="SpiderAnimationManger2" parent="Fights/BossSpiderPOI_4" index="3" unique_id=1774161378]
+transform = Transform3D(0.9905737, -0.13692522, 0.0039002597, 0.13692522, 0.9889599, -0.056655005, 0.0039002895, 0.056655012, 0.9983862, -4.48761, -0.92469406, 0.2536621)
+
+[node name="OmniLight3D" parent="Fights/BossSpiderPOI_4" index="4" unique_id=1933135150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1161499, 2.1745987, -1.1367798)
+
+[node name="Highlight" parent="Fights/BossSpiderPOI_4" index="5" unique_id=672204217]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3388062, 2.1745987, -0.6329956)
+
+[node name="SmallSpiderAnimationManger" parent="Fights/BossSpiderPOI_4" index="6" unique_id=1692235136]
+transform = Transform3D(0.42148596, -0.05452038, 0.0014539957, 0.054520383, 0.4208844, -0.022558685, 0.0014540106, 0.022558685, 0.42439842, 1.5457153, -0.90621567, 5.6259766)
+
+[node name="SmallSpiderAnimationManger2" parent="Fights/BossSpiderPOI_4" index="7" unique_id=92840394]
+transform = Transform3D(0.34271863, 0, 0.2513344, 0, 0.42500007, 0, -0.2513344, 0, 0.34271863, -11.451355, -3.2783127, 11.330688)
+
+[node name="SmallSpiderAnimationManger3" parent="Fights/BossSpiderPOI_4" index="8" unique_id=1961373487]
+transform = Transform3D(0.4138977, -0.09639818, 0.00459376, 0.09639819, 0.41199702, -0.0398863, 0.0045937747, 0.039886296, 0.42309928, 16.505188, 2.0612144, 2.3840942)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/BossSpiderPOI_4" unique_id=1832631102]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.877869, 2.1745987, 2.3798218)
+light_color = Color(1, 0.6947834, 0.9959021, 1)
+distance_fade_enabled = true
+omni_range = 4.643657
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Fights/BossSpiderPOI_4" unique_id=201811993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5176392, 0.034568787, 5.494934)
+light_color = Color(1, 0.6947834, 0.9959021, 1)
+distance_fade_enabled = true
+omni_range = 4.643657
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Fights/BossSpiderPOI_4" unique_id=736867260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.657654, -1.8430786, 11.265015)
+light_color = Color(1, 0.6947834, 0.9959021, 1)
+distance_fade_enabled = true
+omni_range = 4.643657
+
+[node name="GhostFightPOI_3(2)" parent="Fights" unique_id=2139663452 instance=ExtResource("63_14ag1")]
+transform = Transform3D(-0.9752828, 0, 0.22096027, 0, 1, 0, -0.22096027, 0, -0.9752828, -618.62775, 29.144657, -834.78015)
+
+[node name="lesny_duch2" parent="Fights/GhostFightPOI_3(2)" index="2" unique_id=669519904]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.14190674, -6.391226, -0.07891846)
+
+[node name="lesny_duch6" parent="Fights/GhostFightPOI_3(2)" index="3" unique_id=1966808096]
+transform = Transform3D(0.28933477, 0, 0.07928038, 0, 0.29999998, 0, -0.07928038, 0, 0.28933477, -2.8170166, -0.06711006, 1.3026123)
+
+[node name="lesny_duch4" parent="Fights/GhostFightPOI_3(2)" index="5" unique_id=1875774799]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -1.9530029, -9.015427, -0.07891846)
+
+[node name="lesny_duch5" parent="Fights/GhostFightPOI_3(2)" index="6" unique_id=95008749]
+transform = Transform3D(0.29832152, 0, -0.03169065, 0, 0.29999998, 0, 0.03169065, 0, 0.29832152, 4.3930664, -0.06711006, -0.5975342)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/GhostFightPOI_3(2)" unique_id=352256103]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 4.0076904, 1.1620579, -0.907959)
+light_energy = 1.8
+distance_fade_enabled = true
+omni_range = 2.4534316
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Fights/GhostFightPOI_3(2)" unique_id=1414787887]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, -2.8275146, 1.1620579, 0.640625)
+light_energy = 1.8
+distance_fade_enabled = true
+omni_range = 2.4534316
+
+[node name="OrcFightPOI_4" parent="Fights" unique_id=1366589732 instance=ExtResource("65_f4upa")]
+transform = Transform3D(0.95815355, 0.28625488, 0, -0.28625488, 0.95815355, 0, 0, 0, 1, -461.03848, 8.450515, -427.72278)
+
+[node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_4" index="2" unique_id=1294747214]
+transform = Transform3D(-0.95556176, -0.2691177, -0.12032137, -0.27130684, 0.962491, 0.0018866509, 0.115300536, 0.03444682, -0.9927332, -1.4920044, -0.6825104, -6.839752)
+
+[node name="OrcPilgrimAnimationManager2" parent="Fights/OrcFightPOI_4" index="3" unique_id=195025782]
+transform = Transform3D(0.5011008, -0.2064701, 0.840397, 0.06286753, 0.97724, 0.2026042, -0.86310214, -0.048691526, 0.5026763, 0.878479, 1.7646408, 13.188965)
+
+[node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_4" index="4" unique_id=462772970]
+transform = Transform3D(0.9924448, -0.122689575, 0, 0.122689575, 0.9924448, 0, 0, 0, 1, -4.6574097, 1.2208862, 7.2148438)
+
+[node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_4" index="5" unique_id=932492625]
+transform = Transform3D(-0.9250111, 0.09661177, 0.3674512, 0.047437564, 0.98893, -0.14059544, -0.3769667, -0.11262137, -0.91935426, 1.7791748, -0.5346222, -4.603668)
+
+[node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_4" index="6" unique_id=80057487]
+transform = Transform3D(-0.039681405, -0.3055444, 0.95135033, -0.12267872, 0.94638675, 0.29883334, -0.99165267, -0.10485238, -0.07503781, -6.626587, 0.76418304, 1.6670227)
+
+[node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_4" index="7" unique_id=1267255889]
+transform = Transform3D(0.33732867, -0.27175415, 0.9013094, 0.021423146, 0.9593951, 0.28124973, -0.94114286, -0.07556472, 0.3294535, 2.7971802, 0.93891907, 4.4775085)
+
+[node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_4" index="8" unique_id=1526642559]
+transform = Transform3D(0.2935772, -0.21012247, 0.932556, -0.13401434, 0.95686233, 0.257788, -0.9464951, -0.20065656, 0.25275356, 5.8768616, 0.19141388, 0)
+
+[node name="OmniLight3D" parent="Fights/OrcFightPOI_4" index="9" unique_id=1171793999]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.15963745, 1.465683, -4.1479187)
+light_energy = 1.842
+
+[node name="Highlight" parent="Fights/OrcFightPOI_4" index="10" unique_id=80949497]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 1.9999924, 3.581543)
+light_energy = 2.571
+omni_range = 11.23051
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/OrcFightPOI_4" unique_id=1774650290]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -5.135498, 1.8092728, 10.12381)
+light_color = Color(0.43529412, 0.7137255, 0.12156863, 1)
+light_energy = 1.842
+distance_fade_enabled = true
+omni_range = 7.224954
+
+[node name="OrcFightPOI_4(2)" parent="Fights" unique_id=257481745 instance=ExtResource("65_f4upa")]
+transform = Transform3D(-0.15414125, 0, 0.98804885, 0, 1, 0, -0.98804885, 0, -0.15414125, -382.50702, 2.5379777, -458.00894)
+
+[node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_4(2)" index="2" unique_id=1294747214]
+transform = Transform3D(-0.30535385, 0, -0.9522391, 0, 1, 0, 0.9522391, 0, -0.30535385, -2.1098633, 0.77644444, -10.067139)
+
+[node name="OrcPilgrimAnimationManager2" parent="Fights/OrcFightPOI_4(2)" index="3" unique_id=195025782]
+transform = Transform3D(0.97171617, 0, -0.23615228, 0, 1, 0, 0.23615228, 0, 0.97171617, -6.5563354, 0.43929482, -1.0228271)
+
+[node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_4(2)" index="4" unique_id=462772970]
+transform = Transform3D(-0.97986025, 0, -0.19968493, 0, 1, 0, 0.19968493, 0, -0.97986025, -15.133636, 1.127964, -15.777649)
+
+[node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_4(2)" index="5" unique_id=932492625]
+transform = Transform3D(0.15798122, 0, 0.9874422, 0, 1, 0, -0.9874422, 0, 0.15798122, 13.88797, -0.5970669, -7.127472)
+
+[node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_4(2)" index="6" unique_id=80057487]
+transform = Transform3D(-0.4468612, 0, 0.8946034, 0, 1, 0, -0.8946034, 0, -0.4468612, -7.17157, 0, -7.9331665)
+
+[node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_4(2)" index="7" unique_id=1267255889]
+transform = Transform3D(0.8811155, 0, -0.472902, 0, 1, 0, 0.472902, 0, 0.8811155, -5.4587708, 0, 7.7490845)
+
+[node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_4(2)" index="8" unique_id=1526642559]
+transform = Transform3D(0.62396103, 0, 0.7814556, 0, 1, 0, -0.7814556, 0, 0.62396103, 10.281708, 0, 8.715698)
+
+[node name="OmniLight3D" parent="Fights/OrcFightPOI_4(2)" index="9" unique_id=1171793999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3691826, 0)
+light_energy = 0.654
+omni_range = 15.141381
+
+[node name="Highlight" parent="Fights/OrcFightPOI_4(2)" index="10" unique_id=80949497]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.0286655, 0)
+light_energy = 4.873
+omni_range = 16.616156
+
+[node name="BossWolfFightPOI_4" parent="Fights" unique_id=1451447242 instance=ExtResource("69_7ilj0")]
+transform = Transform3D(-0.24333127, 0, -0.9699432, 0, 1, 0, 0.9699432, 0, -0.24333127, -608.56177, 8.035038, -679.1773)
+
+[node name="WizardFightPOI2" parent="Fights" unique_id=1962140403 instance=ExtResource("20_o4st3")]
+transform = Transform3D(0.15813339, 0, 0.98741776, 0, 1, 0, -0.98741776, 0, 0.15813339, -637.99536, 7.9130325, -630.81537)
+
+[node name="SpiderFightPoi_4" parent="Fights" unique_id=593585271 instance=ExtResource("70_b7dnk")]
+transform = Transform3D(0.39750057, 0.14542508, -0.90600485, 0.06817518, 0.97995204, 0.18720566, 0.9150657, -0.13618141, 0.37961715, -643.91284, 17.321724, -553.7953)
+
+[node name="MelkorFightPOI_FINAL" parent="Fights" unique_id=942230349 instance=ExtResource("71_13p8c")]
+transform = Transform3D(-0.022126824, 0, 0.99975526, -0.10178269, 0.9948041, -0.002252679, -0.9945606, -0.10180763, -0.022011856, -784.541, 57.69672, -491.69095)
+
+[node name="Position" parent="Fights/MelkorFightPOI_FINAL" index="1" unique_id=731218837]
+transform = Transform3D(0.9476897, -0.0060747415, -0.31913462, -0.004629299, 0.9994518, -0.032771733, 0.3191588, 0.032534823, 0.9471426, -0.1666565, 0.6046753, 4.7281494)
+
+[node name="lesny_duch2" parent="Fights/MelkorFightPOI_FINAL" index="5" unique_id=669519904]
+transform = Transform3D(-0.18229076, -0.012056261, 0.2316241, 0.011007147, 0.29381958, 0.023956347, -0.23167634, 0.0234459, -0.18111144, -2.088501, -0.0090789795, -0.0021362305)
+
+[node name="lesny_duch3" parent="Fights/MelkorFightPOI_FINAL" index="6" unique_id=673742092]
+transform = Transform3D(-0.22090228, -0.03451535, -0.19244698, -0.028066982, 0.2929575, -0.02032493, 0.1934926, 0.0030901027, -0.22265674, 2.5762024, 0.06272888, 0.013366699)
+
+[node name="horse_resource_poi" parent="." unique_id=1596719709 instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.9867752, 0, -0.16209468, 0, 1, 0, 0.16209468, 0, -0.9867752, -686.842, 43.795025, -499.21982)
+
+[editable path="Fights/OrcFightPOI_3(2)"]
+[editable path="Fights/OrcFightPOI_3"]
+[editable path="Fights/GhostFightPOI_4"]
+[editable path="Fights/GhostFightPOI_3"]
+[editable path="Fights/WolfFightPOI_1"]
+[editable path="Fights/OrcFightPOI_2"]
+[editable path="Fights/SpiderFightPOI_3"]
+[editable path="Fights/BossSpiderPOI_4"]
+[editable path="Fights/GhostFightPOI_3(2)"]
+[editable path="Fights/OrcFightPOI_4"]
+[editable path="Fights/OrcFightPOI_4(2)"]
+[editable path="Fights/BossWolfFightPOI_4"]
+[editable path="Fights/MelkorFightPOI_FINAL"]

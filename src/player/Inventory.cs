@@ -21,8 +21,17 @@ public partial class Inventory : Node, ISavable
 	[Export] public int silk;
 	[Export] public int iron;
 	public uint Mana;
-	[Export] public uint MaxMana;
-	
+
+	// The hero's own stats, before artefacts (CreateHero)
+	[ExportGroup("Hero")]
+	[Export] public uint HeroStrength = 2;
+	[Export] public uint HeroDefense = 2;
+	[Export] public uint HeroKnowledge = 5;
+	[ExportGroup("")]
+
+	// The hero's max mana with the equipped artefacts (Knowledge and the mana pouch)
+	public uint MaxMana => CreateHero().MaxMana;
+
 	public Unit? unitSplitting;
 	public string resourceCombining = "";
 
@@ -89,6 +98,19 @@ public partial class Inventory : Node, ISavable
 		}
 
 		UpdateUI();
+	}
+
+	// The hero the battles get: the hero stats, the equipped artefacts, the spells and the mana
+	public Hero CreateHero()
+	{
+		var hero = new Hero { Strength = HeroStrength, Defense = HeroDefense, Knowledge = HeroKnowledge };
+		// Before the mana, which is capped by the artefacts' max mana
+		hero.Artefacts.AddRange(EquippedArtefacts?.Where(a => a != null) ?? []);
+		foreach (SpellAbility spell in Spells ?? [])
+			if (spell != null)
+				hero.LearnSpell(spell);
+		hero.Mana = Mana;
+		return hero;
 	}
 
 	public void AddMana(uint _mana)
@@ -442,26 +464,23 @@ public partial class Inventory : Node, ISavable
 	{
 		if (artefactEquipped)
 		{
-			Artefact newEquippedArtefact = new Artefact();
-			newEquippedArtefact = Artefacts![index];
-
-			Artefact newArtefact = new Artefact();
-			newArtefact = artefactEquipping!;
+			Artefact newEquippedArtefact = Artefacts![index];
+			Artefact newArtefact = artefactEquipping!;
 
 			EquippedArtefacts![artefactIndex] = newEquippedArtefact;
 			Artefacts![index] = newArtefact;
 		}
 		else
 		{
-			Artefact newEquippedArtefact = new Artefact();
-			newEquippedArtefact = artefactEquipping!;
-
-			Artefact newArtefact = new Artefact();
-			newArtefact = EquippedArtefacts![index];
+			Artefact newEquippedArtefact = artefactEquipping!;
+			Artefact newArtefact = EquippedArtefacts![index];
 
 			EquippedArtefacts![index] = newEquippedArtefact;
 			Artefacts![artefactIndex] = newArtefact;
 		}
+
+		// Taking off the mana pouch or a Knowledge artefact can lower the max mana
+		Mana = Math.Min(Mana, MaxMana);
 
 		for (int i = 0; i < Artefacts.Count; i++)
 		{

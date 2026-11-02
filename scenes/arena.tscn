@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dlub2l8df1s83"]
 
 [ext_resource type="Script" uid="uid://ci7aabyrlpeu6" path="res://src/arena/Arena.cs" id="1_olpmc"]
+[ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="2_6e0wu"]
+[ext_resource type="PackedScene" uid="uid://d1qdgtfvvi33p" path="res://scenes/orome/orome_animation_manager.tscn" id="2_r2kh7"]
 [ext_resource type="PackedScene" uid="uid://d2vdux1r2w61k" path="res://scenes/player/viewport_rect.tscn" id="2_wl4x5"]
 [ext_resource type="Texture2D" uid="uid://byky2a7jdit5j" path="res://assets/terrain/ground_textures/grass_albedo_height.png" id="4_7ft05"]
 [ext_resource type="Texture2D" uid="uid://rh2roca5ralh" path="res://assets/terrain/foliage/grass_2.png" id="4_oexds"]
@@ -26,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://bki0rosrg6b15" path="res://scenes/decorations/SQUARE.glb" id="24_qclql"]
 [ext_resource type="PackedScene" uid="uid://bg4y00xbnewei" path="res://assets/terrain/models/carnota/pillars.glb" id="25_sya1t"]
 [ext_resource type="PackedScene" uid="uid://rp8qxudhfv8q" path="res://scenes/decorations/cernota/claw.tscn" id="26_y6qpl"]
+[ext_resource type="Resource" uid="uid://cvkx8nuc22xf0" path="res://assets/battle_system/units/melkor.tres" id="27_mlkor"]
 
 [sub_resource type="Gradient" id="Gradient_olpmc"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -275,18 +278,29 @@ detiling_shift = 0.124
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_qclql")])
 texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_ti64i")])
 
-[node name="Arena" type="Node3D" unique_id=911541987 node_paths=PackedStringArray("SetupBoardCameraPosition", "BoardOverviewCameraPosition", "PlayerCamera", "HeroSpellCastPosition", "GameViewportRect")]
+[node name="Arena" type="Node3D" unique_id=911541987 node_paths=PackedStringArray("SetupBoardCameraPosition", "BoardOverviewCameraPosition", "PlayerCamera", "HeroSpellCastPosition", "GameViewportRect", "ForestScenery", "HillScenery", "EvilArenaDeco")]
 script = ExtResource("1_olpmc")
 SetupBoardCameraPosition = NodePath("SubViewport/SetupBoardPosition")
 BoardOverviewCameraPosition = NodePath("SubViewport/BoardOverviewPosition")
 PlayerCamera = NodePath("SubViewport/ArenaCamera")
 HeroSpellCastPosition = NodePath("HeroSpellCastPosition")
+PlayerHeroModel = ExtResource("2_r2kh7")
 GameViewportRect = NodePath("ViewportRect")
 CameraTransitionDuration = 3.0
+ForestScenery = NodePath("forest")
+HillScenery = NodePath("hill")
+EvilArenaDeco = NodePath("EvilArenaDeco")
+EvilArenaUnits = Array[ExtResource("2_6e0wu")]([ExtResource("27_mlkor")])
 AutoBeginBattle = false
 
 [node name="HeroSpellCastPosition" type="Marker3D" parent="." unique_id=855865640]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -2.5)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1867767162]
+transform = Transform3D(0.8660254, -0.3535534, 0.3535534, 0, 0.7071068, 0.7071068, -0.5, -0.61237246, 0.61237246, 0, 4, 0)
+light_color = Color(0.14939836, 0.2750435, 0.66148, 1)
+light_energy = 6.0
+shadow_enabled = true
 
 [node name="ViewportRect" parent="." unique_id=434109989 node_paths=PackedStringArray("GameViewport") instance=ExtResource("2_wl4x5")]
 GameViewport = NodePath("../SubViewport")
@@ -295,6 +309,7 @@ GameViewport = NodePath("../SubViewport")
 size = Vector2i(1280, 720)
 
 [node name="ArenaCamera" type="Camera3D" parent="SubViewport" unique_id=547754814]
+environment = ExtResource("19_7wjmx")
 script = ExtResource("6_4ag8t")
 InteractionDistance = 100.0
 
@@ -304,26 +319,24 @@ transform = Transform3D(1, 0, 0, 0, 0.5, 0.8660253, 0, -0.8660253, 0.5, 0, 4.342
 [node name="SetupBoardPosition" type="Marker3D" parent="SubViewport" unique_id=1169227394]
 transform = Transform3D(-4.371139e-08, 0.25881904, -0.9659258, 0, 0.9659258, 0.25881904, 1, 1.131334e-08, -4.222196e-08, -7.1650634, 2.25, 0)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=426126724]
-transform = Transform3D(0.8660254, -0.3535534, 0.3535534, 0, 0.7071068, 0.7071068, -0.5, -0.61237246, 0.61237246, 0, 4, 0)
-
-[node name="forest" type="Terrain3D" parent="." unique_id=1889816936]
+[node name="forest" type="Terrain3D" parent="." unique_id=1889816936 groups=["Terrain"]]
 data_directory = "res://assets/terrain/forest_arena"
 material = SubResource("Terrain3DMaterial_4ag8t")
 assets = SubResource("Terrain3DAssets_naajo")
 save_16_bit = true
+collision_mode = 0
 vertex_spacing = 0.25
 top_level = true
-visible = false
 metadata/_edit_lock_ = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=900709306]
 environment = ExtResource("19_7wjmx")
 
-[node name="hill" type="Terrain3D" parent="." unique_id=58990658]
+[node name="hill" type="Terrain3D" parent="." unique_id=58990658 groups=["Terrain"]]
 data_directory = "res://assets/terrain/evil_arena"
 material = SubResource("Terrain3DMaterial_4cf4i")
 assets = SubResource("Terrain3DAssets_sya1t")
+collision_mode = 0
 vertex_spacing = 0.25
 top_level = true
 metadata/_edit_lock_ = true

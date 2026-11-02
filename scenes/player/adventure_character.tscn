@@ -65,7 +65,6 @@ Units = Array[Object]([SubResource("Resource_n1psn"), SubResource("Resource_e24y
 Spells = Array[Object]([ExtResource("7_51ulg"), ExtResource("8_l1a7v")])
 EquippedArtefacts = Array[Object]([null, null, null])
 recipes = Array[Object]([ExtResource("7_e24yl"), ExtResource("8_bwkvg"), ExtResource("13_6brue")])
-MaxMana = 50
 
 [node name="BattleStarter" type="Node" parent="." unique_id=1685517769]
 script = ExtResource("12_yyw6n")

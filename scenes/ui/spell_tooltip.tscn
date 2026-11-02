@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c7spltlt4q8nx"]
 
 [ext_resource type="Script" uid="uid://bspltltp6r2vq" path="res://src/ui/SpellTooltip.cs" id="1_spltt"]
+[ext_resource type="Theme" uid="uid://bjx58o26db5so" path="res://assets/ui_themes/fantasy.tres" id="2_fntsy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font_size = 20
@@ -10,6 +11,7 @@ font_color = Color(1, 0.35, 0.3, 1)
 
 [node name="SpellTooltip" type="PanelContainer" unique_id=1418820371]
 custom_minimum_size = Vector2(260, 0)
+theme = ExtResource("2_fntsy")
 script = ExtResource("1_spltt")
 
 [node name="Content" type="VBoxContainer" parent="." unique_id=902117455]

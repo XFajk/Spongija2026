@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cd3eg1hleix2"]
 
 [ext_resource type="Script" uid="uid://dhgyikkofw01c" path="res://src/ui/ArenaUserInterface.cs" id="1_bxfrx"]
+[ext_resource type="AudioStream" uid="uid://d2taygdmuk8h2" path="res://assets/sounds/book/book2.ogg" id="2_08o70"]
 [ext_resource type="SpriteFrames" uid="uid://ccufku72ig3ug" path="res://assets/ui/book/book_animations.tres" id="2_fhxv5"]
 [ext_resource type="PackedScene" uid="uid://b011mxkc5of83" path="res://scenes/ui/spell_button.tscn" id="3_cfmi2"]
 [ext_resource type="Shader" uid="uid://bmnbarsh4d3rq" path="res://src/shaders/mana_bar.gdshader" id="4_hqvwm"]
@@ -61,6 +62,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="BookSound" type="AudioStreamPlayer" parent="BookInterface" unique_id=1799639414]
+stream = ExtResource("2_08o70")
+pitch_scale = 1.75
+bus = &"SFX"
 
 [node name="SpellBook" type="AnimatedSprite2D" parent="BookInterface" unique_id=898163662]
 position = Vector2(563, 361)

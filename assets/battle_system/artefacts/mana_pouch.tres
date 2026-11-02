@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="Artefact" format=3 uid="uid://c7thoe6q17b3v"]
+[gd_resource type="Resource" script_class="StatArtefact" format=3 uid="uid://c7thoe6q17b3v"]
 
 [ext_resource type="Texture2D" uid="uid://bhpwrobf8qjw2" path="res://assets/artefacts_icons/mana_flask.png" id="1_jg482"]
-[ext_resource type="Script" uid="uid://dro3uwa3xh26h" path="res://src/battle_system/artefacts/Artefact.cs" id="2_5uc6d"]
+[ext_resource type="Script" uid="uid://cstatart7q1xa" path="res://src/battle_system/artefacts/StatArtefact.cs" id="2_5uc6d"]
 
 [resource]
 script = ExtResource("2_5uc6d")
+MaxMana = 30
 Name = "Mana Pouch"
+Description = "A small leather pouch that holds more power than it should. The hero can store more mana."
 Icon = ExtResource("1_jg482")
-metadata/_custom_type_script = "uid://dro3uwa3xh26h"
+metadata/_custom_type_script = "uid://cstatart7q1xa"

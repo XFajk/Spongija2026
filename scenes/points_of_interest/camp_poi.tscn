@@ -34,6 +34,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5618784, 0)
 visible = false
 light_color = Color(0.6425312, 0.53660995, 0.35276255, 1)
 light_energy = 5.0
+distance_fade_enabled = true
 omni_range = 6.56281
 
 [node name="Position" type="Node3D" parent="." unique_id=930692494]

@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://mvghk1os8qst"]
+
+[ext_resource type="Script" uid="uid://bpulslght6n3w" path="res://src/environment/PulsingLight.cs" id="1_t05w8"]
+
+[sub_resource type="Curve" id="Curve_ghdop"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.50124073, 0.53086424), -1.0085088, -1.0085088, 0, 0, Vector2(0.9826303, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_dr15a"]
+curve = SubResource("Curve_ghdop")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t05w8"]
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 1, 0)
+scale_min = 0.79999995
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_dr15a")
+hue_variation_min = -1.0
+hue_variation_max = 0.99999994
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8upc"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(0.7642978, 0, 0, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_a7463"]
+material = SubResource("StandardMaterial3D_f8upc")
+radius = 0.25
+height = 0.5
+radial_segments = 6
+rings = 3
+
+[node name="KempFire" type="GPUParticles3D" unique_id=1357834033]
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_t05w8")
+draw_pass_1 = SubResource("SphereMesh_a7463")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1081649399]
+light_color = Color(1, 0.7921569, 0, 1)
+omni_range = 9.388
+script = ExtResource("1_t05w8")

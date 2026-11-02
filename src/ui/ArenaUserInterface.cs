@@ -37,6 +37,8 @@ public partial class ArenaUserInterface : Control
 	// The caster's mana: a bar (animated by src/shaders/mana_bar.gdshader) with the numbers on it
 	private ProgressBar? _manaBar;
 	private Label? _manaLabel;
+	// Played with every book animation: opening and each page flip
+	private AudioStreamPlayer? _bookSound;
 
 	// In reading order: the left page top to bottom, then the right page. One page spread shows this many spells.
 	private readonly List<SpellButton> _spellButtons = [];
@@ -176,6 +178,7 @@ public partial class ArenaUserInterface : Control
 		_backPageButton.Pressed += OnBackPageButtonPressed;
 		_manaBar = GetNode<ProgressBar>("BookInterface/ProgressBar");
 		_manaLabel = GetNode<Label>("BookInterface/ProgressBar/ManaLable");
+		_bookSound = GetNodeOrNull<AudioStreamPlayer>("BookInterface/BookSound");
 
 		_stackTooltip = GD.Load<PackedScene>(StackTooltipScene).Instantiate() as StackTooltip;
 		if (_stackTooltip != null)
@@ -604,6 +607,7 @@ public partial class ArenaUserInterface : Control
 		_spellButtonsRoot!.Visible = false;
 		_nextPageButton!.Visible = false;
 		_backPageButton!.Visible = false;
+		_bookSound?.Play();
 
 		// Setting the animation resets the frame to 0, so the frame is set after it
 		_spellBook!.Animation = animation;

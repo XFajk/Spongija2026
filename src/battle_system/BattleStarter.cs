@@ -5,18 +5,15 @@ using Godot.Collections;
 public partial class BattleStarter : Node
 {
 	public EnemyStrategy ComputerStrategy;
-	Array<SpellAbility>? HeroSpells;
 	Array<StackResource>? PlayerUnits;
 	public Array<StackResource>? ComputerUnits;
-	public Array<SpellAbility>? ComputerHeroSpells;
 
-	public void EnterBattle(SpellAbility[] spells, StackResource[] units, uint _Mana)
+	// hero: the player's hero, from Inventory.CreateHero (its stats, artefacts, spells and mana)
+	public void EnterBattle(Hero hero, StackResource[] units)
 	{
 		GetUnits(units);
-		GetSpells(spells);
 
-		var playerArmy = new Army { Hero = new Hero { Strength = 2, Defense = 2, Knowledge = 5, Mana = _Mana} };
-		playerArmy.Hero.Spells.AddRange(HeroSpells!);
+		var playerArmy = new Army { Hero = hero };
 		foreach (var stack in PlayerUnits!)
 		{
 			if (stack.Unit != null)
@@ -25,12 +22,8 @@ public partial class BattleStarter : Node
 			}
 		}
 
+		// No hero: the computer's armies fight without one
 		var computerArmy = new Army { Strategy = ComputerStrategy };
-		if (ComputerHeroSpells?.Count > 0)
-		{
-			computerArmy.Hero = new Hero { Strength = 2, Defense = 2, Knowledge = 5, Mana = 30 };
-			computerArmy.Hero.Spells.AddRange(ComputerHeroSpells);
-		}
 		foreach (var stack in ComputerUnits!)
 		{
 			if (stack.Unit != null)
@@ -41,7 +34,7 @@ public partial class BattleStarter : Node
 
 		GetNode<SaveManager>("/root/Map/SaveSystem").SaveGame(CurrentSave.CurrentSaveIndex);
 
-		SceneTransitions.EnterArena(GetTree(), playerArmy, computerArmy);
+		_ = SceneTransitions.EnterArena(GetTree(), playerArmy, computerArmy);
 	}
 
 	void GetUnits(StackResource[] units)
@@ -56,19 +49,9 @@ public partial class BattleStarter : Node
 		}
 	}
 
-	void GetSpells(SpellAbility[] spells)
-	{
-		HeroSpells = new Array<SpellAbility>();
-		for (int i = 0; i < spells.Length; i++)
-		{
-			HeroSpells.Add(spells[i]);
-		}
-	}
-
-	public void SetupEnemyArmy(Godot.Collections.Array<StackResource> units, Godot.Collections.Array<SpellAbility> spells)
+	public void SetupEnemyArmy(Godot.Collections.Array<StackResource> units)
 	{
 		ComputerUnits = units;
-		ComputerHeroSpells = spells;
 	}
 
 	public void SetupDifficulty(EnemyStrategy difficulty)

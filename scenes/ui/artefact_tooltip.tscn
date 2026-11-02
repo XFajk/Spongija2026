@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://c8artftltp3m6"]
+
+[ext_resource type="Script" uid="uid://bartftltp7k2q" path="res://src/ui/ArtefactTooltip.cs" id="1_arttt"]
+[ext_resource type="Theme" uid="uid://bjx58o26db5so" path="res://assets/ui_themes/fantasy.tres" id="2_fntsy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_effects"]
+font_color = Color(0.55, 0.85, 0.45, 1)
+
+[node name="ArtefactTooltip" type="PanelContainer" unique_id=1529304817]
+custom_minimum_size = Vector2(260, 0)
+theme = ExtResource("2_fntsy")
+script = ExtResource("1_arttt")
+
+[node name="Content" type="VBoxContainer" parent="." unique_id=740215963]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="Content" unique_id=1987410236]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Content/Header" unique_id=621057384]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Content/Header" unique_id=1360472915]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Artefact Name"
+label_settings = SubResource("LabelSettings_title")
+
+[node name="HSeparator" type="HSeparator" parent="Content" unique_id=289516470]
+layout_mode = 2
+
+[node name="Slot" type="Label" parent="Content" unique_id=1145893062]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Slot: head"
+
+[node name="Effects" type="Label" parent="Content" unique_id=503981247]
+unique_name_in_owner = true
+layout_mode = 2
+text = "+1 Strength"
+label_settings = SubResource("LabelSettings_effects")
+
+[node name="Description" type="Label" parent="Content" unique_id=1873620954]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "Description"
+autowrap_mode = 3

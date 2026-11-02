@@ -27,6 +27,9 @@ public partial class EndFightScreen : Panel
 	[Export] public Label? statusLabel;
 	[Export] public Button? confirmButton;
 
+	// Seconds the battle takes to fade to black before the map loads; the map fades back in itself (BlackScreen)
+	[Export(PropertyHint.Range, "0,3")] public float FadeOutDuration = 0.8f;
+
 	bool _won;
 
 	public override void _Ready()
@@ -69,12 +72,15 @@ public partial class EndFightScreen : Panel
 		}
 	}
 
-	// Back to the adventure map. Lost: the map loads the last save (made before the battle), as if it never
-	// happened. Won: the map loads it too, then the defeated fight and the losses are applied and saved.
-	void Confirm()
+	// Back to the adventure map after fading to black. Lost: the map loads the last save (made before the battle),
+	// as if it never happened. Won: the map loads it too, then the defeated fight and the losses are applied and saved.
+	async void Confirm()
 	{
 		confirmButton!.Disabled = true;
+		await ScreenFade.FadeOut(GetTree(), FadeOutDuration);
 		Node3D map = GD.Load<PackedScene>(MapScene).Instantiate<Node3D>();
+		// The map's BlackScreen starts black and fades in by itself, so the overlay can go once it's there
+		map.Ready += ScreenFade.Clear;
 
 		// Without a FightPOI the battle didn't come from the map (battle_test.tscn), so its army isn't the inventory's
 		if (_won && TriggeringFightPOI is NodePath fightPOI)

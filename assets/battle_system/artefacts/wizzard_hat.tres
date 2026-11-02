@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="Artefact" format=3 uid="uid://cpdv5gxr6hjrb"]
+[gd_resource type="Resource" script_class="StatArtefact" format=3 uid="uid://cpdv5gxr6hjrb"]
 
 [ext_resource type="Texture2D" uid="uid://b5nmciv4ouvf6" path="res://assets/artefacts_icons/magic_hat.png" id="1_5igqn"]
-[ext_resource type="Script" uid="uid://dro3uwa3xh26h" path="res://src/battle_system/artefacts/Artefact.cs" id="2_fq3o2"]
+[ext_resource type="Script" uid="uid://cstatart7q1xa" path="res://src/battle_system/artefacts/StatArtefact.cs" id="2_fq3o2"]
 
 [resource]
 script = ExtResource("2_fq3o2")
+Knowledge = 2
 Name = "Wizzard Hat"
+Description = "Tall, pointed and a little silly, but the mind beneath it grows sharper."
 BodyPart = 0
 Icon = ExtResource("1_5igqn")
-metadata/_custom_type_script = "uid://dro3uwa3xh26h"
+metadata/_custom_type_script = "uid://cstatart7q1xa"
