@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://kaqcq55yms27" path="res://src/battle_system/abilities/specific/FireBallSpell.cs" id="3_f6sqe"]
 [ext_resource type="AudioStream" uid="uid://ct3ysob57py7m" path="res://assets/sounds/fireball_detached_randomized.tres" id="4_sound"]
 [ext_resource type="AudioStream" uid="uid://cce7cracqjj28" path="res://assets/sounds/fireball_hit_randomized.tres" id="5_sound"]
+[ext_resource type="Resource" uid="uid://ddfgaidqfhbat" path="res://assets/battle_system/abilities/spells/fire_ball_spell.tres" id="6_hero"]
 
 [resource]
 script = ExtResource("3_f6sqe")
@@ -19,4 +20,5 @@ Description = "Hurls a ball of fire at an enemy stack, dealing 15 damage for eve
 Icon = ExtResource("1_mgucp")
 HoveredIcon = ExtResource("1_elqq3")
 ManaCost = 10
+HeroVersion = ExtResource("6_hero")
 metadata/_custom_type_script = "uid://kaqcq55yms27"

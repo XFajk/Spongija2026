@@ -50,7 +50,8 @@ Agreed design. Values without a number yet are TBD.
 
 - Camps (`RecruitPOI`), resources and crafting, army slots with splitting and swapping, and artifact equipping exist on the map (see Adventure map below). Equipped artifacts change the hero's stats (see `Artefact` below); their slots are `head`/`body`, not neck and hands. The hero's own stats are fixed exports on the `Inventory` (`HeroStrength`/`HeroDefense`/`HeroKnowledge`), no leveling.
 - Mana springs exist (`SpringPOI`, refilling the inventory's `Mana`, which `BattleStarter` gives the hero). Both are in the west half; the east has none.
-- Not built: surrender, lost elves, scrolls, learning spells from units.
+- Learning spells from units: when a `FightPOI`'s units join (the fight panel's surrender offer, `CharacterPanel.DefectUnits`, or an `AlwaysRecruit` fight), `Inventory.LearnSpellsOf` adds each unit's spells to the inventory's `Spells` (`AddSpell`, no duplicates). It adds `SpellAbility.GetHeroVersion()`: the spell's `HeroVersion` if set, for spells tuned for units (`fire_ball_spell_for_units.tres` teaches `fire_ball_spell.tres`, whose damage isn't per caster), else the spell itself. Units from camps or crafting teach nothing.
+- Surrender is the fight panel's offer (`FightPOI.CanRecruit`, shown when the player's army is much stronger) and `AlwaysRecruit` fights join without one; scrolls are `SpellPOI`s (`Inventory.AddSpell`).
 
 ## Commands
 
@@ -196,7 +197,7 @@ HoMM3-style turn-based battles on a square grid. Two layers, and the split matte
 - An `Organized` strategy (melee stacks guarding the ranged ones, groups moving together, using Wait) was designed but dropped for time; no AI uses Wait.
 - `Arena.ComputerTurnDelay` (0.4 s): a computer stack waits that long, already outlined as active, before `DecideTurn`, so the player can follow the computer's turns.
 
-**Not built yet:** hit or death animations, effects besides `SlowEffect`, turn or round passives (the only passive is `RangedImmunityPassive`; the concrete abilities are `BasicMeleeAttackAbility`, `SlowingMeleeAttackAbility`, `BasicLongRangeAttackAbility`, `FireBallSpell`, `WebBallSpell`, `HealSpell` and `NecromancySpell`) and surrender (the Forest Ghost is meant to surrender and teach the hero `NecromancySpell`).
+**Not built yet:** hit or death animations, effects besides `SlowEffect`, turn or round passives (the only passive is `RangedImmunityPassive`; the concrete abilities are `BasicMeleeAttackAbility`, `SlowingMeleeAttackAbility`, `BasicLongRangeAttackAbility`, `FireBallSpell`, `WebBallSpell`, `HealSpell` and `NecromancySpell`). (Surrender and learning spells from units are built on the map; see Built so far versus the design.)
 
 ## Conventions
 

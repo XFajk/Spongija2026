@@ -39,6 +39,13 @@ public abstract partial class SpellAbility : Resource, IAbility
     [Export]
     public uint MinKnowledge { get; set; }
 
+    // The spell the hero learns when a unit casting this one joins the army (Inventory.LearnSpellsOf), for spells
+    // tuned for units (e.g. a fire ball whose damage is per caster). Null: the hero learns this spell itself.
+    [Export]
+    public SpellAbility? HeroVersion { get; set; }
+
+    public SpellAbility GetHeroVersion() => HeroVersion ?? this;
+
     public abstract Task Use(Stack user, Stack target, Arena arena);
 
     // Cast by the hero instead of a unit: origin is where the hero stands (global, the arena's HeroSpellCastPosition),

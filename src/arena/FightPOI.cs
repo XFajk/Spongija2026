@@ -70,6 +70,7 @@ public partial class FightPOI : PointOfInterest
 			
 			_character!.inventoryPanel!.ShowUnitsText(_units);
 			_character!.inventory?.AddUnits(_units);
+			_character!.inventory?.LearnSpellsOf(_units);
 			_Destroy();
 		}
 		else
