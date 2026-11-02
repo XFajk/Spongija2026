@@ -1,0 +1,8 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://ubw6qqig0wlx"]
+
+[ext_resource type="AudioStream" uid="uid://b8lqll2i1n3yk" path="res://assets/sounds/spider/spioder_attack.ogg" id="1_ae1at"]
+
+[resource]
+random_pitch = 1.0293022
+streams_count = 1
+stream_0/stream = ExtResource("1_ae1at")
