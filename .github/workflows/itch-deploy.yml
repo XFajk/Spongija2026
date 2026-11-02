@@ -89,6 +89,12 @@ jobs:
         run: |
           godot=$(find ~/godot -type f -name 'Godot_v*_mono_linux.x86_64')
           mkdir -p "$(dirname '${{ matrix.output }}')"
+          # The C# has to be built before the import and export: without the assembly Godot doesn't know the
+          # scripts' exported properties, and the C# node arrays (inventory slots, artefact slots) came out empty
+          # in builds. The import runs twice because a fresh project's first headless import can stop before
+          # every asset is imported (Terrain3D loads mid-import).
+          "$godot" --headless --build-solutions --quit
+          "$godot" --headless --import
           "$godot" --headless --import
           "$godot" --headless --export-release "${{ matrix.preset }}" "${{ matrix.output }}"
 
