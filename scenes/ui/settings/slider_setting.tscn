@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://pwvq4vltgrqy" path="res://src/ui/Settings/SliderSettingUI.cs" id="1_ijv46"]
 [ext_resource type="Theme" uid="uid://bsblrvfn2nnnb" path="res://assets/ui_themes/settings_menu_ui_theme.tres" id="2_m04ob"]
+[ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="2_pn087"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_l3xin"]
+font = ExtResource("2_pn087")
+font_size = 30
 
 [node name="SliderSetting" type="HBoxContainer" unique_id=455427442 node_paths=PackedStringArray("_label", "_slider", "_valueLabel")]
 offset_right = 40.0
@@ -15,6 +20,7 @@ _valueLabel = NodePath("ValueLabel")
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
+label_settings = SubResource("LabelSettings_l3xin")
 
 [node name="ValueLabel" type="Label" parent="." unique_id=789136116]
 layout_mode = 2

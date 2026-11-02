@@ -26,7 +26,7 @@ public partial class SliderSettingUI : HBoxContainer
 		UpdateValueLabel((float)value);
 	}
 
-	private void UpdateValueLabel(float value)
+	public void UpdateValueLabel(float value)
 	{
 		if (_valueLabel != null)
 			_valueLabel.Text = value.ToString("000");

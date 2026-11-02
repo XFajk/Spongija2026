@@ -104,7 +104,7 @@ public partial class SaveBrowser : Panel
 		}
 		else
 		{
-			Node3D map = GD.Load<PackedScene>("uid://cfsvco3a36qfu").Instantiate<Node3D>();
+			IntroScene map = GD.Load<PackedScene>("uid://b2q1s21atgqvb").Instantiate<IntroScene>();
 			GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToNode, map);
 		}
 
@@ -135,7 +135,6 @@ public partial class SaveBrowser : Panel
 	public void Delete(int _index, bool _save)
 	{
 		string path = ProjectSettings.GlobalizePath($"user://saves/slot_{_index}.json");
-		GD.Print(path);
 
 		if (FileAccess.FileExists($"user://saves/slot_{_index}.json"))
 		{

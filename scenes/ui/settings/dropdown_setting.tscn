@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cogp33lsk5mol" path="res://src/ui/Settings/DropdownSettingUI.cs" id="1_sbvat"]
 [ext_resource type="Theme" uid="uid://bsblrvfn2nnnb" path="res://assets/ui_themes/settings_menu_ui_theme.tres" id="2_e1ve6"]
+[ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="2_qm4ax"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5u25s"]
+font = ExtResource("2_qm4ax")
+font_size = 30
 
 [node name="DropdownSetting" type="HBoxContainer" unique_id=1475537741 node_paths=PackedStringArray("_label", "_optionButton")]
 offset_right = 40.0
@@ -14,6 +19,7 @@ _optionButton = NodePath("OptionButton")
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
+label_settings = SubResource("LabelSettings_5u25s")
 
 [node name="OptionButton" type="OptionButton" parent="." unique_id=1761544568]
 custom_minimum_size = Vector2(250, 0)

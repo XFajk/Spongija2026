@@ -104,6 +104,11 @@ public partial class RecruitPOI : PointOfInterest, ISavable
 				_character?.GetNode<Inventory>("Inventory").AddUnits(Units!);
 			}
 
+			if (!TutorialChecklist.campExplained)
+			{
+				GetNode<Tutorial>("/root/Map/Tutorial").ExplainCamp();
+			}
+
 			maxDistance = currentMaxDistance;
 			looted = true;
 		}

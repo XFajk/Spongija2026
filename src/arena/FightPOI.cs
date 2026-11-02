@@ -27,7 +27,7 @@ public partial class FightPOI : PointOfInterest
 		if (base._destroyed)
 			return;
 
-		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) <= detectionDistance && _character.poi != this && !accessed && outside)
+		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) <= detectionDistance && _character.poi != this && !accessed && outside && !AlwaysRecruit)
 		{
 			_character.ForceStop();
 			outside = false;
@@ -63,7 +63,15 @@ public partial class FightPOI : PointOfInterest
 
 		if (AlwaysRecruit)
 		{
-			_character?.inventoryPanel?.GetReady(true, this);
+			StackResource[] _units = new StackResource[ComputerUnits!.Count];
+			for (int i = 0; i < ComputerUnits!.Count; i++)
+			{
+				_units[i] = ComputerUnits![i];
+			}
+			
+			_character!.inventoryPanel!.ShowUnitsText(_units);
+			_character!.inventory?.AddUnits(_units);
+			_Destroy();
 		}
 		else
 		{

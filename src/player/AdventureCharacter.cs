@@ -21,7 +21,7 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 	public PointOfInterest? poi;
 
 	public CharacterPanel? inventoryPanel;
-	Inventory? inventory;
+	public Inventory? inventory;
 	public bool canMove;
 	public bool movingToPoint;
 	[Export] PauseMenu? pauseWindow;
