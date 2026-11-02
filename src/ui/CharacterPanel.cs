@@ -372,7 +372,7 @@ public partial class CharacterPanel : Panel
 		inventory?.AddUnits(_units);
 	}
 
-	async void ShowUnitsText(StackResource[] _units)
+	public async void ShowUnitsText(StackResource[] _units)
 	{
 		await ShowFloatingText(_currentFightPOI!.GlobalPosition, _units);
 	}

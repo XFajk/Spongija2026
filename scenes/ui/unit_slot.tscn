@@ -52,6 +52,15 @@ amountText = NodePath("Amount")
 image = NodePath("TextureRect")
 selected = NodePath("Highlight")
 
+[node name="TextureRect" type="TextureRect" parent="." unique_id=703928972]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
 [node name="Amount" type="Label" parent="." unique_id=573652272]
 layout_mode = 1
 anchors_preset = 3
@@ -69,15 +78,6 @@ text = "20"
 label_settings = SubResource("LabelSettings_p7tei")
 horizontal_alignment = 2
 vertical_alignment = 2
-
-[node name="TextureRect" type="TextureRect" parent="." unique_id=703928972]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-expand_mode = 1
 
 [node name="Highlight" type="TextureRect" parent="." unique_id=1818073155]
 layout_mode = 1

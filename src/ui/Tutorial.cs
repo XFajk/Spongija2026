@@ -37,8 +37,14 @@ public partial class Tutorial : Node, ISavable
 	public void ExplainMagic()
 	{
 		PopoutManager?.SpawnPopout("Spells", "You can check your spells in the Spell book. These spells can be used in a battle. Each spell costs MANA, which can be refilled at SPRINGS.");
-		PopoutManager?.SpawnPopout("Artefacts", "Equip artefacts from your inventory to get different advantages.");
+		PopoutManager?.SpawnPopout("Artefacts", "Equip artefacts from your inventory to get different advantages. Artefacts can be found on different places around map.");
 		TutorialChecklist.magicExplained = true;
+	}
+
+	public void ExplainCamp()
+	{
+		PopoutManager?.SpawnPopout("Camp", "Return to recruit more units as you explore, but only after setting a new distance record. Each record grants units based on the distance gained.");
+		TutorialChecklist.campExplained = true;
 	}
 
 	public async override void _Ready()
@@ -62,7 +68,8 @@ public partial class Tutorial : Node, ISavable
 			{ "inventoryShown", TutorialChecklist.inventoryShown },
 			{ "inventoryExplained", TutorialChecklist.inventoryExplained },
 			{ "swappingExplained", TutorialChecklist.swappingExplained },
-			{ "magicExplained", TutorialChecklist.magicExplained }
+			{ "magicExplained", TutorialChecklist.magicExplained },
+			{ "campExplained", TutorialChecklist.campExplained }
 		};
 	}
 
@@ -73,6 +80,7 @@ public partial class Tutorial : Node, ISavable
 		TutorialChecklist.inventoryExplained = (bool)data["inventoryExplained"];
 		TutorialChecklist.swappingExplained = (bool)data["swappingExplained"];
 		TutorialChecklist.magicExplained = (bool)data["magicExplained"];
+		TutorialChecklist.campExplained = (bool)data["campExplained"];
 	}
 }
 
@@ -83,4 +91,5 @@ public static class TutorialChecklist
 	public static bool inventoryExplained = false;
 	public static bool swappingExplained = false;
 	public static bool magicExplained = false;
+	public static bool campExplained = false;
 }

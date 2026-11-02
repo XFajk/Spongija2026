@@ -40,7 +40,7 @@ public partial class MainMenu : Control
 			GD.PrintErr("QuitButton not found in TitleMenu");
 		}
 
-		_settingsBackButton = GetNode<Button>("SettingsMenu/Background/Buttons/BACK");
+		_settingsBackButton = GetNode<Button>("SettingsMenu/Background/Back");
 		if (_settingsBackButton == null)
 		{
 			GD.PrintErr("Settings Menu Back Button not found in SettingsMenu");
@@ -58,11 +58,17 @@ public partial class MainMenu : Control
 			GD.PrintErr("Save Browser not found in QuitMenu");
 		}
 
-		cancelSaveMenu = GetNode<Button>("/root/MainMenu/CancelSaveMenu");
+		cancelSaveMenu = GetNode<Button>("/root/MainMenu/select_file/CancelSaveMenu");
 		if (cancelSaveMenu == null)
 		{
 			GD.PrintErr("Save Browser Cancel not found in QuitMenu");
 		}
+
+		Button exitButton = GetNode<Button>("/root/MainMenu/QuitMenu/PanelContainer/MarginContainer/VBoxContainer/QUIT");
+		exitButton.Pressed += () =>
+		{
+			GetTree().Quit();
+		};
 
 		_playButton!.Pressed += OnPlayButtonPressed;
 		cancelSaveMenu!.Pressed += OnCancelSaveButtonPressed;

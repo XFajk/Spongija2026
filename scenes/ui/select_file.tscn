@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://hfjcinjp8vur" path="res://src/ui/SaveSystem/SaveBrowser.cs" id="1_ivg1a"]
 [ext_resource type="PackedScene" uid="uid://ks0pji412ps4" path="res://scenes/ui/save_file.tscn" id="2_t2bpt"]
+[ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="3_ykf7y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0oq6"]
 content_margin_left = 0.0
@@ -47,6 +48,33 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4l47y"]
+bg_color = Color(0.26515836, 0.042844743, 0.04317692, 1)
+border_width_bottom = 7
+border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lw04h"]
+bg_color = Color(0.26515836, 0.042844743, 0.04317692, 1)
+border_width_top = 7
+border_color = Color(0.53333336, 0.28627452, 0.047058824, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jwff8"]
+bg_color = Color(0.35533425, 0.07014417, 0.07015758, 1)
+border_width_bottom = 7
+border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="select_file" type="Panel" unique_id=1218259961 node_paths=PackedStringArray("container", "createButton")]
 propagate_maximum_size = true
 anchors_preset = -1
@@ -67,6 +95,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 23.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_ykf7y")
 theme_override_font_sizes/font_size = 40
 text = "Select Save File"
 horizontal_alignment = 1
@@ -109,14 +138,38 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -190.0
+offset_left = -212.5
 offset_top = 17.0
-offset_right = 190.0
+offset_right = 212.5
 offset_bottom = 93.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_ykf7y")
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_ivg1a")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_t2bpt")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ykf7y")
 text = " Create new Save "
+
+[node name="CancelSaveMenu" type="Button" parent="." unique_id=1517562609]
+process_mode = 3
+custom_minimum_size = Vector2(350, 70)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_top = -102.0
+offset_right = 175.0
+offset_bottom = -25.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_ykf7y")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_4l47y")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lw04h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jwff8")
+text = "BACK"

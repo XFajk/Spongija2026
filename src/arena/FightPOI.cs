@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 public partial class FightPOI : PointOfInterest
 {
+	[Export] public bool AlwaysRecruit;
 	[Export] public bool CanRecruit;
 	[Export] public EnemyStrategy ComputerStrategy { get; set; } = EnemyStrategy.Wild;
 	[Export] public float detectionDistance;
@@ -25,7 +26,7 @@ public partial class FightPOI : PointOfInterest
 		if (base._destroyed)
 			return;
 
-		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) <= detectionDistance && _character.poi != this && !accessed && outside)
+		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) <= detectionDistance && _character.poi != this && !accessed && outside && !AlwaysRecruit)
 		{
 			_character.ForceStop();
 			outside = false;
@@ -58,7 +59,23 @@ public partial class FightPOI : PointOfInterest
 		EndFightScreen.TriggeringFightPOI = GetPath();  // Store the path of this FightPOI for the end fight screen
 		_character?.SetupEnemyArmy(ComputerUnits!);
 		_character?.SetupDifficulty(ComputerStrategy);
-		_character?.inventoryPanel?.GetReady(winningChance >= 600 && _random == 0 && CanRecruit, this);
+
+		if (AlwaysRecruit)
+		{
+			StackResource[] _units = new StackResource[ComputerUnits!.Count];
+			for (int i = 0; i < ComputerUnits!.Count; i++)
+			{
+				_units[i] = ComputerUnits![i];
+			}
+			
+			_character!.inventoryPanel!.ShowUnitsText(_units);
+			_character!.inventory?.AddUnits(_units);
+			_Destroy();
+		}
+		else
+		{
+			_character?.inventoryPanel?.GetReady(winningChance >= 600 && _random == 0 && CanRecruit, this);
+		}
 
 		_character!.poi = null;
 		UnFocus();
