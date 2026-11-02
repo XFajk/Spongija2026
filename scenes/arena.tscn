@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dlub2l8df1s83"]
 
 [ext_resource type="Script" uid="uid://ci7aabyrlpeu6" path="res://src/arena/Arena.cs" id="1_olpmc"]
+[ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="2_6e0wu"]
 [ext_resource type="PackedScene" uid="uid://d1qdgtfvvi33p" path="res://scenes/orome/orome_animation_manager.tscn" id="2_r2kh7"]
 [ext_resource type="PackedScene" uid="uid://d2vdux1r2w61k" path="res://scenes/player/viewport_rect.tscn" id="2_wl4x5"]
 [ext_resource type="Texture2D" uid="uid://byky2a7jdit5j" path="res://assets/terrain/ground_textures/grass_albedo_height.png" id="4_7ft05"]
@@ -27,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://bki0rosrg6b15" path="res://scenes/decorations/SQUARE.glb" id="24_qclql"]
 [ext_resource type="PackedScene" uid="uid://bg4y00xbnewei" path="res://assets/terrain/models/carnota/pillars.glb" id="25_sya1t"]
 [ext_resource type="PackedScene" uid="uid://rp8qxudhfv8q" path="res://scenes/decorations/cernota/claw.tscn" id="26_y6qpl"]
+[ext_resource type="Resource" uid="uid://cvkx8nuc22xf0" path="res://assets/battle_system/units/melkor.tres" id="27_mlkor"]
 [ext_resource type="Script" uid="uid://bmusiccue8r4t" path="res://src/helpers/MusicCue.cs" id="28_mcue"]
 
 [sub_resource type="Gradient" id="Gradient_olpmc"]
@@ -281,7 +283,7 @@ detiling_shift = 0.124
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_qclql")])
 texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_ti64i")])
 
-[node name="Arena" type="Node3D" unique_id=911541987 node_paths=PackedStringArray("SetupBoardCameraPosition", "BoardOverviewCameraPosition", "PlayerCamera", "HeroSpellCastPosition", "GameViewportRect")]
+[node name="Arena" type="Node3D" unique_id=911541987 node_paths=PackedStringArray("SetupBoardCameraPosition", "BoardOverviewCameraPosition", "PlayerCamera", "HeroSpellCastPosition", "GameViewportRect", "ForestScenery", "HillScenery", "EvilArenaDeco")]
 script = ExtResource("1_olpmc")
 SetupBoardCameraPosition = NodePath("SubViewport/SetupBoardPosition")
 BoardOverviewCameraPosition = NodePath("SubViewport/BoardOverviewPosition")
@@ -290,6 +292,10 @@ HeroSpellCastPosition = NodePath("HeroSpellCastPosition")
 PlayerHeroModel = ExtResource("2_r2kh7")
 GameViewportRect = NodePath("ViewportRect")
 CameraTransitionDuration = 3.0
+ForestScenery = NodePath("forest")
+HillScenery = NodePath("hill")
+EvilArenaDeco = NodePath("EvilArenaDeco")
+EvilArenaUnits = Array[ExtResource("2_6e0wu")]([ExtResource("27_mlkor")])
 AutoBeginBattle = false
 
 [node name="HeroSpellCastPosition" type="Marker3D" parent="." unique_id=855865640]
