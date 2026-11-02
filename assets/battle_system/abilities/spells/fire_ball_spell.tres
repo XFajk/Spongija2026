@@ -9,14 +9,16 @@
 
 [resource]
 script = ExtResource("1_mpr6r")
-Damage = 160
+Damage = 60
+DamagePerKnowledge = 20
 Projectile = ExtResource("5_ck5jc")
 ShootAngle = 10.0
 LaunchSound = ExtResource("2_sound")
 HitSound = ExtResource("3_sound")
 Name = "Super Fire Ball"
-Description = "Hurls a ball of fire at an enemy stack, dealing 60 damage that no armor can stop."
+Description = "Hurls a ball of fire at an enemy stack, dealing 60 damage plus 20 for every point of the hero's Knowledge. No armor can stop it."
 Icon = ExtResource("1_fyjep")
 HoveredIcon = ExtResource("1_h3oea")
-ManaCost = 25
+ManaCost = 20
+MinKnowledge = 6
 metadata/_custom_type_script = "uid://kaqcq55yms27"

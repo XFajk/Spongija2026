@@ -20,7 +20,8 @@ public partial class Inventory : Node, ISavable
 	[Export] public int horses;
 	[Export] public int silk;
 	[Export] public int iron;
-	public uint Mana;
+	// The hero's mana, kept between battles; the scene's value is the mana a new game starts with
+	[Export] public uint Mana;
 
 	// The hero's own stats, before artefacts (CreateHero)
 	[ExportGroup("Hero")]
@@ -195,6 +196,10 @@ public partial class Inventory : Node, ISavable
 
 	public void AddSpell(SpellAbility _spell)
 	{
+		// A known spell isn't learned twice (another scroll of it, or a unit teaching it)
+		if (Spells!.Contains(_spell))
+			return;
+
 		SpellAbility _newSpell = _spell;
 		Spells = Spells!.Append(_newSpell).ToArray();
 		UpdateUI();

@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_pmngv")
-Strength = 2
+Strength = 3
 Name = "Sword of Courage"
 Description = "Raised high, it reminds every elf why they set out on the journey."
 Icon = ExtResource("1_hxs57")

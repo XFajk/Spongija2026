@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_5uc6d")
-MaxMana = 30
+MaxMana = 40
 Name = "Mana Pouch"
 Description = "A small leather pouch that holds more power than it should. The hero can store more mana."
 Icon = ExtResource("1_jg482")

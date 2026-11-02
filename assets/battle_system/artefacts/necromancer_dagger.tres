@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_oxedt")
+Strength = 2
 Name = "Necromancer Dagger"
 Description = "A cold blade that drinks the last breath of the fallen. When the hero raises the dead, twice as many rise."
 Icon = ExtResource("1_x6jbj")

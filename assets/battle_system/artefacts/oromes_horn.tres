@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_n7l6k")
 Strength = 3
+Defense = 2
 Name = "Orome´s Horn"
 Description = "Valaróma, the great horn of the Hunter. At its call the servants of darkness flee and the Elves strike without fear."
 Icon = ExtResource("1_14lww")

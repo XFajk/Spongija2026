@@ -7,6 +7,10 @@ public partial class FireBallSpell : SpellAbility
     [Export(PropertyHint.Range, "0,1000")]
     public int Damage { get; set; } = 30;
 
+    // Added to a hero's cast for every point of the hero's Knowledge (artefacts included); unit casts ignore it
+    [Export(PropertyHint.Range, "0,100")]
+    public int DamagePerKnowledge { get; set; }
+
     // The fireball flown from the caster to the target. The scene's root must be a Projectile.
     [Export]
     public PackedScene? Projectile { get; set; }
@@ -31,8 +35,11 @@ public partial class FireBallSpell : SpellAbility
     [Export]
     public StringName SoundBus { get; set; } = "SFX";
 
-    // Spells ignore Defense. A unit's cast scales with its quantity, a hero's doesn't. Use and Evaluate both use this.
-    private int GetDamage(Stack caster, bool fromHero) => fromHero ? Damage : Damage * (int)caster.Quantity;
+    // Spells ignore Defense. A unit's cast scales with its quantity, a hero's with its Knowledge. Use and Evaluate
+    // both use this.
+    private int GetDamage(Stack caster, bool fromHero) => fromHero
+        ? Damage + DamagePerKnowledge * (int)(caster.Hero?.Knowledge ?? 0)
+        : Damage * (int)caster.Quantity;
 
     public override async Task Use(Stack user, Stack target, Arena arena)
     {
