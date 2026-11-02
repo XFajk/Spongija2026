@@ -9,12 +9,13 @@
 [resource]
 script = ExtResource("1_web")
 Effect = ExtResource("3_web")
-Damage = 10
+Damage = 20
+DamagePerKnowledge = 4
 Projectile = ExtResource("2_web")
 Name = "Ball of Web"
-Description = "Spits a ball of web at an enemy stack. It deals a little damage and slows the stack by 2 speed, but not below 3, for its next 2 turns. Another hit only makes the slow last longer."
+Description = "Spits a ball of web at an enemy stack. It deals 20 damage (plus 4 for every point of Knowledge when the hero casts it) and slows the stack by 2 speed, but not below 3, for its next 2 turns. Another hit only makes the slow last longer."
 Icon = ExtResource("3_bv0lv")
 HoveredIcon = ExtResource("2_hdubd")
-ManaCost = 20
-MinKnowledge = 3
+ManaCost = 15
+MinKnowledge = 8
 metadata/_custom_type_script = "uid://dms411lu6oxqm"

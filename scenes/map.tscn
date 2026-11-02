@@ -71,6 +71,18 @@
 [ext_resource type="PackedScene" uid="uid://b2ob3yorvrlrh" path="res://scenes/points_of_interest/battles/boss_wolf_fight_poi.tscn" id="69_7ilj0"]
 [ext_resource type="PackedScene" uid="uid://boah5rjp64hh2" path="res://scenes/points_of_interest/battles/wolf_spider_fight_poi.tscn" id="70_b7dnk"]
 [ext_resource type="PackedScene" uid="uid://bub7ijuy0frg" path="res://scenes/points_of_interest/battles/malkor_fight_poi.tscn" id="71_13p8c"]
+[ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="90_stack"]
+[ext_resource type="Resource" uid="uid://c72a0ew85gt6u" path="res://assets/battle_system/units/wizard_quendi.tres" id="91_wizard"]
+[ext_resource type="Resource" uid="uid://7tcdw1qoic5w" path="res://assets/battle_system/units/small_wolf.tres" id="92_cub"]
+[ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="93_wolf"]
+[ext_resource type="Resource" uid="uid://d0wwc65q72h7u" path="res://assets/battle_system/units/spider.tres" id="94_spider"]
+[ext_resource type="Resource" uid="uid://df20ojfa0878g" path="res://assets/battle_system/units/big_spider.tres" id="95_bigspider"]
+[ext_resource type="Resource" uid="uid://p4kd31rh6n8r" path="res://assets/battle_system/units/orc_pilgrim.tres" id="96_thrall"]
+[ext_resource type="Resource" uid="uid://c8e1he2vgqad1" path="res://assets/battle_system/units/orc_warrior.tres" id="97_orcwarrior"]
+[ext_resource type="Resource" uid="uid://bewntdj3rvwjj" path="res://assets/battle_system/units/orc_archer.tres" id="98_orcarcher"]
+[ext_resource type="Resource" path="res://assets/battle_system/units/orc_shaman.tres" id="99_orcshaman"]
+[ext_resource type="Resource" uid="uid://cbq4xjm6ju4ll" path="res://assets/battle_system/units/forest_ghost.tres" id="100_ghost"]
+[ext_resource type="Resource" uid="uid://cvkx8nuc22xf0" path="res://assets/battle_system/units/melkor.tres" id="101_melkor"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r2y85"]
 load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
@@ -295,6 +307,360 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 corner_detail = 5
 
+[sub_resource type="Resource" id="Stack_wolf1_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("92_cub")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_wolf1_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("92_cub")
+Quantity = 8
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_wolf1_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 3
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_wiz1_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("91_wizard")
+Quantity = 5
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc2_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 12
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc2_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 8
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc2_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 4
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc2_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("99_orcshaman")
+Quantity = 3
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_wiz2_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("91_wizard")
+Quantity = 8
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3a_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3a_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 15
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3a_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 12
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3a_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("98_orcarcher")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3a_e"]
+script = ExtResource("90_stack")
+Unit = ExtResource("99_orcshaman")
+Quantity = 5
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3b_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3b_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 15
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3b_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 12
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3b_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("98_orcarcher")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3b_e"]
+script = ExtResource("90_stack")
+Unit = ExtResource("99_orcshaman")
+Quantity = 5
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3a_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 18
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3a_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 16
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3a_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 16
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3b_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 18
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3b_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 16
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3b_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 16
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_spider3_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 25
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_spider3_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 25
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_spider3_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_wiz3_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("91_wizard")
+Quantity = 12
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4a_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 35
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4a_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 25
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4a_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4a_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("98_orcarcher")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4a_e"]
+script = ExtResource("90_stack")
+Unit = ExtResource("99_orcshaman")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4b_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 35
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4b_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 25
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4b_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4b_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("98_orcarcher")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4b_e"]
+script = ExtResource("90_stack")
+Unit = ExtResource("99_orcshaman")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost4_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 40
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost4_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 35
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost4_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bspider4_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("95_bigspider")
+Quantity = 1
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bspider4_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 40
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bspider4_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 40
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bspider4_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bwolf4_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bwolf4_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bwolf4_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 15
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bwolf4_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("92_cub")
+Quantity = 25
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bwolf4_e"]
+script = ExtResource("90_stack")
+Unit = ExtResource("92_cub")
+Quantity = 15
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_swolf4_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 50
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_swolf4_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 40
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_swolf4_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_swolf4_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 15
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_melkor_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("101_melkor")
+Quantity = 1
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_melkor_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_melkor_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_melkor_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
 [node name="Map" type="Node3D" unique_id=1745784945]
 
 [node name="ViewportRect" parent="." unique_id=434109989 node_paths=PackedStringArray("GameViewport") instance=ExtResource("1_gldc4")]
@@ -302,14 +668,14 @@ GameViewport = NodePath("../SubViewport")
 
 [node name="PointsOfInterest" type="Node3D" parent="." unique_id=810958568]
 
-[node name="spring_poi" parent="PointsOfInterest" unique_id=2127545491 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("2_s2dh3")]
+[node name="spring_poi" parent="PointsOfInterest" unique_id=2127545491 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("2_s2dh3")]
 transform = Transform3D(0.4380287, 0, -0.44511515, 0, 0.6244971, 0, 0.44511515, 0, 0.4380287, -571.7116, 5.5975714, -613.51605)
 MaxAmount = 30
 Camera = NodePath("../../SubViewport/PlayerCamera")
 Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
 SaveId = "spring1"
 
-[node name="spiderspring_poi2" parent="PointsOfInterest" unique_id=1105177264 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("2_s2dh3")]
+[node name="spiderspring_poi2" parent="PointsOfInterest" unique_id=1105177264 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("2_s2dh3")]
 transform = Transform3D(0.8918572, 0, -1.1293753, 0, 1.4390615, 0, 1.1293753, 0, 0.8918572, -423.61993, 29.615301, -777.7555)
 MaxAmount = 60
 Camera = NodePath("../../SubViewport/PlayerCamera")
@@ -2336,9 +2702,15 @@ metadata/_custom_type_script = "uid://bpulslght6n3w"
 
 [node name="WizardFightPOI3" parent="Fights" unique_id=1766287576 instance=ExtResource("20_o4st3")]
 transform = Transform3D(-0.6099473, 0, 0.79244196, 0, 1, 0, -0.79244196, 0, -0.6099473, -680.2528, 43.240017, -478.70523)
+AlwaysRecruit = true
+ComputerUnits = Array[Object]([SubResource("Stack_wiz3_a")])
+SaveId = "fight_wizard_3"
 
 [node name="OrcFightPOI_3(2)" parent="Fights" unique_id=930582041 instance=ExtResource("65_f4upa")]
 transform = Transform3D(-0.12937899, 0, -0.9915953, 0.027591955, 0.9996128, -0.0036000768, 0.9912114, -0.027825829, -0.12932889, -274.9477, 3.642126, -359.26062)
+ComputerStrategy = 1
+ComputerUnits = Array[Object]([SubResource("Stack_orc3a_a"), SubResource("Stack_orc3a_b"), SubResource("Stack_orc3a_c"), SubResource("Stack_orc3a_d"), SubResource("Stack_orc3a_e")])
+SaveId = "fight_orc_3a"
 
 [node name="CollisionShape3D" parent="Fights/OrcFightPOI_3(2)" index="0" unique_id=377279175]
 transform = Transform3D(1.0000001, -3.7252903e-09, 1.4901161e-08, 0, 2.0000002, 0, 0, 4.656613e-10, 1, 2.9164734, 2.495144, -0.6851196)
@@ -2383,6 +2755,9 @@ omni_range = 7.224954
 
 [node name="OrcFightPOI_3" parent="Fights" unique_id=1468284967 instance=ExtResource("65_f4upa")]
 transform = Transform3D(-0.9260946, -0.09986585, -0.36383453, -0.09294989, 0.9950009, -0.036517195, 0.36566252, 0, -0.9307475, -509.3109, 4.264942, -547.06573)
+ComputerStrategy = 1
+ComputerUnits = Array[Object]([SubResource("Stack_orc3b_a"), SubResource("Stack_orc3b_b"), SubResource("Stack_orc3b_c"), SubResource("Stack_orc3b_d"), SubResource("Stack_orc3b_e")])
+SaveId = "fight_orc_3b"
 
 [node name="Position" parent="Fights/OrcFightPOI_3" index="1" unique_id=731218837]
 transform = Transform3D(1.0000006, -7.7222335e-09, 0, 1.626336e-08, 1.0000006, -3.4673067e-09, -8.940697e-08, 6.9145867e-10, 1.0000006, 4.452667, 0.6152153, 5.4293213)
@@ -2420,6 +2795,10 @@ omni_range = 7.224954
 
 [node name="GhostFightPOI_4" parent="Fights" unique_id=177381057 instance=ExtResource("63_14ag1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -514.1456, 37.541878, -836.0322)
+CanRecruit = true
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_ghost4_a"), SubResource("Stack_ghost4_b"), SubResource("Stack_ghost4_c")])
+SaveId = "fight_ghost_4"
 
 [node name="CollisionShape3D" parent="Fights/GhostFightPOI_4" index="0" unique_id=377279175]
 transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0.11248779, 0.4156456, 0.54626465)
@@ -2459,6 +2838,10 @@ omni_range = 2.4534316
 
 [node name="GhostFightPOI_3" parent="Fights" unique_id=448983409 instance=ExtResource("63_14ag1")]
 transform = Transform3D(0.7571021, 0, 0.65329665, 0, 1, 0, -0.65329665, 0, 0.7571021, -441.637, 39.029602, -881.2743)
+CanRecruit = true
+ComputerStrategy = 1
+ComputerUnits = Array[Object]([SubResource("Stack_ghost3a_a"), SubResource("Stack_ghost3a_b"), SubResource("Stack_ghost3a_c")])
+SaveId = "fight_ghost_3a"
 
 [node name="lesny_duch2" parent="Fights/GhostFightPOI_3" index="2" unique_id=669519904]
 transform = Transform3D(0.29999995, 0, -5.9604645e-08, 0, 0.3, 0, 5.9604645e-08, 0, 0.29999995, -3.8840942, -5.643326, 0.3595581)
@@ -2471,9 +2854,15 @@ transform = Transform3D(0.3, 0, -2.9802322e-08, 0, 0.3, 0, 2.9802322e-08, 0, 0.3
 
 [node name="WizardFightPOI" parent="Fights" unique_id=1846563086 instance=ExtResource("20_o4st3")]
 transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -135.55576, 17.843723, -748.4114)
+AlwaysRecruit = true
+ComputerUnits = Array[Object]([SubResource("Stack_wiz1_a")])
+SaveId = "fight_wizard_1"
 
 [node name="WolfFightPOI_1" parent="Fights" unique_id=3425108 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("18_sp2wr")]
 transform = Transform3D(-0.93509644, 0, 0.35439333, 0, 1, 0, -0.35439333, 0, -0.93509644, -96.35902, 6.865777, -532.7197)
+CanRecruit = true
+ComputerUnits = Array[Object]([SubResource("Stack_wolf1_a"), SubResource("Stack_wolf1_b"), SubResource("Stack_wolf1_c")])
+SaveId = "fight_wolf_1"
 FloatingTextScene = ExtResource("4_fq663")
 Camera = NodePath("../../SubViewport/PlayerCamera")
 Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
@@ -2524,6 +2913,8 @@ omni_range = 6.0
 
 [node name="OrcFightPOI_2" parent="Fights" unique_id=862020828 instance=ExtResource("65_f4upa")]
 transform = Transform3D(0.9961949, 0, 0.087153405, 0, 1, 0, -0.087153405, 0, 0.9961949, -133.48764, 11.041119, -672.6398)
+ComputerUnits = Array[Object]([SubResource("Stack_orc2_a"), SubResource("Stack_orc2_b"), SubResource("Stack_orc2_c"), SubResource("Stack_orc2_d")])
+SaveId = "fight_orc_2"
 
 [node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_2" index="2" unique_id=1294747214]
 transform = Transform3D(0.89544183, 0, 0.44517845, 0, 1, 0, -0.44517845, 0, 0.89544183, 9.6377945, 0, -1.0134888)
@@ -2548,6 +2939,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.934021, -7.083748, 0)
 
 [node name="SpiderFightPOI_3" parent="Fights" unique_id=1508952852 instance=ExtResource("66_fvbyp")]
 transform = Transform3D(-0.96268517, 0, -0.27062392, 0, 1, 0, 0.27062392, 0, -0.96268517, -320.4894, 35.57411, -715.7498)
+CanRecruit = true
+ComputerStrategy = 1
+ComputerUnits = Array[Object]([SubResource("Stack_spider3_a"), SubResource("Stack_spider3_b"), SubResource("Stack_spider3_c")])
+SaveId = "fight_spider_3"
 
 [node name="SmallSpiderAnimationManger2" parent="Fights/SpiderFightPOI_3" index="1" unique_id=572566947]
 transform = Transform3D(0.35512868, 0, -0.17983621, 0, 0.3980672, 0, 0.17983621, 0, 0.35512868, -3.668869, -0.006477356, -0.46466064)
@@ -2557,6 +2952,9 @@ transform = Transform3D(0.3180853, 0, 0.23933071, 0, 0.3980672, 0, -0.23933071, 
 
 [node name="BossSpiderPOI_4" parent="Fights" unique_id=2119744132 instance=ExtResource("63_sp2wr")]
 transform = Transform3D(0.92402565, 0, -0.38233045, 0, 1, 0, 0.38233045, 0, 0.92402565, -408.7055, 33.290417, -813.428)
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_bspider4_a"), SubResource("Stack_bspider4_b"), SubResource("Stack_bspider4_c"), SubResource("Stack_bspider4_d")])
+SaveId = "fight_boss_spider_4"
 
 [node name="Position" parent="Fights/BossSpiderPOI_4" index="1" unique_id=731218837]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.752136, 3.1940193, -3.2871704)
@@ -2602,6 +3000,10 @@ omni_range = 4.643657
 
 [node name="GhostFightPOI_3(2)" parent="Fights" unique_id=2139663452 instance=ExtResource("63_14ag1")]
 transform = Transform3D(-0.9752828, 0, 0.22096027, 0, 1, 0, -0.22096027, 0, -0.9752828, -618.62775, 29.144657, -834.78015)
+CanRecruit = true
+ComputerStrategy = 1
+ComputerUnits = Array[Object]([SubResource("Stack_ghost3b_a"), SubResource("Stack_ghost3b_b"), SubResource("Stack_ghost3b_c")])
+SaveId = "fight_ghost_3b"
 
 [node name="lesny_duch2" parent="Fights/GhostFightPOI_3(2)" index="2" unique_id=669519904]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.14190674, -6.391226, -0.07891846)
@@ -2629,6 +3031,9 @@ omni_range = 2.4534316
 
 [node name="OrcFightPOI_4" parent="Fights" unique_id=1366589732 instance=ExtResource("65_f4upa")]
 transform = Transform3D(0.95815355, 0.28625488, 0, -0.28625488, 0.95815355, 0, 0, 0, 1, -461.03848, 8.450515, -427.72278)
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_orc4a_a"), SubResource("Stack_orc4a_b"), SubResource("Stack_orc4a_c"), SubResource("Stack_orc4a_d"), SubResource("Stack_orc4a_e")])
+SaveId = "fight_orc_4a"
 
 [node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_4" index="2" unique_id=1294747214]
 transform = Transform3D(-0.95556176, -0.2691177, -0.12032137, -0.27130684, 0.962491, 0.0018866509, 0.115300536, 0.03444682, -0.9927332, -1.4920044, -0.6825104, -6.839752)
@@ -2669,6 +3074,9 @@ omni_range = 7.224954
 
 [node name="OrcFightPOI_4(2)" parent="Fights" unique_id=257481745 instance=ExtResource("65_f4upa")]
 transform = Transform3D(-0.15414125, 0, 0.98804885, 0, 1, 0, -0.98804885, 0, -0.15414125, -382.50702, 2.5379777, -458.00894)
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_orc4b_a"), SubResource("Stack_orc4b_b"), SubResource("Stack_orc4b_c"), SubResource("Stack_orc4b_d"), SubResource("Stack_orc4b_e")])
+SaveId = "fight_orc_4b"
 
 [node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_4(2)" index="2" unique_id=1294747214]
 transform = Transform3D(-0.30535385, 0, -0.9522391, 0, 1, 0, 0.9522391, 0, -0.30535385, -2.1098633, 0.77644444, -10.067139)
@@ -2703,15 +3111,28 @@ omni_range = 16.616156
 
 [node name="BossWolfFightPOI_4" parent="Fights" unique_id=1451447242 instance=ExtResource("69_7ilj0")]
 transform = Transform3D(-0.24333127, 0, -0.9699432, 0, 1, 0, 0.9699432, 0, -0.24333127, -608.56177, 8.035038, -679.1773)
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_bwolf4_a"), SubResource("Stack_bwolf4_b"), SubResource("Stack_bwolf4_c"), SubResource("Stack_bwolf4_d"), SubResource("Stack_bwolf4_e")])
+SaveId = "fight_boss_wolf_4"
 
 [node name="WizardFightPOI2" parent="Fights" unique_id=1962140403 instance=ExtResource("20_o4st3")]
 transform = Transform3D(0.15813339, 0, 0.98741776, 0, 1, 0, -0.98741776, 0, 0.15813339, -637.99536, 7.9130325, -630.81537)
+AlwaysRecruit = true
+ComputerUnits = Array[Object]([SubResource("Stack_wiz2_a")])
+SaveId = "fight_wizard_2"
 
 [node name="SpiderFightPoi_4" parent="Fights" unique_id=593585271 instance=ExtResource("70_b7dnk")]
 transform = Transform3D(0.39750057, 0.14542508, -0.90600485, 0.06817518, 0.97995204, 0.18720566, 0.9150657, -0.13618141, 0.37961715, -643.91284, 17.321724, -553.7953)
+CanRecruit = true
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_swolf4_a"), SubResource("Stack_swolf4_b"), SubResource("Stack_swolf4_c"), SubResource("Stack_swolf4_d")])
+SaveId = "fight_spider_wolf_4"
 
 [node name="MelkorFightPOI_FINAL" parent="Fights" unique_id=942230349 instance=ExtResource("71_13p8c")]
 transform = Transform3D(-0.022126824, 0, 0.99975526, -0.10178269, 0.9948041, -0.002252679, -0.9945606, -0.10180763, -0.022011856, -784.541, 57.69672, -491.69095)
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_melkor_a"), SubResource("Stack_melkor_b"), SubResource("Stack_melkor_c"), SubResource("Stack_melkor_d")])
+SaveId = "fight_melkor_final"
 
 [node name="Position" parent="Fights/MelkorFightPOI_FINAL" index="1" unique_id=731218837]
 transform = Transform3D(0.9476897, -0.0060747415, -0.31913462, -0.004629299, 0.9994518, -0.032771733, 0.3191588, 0.032534823, 0.9471426, -0.1666565, 0.6046753, 4.7281494)
@@ -2722,8 +3143,9 @@ transform = Transform3D(-0.18229076, -0.012056261, 0.2316241, 0.011007147, 0.293
 [node name="lesny_duch3" parent="Fights/MelkorFightPOI_FINAL" index="6" unique_id=673742092]
 transform = Transform3D(-0.22090228, -0.03451535, -0.19244698, -0.028066982, 0.2929575, -0.02032493, 0.1934926, 0.0030901027, -0.22265674, 2.5762024, 0.06272888, 0.013366699)
 
-[node name="horse_resource_poi" parent="." unique_id=1596719709 instance=ExtResource("14_s2dh3")]
+[node name="horse_resource_poi" parent="." unique_id=1596719709 groups=["Savable"] instance=ExtResource("14_s2dh3")]
 transform = Transform3D(-0.9867752, 0, -0.16209468, 0, 1, 0, 0.16209468, 0, -0.9867752, -686.842, 43.795025, -499.21982)
+SaveId = "horse19"
 
 [editable path="Fights/OrcFightPOI_3(2)"]
 [editable path="Fights/OrcFightPOI_3"]

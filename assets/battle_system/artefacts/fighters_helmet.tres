@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_kg6ff")
 Strength = 1
+Defense = 1
 Name = "Fighter´s Helmet"
 Description = "A plain, dented helmet. Whoever leads in it is followed with a firmer step."
 BodyPart = 0

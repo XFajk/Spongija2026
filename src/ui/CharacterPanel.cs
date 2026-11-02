@@ -374,7 +374,8 @@ public partial class CharacterPanel : Panel
 
 	public async void ShowUnitsText(StackResource[] _units)
 	{
-		await ShowFloatingText(_currentFightPOI!.GlobalPosition, _units);
+		// No fight panel opens for a FightPOI that always recruits, so _currentFightPOI is null then
+		await ShowFloatingText(_currentFightPOI?.GlobalPosition ?? Vector3.Zero, _units);
 	}
 
 	public async Task ShowFloatingText(Vector3 worldPosition, StackResource[] Units)
