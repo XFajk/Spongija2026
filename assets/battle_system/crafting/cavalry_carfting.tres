@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CraftingUnit" format=3 uid="uid://cgw12adexcraj"]
+
+[ext_resource type="Resource" uid="uid://dogeope8ka2lb" path="res://assets/battle_system/units/cavelry.tres" id="1_bu8fk"]
+[ext_resource type="Script" uid="uid://bfleqwxmysexk" path="res://src/battle_system/army/CraftingUnit.cs" id="1_df8va"]
+[ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="2_m41jk"]
+
+[resource]
+script = ExtResource("1_df8va")
+Unit = ExtResource("2_m41jk")
+FinalUnit = ExtResource("1_bu8fk")
+metadata/_custom_type_script = "uid://bfleqwxmysexk"

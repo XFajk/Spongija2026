@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c3x0do6mrfr33"]
+
+[ext_resource type="PackedScene" uid="uid://bmpbt33x6hnmi" path="res://assets/misc/Marker.glb" id="1_fokl6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iopsf"]
+albedo_color = Color(0.4666518, 0, 0.04648886, 1)
+emission_enabled = true
+emission = Color(0.61801195, 0, 0.041752227, 1)
+emission_energy_multiplier = 14.6
+
+[node name="Marker" unique_id=405284439 instance=ExtResource("1_fokl6")]
+
+[node name="X" parent="." index="0" unique_id=674774246]
+transform = Transform3D(0.05, 0, 0, 0, 0.028, 0, 0, 0, 0.05, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_iopsf")

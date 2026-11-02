@@ -1,0 +1,55 @@
+[gd_resource type="AnimationNodeStateMachine" format=3 uid="uid://dle1qwaq11r28"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lpaov"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jpdum"]
+animation = &"MeleeAttack_spider"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_581b1"]
+animation = &"Run_spider"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6y6ae"]
+animation = &"SpellCasting_spider"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kqwev"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1xs74"]
+advance_mode = 2
+advance_expression = "MeleeAttack
+"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3makf"]
+advance_mode = 2
+advance_expression = "IsRunning
+"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rwss2"]
+advance_mode = 2
+advance_expression = "SpellCast"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7pixl"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_16vfp"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tep8l"]
+advance_mode = 2
+advance_expression = "!IsRunning"
+
+[resource]
+states/Idle/node = SubResource("AnimationNodeAnimation_lpaov")
+states/Idle/position = Vector2(335.59, 100.38751)
+states/MeleeAttack_spider/node = SubResource("AnimationNodeAnimation_jpdum")
+states/MeleeAttack_spider/position = Vector2(335.59, -31.612488)
+states/Run_spider/node = SubResource("AnimationNodeAnimation_581b1")
+states/Run_spider/position = Vector2(337.09, 220.88751)
+states/SpellCasting_spider/node = SubResource("AnimationNodeAnimation_6y6ae")
+states/SpellCasting_spider/position = Vector2(525.59, 100.193756)
+states/Start/position = Vector2(170.5, 100.193756)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_kqwev"), "Idle", "MeleeAttack_spider", SubResource("AnimationNodeStateMachineTransition_1xs74"), "Idle", "Run_spider", SubResource("AnimationNodeStateMachineTransition_3makf"), "Idle", "SpellCasting_spider", SubResource("AnimationNodeStateMachineTransition_rwss2"), "SpellCasting_spider", "Idle", SubResource("AnimationNodeStateMachineTransition_7pixl"), "MeleeAttack_spider", "Idle", SubResource("AnimationNodeStateMachineTransition_16vfp"), "Run_spider", "Idle", SubResource("AnimationNodeStateMachineTransition_tep8l")]
+graph_offset = Vector2(2.0585023e-05, -80.437485)

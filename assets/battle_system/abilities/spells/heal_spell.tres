@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="HealSpell" format=3 uid="uid://dseb7o15vd18m"]
+
+[ext_resource type="Script" uid="uid://f2lhig14isx5" path="res://src/battle_system/abilities/specific/HealSpell.cs" id="1_6sd0w"]
+[ext_resource type="Texture2D" uid="uid://du5ocxu5pu3jt" path="res://assets/ui/heal.png" id="1_07xn1"]
+[ext_resource type="Texture2D" uid="uid://bdq131nk2o88n" path="res://assets/ui/heal_color.png" id="1_lifjy"]
+[ext_resource type="PackedScene" uid="uid://d4fletw1suhqx" path="res://scenes/visual_effects/heal_effect.tscn" id="2_lifjy"]
+[ext_resource type="Script" uid="uid://bpefgv47nx5g2" path="res://src/helpers/SoundCue.cs" id="3_heal"]
+[ext_resource type="AudioStream" uid="uid://c58fu0wjfs23g" path="res://assets/sounds/spell/heal/heal.ogg" id="4_heal"]
+
+[sub_resource type="Resource" id="Resource_sound"]
+script = ExtResource("3_heal")
+Stream = ExtResource("4_heal")
+metadata/_custom_type_script = "uid://bpefgv47nx5g2"
+
+[resource]
+script = ExtResource("1_6sd0w")
+Amount = 200
+VisualEffect = ExtResource("2_lifjy")
+Sound = SubResource("Resource_sound")
+Name = "Heal Spell"
+Description = "Closes the wounds of an allied stack, healing its top unit by up to 200. It can't bring back the fallen."
+Targets = 1
+Icon = ExtResource("1_07xn1")
+HoveredIcon = ExtResource("1_lifjy")
+ManaCost = 5
+metadata/_custom_type_script = "uid://f2lhig14isx5"

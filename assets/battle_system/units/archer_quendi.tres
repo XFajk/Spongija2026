@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="Unit" format=3 uid="uid://dmn08fp2i52t3"]
+
+[ext_resource type="Script" uid="uid://drpx4jp4c0xup" path="res://src/battle_system/abilities/specific/BasicLongRangeAttackAbility.cs" id="1_j2hvo"]
+[ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="1_pcfmg"]
+[ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="2_1ylhy"]
+[ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_o88ou"]
+[ext_resource type="PackedScene" uid="uid://dh7btewbds0p4" path="res://scenes/units/archer_quendi.tscn" id="3_1ylhy"]
+[ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_j2hvo"]
+[ext_resource type="Texture2D" uid="uid://b4f5bxkq1cmnb" path="res://assets/units_icons/archer.png" id="7_54xf4"]
+
+[sub_resource type="Resource" id="Resource_4koe0"]
+script = ExtResource("1_j2hvo")
+metadata/_custom_type_script = "uid://drpx4jp4c0xup"
+
+[sub_resource type="Resource" id="Resource_3u73f"]
+script = ExtResource("2_1ylhy")
+BasicAttackMultiplier = 0.5
+metadata/_custom_type_script = "uid://dbehoqcrijunt"
+
+[resource]
+script = ExtResource("3_j2hvo")
+Name = "Archer Quendi"
+texture = ExtResource("7_54xf4")
+Description = "Pilgrims strung with bows of forest yew and spider silk. They shoot from where they stand, at any foe they can see, but they're lightly clad, poor with a knife, and too busy with their arrows to strike back when an enemy reaches them. Keep them behind the warriors."
+MaxHealth = 35
+Strength = 7
+Defense = 3
+SpeedTier = 4
+CanRetaliate = false
+MeleeAttack = SubResource("Resource_3u73f")
+LongRangeAttack = SubResource("Resource_4koe0")
+Model = ExtResource("3_1ylhy")
+metadata/_custom_type_script = "uid://cj3g6btx1kotr"

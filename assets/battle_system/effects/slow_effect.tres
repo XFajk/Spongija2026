@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SlowEffect" format=3]
+
+[ext_resource type="Script" uid="uid://bn3aqtv734d8l" path="res://src/battle_system/effects/specific/SlowEffect.cs" id="1_slow"]
+[ext_resource type="PackedScene" uid="uid://baucdv8k05yh" path="res://scenes/visual_effects/slowness_effect.tscn" id="2_slow"]
+
+[resource]
+script = ExtResource("1_slow")
+SpeedTierModifier = -2
+Duration = 2
+VisualEffect = ExtResource("2_slow")
+metadata/_custom_type_script = "uid://bn3aqtv734d8l"

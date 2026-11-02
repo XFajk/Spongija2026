@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://bc7ve3jy65u7a"]
+
+[ext_resource type="Script" uid="uid://b5jive522rs6g" path="res://src/arena/FightPOI.cs" id="1_ga7ul"]
+[ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="2_kyun7"]
+[ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="3_a1im1"]
+[ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="4_wyhof"]
+[ext_resource type="PackedScene" uid="uid://h1cmkpycng1q" path="res://scenes/units/small_spider_animation_manger.tscn" id="5_kyun7"]
+
+[sub_resource type="Resource" id="Resource_la2vj"]
+script = ExtResource("3_a1im1")
+Unit = ExtResource("2_kyun7")
+Quantity = 1
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Resource_5cjpp"]
+script = ExtResource("3_a1im1")
+Unit = ExtResource("4_wyhof")
+Quantity = 1
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
+load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
+size = Vector3(6.4588623, 1, 2.3812866)
+
+[node name="SpiderFightPoi" type="Area3D" unique_id=930582041 groups=["Savable"]]
+collision_layer = 9
+script = ExtResource("1_ga7ul")
+detectionDistance = 5.0
+ComputerUnits = Array[Object]([SubResource("Resource_la2vj"), SubResource("Resource_5cjpp")])
+SaveId = "fight_poi"
+stopDistance = 1.5
+cursorIcon = SubResource("CompressedTexture2D_nakos")
+
+[node name="SmallSpiderAnimationManger" parent="." unique_id=619856624 instance=ExtResource("5_kyun7")]
+transform = Transform3D(0.3980672, 0, 0, 0, 0.3980672, 0, 0, 0, 0.3980672, 0, -0.0064790845, 0)
+
+[node name="SmallSpiderAnimationManger2" parent="." unique_id=572566947 instance=ExtResource("5_kyun7")]
+transform = Transform3D(0.3980672, 0, 0, 0, 0.3980672, 0, 0, 0, 0.3980672, -2.015786, -0.0064790845, 0)
+
+[node name="SmallSpiderAnimationManger3" parent="." unique_id=74725257 instance=ExtResource("5_kyun7")]
+transform = Transform3D(0.3980672, 0, 0, 0, 0.3980672, 0, 0, 0, 0.3980672, 2.0547316, -0.0064790845, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=377279175]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0.109558105, 0.98084444, -0.1946106)
+shape = SubResource("BoxShape3D_2klcf")
+
+[node name="Pod" type="OmniLight3D" parent="." unique_id=1958152019]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3019533, 0)
+light_color = Color(0.6901961, 0.3529412, 1, 1)
+light_energy = 1.291
+distance_fade_enabled = true
+omni_range = 4.398794
+
+[node name="Highlight" type="OmniLight3D" parent="." unique_id=1380098432]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3019533, 0)
+light_color = Color(0.85734236, 0.74566936, 1, 1)
+light_energy = 1.123
+distance_fade_enabled = true
+omni_range = 4.398794
+
+[node name="Position" type="Node3D" parent="." unique_id=731218837]

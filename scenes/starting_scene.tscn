@@ -2,7 +2,7 @@
 
 [ext_resource type="VideoStream" uid="uid://dywthbfxa70ts" path="res://assets/video/0001-0192.ogv" id="1_jjbkj"]
 [ext_resource type="Script" uid="uid://c80yh8l55ku1" path="res://src/ui/SplashScreen.cs" id="2_78rce"]
-[ext_resource type="PackedScene" uid="uid://jdn6epct1ip1" path="res://scenes/test.tscn" id="3_dxoqs"]
+[ext_resource type="PackedScene" uid="uid://1cwqotqa3spu" path="res://scenes/main_menu.tscn" id="3_dxoqs"]
 
 [node name="StartingScene" type="Control" unique_id=1203815951]
 layout_mode = 3

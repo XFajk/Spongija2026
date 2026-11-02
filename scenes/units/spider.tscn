@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://nx8lt2u5qrb6"]
+
+[ext_resource type="Script" uid="uid://3pe1f0cixbxg" path="res://src/battle_system/army/UnitNode.cs" id="1_kbp5n"]
+[ext_resource type="PackedScene" uid="uid://h1cmkpycng1q" path="res://scenes/units/small_spider_animation_manger.tscn" id="2_kbp5n"]
+[ext_resource type="Script" uid="uid://c1so6sg2p5nqy" path="res://src/interaction_system/Interactable.cs" id="3_3cw8t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ud42c"]
+size = Vector3(0.16, 0.14212206, 0.16746093)
+
+[node name="Spider" type="Area3D" unique_id=25976315]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_kbp5n")
+MovementTime = 0.30000000000000004
+
+[node name="SmallSpiderAnimationManger" parent="." unique_id=619856624 instance=ExtResource("2_kbp5n")]
+transform = Transform3D(0.057727806, 0, 0, 0, 0.057727806, 0, 0, 0, 0.057727806, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=5577944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0.07094824, 0.001503909)
+shape = SubResource("BoxShape3D_ud42c")
+
+[node name="Interactable" type="Node" parent="." unique_id=1750305900]
+script = ExtResource("3_3cw8t")
+metadata/_custom_type_script = "uid://c1so6sg2p5nqy"

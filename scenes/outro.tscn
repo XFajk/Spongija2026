@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://luthgvdm1kug"]
+
+[ext_resource type="Script" uid="uid://5kwhtlr2ehuf" path="res://src/ui/OutroScene.cs" id="1_a6ogt"]
+[ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="2_vmn6f"]
+[ext_resource type="Script" uid="uid://d755yvv3sjeh" path="res://src/ui/FadeText.cs" id="3_ydlee"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ya6b3"]
+font = ExtResource("2_vmn6f")
+font_size = 50
+
+[node name="Outro" type="Control" unique_id=1027699448 node_paths=PackedStringArray("_text")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a6ogt")
+_text = NodePath("TextContainer/FadeText")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1463958395]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextContainer" type="Control" parent="." unique_id=697226936]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FadeText" type="Label" parent="TextContainer" unique_id=170612556]
+visible = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -34.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Text"
+label_settings = SubResource("LabelSettings_ya6b3")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("3_ydlee")

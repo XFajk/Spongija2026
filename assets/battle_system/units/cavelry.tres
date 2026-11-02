@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Unit" format=3 uid="uid://dogeope8ka2lb"]
+
+[ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="1_7e7ur"]
+[ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="1_b4mae"]
+[ext_resource type="PackedScene" uid="uid://btbsf6dtgxjo6" path="res://scenes/units/cavelry.tscn" id="2_4v8ii"]
+[ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_7e7ur"]
+[ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_4v8ii"]
+[ext_resource type="Texture2D" uid="uid://c1aqle0br3kmw" path="res://assets/units_icons/cavalier.png" id="6_atjsd"]
+
+[sub_resource type="Resource" id="Resource_atjsd"]
+script = ExtResource("1_7e7ur")
+metadata/_custom_type_script = "uid://dbehoqcrijunt"
+
+[resource]
+script = ExtResource("3_4v8ii")
+Name = "Cavalry"
+texture = ExtResource("6_atjsd")
+Description = "Pilgrims riding the wild horses of the Meadow, which let them on their backs for love of Oromë, the great hunter. The fastest of the host, they cross the field before the enemy can move and crash into it with the weight of the horse behind the spear."
+MaxHealth = 100
+Strength = 16
+Defense = 7
+SpeedTier = 7
+Size = 2
+MeleeAttack = SubResource("Resource_atjsd")
+Model = ExtResource("2_4v8ii")
+metadata/_custom_type_script = "uid://cj3g6btx1kotr"

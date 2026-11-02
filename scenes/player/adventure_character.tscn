@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://3fhavcdsavfw"]
+
+[ext_resource type="Script" uid="uid://cmr0gv6cm6tvp" path="res://src/player/AdventureCharacter.cs" id="1_f37vf"]
+[ext_resource type="PackedScene" uid="uid://brsn37q6tj7lh" path="res://scenes/arena/path_point.tscn" id="2_8turh"]
+[ext_resource type="Script" uid="uid://bppprk5y2vflm" path="res://src/player/Inventory.cs" id="3_8pgid"]
+[ext_resource type="PackedScene" uid="uid://c3x0do6mrfr33" path="res://scenes/arena/marker.tscn" id="3_l1a7v"]
+[ext_resource type="PackedScene" uid="uid://d1qdgtfvvi33p" path="res://scenes/orome/orome_animation_manager.tscn" id="4_8swpc"]
+[ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="4_ff6r0"]
+[ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="5_p6sce"]
+[ext_resource type="Resource" uid="uid://vmbdbqx2frwv" path="res://assets/battle_system/units/warrior_quendi.tres" id="6_p6sce"]
+[ext_resource type="Resource" uid="uid://6677wl7yciyh" path="res://assets/battle_system/crafting/archer_crafting.tres" id="7_e24yl"]
+[ext_resource type="Resource" uid="uid://cyv73832q5mrk" path="res://assets/battle_system/crafting/warrior_crafting.tres" id="8_bwkvg"]
+[ext_resource type="Resource" uid="uid://dseb7o15vd18m" path="res://assets/battle_system/abilities/spells/heal_spell.tres" id="8_l1a7v"]
+[ext_resource type="Script" uid="uid://dgn7oeraa20r2" path="res://src/battle_system/BattleStarter.cs" id="12_yyw6n"]
+[ext_resource type="Resource" uid="uid://cgw12adexcraj" path="res://assets/battle_system/crafting/cavalry_carfting.tres" id="13_6brue"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ao2lr"]
+radius = 0.7602539
+
+[sub_resource type="Resource" id="Resource_n1psn"]
+script = ExtResource("5_p6sce")
+Unit = ExtResource("4_ff6r0")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Resource_a11gi"]
+script = ExtResource("5_p6sce")
+Unit = ExtResource("6_p6sce")
+Quantity = 5
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[node name="AdventureCharacter" type="CharacterBody3D" unique_id=590468899 node_paths=PackedStringArray("animationManager") groups=["Savable"]]
+collision_layer = 9
+script = ExtResource("1_f37vf")
+stopDistance = 0.5
+Speed = 10.0
+point = ExtResource("2_8turh")
+finalPoint = ExtResource("3_l1a7v")
+pointsMinDistance = 2.0
+animationManager = NodePath("OromeAnimationManager")
+
+[node name="OromeAnimationManager" parent="." unique_id=8568467 instance=ExtResource("4_8swpc")]
+transform = Transform3D(-2.4644678, 0, -2.1545061e-07, 0, 2.4644678, 0, 2.1545061e-07, 0, -2.4644678, 0, 0, -0.08610839)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1698459459]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ao2lr")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=512623960]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_height_offset = 0.25
+debug_path_custom_color = Color(0.2784467, 0.6038251, 0, 1)
+
+[node name="Inventory" type="Node" parent="." unique_id=1608058295 groups=["Savable"]]
+script = ExtResource("3_8pgid")
+Units = Array[Object]([SubResource("Resource_n1psn"), SubResource("Resource_a11gi"), null, null, null])
+Spells = Array[Object]([ExtResource("8_l1a7v")])
+Mana = 50
+HeroStrength = 4
+HeroDefense = 4
+EquippedArtefacts = Array[Object]([null, null, null])
+recipes = Array[Object]([ExtResource("7_e24yl"), ExtResource("8_bwkvg"), ExtResource("13_6brue")])
+
+[node name="BattleStarter" type="Node" parent="." unique_id=1685517769]
+script = ExtResource("12_yyw6n")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1110268851]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.9531927, -0.24936771)
+light_color = Color(0.6692793, 0.66263413, 0.48104638, 1)
+light_energy = 1.4
+omni_range = 25.0

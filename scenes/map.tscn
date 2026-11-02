@@ -1,0 +1,3176 @@
+[gd_scene format=3 uid="uid://cfsvco3a36qfu"]
+
+[ext_resource type="PackedScene" uid="uid://d2vdux1r2w61k" path="res://scenes/player/viewport_rect.tscn" id="1_gldc4"]
+[ext_resource type="PackedScene" uid="uid://d3siemxsgpj3l" path="res://scenes/player/player_camera.tscn" id="2_paxxb"]
+[ext_resource type="PackedScene" uid="uid://ns4005pgsiuv" path="res://scenes/points_of_interest/spring_poi.tscn" id="2_s2dh3"]
+[ext_resource type="Script" uid="uid://bknow4djldqy" path="res://src/player/AdventureCamera.cs" id="4_0cso3"]
+[ext_resource type="PackedScene" uid="uid://3fhavcdsavfw" path="res://scenes/player/adventure_character.tscn" id="4_2klcf"]
+[ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="4_fq663"]
+[ext_resource type="Theme" uid="uid://bjx58o26db5so" path="res://assets/ui_themes/fantasy.tres" id="6_2lpho"]
+[ext_resource type="Script" uid="uid://drwglebqk0es7" path="res://src/ui/PopoutManager.cs" id="6_mlgqr"]
+[ext_resource type="Script" uid="uid://da8xkfatqgrcb" path="res://src/ui/CharacterPanel.cs" id="7_blm8a"]
+[ext_resource type="LabelSettings" uid="uid://d2yjmolnb3eqi" path="res://assets/ui_themes/HighlightLabelSettings.tres" id="7_nakos"]
+[ext_resource type="PackedScene" uid="uid://3me630kro538" path="res://scenes/ui/popout.tscn" id="7_wslke"]
+[ext_resource type="Resource" uid="uid://ddfgaidqfhbat" path="res://assets/battle_system/abilities/spells/fire_ball_spell.tres" id="8_baix8"]
+[ext_resource type="Texture2D" uid="uid://b8ddb7nxoqbb7" path="res://assets/pics/cantGoIcon.png" id="8_jh32y"]
+[ext_resource type="Texture2D" uid="uid://bpk4t2bqqrf3h" path="res://assets/pics/book/BookBack.png" id="9_be0no"]
+[ext_resource type="Resource" uid="uid://bdthpuy62xd12" path="res://assets/battle_system/abilities/spells/web_ball_spell.tres" id="9_s2dh3"]
+[ext_resource type="PackedScene" uid="uid://cw5mt6sny4rlq" path="res://scenes/points_of_interest/artefacts/fighters_helmet.tscn" id="10_8kgjo"]
+[ext_resource type="PackedScene" uid="uid://crcvcp0bl0bjc" path="res://scenes/points_of_interest/artefacts/mana_pouch.tscn" id="11_ogd7i"]
+[ext_resource type="Texture2D" uid="uid://csuq8cas0opo5" path="res://assets/pics/inventory/bag_on_stickblack.png" id="12_sq6bu"]
+[ext_resource type="PackedScene" uid="uid://b3omq7rub3olq" path="res://scenes/points_of_interest/artefacts/mithril_shield.tscn" id="12_tf62m"]
+[ext_resource type="Texture2D" uid="uid://b5gh5rno637p2" path="res://assets/pics/inventory/bag_on_stickgray.png" id="13_4b7dj"]
+[ext_resource type="PackedScene" uid="uid://dojoqutc52f7o" path="res://scenes/points_of_interest/silk_resource_poi.tscn" id="13_baix8"]
+[ext_resource type="Texture2D" uid="uid://eaq1jq5w0ja5" path="res://assets/pics/book/BookBackGrey.png" id="13_c70he"]
+[ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="13_gw3fx"]
+[ext_resource type="PackedScene" uid="uid://ci3rhgk5rg3ln" path="res://scenes/points_of_interest/iron_resource_poi.tscn" id="13_s2dh3"]
+[ext_resource type="Texture2D" uid="uid://couyd22ndcmbh" path="res://assets/pics/inventory/bag_on_stickwhite.png" id="14_2cfcp"]
+[ext_resource type="Texture2D" uid="uid://b1a78biqiyy4e" path="res://assets/pics/book/BookBackWhite.png" id="14_mo32q"]
+[ext_resource type="PackedScene" uid="uid://dd8qpygjqxwvm" path="res://scenes/ui/unit_slot.tscn" id="14_p7tei"]
+[ext_resource type="PackedScene" uid="uid://dexb8bit6wg3f" path="res://scenes/points_of_interest/horse_resource_poi.tscn" id="14_s2dh3"]
+[ext_resource type="PackedScene" uid="uid://bud7j5o3o7w4y" path="res://scenes/points_of_interest/artefacts/wizard_hat_poi.tscn" id="15_v7gfb"]
+[ext_resource type="PackedScene" uid="uid://cfdi0vlbjhyu4" path="res://scenes/points_of_interest/artefacts/sword_of_courage.tscn" id="16_icjpl"]
+[ext_resource type="FontFile" uid="uid://cotpgy3uit4mg" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Regular.ttf" id="16_p7tei"]
+[ext_resource type="PackedScene" uid="uid://dnhn5ddkxegh6" path="res://scenes/points_of_interest/artefacts/wizard_cane.tscn" id="17_vwuk8"]
+[ext_resource type="PackedScene" uid="uid://djoxt7jtplgwr" path="res://scenes/points_of_interest/camp_poi.tscn" id="18_r2y85"]
+[ext_resource type="PackedScene" uid="uid://cby2hni2tahrg" path="res://scenes/points_of_interest/battles/wolf_fight_poi.tscn" id="18_sp2wr"]
+[ext_resource type="PackedScene" uid="uid://c23anfnailwup" path="res://scenes/ui/artefact_ui.tscn" id="20_081xv"]
+[ext_resource type="PackedScene" uid="uid://bih8fm6gbgeor" path="res://scenes/points_of_interest/battles/wizard_fight_poi.tscn" id="20_o4st3"]
+[ext_resource type="Texture2D" uid="uid://r6lyu5hmdlly" path="res://assets/pics/swap.png" id="21_nc68e"]
+[ext_resource type="Texture2D" uid="uid://cnt4a1ofuqcj5" path="res://assets/pics/CombineIcon.png" id="22_2cfcp"]
+[ext_resource type="PackedScene" uid="uid://wka7hhiahe1k" path="res://scenes/ui/swap_slot.tscn" id="23_2cfcp"]
+[ext_resource type="Script" uid="uid://b1ofx7nj4p48q" path="res://src/ui/SwapPanel.cs" id="23_y2ir2"]
+[ext_resource type="Script" uid="uid://crl5qc0vw008e" path="res://src/ui/SpellDisplay.cs" id="25_4qxv8"]
+[ext_resource type="SpriteFrames" uid="uid://ccufku72ig3ug" path="res://assets/ui/book/book_animations.tres" id="25_6ek7f"]
+[ext_resource type="PackedScene" uid="uid://b011mxkc5of83" path="res://scenes/ui/spell_button.tscn" id="26_4qxv8"]
+[ext_resource type="Shader" uid="uid://bmnbarsh4d3rq" path="res://src/shaders/mana_bar.gdshader" id="27_fq663"]
+[ext_resource type="Theme" uid="uid://dekw64qwcbodv" path="res://assets/ui_themes/mana_bar_theme.tres" id="28_mniao"]
+[ext_resource type="LabelSettings" uid="uid://cc2gqaoowh1kc" path="res://assets/misc/arena_ui_button_lables.tres" id="29_yfm5w"]
+[ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="33_12q1p"]
+[ext_resource type="Theme" uid="uid://c7y84ghi423h7" path="res://assets/ui_themes/unit_slot.tres" id="34_lhdcv"]
+[ext_resource type="Texture2D" uid="uid://d0ae0e4vsrswn" path="res://assets/ui/BookBackBlack.png" id="41_fq3dv"]
+[ext_resource type="PackedScene" uid="uid://bbca8on0i7dje" path="res://scenes/points_of_interest/spell_poi.tscn" id="48_7s432"]
+[ext_resource type="Theme" uid="uid://brqf071jtaftc" path="res://assets/ui_themes/main_menu_ui_theme.tres" id="49_ogd7i"]
+[ext_resource type="Script" uid="uid://dsh7utydx6qkr" path="res://src/save_system/SaveManager.cs" id="49_s2dh3"]
+[ext_resource type="Script" uid="uid://dvqihq641myar" path="res://src/ui/PauseMenu.cs" id="50_tf62m"]
+[ext_resource type="PackedScene" uid="uid://bp7h6wk0dp8i7" path="res://scenes/ui/select_file.tscn" id="51_nc68e"]
+[ext_resource type="Script" uid="uid://dgxys3vbibvpt" path="res://src/ui/BlackScreen.cs" id="51_r2y85"]
+[ext_resource type="PackedScene" uid="uid://b48evc5lmrr26" path="res://scenes/visual_effects/fire_flies.tscn" id="52_fq3dv"]
+[ext_resource type="Environment" uid="uid://oi2ubom7ugak" path="res://assets/misc/new_environment.tres" id="52_tf62m"]
+[ext_resource type="Script" uid="uid://swwcjjqiscph" path="res://src/ui/Tutorial.cs" id="53_ogd7i"]
+[ext_resource type="PackedScene" uid="uid://bw2n3jxff7m3j" path="res://scenes/environment.tscn" id="53_tf62m"]
+[ext_resource type="PackedScene" uid="uid://bo8uppegn6g8g" path="res://scenes/points_of_interest/artefacts/oromes_horn.tscn" id="55_nc68e"]
+[ext_resource type="PackedScene" uid="uid://mvghk1os8qst" path="res://scenes/visual_effects/kemp_fire.tscn" id="56_r2y85"]
+[ext_resource type="PackedScene" uid="uid://xj1befbnvato" path="res://scenes/points_of_interest/artefacts/necromancer_dagger.tscn" id="57_w5y4v"]
+[ext_resource type="Script" uid="uid://bpulslght6n3w" path="res://src/environment/PulsingLight.cs" id="61_kycfx"]
+[ext_resource type="AudioStream" uid="uid://d2taygdmuk8h2" path="res://assets/sounds/book/book2.ogg" id="62_bksnd"]
+[ext_resource type="PackedScene" uid="uid://gi0jwayfph6a" path="res://scenes/points_of_interest/battles/ghost_fight_poi.tscn" id="63_14ag1"]
+[ext_resource type="PackedScene" uid="uid://cb5kdjmwdxl5v" path="res://scenes/points_of_interest/battles/boss_spider_fight_poi.tscn" id="63_sp2wr"]
+[ext_resource type="PackedScene" uid="uid://dfqy1cw4npj7m" path="res://scenes/points_of_interest/battles/orcs_fight_poi.tscn" id="65_f4upa"]
+[ext_resource type="PackedScene" uid="uid://bc7ve3jy65u7a" path="res://scenes/points_of_interest/battles/spider_fight_poi.tscn" id="66_fvbyp"]
+[ext_resource type="PackedScene" uid="uid://b2ob3yorvrlrh" path="res://scenes/points_of_interest/battles/boss_wolf_fight_poi.tscn" id="69_7ilj0"]
+[ext_resource type="PackedScene" uid="uid://boah5rjp64hh2" path="res://scenes/points_of_interest/battles/wolf_spider_fight_poi.tscn" id="70_b7dnk"]
+[ext_resource type="PackedScene" uid="uid://bub7ijuy0frg" path="res://scenes/points_of_interest/battles/malkor_fight_poi.tscn" id="71_13p8c"]
+[ext_resource type="Script" uid="uid://nug3vvfwdm3f" path="res://src/arena/Finish.cs" id="84_ixmst"]
+[ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="90_stack"]
+[ext_resource type="Resource" uid="uid://c72a0ew85gt6u" path="res://assets/battle_system/units/wizard_quendi.tres" id="91_wizard"]
+[ext_resource type="Resource" uid="uid://7tcdw1qoic5w" path="res://assets/battle_system/units/small_wolf.tres" id="92_cub"]
+[ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="93_wolf"]
+[ext_resource type="Resource" uid="uid://d0wwc65q72h7u" path="res://assets/battle_system/units/spider.tres" id="94_spider"]
+[ext_resource type="Resource" uid="uid://df20ojfa0878g" path="res://assets/battle_system/units/big_spider.tres" id="95_bigspider"]
+[ext_resource type="Resource" uid="uid://p4kd31rh6n8r" path="res://assets/battle_system/units/orc_pilgrim.tres" id="96_thrall"]
+[ext_resource type="Resource" uid="uid://c8e1he2vgqad1" path="res://assets/battle_system/units/orc_warrior.tres" id="97_orcwarrior"]
+[ext_resource type="Resource" uid="uid://bewntdj3rvwjj" path="res://assets/battle_system/units/orc_archer.tres" id="98_orcarcher"]
+[ext_resource type="Resource" path="res://assets/battle_system/units/orc_shaman.tres" id="99_orcshaman"]
+[ext_resource type="Resource" uid="uid://cbq4xjm6ju4ll" path="res://assets/battle_system/units/forest_ghost.tres" id="100_ghost"]
+[ext_resource type="Resource" uid="uid://cvkx8nuc22xf0" path="res://assets/battle_system/units/melkor.tres" id="101_melkor"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r2y85"]
+load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w5y4v"]
+load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_081xv"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hqvwm"]
+noise = SubResource("FastNoiseLite_081xv")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_12q1p"]
+shader = ExtResource("27_fq663")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_hqvwm")
+shader_parameter/fill_key_color = Color(0, 0.014977694, 1, 1)
+shader_parameter/key_tolerance = 0.1
+shader_parameter/deep_color = Color(0, 0.019990107, 0.26653373, 1)
+shader_parameter/bright_color = Color(0.07058823, 0.60082793, 1, 1)
+shader_parameter/spark_color = Color(1, 1, 1, 1)
+shader_parameter/noise_scale = 200.0
+shader_parameter/scroll_speed_a = Vector2(0.08, 0.03)
+shader_parameter/scroll_speed_b = Vector2(-0.05, 0.04)
+shader_parameter/spark_threshold = 0.55
+shader_parameter/brightness = 1.2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wslke"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n1psn"]
+bg_color = Color(0.54474026, 0.31868562, 0.12448826, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.48177314, 0.20731443, 0.047696292, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iopsf"]
+texture = ExtResource("12_sq6bu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d35y6"]
+texture = ExtResource("13_4b7dj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1tni7"]
+texture = ExtResource("14_2cfcp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gyjbk"]
+texture = ExtResource("9_be0no")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jclro"]
+texture = ExtResource("13_c70he")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4xvhx"]
+texture = ExtResource("14_mo32q")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_be0no"]
+bg_color = Color(0.54474026, 0.31868562, 0.12448826, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.85769445, 0.40962633, 0.16301936, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gyjbk"]
+bg_color = Color(0.54474026, 0.31868562, 0.12448826, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.48177314, 0.20731443, 0.047696292, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blm8a"]
+bg_color = Color(0.42313677, 0.24115354, 0.08686314, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.48177314, 0.20731443, 0.047696292, 1)
+
+[sub_resource type="Theme" id="Theme_iopsf"]
+Button/styles/hover = SubResource("StyleBoxFlat_be0no")
+Button/styles/normal = SubResource("StyleBoxFlat_gyjbk")
+Button/styles/pressed = SubResource("StyleBoxFlat_blm8a")
+
+[sub_resource type="LabelSettings" id="LabelSettings_iopsf"]
+font = ExtResource("13_gw3fx")
+font_size = 35
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gyjbk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gw3fx"]
+bg_color = Color(0.5137255, 0.5137255, 0.5137255, 0.23529412)
+
+[sub_resource type="LabelSettings" id="LabelSettings_081xv"]
+font = ExtResource("16_p7tei")
+font_size = 30
+outline_size = 5
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lhdcv"]
+font = ExtResource("33_12q1p")
+font_size = 30
+font_color = Color(0.8738509, 0.3847592, 0.42821774, 1)
+outline_size = 13
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4xvhx"]
+font = ExtResource("16_p7tei")
+font_size = 30
+outline_size = 5
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2cfcp"]
+font = ExtResource("16_p7tei")
+font_size = 30
+outline_size = 5
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nc68e"]
+load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r2y85"]
+texture = SubResource("CompressedTexture2D_nc68e")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v7gfb"]
+load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_icjpl"]
+texture = SubResource("CompressedTexture2D_v7gfb")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+modulate_color = Color(0.65012825, 0.6501283, 0.6501282, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vwuk8"]
+load_path = "res://.godot/imported/ramcek.png-bbd63cd0e37e6d4f60e40428773adcaa.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kycfx"]
+texture = SubResource("CompressedTexture2D_vwuk8")
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+modulate_color = Color(0.4351923, 0.43519226, 0.43519226, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_litwm"]
+font = ExtResource("13_gw3fx")
+font_size = 40
+outline_size = 13
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qcc5i"]
+font = ExtResource("16_p7tei")
+font_size = 30
+outline_size = 5
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_baix8"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.8)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2dh3"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8kgjo"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_8kgjo"]
+font = ExtResource("13_gw3fx")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_gyjbk"]
+font = ExtResource("13_gw3fx")
+font_size = 35
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tf62m"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1109196, 0.0067062946, 0.008779497, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.66604537, 0.08673792, 0.11216498, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[sub_resource type="Resource" id="Stack_wiz3_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("91_wizard")
+Quantity = 12
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3a_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3a_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 15
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3a_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 12
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3a_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("98_orcarcher")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3a_e"]
+script = ExtResource("90_stack")
+Unit = ExtResource("99_orcshaman")
+Quantity = 5
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3b_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3b_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 15
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3b_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 12
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3b_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("98_orcarcher")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc3b_e"]
+script = ExtResource("90_stack")
+Unit = ExtResource("99_orcshaman")
+Quantity = 5
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost4_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 40
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost4_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 35
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost4_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3a_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 18
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3a_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 16
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3a_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 16
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_wiz1_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("91_wizard")
+Quantity = 5
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_wolf1_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("92_cub")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_wolf1_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("92_cub")
+Quantity = 8
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_wolf1_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 3
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc2_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 12
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc2_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 8
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc2_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 4
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc2_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("99_orcshaman")
+Quantity = 3
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_spider3_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 25
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_spider3_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 25
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_spider3_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bspider4_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("95_bigspider")
+Quantity = 1
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bspider4_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 40
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bspider4_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 40
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bspider4_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3b_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 18
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3b_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 16
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_ghost3b_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 16
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4a_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 35
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4a_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 25
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4a_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4a_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("98_orcarcher")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4a_e"]
+script = ExtResource("90_stack")
+Unit = ExtResource("99_orcshaman")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4b_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 35
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4b_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("96_thrall")
+Quantity = 25
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4b_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4b_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("98_orcarcher")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_orc4b_e"]
+script = ExtResource("90_stack")
+Unit = ExtResource("99_orcshaman")
+Quantity = 10
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bwolf4_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bwolf4_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bwolf4_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 15
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bwolf4_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("92_cub")
+Quantity = 25
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_bwolf4_e"]
+script = ExtResource("90_stack")
+Unit = ExtResource("92_cub")
+Quantity = 15
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_wiz2_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("91_wizard")
+Quantity = 8
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_swolf4_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 50
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_swolf4_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("94_spider")
+Quantity = 40
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_swolf4_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_swolf4_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("93_wolf")
+Quantity = 15
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_melkor_a"]
+script = ExtResource("90_stack")
+Unit = ExtResource("101_melkor")
+Quantity = 1
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_melkor_b"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_melkor_c"]
+script = ExtResource("90_stack")
+Unit = ExtResource("100_ghost")
+Quantity = 30
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Stack_melkor_d"]
+script = ExtResource("90_stack")
+Unit = ExtResource("97_orcwarrior")
+Quantity = 20
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iopsf"]
+
+[node name="Map" type="Node3D" unique_id=1745784945]
+
+[node name="ViewportRect" parent="." unique_id=434109989 node_paths=PackedStringArray("GameViewport") instance=ExtResource("1_gldc4")]
+GameViewport = NodePath("../SubViewport")
+
+[node name="PointsOfInterest" type="Node3D" parent="." unique_id=810958568]
+
+[node name="spring_poi" parent="PointsOfInterest" unique_id=2127545491 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("2_s2dh3")]
+transform = Transform3D(0.4380287, 0, -0.44511515, 0, 0.6244971, 0, 0.44511515, 0, 0.4380287, -571.7116, 5.5975714, -613.51605)
+MaxAmount = 30
+Camera = NodePath("../../SubViewport/PlayerCamera")
+Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
+SaveId = "spring1"
+
+[node name="spiderspring_poi2" parent="PointsOfInterest" unique_id=1105177264 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("2_s2dh3")]
+transform = Transform3D(0.8918572, 0, -1.1293753, 0, 1.4390615, 0, 1.1293753, 0, 0.8918572, -423.61993, 29.615301, -777.7555)
+MaxAmount = 60
+Camera = NodePath("../../SubViewport/PlayerCamera")
+Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
+SaveId = "SpiderSpringofmanga"
+
+[node name="Camp" parent="PointsOfInterest" unique_id=157508729 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("18_r2y85")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -73.00316, 11.110363, -431.28476)
+Camera = NodePath("../../SubViewport/PlayerCamera")
+Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
+SaveId = "base_camp"
+cursorIcon = SubResource("CompressedTexture2D_r2y85")
+
+[node name="Camp2" parent="PointsOfInterest" unique_id=2107680859 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("18_r2y85")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -576.353, 4.9593945, -622.5217)
+Camera = NodePath("../../SubViewport/PlayerCamera")
+Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
+SaveId = "camp"
+cursorIcon = SubResource("CompressedTexture2D_w5y4v")
+
+[node name="Iron" type="Node3D" parent="PointsOfInterest" unique_id=1363389317]
+
+[node name="iron_resource_poi" parent="PointsOfInterest/Iron" unique_id=1590359006 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -275.12225, 4.545026, -360.70886)
+Amount = 7
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron1"
+
+[node name="iron_resource_poi10" parent="PointsOfInterest/Iron" unique_id=1140790940 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -449.64767, 4.8025727, -368.00388)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron2"
+
+[node name="iron_resource_poi11" parent="PointsOfInterest/Iron" unique_id=1133878878 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -474.924, 5.2465615, -368.00388)
+Amount = 8
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron3"
+
+[node name="iron_resource_poi12" parent="PointsOfInterest/Iron" unique_id=1085446029 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(0.9769674, 0.17961234, -0.115213305, -0.2133886, 0.82232785, -0.5274867, 0, 0.5399225, 0.84171474, -460.9176, 6.9675827, -399.49805)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron4"
+
+[node name="iron_resource_poi6" parent="PointsOfInterest/Iron" unique_id=606232491 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -323.7273, 3.4404135, -407.1658)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron5"
+
+[node name="iron_resource_poi7" parent="PointsOfInterest/Iron" unique_id=1848657542 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -346.12424, 5.3669195, -446.5915)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron6"
+
+[node name="iron_resource_poi16" parent="PointsOfInterest/Iron" unique_id=1165827846 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -312.36768, 7.0386257, -484.82166)
+Amount = 7
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron7"
+
+[node name="iron_resource_poi17" parent="PointsOfInterest/Iron" unique_id=2063796921 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -319.0397, 9.653716, -513.7921)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron8"
+
+[node name="iron_resource_poi8" parent="PointsOfInterest/Iron" unique_id=1371963297 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -392.3216, 3.5154214, -463.05634)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron9"
+
+[node name="iron_resource_poi9" parent="PointsOfInterest/Iron" unique_id=291983338 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -391.26202, 4.064714, -451.78455)
+Amount = 8
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron10"
+
+[node name="iron_resource_poi4" parent="PointsOfInterest/Iron" unique_id=1048441035 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -321.45337, 6.7435117, -327.35706)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron11"
+
+[node name="iron_resource_poi5" parent="PointsOfInterest/Iron" unique_id=1415598616 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(0.9238394, -0.38278034, 0, 0.38278034, 0.9238394, 0, 0, 0, 1, -359.43436, 5.2326603, -362.77704)
+Amount = 7
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron12"
+
+[node name="iron_resource_poi2" parent="PointsOfInterest/Iron" unique_id=1128288388 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -228.07706, 6.20602, -380.79608)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron13"
+
+[node name="iron_resource_poi3" parent="PointsOfInterest/Iron" unique_id=660099526 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -248.63576, 6.4872193, -347.68613)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron14"
+
+[node name="iron_resource_poi13" parent="PointsOfInterest/Iron" unique_id=861532457 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(0.9295149, 0.36878455, 0, -0.36878455, 0.9295149, 0, 0, 0, 1, -464.31372, 7.398292, -473.06738)
+Amount = 7
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron15"
+
+[node name="iron_resource_poi14" parent="PointsOfInterest/Iron" unique_id=838095574 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(0.9980613, -0.062238544, 0, 0.061523937, 0.98660177, -0.15110159, 0.009404343, 0.15080865, 0.98851824, -475.9088, 3.7273154, -506.09262)
+Amount = 10
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron16"
+
+[node name="iron_resource_poi15" parent="PointsOfInterest/Iron" unique_id=107699953 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_s2dh3")]
+transform = Transform3D(0.9980613, -0.062238544, 0, 0.061523937, 0.98660177, -0.15110159, 0.009404343, 0.15080865, 0.98851824, -443.69894, 4.2605295, -522.5398)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "iron17"
+
+[node name="Silk" type="Node3D" parent="PointsOfInterest" unique_id=454512395]
+
+[node name="silk_resource_poi" parent="PointsOfInterest/Silk" unique_id=790522178 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -422.57315, 31.565113, -809.1333)
+Amount = 3
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk"
+
+[node name="silk_resource_poi2" parent="PointsOfInterest/Silk" unique_id=1637744610 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -411.79004, 32.611965, -805.9311)
+Amount = 9
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk2"
+
+[node name="silk_resource_poi6" parent="PointsOfInterest/Silk" unique_id=126564017 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -408.14786, 34.7822, -821.0358)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk3"
+
+[node name="silk_resource_poi14" parent="PointsOfInterest/Silk" unique_id=323603843 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -427.05432, 28.774496, -772.04846)
+Amount = 8
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk4"
+
+[node name="silk_resource_poi15" parent="PointsOfInterest/Silk" unique_id=92312188 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -428.14706, 28.774496, -780.8651)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk5"
+
+[node name="silk_resource_poi16" parent="PointsOfInterest/Silk" unique_id=1648831551 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -424.9147, 29.290499, -790.9209)
+Amount = 11
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk6"
+
+[node name="silk_resource_poi17" parent="PointsOfInterest/Silk" unique_id=1209835108 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -445.84064, 29.950329, -803.6268)
+Amount = 2
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk7"
+
+[node name="silk_resource_poi18" parent="PointsOfInterest/Silk" unique_id=1595566238 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -450.3106, 31.010883, -819.0222)
+Amount = 7
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk8"
+
+[node name="silk_resource_poi19" parent="PointsOfInterest/Silk" unique_id=1009779991 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -430.83954, 31.741714, -825.35333)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk9"
+
+[node name="silk_resource_poi20" parent="PointsOfInterest/Silk" unique_id=324980514 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(0.7890818, 0, -0.6142881, 0, 1, 0, 0.6142881, 0, 0.7890818, -429.79343, 35.902344, -846.37805)
+Amount = 10
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk10"
+
+[node name="silk_resource_poi7" parent="PointsOfInterest/Silk" unique_id=713432195 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -396.5792, 40.061264, -841.15894)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk11"
+
+[node name="silk_resource_poi8" parent="PointsOfInterest/Silk" unique_id=1719375629 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -400.20233, 40.255524, -849.21405)
+Amount = 8
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk12"
+
+[node name="silk_resource_poi9" parent="PointsOfInterest/Silk" unique_id=2035769968 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -391.20734, 39.8866, -833.6814)
+Amount = 3
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk13"
+
+[node name="silk_resource_poi10" parent="PointsOfInterest/Silk" unique_id=675097562 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(-0.10550007, 0, 0.9944192, 0, 1, 0, -0.9944192, 0, -0.10550007, -391.20734, 37.69463, -814.85657)
+Amount = 9
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk14"
+
+[node name="silk_resource_poi11" parent="PointsOfInterest/Silk" unique_id=247269667 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(-0.10550007, 0, 0.9944192, 0, 1, 0, -0.9944192, 0, -0.10550007, -390.17188, 36.652706, -805.6044)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk15"
+
+[node name="silk_resource_poi12" parent="PointsOfInterest/Silk" unique_id=1015227507 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(-0.10550007, 0, 0.9944192, 0, 1, 0, -0.9944192, 0, -0.10550007, -394.713, 34.418655, -797.0389)
+Amount = 7
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk16"
+
+[node name="silk_resource_poi13" parent="PointsOfInterest/Silk" unique_id=51769708 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(-0.10550007, 0, 0.9944192, 0, 1, 0, -0.9944192, 0, -0.10550007, -401.8872, 33.090946, -801.3211)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk17"
+
+[node name="silk_resource_poi3" parent="PointsOfInterest/Silk" unique_id=224419657 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(0.88631785, -0.4630774, 0, 0.40605727, 0.7771828, -0.4807332, 0.22261667, 0.4260824, 0.87686694, -400.61066, 32.008595, -783.3419)
+Amount = 8
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk18"
+
+[node name="silk_resource_poi4" parent="PointsOfInterest/Silk" unique_id=1250429920 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(0.88631785, -0.4630774, 0, 0.40605727, 0.7771828, -0.4807332, 0.22261667, 0.4260824, 0.87686694, -403.26648, 30.785278, -774.71796)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk19"
+
+[node name="silk_resource_poi5" parent="PointsOfInterest/Silk" unique_id=636307887 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("13_baix8")]
+transform = Transform3D(0.88631785, -0.4630774, 0, 0.40605727, 0.7771828, -0.4807332, 0.22261667, 0.4260824, 0.87686694, -395.0546, 33.0543, -780.17114)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "silk20"
+
+[node name="Horses" type="Node3D" parent="PointsOfInterest" unique_id=274147397]
+
+[node name="horse_resource_poi" parent="PointsOfInterest/Horses" unique_id=1702899593 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -138.74718, 18.651186, -747.95056)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse1"
+
+[node name="horse_resource_poi2" parent="PointsOfInterest/Horses" unique_id=1803834773 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.28847498, 0, -0.9574874, 0, 1, 0, 0.9574874, 0, 0.28847498, -82.25152, 9.81068, -559.10425)
+Amount = 3
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse2"
+
+[node name="horse_resource_poi3" parent="PointsOfInterest/Horses" unique_id=1758569132 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.28847498, 0, -0.9574874, 0, 1, 0, 0.9574874, 0, 0.28847498, -360.13803, 22.318998, -629.00183)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse3"
+
+[node name="horse_resource_poi4" parent="PointsOfInterest/Horses" unique_id=2076852142 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.86288995, 0, 0.5053921, 0, 1, 0, -0.5053921, 0, 0.86288995, -381.50903, 23.069696, -656.5813)
+Amount = 2
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse4"
+
+[node name="horse_resource_poi5" parent="PointsOfInterest/Horses" unique_id=1497696355 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.86288995, 0, 0.5053921, 0, 1, 0, -0.5053921, 0, 0.86288995, -484.78348, 6.2677217, -625.48975)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse5"
+
+[node name="horse_resource_poi6" parent="PointsOfInterest/Horses" unique_id=500568684 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.86288995, 0, 0.5053921, 0, 1, 0, -0.5053921, 0, 0.86288995, -549.2579, 5.8404856, -663.5578)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse6"
+
+[node name="horse_resource_poi7" parent="PointsOfInterest/Horses" unique_id=1489539939 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.4482869, 0, 0.89388984, 0, 1, 0, -0.89388984, 0, -0.4482869, -591.6963, 6.091095, -607.16437)
+Amount = 3
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse7"
+
+[node name="horse_resource_poi8" parent="PointsOfInterest/Horses" unique_id=888308432 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.4482869, 0, 0.89388984, 0, 1, 0, -0.89388984, 0, -0.4482869, -478.29364, 5.1320515, -521.8977)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse8"
+
+[node name="horse_resource_poi9" parent="PointsOfInterest/Horses" unique_id=1249034605 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.4482869, 0, 0.89388984, 0, 1, 0, -0.89388984, 0, -0.4482869, -490.2331, 38.713974, -876.8914)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse9"
+
+[node name="horse_resource_poi10" parent="PointsOfInterest/Horses" unique_id=1770389283 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.97120297, 0, -0.2382538, -0.044166226, 0.9826679, 0.18003646, 0.23412436, 0.18537474, -0.95437, -507.9991, 34.45784, -824.13464)
+Amount = 2
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse10"
+
+[node name="horse_resource_poi11" parent="PointsOfInterest/Horses" unique_id=1334273558 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.97120297, 2.7622988e-09, -0.23825382, -0.021249615, 0.9960147, 0.086620614, 0.23730426, 0.08918901, -0.9673325, -550.6063, 36.534275, -901.0661)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse11"
+
+[node name="horse_resource_poi12" parent="PointsOfInterest/Horses" unique_id=101224646 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.3884306, -0.009050259, -0.92143357, 0.0026872458, 0.9999364, -0.010954135, 0.92147404, -0.0067310366, -0.3883815, -576.65924, 34.680416, -896.5907)
+Amount = 3
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse12"
+
+[node name="horse_resource_poi13" parent="PointsOfInterest/Horses" unique_id=1684115964 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.9938427, 0.001457186, -0.11079025, 0.0026872451, 0.99993634, -0.010954134, 0.110767186, -0.011184393, -0.9937835, -627.771, 32.36973, -895.31995)
+Amount = 5
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse13"
+
+[node name="horse_resource_poi14" parent="PointsOfInterest/Horses" unique_id=1798114483 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.9938427, 0.001457186, -0.11079025, 0.0026872451, 0.99993634, -0.010954134, 0.110767186, -0.011184393, -0.9937835, -608.43726, 33.683838, -855.47375)
+Amount = 4
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse14"
+
+[node name="horse_resource_poi15" parent="PointsOfInterest/Horses" unique_id=1212576493 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.8175198, 0.036074445, -0.5747696, -0.0047660307, 0.9984258, 0.055885565, 0.5758809, -0.0429482, 0.8164049, -590.159, 9.4633665, -720.9972)
+Amount = 3
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse15"
+
+[node name="horse_resource_poi16" parent="PointsOfInterest/Horses" unique_id=438275609 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.4161861, -0.04883559, 0.9079672, -0.004766033, 0.9984258, 0.05588556, -0.90926695, -0.027586207, 0.41529816, -630.1404, 9.098982, -682.1602)
+Amount = 6
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse16"
+
+[node name="horse_resource_poi17" parent="PointsOfInterest/Horses" unique_id=1529638579 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(0.4057768, 0.16329022, 0.8992672, -0.092621505, 0.98619235, -0.13728061, -0.90926677, -0.027586186, 0.41529807, -652.6994, 16.39455, -590.0053)
+Amount = 2
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse17"
+
+[node name="horse_resource_poi18" parent="PointsOfInterest/Horses" unique_id=1864744945 node_paths=PackedStringArray("Camera", "Container") groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.076970935, 0.2952641, -0.95231026, 0.050247025, 0.95507884, 0.29206112, 0.99576634, -0.025370596, -0.088349074, -824.12854, 20.86028, -621.7734)
+Amount = 8
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "horse18"
+
+[node name="Spells" type="Node3D" parent="PointsOfInterest" unique_id=627992196]
+
+[node name="FireballSpell" parent="PointsOfInterest/Spells" unique_id=1250873675 instance=ExtResource("48_7s432")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -414.11566, 3.8964715, -416.60123)
+Spell = ExtResource("8_baix8")
+SaveId = "FireBallSpell"
+
+[node name="spell_poi" parent="PointsOfInterest/Spells" unique_id=1793646282 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("48_7s432")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -413.31467, 30.26011, -791.78564)
+Spell = ExtResource("9_s2dh3")
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+SaveId = "WebBallSpell"
+metadata/_edit_group_ = true
+
+[node name="Artefacts" type="Node3D" parent="PointsOfInterest" unique_id=570696572]
+
+[node name="necromancer_dagger" parent="PointsOfInterest/Artefacts" unique_id=2000296551 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("57_w5y4v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -561.69745, 36.949272, -895.47906)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="oromes_horn" parent="PointsOfInterest/Artefacts" unique_id=492435077 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("55_nc68e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -568.2592, 5.3634076, -630.11084)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="fighters_helmet" parent="PointsOfInterest/Artefacts" unique_id=1801824249 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("10_8kgjo")]
+transform = Transform3D(0.44506988, 0, -0.89549583, 0, 1, 0, 0.89549583, 0, 0.44506988, -336.1929, 3.0407605, -419.80338)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="mana_pouch" parent="PointsOfInterest/Artefacts" unique_id=255081392 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("11_ogd7i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -397.42508, 33.005272, -779.40076)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="mithril_shield" parent="PointsOfInterest/Artefacts" unique_id=1080352660 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("12_tf62m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -370.1349, 3.004427, -364.336)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="wizard_hat_poi" parent="PointsOfInterest/Artefacts" unique_id=1997912767 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("15_v7gfb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.45299, 13.098531, -434.46005)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="sword_of_courage" parent="PointsOfInterest/Artefacts" unique_id=15973466 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("16_icjpl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -682.48303, 44.66504, -469.51584)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="wizard_cane" parent="PointsOfInterest/Artefacts" unique_id=756606375 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("17_vwuk8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -357.07538, 21.314384, -620.36475)
+Camera = NodePath("../../../SubViewport/PlayerCamera")
+Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=2116964362]
+audio_listener_enable_3d = true
+size = Vector2i(960, 540)
+
+[node name="PlayerCamera" parent="SubViewport" unique_id=118941473 node_paths=PackedStringArray("Agent", "returnPanningButton", "_cursorContainer") instance=ExtResource("2_paxxb")]
+transform = Transform3D(1, 0, 0, 0, 0.3321821, 0.9432153, 0, -0.9432153, 0.3321821, -412.57367, 127.85014, -434.07703)
+doppler_tracking = 1
+current = true
+script = ExtResource("4_0cso3")
+Agent = NodePath("../../AdventureCharacter")
+Distance = 8.0
+Height = 20.0
+FollowHeight = 20.0
+MinHeight = 15.0
+MaxHeight = 40.0
+MouseSensitivity = 0.005
+MouseMovingSpeed = 20.0
+SmoothSpeed = 10.0
+returnPanningButton = NodePath("../../CanvasLayer/Canvas/ReturnPanning")
+_cursorContainer = NodePath("../../CanvasLayer/Canvas")
+cantGo = ExtResource("8_jh32y")
+canGo = ExtResource("21_nc68e")
+
+[node name="RayCast3D" type="RayCast3D" parent="SubViewport" unique_id=1920633245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.4965672, 3.1734376)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=472189251]
+transform = Transform3D(0.8660254, -0.3535534, 0.3535534, 0, 0.7071068, 0.7071068, -0.5, -0.61237246, 0.61237246, 0, 4, 0)
+light_color = Color(0.049423575, 0.11703893, 0.32706, 1)
+light_energy = 6.0
+shadow_enabled = true
+
+[node name="AdventureCharacter" parent="." unique_id=590468899 node_paths=PackedStringArray("container", "pauseWindow", "_saves") instance=ExtResource("4_2klcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.02108, 11.304167, -454.86435)
+container = NodePath("../PointsContainer")
+pauseWindow = NodePath("../CanvasLayer/Canvas/PauseMenu")
+_saves = NodePath("../CanvasLayer/Canvas/select_file")
+
+[node name="PointsContainer" type="Node3D" parent="." unique_id=1683784706]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1062630591]
+
+[node name="Canvas" type="Control" parent="CanvasLayer" unique_id=2030090]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FloatingText" type="Control" parent="CanvasLayer/Canvas" unique_id=1335253506]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Spells" type="Control" parent="CanvasLayer/Canvas" unique_id=1692921506 node_paths=PackedStringArray("adventureCamera")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("25_4qxv8")
+adventureCamera = NodePath("../../../SubViewport/PlayerCamera")
+
+[node name="BookInterface" type="Control" parent="CanvasLayer/Canvas/Spells" unique_id=1518456595]
+visible = false
+layout_mode = 1
+anchor_left = 0.20677084
+anchor_top = 0.16574074
+anchor_right = 0.7875
+anchor_bottom = 0.82314813
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BookSound" type="AudioStreamPlayer" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=1146025873]
+stream = ExtResource("62_bksnd")
+pitch_scale = 1.75
+bus = &"SFX"
+
+[node name="SpellBook" type="AnimatedSprite2D" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=39295325]
+position = Vector2(563, 361)
+sprite_frames = ExtResource("25_6ek7f")
+animation = &"flip_page"
+autoplay = "open"
+
+[node name="SpellButtons" type="Control" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=1291200326]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LeftPage" type="VBoxContainer" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons" unique_id=576632346]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11121076
+anchor_top = 0.07605634
+anchor_right = 0.46278027
+anchor_bottom = 0.87323946
+grow_vertical = 2
+theme_override_constants/separation = 60
+metadata/_edit_use_anchors_ = true
+
+[node name="Row1" type="HBoxContainer" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/LeftPage" unique_id=2100115135]
+layout_mode = 2
+alignment = 1
+
+[node name="SpellButton" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/LeftPage/Row1" unique_id=366633442 instance=ExtResource("26_4qxv8")]
+layout_mode = 2
+
+[node name="Row2" type="HBoxContainer" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/LeftPage" unique_id=1961359749]
+layout_mode = 2
+alignment = 1
+
+[node name="SpellButton" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/LeftPage/Row2" unique_id=2107489057 instance=ExtResource("26_4qxv8")]
+layout_mode = 2
+
+[node name="RightPage" type="VBoxContainer" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons" unique_id=934933791]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5452915
+anchor_top = 0.07605634
+anchor_right = 0.89686096
+anchor_bottom = 0.87323946
+grow_vertical = 2
+theme_override_constants/separation = 60
+metadata/_edit_use_anchors_ = true
+
+[node name="Row1" type="HBoxContainer" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/RightPage" unique_id=1092911409]
+layout_mode = 2
+alignment = 1
+
+[node name="SpellButton" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/RightPage/Row1" unique_id=2145245294 instance=ExtResource("26_4qxv8")]
+layout_mode = 2
+
+[node name="Row2" type="HBoxContainer" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/RightPage" unique_id=1107940703]
+layout_mode = 2
+alignment = 1
+
+[node name="SpellButton" parent="CanvasLayer/Canvas/Spells/BookInterface/SpellButtons/RightPage/Row2" unique_id=884789815 instance=ExtResource("26_4qxv8")]
+layout_mode = 2
+
+[node name="Next" type="Button" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=276621532]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -64.0
+offset_right = -104.0
+offset_bottom = -28.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Next
+"
+
+[node name="Back" type="Button" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=1869706705]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 115.0
+offset_top = -66.0
+offset_right = 203.0
+offset_bottom = -30.0
+grow_vertical = 0
+text = "Back
+"
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Canvas/Spells/BookInterface" unique_id=1601981821]
+material = SubResource("ShaderMaterial_12q1p")
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_right = 500.0
+offset_bottom = 93.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("28_mniao")
+show_percentage = false
+
+[node name="ManaLable" type="Label" parent="CanvasLayer/Canvas/Spells/BookInterface/ProgressBar" unique_id=522542054]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.5
+offset_top = -11.5
+offset_right = 38.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Mana: 0/0"
+label_settings = ExtResource("29_yfm5w")
+
+[node name="Character" type="Panel" parent="CanvasLayer/Canvas" unique_id=1402481781 node_paths=PackedStringArray("camera", "inventoryPanel", "magicPanel", "horsesText", "silkText", "ironText", "icons", "splitWindow", "splitSlider", "splitNumber", "splitUnit", "swapWindow", "resourceCombiningIcons", "equippedArtefacts", "artefactUIContainer", "artefactsEmpty", "fightWindow", "Container")]
+visible = false
+custom_minimum_size = Vector2(600, 800)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 150.0
+offset_top = -400.0
+offset_right = 750.0
+offset_bottom = 400.0
+grow_vertical = 2
+theme = ExtResource("6_2lpho")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wslke")
+script = ExtResource("7_blm8a")
+camera = NodePath("../../../SubViewport/PlayerCamera")
+inventoryPanel = NodePath("Viewport/Inventory")
+magicPanel = NodePath("Viewport/Magic")
+inventoryYPos = PackedFloat32Array(0, -750)
+magicYPos = PackedFloat32Array(565.2, 0)
+movingSpeed = 0.5
+horsesText = NodePath("Viewport/Inventory/Resources/Horses/Amount")
+silkText = NodePath("Viewport/Inventory/Resources/Silk/Amount")
+ironText = NodePath("Viewport/Inventory/Resources/Iron/Amount")
+icons = [NodePath("Viewport/Inventory/Slots/HBoxContainer/Slot"), NodePath("Viewport/Inventory/Slots/HBoxContainer/Slot2"), NodePath("Viewport/Inventory/Slots/HBoxContainer/Slot3"), NodePath("Viewport/Inventory/Slots/HBoxContainer2/Slot"), NodePath("Viewport/Inventory/Slots/HBoxContainer2/Slot2")]
+splitWindow = NodePath("../Split")
+splitSlider = NodePath("../Split/HSlider")
+splitNumber = NodePath("../Split/HSlider/Amount")
+splitUnit = NodePath("../Split/Text")
+swapWindow = NodePath("../Swap")
+resourceCombiningIcons = [NodePath("Viewport/Inventory/Resources/Horses/Selected"), NodePath("Viewport/Inventory/Resources/Silk/Selected"), NodePath("Viewport/Inventory/Resources/Iron/Selected")]
+equippedArtefacts = [NodePath("Viewport/Magic/ArtefactsEquipped/ArtefactUI"), NodePath("Viewport/Magic/ArtefactsEquipped/ArtefactUI2"), NodePath("Viewport/Magic/ArtefactsEquipped/ArtefactUI3")]
+artefactUIPrefab = ExtResource("20_081xv")
+artefactUIContainer = NodePath("Viewport/Magic/Artefacts")
+artefactsEmpty = NodePath("Viewport/Magic/Empty")
+fightWindow = NodePath("../SetupFight")
+FloatingTextScene = ExtResource("4_fq663")
+Container = NodePath("../FloatingText")
+
+[node name="Background" type="Panel" parent="CanvasLayer/Canvas/Character" unique_id=107308044]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.055
+anchor_right = 1.055
+anchor_bottom = 1.0
+offset_top = -113.0
+offset_right = 6.1035156e-05
+offset_bottom = 115.82495
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("6_2lpho")
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Character" unique_id=309679576]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.195
+anchor_right = 0.945
+offset_top = 20.0
+offset_right = -6.1035156e-05
+offset_bottom = 120.0
+grow_horizontal = 2
+text = "Inventory"
+label_settings = ExtResource("7_nakos")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Categories" type="Control" parent="CanvasLayer/Canvas/Character" unique_id=1115802203]
+custom_minimum_size = Vector2(100, 650)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = -310.0
+offset_right = 125.0
+offset_bottom = 340.0
+grow_vertical = 2
+pivot_offset_ratio = Vector2(1, 0.5)
+
+[node name="Inventory" type="Panel" parent="CanvasLayer/Canvas/Character/Categories" unique_id=2125863111]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_right = 75.0
+offset_bottom = 75.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_n1psn")
+
+[node name="Button" type="Button" parent="CanvasLayer/Canvas/Character/Categories/Inventory" unique_id=252869853]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_iopsf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_d35y6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1tni7")
+
+[node name="Magic" type="Panel" parent="CanvasLayer/Canvas/Character/Categories" unique_id=988923908]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_top = 100.0
+offset_right = 75.0
+offset_bottom = 175.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_n1psn")
+
+[node name="Button" type="Button" parent="CanvasLayer/Canvas/Character/Categories/Magic" unique_id=460003622]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_gyjbk")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jclro")
+theme_override_styles/hover = SubResource("StyleBoxTexture_4xvhx")
+
+[node name="Close" type="Button" parent="CanvasLayer/Canvas/Character/Categories" unique_id=1109385405]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_top = 200.0
+offset_right = 75.0
+offset_bottom = 275.0
+theme = SubResource("Theme_iopsf")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Canvas/Character/Categories/Close" unique_id=1626921802]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("8_jh32y")
+expand_mode = 1
+
+[node name="Viewport" type="Control" parent="CanvasLayer/Canvas/Character" unique_id=1351900550]
+clip_contents = true
+layout_mode = 1
+anchor_left = 0.195
+anchor_top = 0.121
+anchor_right = 0.945
+anchor_bottom = 0.967
+offset_right = -6.1035156e-05
+offset_bottom = -6.1035156e-05
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Inventory" type="Control" parent="CanvasLayer/Canvas/Character/Viewport" unique_id=172709783]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="I_Line" type="ColorRect" parent="CanvasLayer/Canvas/Character/Viewport/Inventory" unique_id=960354946]
+custom_minimum_size = Vector2(150, 5)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+color = Color(0.103743516, 0.10374353, 0.103743516, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory" unique_id=1346749070]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 244.20001
+offset_bottom = 344.2
+grow_horizontal = 2
+text = "Resources"
+label_settings = ExtResource("7_nakos")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="R_Line" type="ColorRect" parent="CanvasLayer/Canvas/Character/Viewport/Inventory" unique_id=1520861333]
+custom_minimum_size = Vector2(150, 5)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 325.0
+offset_bottom = 330.0
+grow_horizontal = 2
+color = Color(0.103743516, 0.10374353, 0.103743516, 1)
+
+[node name="Slots" type="VBoxContainer" parent="CanvasLayer/Canvas/Character/Viewport/Inventory" unique_id=1705083319]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 20.0
+offset_right = 6.1035156e-05
+offset_bottom = 240.0
+grow_horizontal = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots" unique_id=1227049781]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Slot" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots/HBoxContainer" unique_id=1118737442 instance=ExtResource("14_p7tei")]
+layout_mode = 2
+
+[node name="Slot2" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots/HBoxContainer" unique_id=2111353828 instance=ExtResource("14_p7tei")]
+layout_mode = 2
+index = 1
+
+[node name="Slot3" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots/HBoxContainer" unique_id=1942794143 instance=ExtResource("14_p7tei")]
+layout_mode = 2
+index = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots" unique_id=270136627]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Slot" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots/HBoxContainer2" unique_id=156425065 instance=ExtResource("14_p7tei")]
+layout_mode = 2
+index = 3
+
+[node name="Slot2" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Slots/HBoxContainer2" unique_id=1751292718 instance=ExtResource("14_p7tei")]
+layout_mode = 2
+index = 4
+
+[node name="Resources" type="VBoxContainer" parent="CanvasLayer/Canvas/Character/Viewport/Inventory" unique_id=1048197823]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 341.2
+offset_right = 6.1035156e-05
+offset_bottom = 561.2
+grow_horizontal = 2
+theme_override_constants/separation = 20
+
+[node name="Horses" type="Control" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources" unique_id=37856513]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Horses" unique_id=984819010]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.711
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Horses"
+label_settings = SubResource("LabelSettings_iopsf")
+vertical_alignment = 1
+
+[node name="Amount" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Horses" unique_id=1527516476]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -137.0
+offset_top = -24.0
+offset_right = -52.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "1000"
+label_settings = SubResource("LabelSettings_iopsf")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Horses" unique_id=1314304161]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gyjbk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gyjbk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gw3fx")
+
+[node name="Selected" type="TextureRect" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Horses" unique_id=694052260]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("22_2cfcp")
+expand_mode = 1
+
+[node name="Silk" type="Control" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources" unique_id=492553282]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Silk" unique_id=1221818795]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.711
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Silk"
+label_settings = SubResource("LabelSettings_iopsf")
+vertical_alignment = 1
+
+[node name="Amount" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Silk" unique_id=1918049217]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -137.0
+offset_top = -24.0
+offset_right = -52.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "1000"
+label_settings = SubResource("LabelSettings_iopsf")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Silk" unique_id=1906020248]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gyjbk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gyjbk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gw3fx")
+
+[node name="Selected" type="TextureRect" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Silk" unique_id=1697138218]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("22_2cfcp")
+expand_mode = 1
+
+[node name="Iron" type="Control" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources" unique_id=1088537681]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Iron" unique_id=854585920]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.711
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Iron"
+label_settings = SubResource("LabelSettings_iopsf")
+vertical_alignment = 1
+
+[node name="Amount" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Iron" unique_id=354499824]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -137.0
+offset_top = -24.0
+offset_right = -52.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "1000"
+label_settings = SubResource("LabelSettings_iopsf")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Iron" unique_id=1478868811]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gyjbk")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gyjbk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gw3fx")
+
+[node name="Selected" type="TextureRect" parent="CanvasLayer/Canvas/Character/Viewport/Inventory/Resources/Iron" unique_id=84567305]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -17.5
+offset_bottom = 17.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("22_2cfcp")
+expand_mode = 1
+
+[node name="Magic" type="Control" parent="CanvasLayer/Canvas/Character/Viewport" unique_id=235222784]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 564.2
+offset_bottom = 564.2001
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1371800355]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 19.999985
+offset_bottom = 119.999985
+grow_horizontal = 2
+text = "Magic"
+label_settings = ExtResource("7_nakos")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Equipped" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=79988311]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 90.2
+offset_bottom = 190.2
+grow_horizontal = 2
+text = "Equipped artefacts"
+label_settings = SubResource("LabelSettings_081xv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Owned" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1312151889]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -85.20001
+offset_bottom = 14.799988
+grow_horizontal = 2
+grow_vertical = 2
+text = "Owned Artefacts"
+label_settings = SubResource("LabelSettings_081xv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Empty" type="Label" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1768288797]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 53.799988
+offset_bottom = 153.79999
+grow_horizontal = 2
+grow_vertical = 2
+text = "Artefact lIST iS Empty"
+label_settings = SubResource("LabelSettings_lhdcv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1115710996]
+custom_minimum_size = Vector2(150, 5)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 100.2
+offset_bottom = 105.2
+grow_horizontal = 2
+color = Color(0.103743516, 0.10374353, 0.103743516, 1)
+
+[node name="ArtefactsEquipped" type="HBoxContainer" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=705361471]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -177.20001
+offset_right = 6.1035156e-05
+offset_bottom = -77.20001
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ArtefactUI" parent="CanvasLayer/Canvas/Character/Viewport/Magic/ArtefactsEquipped" unique_id=244097040 instance=ExtResource("20_081xv")]
+layout_mode = 2
+equipped = true
+
+[node name="ArtefactUI2" parent="CanvasLayer/Canvas/Character/Viewport/Magic/ArtefactsEquipped" unique_id=1303360019 instance=ExtResource("20_081xv")]
+layout_mode = 2
+part = 1
+equipped = true
+index = 1
+
+[node name="ArtefactUI3" parent="CanvasLayer/Canvas/Character/Viewport/Magic/ArtefactsEquipped" unique_id=906302764 instance=ExtResource("20_081xv")]
+layout_mode = 2
+part = 1
+equipped = true
+index = 2
+
+[node name="Artefacts" type="GridContainer" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1016586482]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.501
+anchor_right = 1.0
+anchor_bottom = 0.867
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="Spells" type="Button" parent="CanvasLayer/Canvas/Character/Viewport/Magic" unique_id=1410930609]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -68.599976
+offset_bottom = -18.599976
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8399988, 1)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("34_lhdcv")
+theme_override_font_sizes/font_size = 35
+text = "   Show spells"
+alignment = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Canvas/Character/Viewport/Magic/Spells" unique_id=7313795]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -111.90454
+offset_top = -44.5
+offset_right = -21.904541
+offset_bottom = 45.5
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("41_fq3dv")
+expand_mode = 1
+
+[node name="Split" type="Panel" parent="CanvasLayer/Canvas" unique_id=1677304227]
+visible = false
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -826.0
+offset_top = -250.0
+offset_right = -426.0
+offset_bottom = 250.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("6_2lpho")
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Split" unique_id=984977792]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 76.0
+grow_horizontal = 2
+text = "Split"
+label_settings = ExtResource("7_nakos")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="CanvasLayer/Canvas/Split" unique_id=92059024]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 100.0
+offset_right = -20.0
+offset_bottom = -350.0
+grow_horizontal = 2
+text = "Unit Name"
+label_settings = SubResource("LabelSettings_4xvhx")
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Canvas/Split" unique_id=1900542050]
+process_mode = 3
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 18.999878
+offset_top = -191.0
+offset_right = 138.99988
+offset_bottom = -71.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = 0.26529005
+pivot_offset_ratio = Vector2(0.5, 1)
+theme = ExtResource("6_2lpho")
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Canvas/Split" unique_id=1974968560]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 4.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+rounded = true
+
+[node name="Amount" type="Label" parent="CanvasLayer/Canvas/Split/HSlider" unique_id=515942793]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -59.0
+offset_top = 30.0
+offset_right = 59.0
+offset_bottom = 98.0
+grow_horizontal = 2
+text = "50"
+label_settings = ExtResource("7_nakos")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Swap" type="Panel" parent="CanvasLayer/Canvas" unique_id=1111375680 node_paths=PackedStringArray("keepSlots", "container")]
+visible = false
+custom_minimum_size = Vector2(700, 800)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_2lpho")
+script = ExtResource("23_y2ir2")
+keepSlots = [NodePath("KeepUnits/Slot"), NodePath("KeepUnits/Slot2"), NodePath("KeepUnits/Slot3"), NodePath("KeepUnits/Slot4"), NodePath("KeepUnits/Slot5")]
+swapSlotPrefab = ExtResource("23_2cfcp")
+container = NodePath("LeaveUnits")
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/Swap" unique_id=992370053]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 39.0
+offset_bottom = 94.0
+grow_horizontal = 2
+text = "Full inventory"
+label_settings = ExtResource("7_nakos")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Keep" type="Label" parent="CanvasLayer/Canvas/Swap" unique_id=251113152]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 143.0
+offset_bottom = 193.0
+grow_horizontal = 2
+text = "Units you keep:"
+label_settings = SubResource("LabelSettings_2cfcp")
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="Leave" type="Label" parent="CanvasLayer/Canvas/Swap" unique_id=1185204099]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 387.0
+offset_bottom = 437.0
+grow_horizontal = 2
+text = "Units you Leave BeHIND:"
+label_settings = SubResource("LabelSettings_2cfcp")
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Canvas/Swap" unique_id=592755913]
+process_mode = 3
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 118.0
+offset_top = -264.0
+offset_right = 268.0
+offset_bottom = -114.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 1)
+theme = ExtResource("6_2lpho")
+
+[node name="KeepUnits" type="HBoxContainer" parent="CanvasLayer/Canvas/Swap" unique_id=299189901]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -176.0
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Slot" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=1437054140 instance=ExtResource("23_2cfcp")]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_r2y85")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_icjpl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kycfx")
+keep = true
+
+[node name="Slot2" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=2029012940 instance=ExtResource("23_2cfcp")]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_r2y85")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_icjpl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kycfx")
+keep = true
+index = 1
+
+[node name="Slot3" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=613569414 instance=ExtResource("23_2cfcp")]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_r2y85")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_icjpl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kycfx")
+keep = true
+index = 2
+
+[node name="Slot4" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=674906256 instance=ExtResource("23_2cfcp")]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_r2y85")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_icjpl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kycfx")
+keep = true
+index = 3
+
+[node name="Slot5" parent="CanvasLayer/Canvas/Swap/KeepUnits" unique_id=1397593107 instance=ExtResource("23_2cfcp")]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_r2y85")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_icjpl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kycfx")
+keep = true
+index = 4
+
+[node name="LeaveUnits" type="HBoxContainer" parent="CanvasLayer/Canvas/Swap" unique_id=530625729]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 74.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="SetupFight" type="Panel" parent="CanvasLayer/Canvas" unique_id=237241036]
+visible = false
+custom_minimum_size = Vector2(400, 500)
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -250.0
+offset_right = 200.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_2lpho")
+
+[node name="Label" type="Label" parent="CanvasLayer/Canvas/SetupFight" unique_id=759378944]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 76.0
+grow_horizontal = 2
+text = "Get Ready"
+label_settings = SubResource("LabelSettings_litwm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="CanvasLayer/Canvas/SetupFight" unique_id=1772424532]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 81.0
+offset_right = -20.0
+offset_bottom = -185.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You are entering 
+FIGHT"
+label_settings = SubResource("LabelSettings_qcc5i")
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="Fight" type="Button" parent="CanvasLayer/Canvas/SetupFight" unique_id=954060634]
+process_mode = 3
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.156
+anchor_top = 0.77
+anchor_right = 0.844
+anchor_bottom = 0.79
+offset_left = 5.000023
+offset_top = -34.839966
+offset_right = 5.0000305
+offset_bottom = 15.160034
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_baix8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_s2dh3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8kgjo")
+text = "Start Fight"
+
+[node name="Defection" type="Button" parent="CanvasLayer/Canvas/SetupFight" unique_id=1141516296]
+process_mode = 3
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.156
+anchor_top = 0.77
+anchor_right = 0.844
+anchor_bottom = 0.79
+offset_left = 4.5999985
+offset_top = -133.0
+offset_right = 4.600006
+offset_bottom = -83.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_baix8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_s2dh3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8kgjo")
+text = "Defect"
+
+[node name="or" type="Label" parent="CanvasLayer/Canvas/SetupFight/Defection" unique_id=1264253193]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.189
+anchor_top = 0.5
+anchor_right = 0.811
+anchor_bottom = 0.5
+offset_left = 0.4000244
+offset_top = 35.0
+offset_right = 0.4000244
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "or"
+label_settings = SubResource("LabelSettings_8kgjo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="info" type="Label" parent="CanvasLayer/Canvas/SetupFight/Defection" unique_id=1138888003]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.189
+anchor_top = 0.5
+anchor_right = 0.811
+anchor_bottom = 0.5
+offset_left = -22.600006
+offset_top = -125.0
+offset_right = 23.600006
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Enemy army is TOO weak 
+and thEir surrendering"
+label_settings = SubResource("LabelSettings_8kgjo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReturnPanning" type="Label" parent="CanvasLayer/Canvas" unique_id=1463180940]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press SPACE to return"
+label_settings = SubResource("LabelSettings_gyjbk")
+horizontal_alignment = 1
+
+[node name="PopoutContainer" type="Control" parent="CanvasLayer/Canvas" unique_id=655575447 node_paths=PackedStringArray("camera")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_mlgqr")
+camera = NodePath("../../../SubViewport/PlayerCamera")
+popoutPrefab = ExtResource("7_wslke")
+
+[node name="PauseMenu" type="PanelContainer" parent="CanvasLayer/Canvas" unique_id=1196592553 node_paths=PackedStringArray("camera")]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.0
+offset_top = -192.0
+offset_right = 245.0
+offset_bottom = 208.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("49_ogd7i")
+theme_override_styles/panel = SubResource("StyleBoxFlat_tf62m")
+script = ExtResource("50_tf62m")
+camera = NodePath("../../../SubViewport/PlayerCamera")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Canvas/PauseMenu" unique_id=1723800833]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Canvas/PauseMenu/MarginContainer" unique_id=168418877]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Back" type="Button" parent="CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer" unique_id=2127850596]
+process_mode = 3
+custom_minimum_size = Vector2(350, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "BACK"
+
+[node name="Load" type="Button" parent="CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer" unique_id=2013827118]
+process_mode = 3
+custom_minimum_size = Vector2(375, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "LOAD"
+
+[node name="Save" type="Button" parent="CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer" unique_id=1296689147]
+process_mode = 3
+custom_minimum_size = Vector2(400, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "SAVE"
+
+[node name="Quit" type="Button" parent="CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer" unique_id=1179867440]
+process_mode = 3
+custom_minimum_size = Vector2(425, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 50
+text = "SAVE and QUIT"
+
+[node name="select_file" parent="CanvasLayer/Canvas" unique_id=1218259961 node_paths=PackedStringArray("manager") instance=ExtResource("51_nc68e")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -245.0
+offset_top = -225.0
+offset_right = 245.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+manager = NodePath("../../../SaveSystem")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Canvas" unique_id=1428706499]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("51_r2y85")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1694680490]
+environment = ExtResource("52_tf62m")
+
+[node name="Tutorial" type="Node" parent="." unique_id=1449947853 node_paths=PackedStringArray("PopoutManager") groups=["Savable"]]
+script = ExtResource("53_ogd7i")
+PopoutManager = NodePath("../CanvasLayer/Canvas/PopoutContainer")
+
+[node name="SaveSystem" type="Node" parent="." unique_id=315918169]
+script = ExtResource("49_s2dh3")
+
+[node name="Node3D" parent="." unique_id=1448908437 instance=ExtResource("53_tf62m")]
+
+[node name="VFX" type="Node" parent="." unique_id=1645687977]
+
+[node name="GPUParticles3D" parent="VFX" unique_id=1800348512 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -265.32074, 16.958246, -609.35834)
+
+[node name="GPUParticles3D2" parent="VFX" unique_id=723323951 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -282.1534, 23.995907, -629.07074)
+
+[node name="GPUParticles3D3" parent="VFX" unique_id=2131069545 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -278.01694, 25.472843, -639.30475)
+
+[node name="GPUParticles3D4" parent="VFX" unique_id=52755286 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -305.01306, 21.732702, -612.6133)
+
+[node name="GPUParticles3D5" parent="VFX" unique_id=1162532668 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -323.55695, 23.753916, -619.26794)
+
+[node name="GPUParticles3D6" parent="VFX" unique_id=1268619872 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -331.81625, 31.087975, -663.43744)
+
+[node name="GPUParticles3D7" parent="VFX" unique_id=1959887457 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -335.36072, 33.7308, -692.8953)
+
+[node name="GPUParticles3D8" parent="VFX" unique_id=290973512 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -331.40857, 45.418404, -757.96704)
+
+[node name="FireFlies3" parent="VFX" unique_id=1489733072 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -537.36566, 5.9430237, -597.4433)
+
+[node name="FireFlies4" parent="VFX" unique_id=1027525146 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -523.70776, 6.0586276, -602.83746)
+
+[node name="FireFlies5" parent="VFX" unique_id=1006272717 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -511.2317, 6.0586314, -625.8599)
+
+[node name="FireFlies6" parent="VFX" unique_id=343333647 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -527.83923, 5.8919206, -587.17017)
+
+[node name="FireFlies7" parent="VFX" unique_id=336775353 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -522.4528, 6.087254, -646.7671)
+
+[node name="FireFlies8" parent="VFX" unique_id=2013914256 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -556.84235, 6.507632, -650.39233)
+
+[node name="FireFlies9" parent="VFX" unique_id=90630328 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -601.0901, 8.394318, -677.0987)
+
+[node name="FireFlies10" parent="VFX" unique_id=809443489 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -629.2777, 8.1995325, -659.0123)
+
+[node name="FireFlies11" parent="VFX" unique_id=1587860748 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -649.64166, 10.722524, -617.37756)
+
+[node name="FireFlies12" parent="VFX" unique_id=883053521 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -646.9818, 14.470376, -581.9235)
+
+[node name="FireFlies13" parent="VFX" unique_id=318460304 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -606.11395, 25.20752, -805.4169)
+
+[node name="FireFlies14" parent="VFX" unique_id=637150499 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -847.4255, 25.202316, -626.084)
+
+[node name="FireFlies15" parent="VFX" unique_id=419784466 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -817.46796, 22.70256, -653.73926)
+
+[node name="FireFlies16" parent="VFX" unique_id=7374516 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -756.07556, 13.806207, -674.97565)
+
+[node name="FireFlies17" parent="VFX" unique_id=1346393765 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -877.8421, 22.051573, -735.14984)
+
+[node name="FireFlies18" parent="VFX" unique_id=710512001 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -878.4203, 21.66229, -727.81915)
+
+[node name="FireFlies19" parent="VFX" unique_id=1315014939 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -879.43756, 21.809973, -719.6789)
+
+[node name="FireFlies20" parent="VFX" unique_id=205302011 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -882.7088, 20.801224, -728.70435)
+
+[node name="FireFlies21" parent="VFX" unique_id=861294897 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.97394, 8.592665, -600.1897)
+
+[node name="FireFlies22" parent="VFX" unique_id=231621524 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -129.794, 8.426821, -613.50104)
+
+[node name="FireFlies23" parent="VFX" unique_id=1562169789 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.91129, 9.418181, -579.9958)
+
+[node name="FireFlies24" parent="VFX" unique_id=2132340630 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -92.35394, 9.418181, -584.353)
+
+[node name="FireFlies25" parent="VFX" unique_id=1984742059 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.738945, 8.874543, -626.9058)
+
+[node name="FireFlies26" parent="VFX" unique_id=383189493 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.86801, 12.222174, -665.76044)
+
+[node name="FireFlies27" parent="VFX" unique_id=354356342 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -162.68808, 9.418181, -679.0718)
+
+[node name="FireFlies28" parent="VFX" unique_id=1094525681 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -145.80536, 9.418181, -645.5665)
+
+[node name="FireFlies29" parent="VFX" unique_id=779304524 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -125.24801, 9.418181, -649.92377)
+
+[node name="FireFlies30" parent="VFX" unique_id=153360356 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.63301, 12.605599, -692.47656)
+
+[node name="FireFlies31" parent="VFX" unique_id=540549952 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103.55718, 9.0014305, -554.10876)
+
+[node name="FireFlies32" parent="VFX" unique_id=2056488388 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -119.37725, 8.357169, -567.4201)
+
+[node name="FireFlies33" parent="VFX" unique_id=844230368 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.49453, 7.9888697, -533.91486)
+
+[node name="FireFlies34" parent="VFX" unique_id=1648157030 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -81.93718, 9.418181, -538.2721)
+
+[node name="FireFlies36" parent="VFX" unique_id=1111915358 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(0.996027, -0.089051634, 0, 0.089051634, 0.996027, 0, 0, 0, 1, -91.02403, 6.6517377, -501.10403)
+
+[node name="FireFlies37" parent="VFX" unique_id=160545401 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(0.996027, -0.089051634, 0, 0.089051634, 0.996027, 0, 0, 0, 1, -70.54836, 8.482404, -505.46127)
+
+[node name="FireFlies35" parent="VFX" unique_id=116006538 instance=ExtResource("52_fq3dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.32218, 9.418178, -580.8249)
+
+[node name="KempFire" parent="VFX" unique_id=1357834033 instance=ExtResource("56_r2y85")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.55895, 11.369202, -443.80463)
+
+[node name="KempFire2" parent="VFX" unique_id=832529064 instance=ExtResource("56_r2y85")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -560.61426, 4.952624, -625.71985)
+
+[node name="PulsingLight" type="OmniLight3D" parent="VFX" unique_id=667314247]
+transform = Transform3D(0.8379422, 0, 0.5457591, 0, 1, 0, -0.5457591, 0, 0.8379422, -740.1482, 83.04238, -462.3099)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight2" type="OmniLight3D" parent="VFX" unique_id=1265590898]
+transform = Transform3D(0.8379422, 0, 0.5457591, 0, 1, 0, -0.5457591, 0, 0.8379422, -744.0303, 83.04238, -458.14612)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight3" type="OmniLight3D" parent="VFX" unique_id=1460572249]
+transform = Transform3D(-0.9893891, 0, 0.14528951, 0, 1, 0, -0.14528951, 0, -0.9893891, -724.0151, 83.04238, -429.8092)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight4" type="OmniLight3D" parent="VFX" unique_id=1350654856]
+transform = Transform3D(-0.9893891, 0, 0.14528951, 0, 1, 0, -0.14528951, 0, -0.9893891, -718.34924, 83.04238, -430.3622)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight5" type="OmniLight3D" parent="VFX" unique_id=199626137]
+transform = Transform3D(-0.25498283, 0, 0.96694565, 0, 1, 0, -0.96694565, 0, -0.25498283, -738.75183, 83.04238, -399.6678)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight6" type="OmniLight3D" parent="VFX" unique_id=345506201]
+transform = Transform3D(-0.25498283, 0, 0.96694565, 0, 1, 0, -0.96694565, 0, -0.25498283, -736.01794, 83.04238, -394.6745)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight7" type="OmniLight3D" parent="VFX" unique_id=300512291]
+transform = Transform3D(0.5841798, 0, 0.8116244, 0, 1, 0, -0.8116244, 0, 0.5841798, -773.21356, 83.04238, -399.57718)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight8" type="OmniLight3D" parent="VFX" unique_id=949155553]
+transform = Transform3D(0.5841798, 0, 0.8116244, 0, 1, 0, -0.8116244, 0, 0.5841798, -775.32916, 83.04238, -394.2922)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight9" type="OmniLight3D" parent="VFX" unique_id=361883537]
+transform = Transform3D(-0.99445426, 0, 0.105169974, 0, 1, 0, -0.105169974, 0, -0.99445426, -797.9701, 83.1685, -428.26746)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight10" type="OmniLight3D" parent="VFX" unique_id=1952656644]
+transform = Transform3D(-0.99445426, 0, 0.105169974, 0, 1, 0, -0.105169974, 0, -0.99445426, -792.3313, 83.1685, -429.04907)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight11" type="OmniLight3D" parent="VFX" unique_id=1700696891]
+transform = Transform3D(0.067221165, 0, 0.99773806, 0, 1, 0, -0.99773806, 0, 0.067221165, -779.03784, 83.1685, -462.6724)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="PulsingLight12" type="OmniLight3D" parent="VFX" unique_id=1329099550]
+transform = Transform3D(0.067221165, 0, 0.99773806, 0, 1, 0, -0.99773806, 0, 0.067221165, -778.042, 83.1685, -457.06747)
+light_color = Color(1, 1, 0, 1)
+light_energy = 10.0
+omni_range = 9.720844
+script = ExtResource("61_kycfx")
+RangeVariation = 0.2
+EnergyVariation = 0.3
+metadata/_custom_type_script = "uid://bpulslght6n3w"
+
+[node name="Fights" type="Node3D" parent="." unique_id=2039341038]
+
+[node name="WizardFightPOI3" parent="Fights" unique_id=1766287576 instance=ExtResource("20_o4st3")]
+transform = Transform3D(-0.6099473, 0, 0.79244196, 0, 1, 0, -0.79244196, 0, -0.6099473, -680.2528, 43.240017, -478.70523)
+AlwaysRecruit = true
+ComputerUnits = Array[Object]([SubResource("Stack_wiz3_a")])
+SaveId = "fight_wizard_3"
+
+[node name="OrcFightPOI_3(2)" parent="Fights" unique_id=930582041 instance=ExtResource("65_f4upa")]
+transform = Transform3D(-0.12937899, 0, -0.9915953, 0.027591955, 0.9996128, -0.0036000768, 0.9912114, -0.027825829, -0.12932889, -274.9477, 3.642126, -359.26062)
+ComputerStrategy = 1
+ComputerUnits = Array[Object]([SubResource("Stack_orc3a_a"), SubResource("Stack_orc3a_b"), SubResource("Stack_orc3a_c"), SubResource("Stack_orc3a_d"), SubResource("Stack_orc3a_e")])
+SaveId = "fight_orc_3a"
+
+[node name="CollisionShape3D" parent="Fights/OrcFightPOI_3(2)" index="0" unique_id=377279175]
+transform = Transform3D(1.0000001, -3.7252903e-09, 1.4901161e-08, 0, 2.0000002, 0, 0, 4.656613e-10, 1, 2.9164734, 2.495144, -0.6851196)
+
+[node name="Position" parent="Fights/OrcFightPOI_3(2)" index="1" unique_id=731218837]
+transform = Transform3D(1.0000005, -5.5879354e-09, 5.9604645e-08, -1.8626451e-09, 1.0000005, 2.3283064e-10, 0, 6.9849193e-10, 1, 5.422119, 0.74653435, 5.9229126)
+
+[node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_3(2)" index="2" unique_id=1294747214]
+transform = Transform3D(-0.70359474, 0.049576707, 0.7088703, 0.044469535, 0.9986805, -0.025706735, -0.7092091, 0.013435992, -0.70487064, 9.678162, -0.29071426, -13.384735)
+
+[node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_3(2)" index="4" unique_id=462772970]
+transform = Transform3D(0.8305834, 0.0066818446, 0.5568545, 0.0026707333, 0.999869, -0.01598126, -0.5568882, 0.0147609785, 0.8304564, 11.753204, 0.41980362, -3.846466)
+
+[node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_3(2)" index="5" unique_id=932492625]
+transform = Transform3D(1.0000002, -3.7252903e-09, 2.9802322e-08, 0, 1.0000002, 0, 0, 4.656613e-10, 1, -0.86779785, -9.172037, -9.560181)
+
+[node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_3(2)" index="6" unique_id=80057487]
+transform = Transform3D(0.8403512, 0.0024545994, -0.5420371, 0.006358752, 0.99987656, 0.014386253, 0.5420053, -0.015536187, 0.8402314, -4.1016846, 0.13685131, -5.3370667)
+
+[node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_3(2)" index="7" unique_id=1267255889]
+transform = Transform3D(1.0000001, -1.8626451e-09, 1.4901161e-08, 0, 1.0000001, 0, 0, 2.3283064e-10, 1, 2.9048767, -6.257456, 0.022521973)
+
+[node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_3(2)" index="8" unique_id=1526642559]
+transform = Transform3D(0.8603704, 0.0056896023, 0.509638, 0.0020186044, 0.99989206, -0.014570602, -0.5096658, 0.013564871, 0.8602657, 3.2886658, 0.07426071, 0.3451233)
+
+[node name="Highlight" parent="Fights/OrcFightPOI_3(2)" index="10" unique_id=80949497]
+transform = Transform3D(0.9999999, 9.313226e-09, 0, -3.7252903e-09, 1.0000001, -9.313226e-10, 0, 4.656613e-10, 0.99999994, 0.9154358, 1.9590282, -4.3602905)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/OrcFightPOI_3(2)" unique_id=74662947]
+transform = Transform3D(0.99999994, 1.1175871e-08, 1.4901161e-08, -5.5879354e-09, 1.0000001, -1.1641532e-09, 0, 4.656613e-10, 0.99999994, 9.823029, 1.686718, -11.700867)
+light_color = Color(0.43529412, 0.7137255, 0.12156863, 1)
+light_energy = 1.505
+distance_fade_enabled = true
+omni_range = 7.224954
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Fights/OrcFightPOI_3(2)" unique_id=1742662527]
+transform = Transform3D(0.9999999, 1.3038516e-08, 1.4901161e-08, -7.450581e-09, 1.0000001, -1.1641532e-09, 0, 4.656613e-10, 0.99999994, 10.819519, 1.686718, -4.0635986)
+light_color = Color(0.43529412, 0.7137255, 0.12156863, 1)
+light_energy = 1.505
+distance_fade_enabled = true
+omni_range = 7.224954
+
+[node name="OrcFightPOI_3" parent="Fights" unique_id=1468284967 instance=ExtResource("65_f4upa")]
+transform = Transform3D(-0.9260946, -0.09986585, -0.36383453, -0.09294989, 0.9950009, -0.036517195, 0.36566252, 0, -0.9307475, -509.3109, 4.264942, -547.06573)
+ComputerStrategy = 1
+ComputerUnits = Array[Object]([SubResource("Stack_orc3b_a"), SubResource("Stack_orc3b_b"), SubResource("Stack_orc3b_c"), SubResource("Stack_orc3b_d"), SubResource("Stack_orc3b_e")])
+SaveId = "fight_orc_3b"
+
+[node name="Position" parent="Fights/OrcFightPOI_3" index="1" unique_id=731218837]
+transform = Transform3D(1.0000006, -7.7222335e-09, 0, 1.626336e-08, 1.0000006, -3.4673067e-09, -8.940697e-08, 6.9145867e-10, 1.0000006, 4.452667, 0.6152153, 5.4293213)
+
+[node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_3" index="2" unique_id=1294747214]
+transform = Transform3D(1.0000006, -7.7222335e-09, 0, 1.626336e-08, 1.0000006, -3.4673067e-09, -8.940697e-08, 6.9145867e-10, 1.0000006, 8.81778, 1.2017326, -0.9680786)
+
+[node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_3" index="4" unique_id=462772970]
+transform = Transform3D(1.0000002, 7.450581e-09, 0, 8.81278e-09, 1.0000002, 2.5798474e-10, -2.9802322e-08, 3.7252903e-09, 1.0000002, -4.12381, -0.29123306, 0.24829102)
+
+[node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_3" index="5" unique_id=932492625]
+transform = Transform3D(1.0000001, 0, 0, 1.3621991e-09, 1.0000001, 2.579852e-10, -2.9802322e-08, 0, 1.0000001, 1.3208923, -14.1396675, -4.3638306)
+
+[node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_3" index="6" unique_id=80057487]
+transform = Transform3D(1.0000001, 0, 0, 1.3621991e-09, 1.0000001, 2.579852e-10, -2.9802322e-08, 0, 1.0000001, -1.8223877, -16.985958, 0.62335205)
+
+[node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_3" index="7" unique_id=1267255889]
+transform = Transform3D(0.9886877, -0.14963135, -0.010410547, 0.14997865, 0.9852483, 0.08242394, -0.0020765066, -0.08305283, 0.9965439, 3.1116028, 0.583477, -3.788147)
+
+[node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_3" index="8" unique_id=1526642559]
+transform = Transform3D(1.0000001, 0, 0, 1.3621991e-09, 1.0000001, 2.579852e-10, -2.9802322e-08, 0, 1.0000001, 9.895233, -42.403275, 1.5561523)
+
+[node name="OmniLight3D" parent="Fights/OrcFightPOI_3" index="9" unique_id=1171793999]
+transform = Transform3D(1.0000001, -5.017352e-10, 5.9604645e-08, 1.3621992e-09, 1.0000001, 2.579852e-10, -5.9604645e-08, 1.2771033e-09, 1.0000001, -2.3104553, 1.8126259, 0.7755127)
+
+[node name="Highlight" parent="Fights/OrcFightPOI_3" index="10" unique_id=80949497]
+transform = Transform3D(1.0000001, -5.017352e-10, 5.9604645e-08, 1.3621992e-09, 1.0000001, 2.579852e-10, -5.9604645e-08, 1.2771033e-09, 1.0000001, 2.0302124, 1.8142815, 0.7976074)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/OrcFightPOI_3" unique_id=1563121493]
+transform = Transform3D(1.0000001, -5.017352e-10, 5.9604645e-08, 1.3621992e-09, 1.0000001, 2.579852e-10, -5.9604645e-08, 1.2771033e-09, 1.0000001, 7.7518005, 2.7192574, -0.13330078)
+light_color = Color(0.43529412, 0.7137255, 0.12156863, 1)
+light_energy = 1.505
+distance_fade_enabled = true
+omni_range = 7.224954
+
+[node name="GhostFightPOI_4" parent="Fights" unique_id=177381057 instance=ExtResource("63_14ag1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -514.1456, 37.541878, -836.0322)
+CanRecruit = true
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_ghost4_a"), SubResource("Stack_ghost4_b"), SubResource("Stack_ghost4_c")])
+SaveId = "fight_ghost_4"
+
+[node name="CollisionShape3D" parent="Fights/GhostFightPOI_4" index="0" unique_id=377279175]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0.11248779, 0.4156456, 0.54626465)
+
+[node name="lesny_duch2" parent="Fights/GhostFightPOI_4" index="2" unique_id=669519904]
+transform = Transform3D(-0.08768001, 0, -0.28690106, 0, 0.29999998, 0, 0.28690106, 0, -0.08768001, 0.14190674, -0.067108154, -0.07891846)
+
+[node name="lesny_duch6" parent="Fights/GhostFightPOI_4" index="3" unique_id=1966808096]
+transform = Transform3D(-0.11762819, 0, 0.27597755, 0, 0.29999998, 0, -0.27597755, 0, -0.11762819, -5.4450073, -0.9496994, 6.376953)
+
+[node name="lesny_duch3" parent="Fights/GhostFightPOI_4" index="4" unique_id=1381636873]
+transform = Transform3D(0.29418352, 0, -0.058788218, 0, 0.29999998, 0, 0.058788218, 0, 0.29418352, 0.510437, -1.1953278, 1.2780762)
+
+[node name="lesny_duch4" parent="Fights/GhostFightPOI_4" index="5" unique_id=1875774799]
+transform = Transform3D(-0.2849051, 0, -0.09396313, 0, 0.29999998, 0, 0.09396313, 0, -0.2849051, -1.953125, 1.0524979, -6.7875366)
+
+[node name="lesny_duch5" parent="Fights/GhostFightPOI_4" index="6" unique_id=95008749]
+transform = Transform3D(0.2185512, 0, -0.20551243, 0, 0.29999998, 0, 0.20551243, 0, 0.2185512, 7.6309204, -1.0503006, 0.22601318)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/GhostFightPOI_4" unique_id=137000280]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0004883, 0.23586273, 6.3115845)
+light_energy = 1.8
+distance_fade_enabled = true
+omni_range = 2.4534316
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Fights/GhostFightPOI_4" unique_id=142038232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.1390076, -0.6365738, 0.31072998)
+light_energy = 1.8
+distance_fade_enabled = true
+omni_range = 2.4534316
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Fights/GhostFightPOI_4" unique_id=744102046]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6607056, 0.44776154, -6.982544)
+light_energy = 1.8
+distance_fade_enabled = true
+omni_range = 2.4534316
+
+[node name="GhostFightPOI_3" parent="Fights" unique_id=448983409 instance=ExtResource("63_14ag1")]
+transform = Transform3D(0.7571021, 0, 0.65329665, 0, 1, 0, -0.65329665, 0, 0.7571021, -441.637, 39.029602, -881.2743)
+CanRecruit = true
+ComputerStrategy = 1
+ComputerUnits = Array[Object]([SubResource("Stack_ghost3a_a"), SubResource("Stack_ghost3a_b"), SubResource("Stack_ghost3a_c")])
+SaveId = "fight_ghost_3a"
+
+[node name="lesny_duch2" parent="Fights/GhostFightPOI_3" index="2" unique_id=669519904]
+transform = Transform3D(0.29999995, 0, -5.9604645e-08, 0, 0.3, 0, 5.9604645e-08, 0, 0.29999995, -3.8840942, -5.643326, 0.3595581)
+
+[node name="lesny_duch6" parent="Fights/GhostFightPOI_3" index="3" unique_id=1966808096]
+transform = Transform3D(0.3, 0, -2.9802322e-08, 0, 0.3, 0, 2.9802322e-08, 0, 0.3, 0.2642212, -0.067108154, 1.8652344)
+
+[node name="lesny_duch3" parent="Fights/GhostFightPOI_3" index="4" unique_id=1381636873]
+transform = Transform3D(0.3, 0, -2.9802322e-08, 0, 0.3, 0, 2.9802322e-08, 0, 0.3, 0.5104675, -5.5743446, 1.2779541)
+
+[node name="WizardFightPOI" parent="Fights" unique_id=1846563086 instance=ExtResource("20_o4st3")]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -135.55576, 17.843723, -748.4114)
+AlwaysRecruit = true
+ComputerUnits = Array[Object]([SubResource("Stack_wiz1_a")])
+SaveId = "fight_wizard_1"
+
+[node name="WolfFightPOI_1" parent="Fights" unique_id=3425108 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("18_sp2wr")]
+transform = Transform3D(-0.93509644, 0, 0.35439333, 0, 1, 0, -0.35439333, 0, -0.93509644, -96.35902, 6.865777, -532.7197)
+CanRecruit = true
+ComputerUnits = Array[Object]([SubResource("Stack_wolf1_a"), SubResource("Stack_wolf1_b"), SubResource("Stack_wolf1_c")])
+FloatingTextScene = ExtResource("4_fq663")
+Camera = NodePath("../../SubViewport/PlayerCamera")
+Container = NodePath("../../CanvasLayer/Canvas/FloatingText")
+SaveId = "fight_wolf_1"
+
+[node name="CollisionShape3D" parent="Fights/WolfFightPOI_1" index="0" unique_id=377279175]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -4.4842224, 1.2947521, 0.61590576)
+
+[node name="WolfAnimationManager" parent="Fights/WolfFightPOI_1" index="2" unique_id=255804674]
+transform = Transform3D(0.35814622, 0, 0.32704175, 0, 0.485, 0, -0.32704175, 0, 0.35814622, -6.7651367, 0.034267426, 2.2187195)
+
+[node name="WolfAnimationManager2" parent="Fights/WolfFightPOI_1" index="3" unique_id=800470486]
+transform = Transform3D(0.42272568, 0, 0.23775606, 0, 0.485, 0, -0.23775606, 0, 0.42272568, -3.946106, 0.034267426, 0.40298462)
+
+[node name="WolfAnimationManager3" parent="Fights/WolfFightPOI_1" index="4" unique_id=42042200]
+transform = Transform3D(0.46442923, 0, -0.13975155, 0, 0.485, 0, 0.13975155, 0, 0.46442923, 8.794525, 0.034267426, -3.0369873)
+
+[node name="WolfAnimationManager5" parent="Fights/WolfFightPOI_1" index="6" unique_id=1436838103]
+transform = Transform3D(0.015963867, 0, 0.4847372, 0, 0.48500007, 0, -0.4847372, 0, 0.015963867, -12.505951, 0.034267426, 3.4583435)
+
+[node name="OmniLight3D" parent="Fights/WolfFightPOI_1" index="7" unique_id=1736713150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6289063, 1, 0.9963379)
+
+[node name="Highlight" parent="Fights/WolfFightPOI_1" index="8" unique_id=1744055232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.422638, 2.0970955, 1.2971497)
+light_energy = 3.246
+omni_range = 11.857084
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/WolfFightPOI_1" unique_id=1908677474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.168213, 1, -3.4746704)
+light_color = Color(0.74978, 0.74978, 0.74977994, 1)
+light_energy = 1.281
+distance_fade_enabled = true
+omni_range = 6.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Fights/WolfFightPOI_1" unique_id=1394934183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.197327, 1, 4.6226807)
+light_color = Color(0.74978, 0.74978, 0.74977994, 1)
+light_energy = 1.281
+distance_fade_enabled = true
+omni_range = 6.0
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Fights/WolfFightPOI_1" unique_id=1389301813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.88855, 1, 2.6106873)
+light_color = Color(0.74978, 0.74978, 0.74977994, 1)
+light_energy = 1.281
+distance_fade_enabled = true
+omni_range = 6.0
+
+[node name="OrcFightPOI_2" parent="Fights" unique_id=862020828 instance=ExtResource("65_f4upa")]
+transform = Transform3D(0.9961949, 0, 0.087153405, 0, 1, 0, -0.087153405, 0, 0.9961949, -133.48764, 11.041119, -672.6398)
+ComputerUnits = Array[Object]([SubResource("Stack_orc2_a"), SubResource("Stack_orc2_b"), SubResource("Stack_orc2_c"), SubResource("Stack_orc2_d")])
+SaveId = "fight_orc_2"
+
+[node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_2" index="2" unique_id=1294747214]
+transform = Transform3D(0.89544183, 0, 0.44517845, 0, 1, 0, -0.44517845, 0, 0.89544183, 9.6377945, 0, -1.0134888)
+
+[node name="OrcPilgrimAnimationManager2" parent="Fights/OrcFightPOI_2" index="3" unique_id=195025782]
+transform = Transform3D(-0.8478078, 0, -0.53030384, 0, 1, 0, 0.53030384, 0, -0.8478078, -0.20536804, 0, 2.347412)
+
+[node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_2" index="4" unique_id=462772970]
+transform = Transform3D(0.9329026, 0, -0.36012846, 0, 1, 0, 0.36012846, 0, 0.9329026, -2.254593, 0, -2.5100098)
+
+[node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_2" index="5" unique_id=932492625]
+transform = Transform3D(0.36712092, 0, 0.9301732, 0, 1, 0, -0.9301732, 0, 0.36712092, -8.438835, 0, -0.269104)
+
+[node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_2" index="6" unique_id=80057487]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4091644, -7.0912085, 6.1035156e-05)
+
+[node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_2" index="7" unique_id=1267255889]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0775757, -8.662414, 0)
+
+[node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_2" index="8" unique_id=1526642559]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.934021, -7.083748, 0)
+
+[node name="SpiderFightPOI_3" parent="Fights" unique_id=1508952852 instance=ExtResource("66_fvbyp")]
+transform = Transform3D(-0.96268517, 0, -0.27062392, 0, 1, 0, 0.27062392, 0, -0.96268517, -320.4894, 35.57411, -715.7498)
+CanRecruit = true
+ComputerStrategy = 1
+ComputerUnits = Array[Object]([SubResource("Stack_spider3_a"), SubResource("Stack_spider3_b"), SubResource("Stack_spider3_c")])
+SaveId = "fight_spider_3"
+
+[node name="SmallSpiderAnimationManger2" parent="Fights/SpiderFightPOI_3" index="1" unique_id=572566947]
+transform = Transform3D(0.35512868, 0, -0.17983621, 0, 0.3980672, 0, 0.17983621, 0, 0.35512868, -3.668869, -0.006477356, -0.46466064)
+
+[node name="SmallSpiderAnimationManger3" parent="Fights/SpiderFightPOI_3" index="2" unique_id=74725257]
+transform = Transform3D(0.3180853, 0, 0.23933071, 0, 0.3980672, 0, -0.23933071, 0, 0.3180853, 2.2950745, -0.006477356, -0.8551636)
+
+[node name="BossSpiderPOI_4" parent="Fights" unique_id=2119744132 instance=ExtResource("63_sp2wr")]
+transform = Transform3D(0.92402565, 0, -0.38233045, 0, 1, 0, 0.38233045, 0, 0.92402565, -408.7055, 33.290417, -813.428)
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_bspider4_a"), SubResource("Stack_bspider4_b"), SubResource("Stack_bspider4_c"), SubResource("Stack_bspider4_d")])
+SaveId = "fight_boss_spider_4"
+
+[node name="Position" parent="Fights/BossSpiderPOI_4" index="1" unique_id=731218837]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.752136, 3.1940193, -3.2871704)
+
+[node name="SpiderAnimationManger" parent="Fights/BossSpiderPOI_4" index="2" unique_id=619856624]
+transform = Transform3D(0.98276037, -0.18474601, 0.0071331263, 0.18474601, 0.9798089, -0.07644162, 0.007133156, 0.07644162, 0.9970485, 2.767395, 0.08828354, -0.4607544)
+
+[node name="SpiderAnimationManger2" parent="Fights/BossSpiderPOI_4" index="3" unique_id=1774161378]
+transform = Transform3D(0.9905737, -0.13692522, 0.0039002597, 0.13692522, 0.9889599, -0.056655005, 0.0039002895, 0.056655012, 0.9983862, -4.48761, -0.92469406, 0.2536621)
+
+[node name="OmniLight3D" parent="Fights/BossSpiderPOI_4" index="4" unique_id=1933135150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1161499, 2.1745987, -1.1367798)
+
+[node name="Highlight" parent="Fights/BossSpiderPOI_4" index="5" unique_id=672204217]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3388062, 2.1745987, -0.6329956)
+
+[node name="SmallSpiderAnimationManger" parent="Fights/BossSpiderPOI_4" index="6" unique_id=1692235136]
+transform = Transform3D(0.42148596, -0.05452038, 0.0014539957, 0.054520383, 0.4208844, -0.022558685, 0.0014540106, 0.022558685, 0.42439842, 1.5457153, -0.90621567, 5.6259766)
+
+[node name="SmallSpiderAnimationManger2" parent="Fights/BossSpiderPOI_4" index="7" unique_id=92840394]
+transform = Transform3D(0.34271863, 0, 0.2513344, 0, 0.42500007, 0, -0.2513344, 0, 0.34271863, -11.451355, -3.2783127, 11.330688)
+
+[node name="SmallSpiderAnimationManger3" parent="Fights/BossSpiderPOI_4" index="8" unique_id=1961373487]
+transform = Transform3D(0.4138977, -0.09639818, 0.00459376, 0.09639819, 0.41199702, -0.0398863, 0.0045937747, 0.039886296, 0.42309928, 16.505188, 2.0612144, 2.3840942)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/BossSpiderPOI_4" unique_id=1832631102]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.877869, 2.1745987, 2.3798218)
+light_color = Color(1, 0.6947834, 0.9959021, 1)
+distance_fade_enabled = true
+omni_range = 4.643657
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Fights/BossSpiderPOI_4" unique_id=201811993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5176392, 0.034568787, 5.494934)
+light_color = Color(1, 0.6947834, 0.9959021, 1)
+distance_fade_enabled = true
+omni_range = 4.643657
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Fights/BossSpiderPOI_4" unique_id=736867260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.657654, -1.8430786, 11.265015)
+light_color = Color(1, 0.6947834, 0.9959021, 1)
+distance_fade_enabled = true
+omni_range = 4.643657
+
+[node name="GhostFightPOI_3(2)" parent="Fights" unique_id=2139663452 instance=ExtResource("63_14ag1")]
+transform = Transform3D(-0.9752828, 0, 0.22096027, 0, 1, 0, -0.22096027, 0, -0.9752828, -618.62775, 29.144657, -834.78015)
+CanRecruit = true
+ComputerStrategy = 1
+ComputerUnits = Array[Object]([SubResource("Stack_ghost3b_a"), SubResource("Stack_ghost3b_b"), SubResource("Stack_ghost3b_c")])
+SaveId = "fight_ghost_3b"
+
+[node name="lesny_duch2" parent="Fights/GhostFightPOI_3(2)" index="2" unique_id=669519904]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.14190674, -6.391226, -0.07891846)
+
+[node name="lesny_duch6" parent="Fights/GhostFightPOI_3(2)" index="3" unique_id=1966808096]
+transform = Transform3D(0.28933477, 0, 0.07928038, 0, 0.29999998, 0, -0.07928038, 0, 0.28933477, -2.8170166, -0.06711006, 1.3026123)
+
+[node name="lesny_duch4" parent="Fights/GhostFightPOI_3(2)" index="5" unique_id=1875774799]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -1.9530029, -9.015427, -0.07891846)
+
+[node name="lesny_duch5" parent="Fights/GhostFightPOI_3(2)" index="6" unique_id=95008749]
+transform = Transform3D(0.29832152, 0, -0.03169065, 0, 0.29999998, 0, 0.03169065, 0, 0.29832152, 4.3930664, -0.06711006, -0.5975342)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/GhostFightPOI_3(2)" unique_id=352256103]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 4.0076904, 1.1620579, -0.907959)
+light_energy = 1.8
+distance_fade_enabled = true
+omni_range = 2.4534316
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Fights/GhostFightPOI_3(2)" unique_id=1414787887]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, -2.8275146, 1.1620579, 0.640625)
+light_energy = 1.8
+distance_fade_enabled = true
+omni_range = 2.4534316
+
+[node name="OrcFightPOI_4" parent="Fights" unique_id=1366589732 instance=ExtResource("65_f4upa")]
+transform = Transform3D(0.95815355, 0.28625488, 0, -0.28625488, 0.95815355, 0, 0, 0, 1, -461.03848, 8.450515, -427.72278)
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_orc4a_a"), SubResource("Stack_orc4a_b"), SubResource("Stack_orc4a_c"), SubResource("Stack_orc4a_d"), SubResource("Stack_orc4a_e")])
+SaveId = "fight_orc_4a"
+
+[node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_4" index="2" unique_id=1294747214]
+transform = Transform3D(-0.95556176, -0.2691177, -0.12032137, -0.27130684, 0.962491, 0.0018866509, 0.115300536, 0.03444682, -0.9927332, -1.4920044, -0.6825104, -6.839752)
+
+[node name="OrcPilgrimAnimationManager2" parent="Fights/OrcFightPOI_4" index="3" unique_id=195025782]
+transform = Transform3D(0.5011008, -0.2064701, 0.840397, 0.06286753, 0.97724, 0.2026042, -0.86310214, -0.048691526, 0.5026763, 0.878479, 1.7646408, 13.188965)
+
+[node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_4" index="4" unique_id=462772970]
+transform = Transform3D(0.9924448, -0.122689575, 0, 0.122689575, 0.9924448, 0, 0, 0, 1, -4.6574097, 1.2208862, 7.2148438)
+
+[node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_4" index="5" unique_id=932492625]
+transform = Transform3D(-0.9250111, 0.09661177, 0.3674512, 0.047437564, 0.98893, -0.14059544, -0.3769667, -0.11262137, -0.91935426, 1.7791748, -0.5346222, -4.603668)
+
+[node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_4" index="6" unique_id=80057487]
+transform = Transform3D(-0.039681405, -0.3055444, 0.95135033, -0.12267872, 0.94638675, 0.29883334, -0.99165267, -0.10485238, -0.07503781, -6.626587, 0.76418304, 1.6670227)
+
+[node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_4" index="7" unique_id=1267255889]
+transform = Transform3D(0.33732867, -0.27175415, 0.9013094, 0.021423146, 0.9593951, 0.28124973, -0.94114286, -0.07556472, 0.3294535, 2.7971802, 0.93891907, 4.4775085)
+
+[node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_4" index="8" unique_id=1526642559]
+transform = Transform3D(0.2935772, -0.21012247, 0.932556, -0.13401434, 0.95686233, 0.257788, -0.9464951, -0.20065656, 0.25275356, 5.8768616, 0.19141388, 0)
+
+[node name="OmniLight3D" parent="Fights/OrcFightPOI_4" index="9" unique_id=1171793999]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.15963745, 1.465683, -4.1479187)
+light_energy = 1.842
+
+[node name="Highlight" parent="Fights/OrcFightPOI_4" index="10" unique_id=80949497]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, 1.9999924, 3.581543)
+light_energy = 2.571
+omni_range = 11.23051
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Fights/OrcFightPOI_4" unique_id=1774650290]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -5.135498, 1.8092728, 10.12381)
+light_color = Color(0.43529412, 0.7137255, 0.12156863, 1)
+light_energy = 1.842
+distance_fade_enabled = true
+omni_range = 7.224954
+
+[node name="OrcFightPOI_4(2)" parent="Fights" unique_id=257481745 instance=ExtResource("65_f4upa")]
+transform = Transform3D(-0.15414125, 0, 0.98804885, 0, 1, 0, -0.98804885, 0, -0.15414125, -382.50702, 2.5379777, -458.00894)
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_orc4b_a"), SubResource("Stack_orc4b_b"), SubResource("Stack_orc4b_c"), SubResource("Stack_orc4b_d"), SubResource("Stack_orc4b_e")])
+SaveId = "fight_orc_4b"
+
+[node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_4(2)" index="2" unique_id=1294747214]
+transform = Transform3D(-0.30535385, 0, -0.9522391, 0, 1, 0, 0.9522391, 0, -0.30535385, -2.1098633, 0.77644444, -10.067139)
+
+[node name="OrcPilgrimAnimationManager2" parent="Fights/OrcFightPOI_4(2)" index="3" unique_id=195025782]
+transform = Transform3D(0.97171617, 0, -0.23615228, 0, 1, 0, 0.23615228, 0, 0.97171617, -6.5563354, 0.43929482, -1.0228271)
+
+[node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_4(2)" index="4" unique_id=462772970]
+transform = Transform3D(-0.97986025, 0, -0.19968493, 0, 1, 0, 0.19968493, 0, -0.97986025, -15.133636, 1.127964, -15.777649)
+
+[node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_4(2)" index="5" unique_id=932492625]
+transform = Transform3D(0.15798122, 0, 0.9874422, 0, 1, 0, -0.9874422, 0, 0.15798122, 13.88797, -0.5970669, -7.127472)
+
+[node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_4(2)" index="6" unique_id=80057487]
+transform = Transform3D(-0.4468612, 0, 0.8946034, 0, 1, 0, -0.8946034, 0, -0.4468612, -7.17157, 0, -7.9331665)
+
+[node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_4(2)" index="7" unique_id=1267255889]
+transform = Transform3D(0.8811155, 0, -0.472902, 0, 1, 0, 0.472902, 0, 0.8811155, -5.4587708, 0, 7.7490845)
+
+[node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_4(2)" index="8" unique_id=1526642559]
+transform = Transform3D(0.62396103, 0, 0.7814556, 0, 1, 0, -0.7814556, 0, 0.62396103, 10.281708, 0, 8.715698)
+
+[node name="OmniLight3D" parent="Fights/OrcFightPOI_4(2)" index="9" unique_id=1171793999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3691826, 0)
+light_energy = 0.654
+omni_range = 15.141381
+
+[node name="Highlight" parent="Fights/OrcFightPOI_4(2)" index="10" unique_id=80949497]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.0286655, 0)
+light_energy = 4.873
+omni_range = 16.616156
+
+[node name="BossWolfFightPOI_4" parent="Fights" unique_id=1451447242 instance=ExtResource("69_7ilj0")]
+transform = Transform3D(-0.24333127, 0, -0.9699432, 0, 1, 0, 0.9699432, 0, -0.24333127, -608.56177, 8.035038, -679.1773)
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_bwolf4_a"), SubResource("Stack_bwolf4_b"), SubResource("Stack_bwolf4_c"), SubResource("Stack_bwolf4_d"), SubResource("Stack_bwolf4_e")])
+SaveId = "fight_boss_wolf_4"
+
+[node name="WizardFightPOI2" parent="Fights" unique_id=1962140403 instance=ExtResource("20_o4st3")]
+transform = Transform3D(0.15813339, 0, 0.98741776, 0, 1, 0, -0.98741776, 0, 0.15813339, -637.99536, 7.9130325, -630.81537)
+AlwaysRecruit = true
+ComputerUnits = Array[Object]([SubResource("Stack_wiz2_a")])
+SaveId = "fight_wizard_2"
+
+[node name="SpiderFightPoi_4" parent="Fights" unique_id=593585271 instance=ExtResource("70_b7dnk")]
+transform = Transform3D(0.39750057, 0.14542508, -0.90600485, 0.06817518, 0.97995204, 0.18720566, 0.9150657, -0.13618141, 0.37961715, -643.91284, 17.321724, -553.7953)
+CanRecruit = true
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_swolf4_a"), SubResource("Stack_swolf4_b"), SubResource("Stack_swolf4_c"), SubResource("Stack_swolf4_d")])
+SaveId = "fight_spider_wolf_4"
+
+[node name="MelkorFightPOI_FINAL" parent="Fights" unique_id=942230349 instance=ExtResource("71_13p8c")]
+transform = Transform3D(-0.022126824, 0, 0.99975526, -0.10178269, 0.9948041, -0.002252679, -0.9945606, -0.10180763, -0.022011856, -784.541, 57.69672, -491.69095)
+ComputerStrategy = 2
+ComputerUnits = Array[Object]([SubResource("Stack_melkor_a"), SubResource("Stack_melkor_b"), SubResource("Stack_melkor_c"), SubResource("Stack_melkor_d")])
+SaveId = "fight_melkor_final"
+
+[node name="Position" parent="Fights/MelkorFightPOI_FINAL" index="1" unique_id=731218837]
+transform = Transform3D(0.9476897, -0.0060747415, -0.31913462, -0.004629299, 0.9994518, -0.032771733, 0.3191588, 0.032534823, 0.9471426, -0.1666565, 0.6046753, 4.7281494)
+
+[node name="lesny_duch2" parent="Fights/MelkorFightPOI_FINAL" index="5" unique_id=669519904]
+transform = Transform3D(-0.18229076, -0.012056261, 0.2316241, 0.011007147, 0.29381958, 0.023956347, -0.23167634, 0.0234459, -0.18111144, -2.088501, -0.0090789795, -0.0021362305)
+
+[node name="lesny_duch3" parent="Fights/MelkorFightPOI_FINAL" index="6" unique_id=673742092]
+transform = Transform3D(-0.22090228, -0.03451535, -0.19244698, -0.028066982, 0.2929575, -0.02032493, 0.1934926, 0.0030901027, -0.22265674, 2.5762024, 0.06272888, 0.013366699)
+
+[node name="horse_resource_poi" parent="." unique_id=1596719709 groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.9867752, 0, -0.16209468, 0, 1, 0, 0.16209468, 0, -0.9867752, -686.842, 43.795025, -499.21982)
+SaveId = "horse19"
+
+[node name="Finish" type="Area3D" parent="." unique_id=2063654543 node_paths=PackedStringArray("_Character")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.7, -873.48254, 23.692741, -724.8658)
+script = ExtResource("84_ixmst")
+_Character = NodePath("../AdventureCharacter")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Finish" unique_id=1257840113]
+transform = Transform3D(10.8, 0, 0, 0, 11.1, 0, 0, 0, 22.72, 0, 0, 0)
+shape = SubResource("BoxShape3D_iopsf")
+
+[editable path="Fights/OrcFightPOI_3(2)"]
+[editable path="Fights/OrcFightPOI_3"]
+[editable path="Fights/GhostFightPOI_4"]
+[editable path="Fights/GhostFightPOI_3"]
+[editable path="Fights/WolfFightPOI_1"]
+[editable path="Fights/OrcFightPOI_2"]
+[editable path="Fights/SpiderFightPOI_3"]
+[editable path="Fights/BossSpiderPOI_4"]
+[editable path="Fights/GhostFightPOI_3(2)"]
+[editable path="Fights/OrcFightPOI_4"]
+[editable path="Fights/OrcFightPOI_4(2)"]
+[editable path="Fights/BossWolfFightPOI_4"]
+[editable path="Fights/MelkorFightPOI_FINAL"]

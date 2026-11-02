@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://bub7ijuy0frg"]
+
+[ext_resource type="Script" uid="uid://b5jive522rs6g" path="res://src/arena/FightPOI.cs" id="1_bmt08"]
+[ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="2_0opsr"]
+[ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="3_bu4r2"]
+[ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="4_ypfka"]
+[ext_resource type="PackedScene" uid="uid://cc4ldgbd8asqe" path="res://scenes/units/melkor_animation_manager.tscn" id="5_0opsr"]
+[ext_resource type="PackedScene" uid="uid://dvav0kcnbsnec" path="res://assets/unit_models/lesny_duch2.glb" id="6_bu4r2"]
+
+[sub_resource type="Resource" id="Resource_la2vj"]
+script = ExtResource("3_bu4r2")
+Unit = ExtResource("2_0opsr")
+Quantity = 1
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Resource_5cjpp"]
+script = ExtResource("3_bu4r2")
+Unit = ExtResource("4_ypfka")
+Quantity = 1
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nakos"]
+load_path = "res://.godot/imported/poiIcon.png-9edbc01f6404877c3769f54a59ec8b42.s3tc.ctex"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
+size = Vector3(5.0972366, 2.6602783, 2.4595337)
+
+[node name="MelkorFightPOI" type="Area3D" unique_id=930582041 groups=["Savable"]]
+collision_layer = 9
+script = ExtResource("1_bmt08")
+detectionDistance = 5.0
+ComputerUnits = Array[Object]([SubResource("Resource_la2vj"), SubResource("Resource_5cjpp")])
+SaveId = "fight_poi"
+stopDistance = 1.5
+cursorIcon = SubResource("CompressedTexture2D_nakos")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=377279175]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -0.07649088, 2.6366472, 0.20785522)
+shape = SubResource("BoxShape3D_2klcf")
+
+[node name="Position" type="Node3D" parent="." unique_id=731218837]
+
+[node name="MelkorAnimationManager" parent="." unique_id=1640417007 instance=ExtResource("5_0opsr")]
+transform = Transform3D(1.585, 0, 0, 0, 1.585, 0, 0, 0, 1.585, 0.012547296, 0, 0.12332916)
+
+[node name="Highlight" type="OmniLight3D" parent="." unique_id=332426876]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+light_color = Color(0.7885075, 0.7340101, 0.36799806, 1)
+light_energy = 1.8
+distance_fade_enabled = true
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=553719891]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5700203, -0.029695034)
+light_color = Color(0.61663, 0.00028628172, 0.6183794, 1)
+light_energy = 1.5
+distance_fade_enabled = true
+omni_range = 2.0
+
+[node name="lesny_duch2" parent="." unique_id=669519904 instance=ExtResource("6_bu4r2")]
+transform = Transform3D(-0.295, 0, 4.454376e-08, 0, 0.295, 0, -4.454376e-08, 0, -0.295, -2, 0, 0)
+
+[node name="lesny_duch3" parent="." unique_id=673742092 instance=ExtResource("6_bu4r2")]
+transform = Transform3D(-0.295, 0, 4.454376e-08, 0, 0.295, 0, -4.454376e-08, 0, -0.295, 1.963376, 0, 0)
