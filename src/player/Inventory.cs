@@ -205,6 +205,22 @@ public partial class Inventory : Node, ISavable
 		UpdateUI();
 	}
 
+	// The hero learns the spells of enemy units that join the army (surrendered or always recruited), in their hero
+	// version (SpellAbility.GetHeroVersion). Kept even if the units die later.
+	public void LearnSpellsOf(StackResource[] _units)
+	{
+		foreach (StackResource _stack in _units)
+		{
+			if (_stack?.Unit == null)
+				continue;
+
+			foreach (SpellAbility _spell in _stack.Unit.Spells)
+			{
+				AddSpell(_spell.GetHeroVersion());
+			}
+		}
+	}
+
 	public void StartSplitting(int index)
 	{
 		Character?.inventoryPanel?.ResetCombining();

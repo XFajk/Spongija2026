@@ -1,11 +1,11 @@
 [gd_scene format=4 uid="uid://ci3rhgk5rg3ln"]
 
 [ext_resource type="Script" uid="uid://428dhvbojk24" path="res://src/arena/ResourcePOI.cs" id="1_2ndeo"]
-[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 [ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="2_rkc84"]
+[ext_resource type="Texture2D" uid="uid://d2sot7ecqkstt" path="res://assets/misc/iron_ore_render.png" id="3_rkc84"]
 [ext_resource type="Texture2D" uid="uid://c88j3oj0lf6om" path="res://demo/assets/textures/rock023_alb_ht.png" id="4_2ndeo"]
-[ext_resource type="Texture2D" uid="uid://c21n6vo2a3nt4" path="res://assets/ui/sword.png" id="5_64kqm"]
 [ext_resource type="Texture2D" uid="uid://c307hdmos4gtm" path="res://demo/assets/textures/rock023_nrm_rgh.png" id="5_rkc84"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_afpaj"]
 albedo_color = Color(1, 0.67713535, 0.47173125, 1)
@@ -92,7 +92,7 @@ script = ExtResource("1_2ndeo")
 type = 2
 Amount = 1
 FloatingTextScene = ExtResource("2_rkc84")
-icon = ExtResource("5_64kqm")
+icon = ExtResource("3_rkc84")
 _mesh = NodePath("MeshInstance3D")
 stopDistance = 1.5
 cursorIcon = ExtResource("poi_icon")

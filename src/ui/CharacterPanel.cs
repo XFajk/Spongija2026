@@ -370,6 +370,7 @@ public partial class CharacterPanel : Panel
 		_currentFightPOI = null;
 
 		inventory?.AddUnits(_units);
+		inventory?.LearnSpellsOf(_units);
 	}
 
 	public async void ShowUnitsText(StackResource[] _units)
