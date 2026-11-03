@@ -1076,6 +1076,10 @@ Camera = NodePath("../../../SubViewport/PlayerCamera")
 Container = NodePath("../../../CanvasLayer/Canvas/FloatingText")
 SaveId = "horse18"
 
+[node name="horse_resource_poi19" parent="PointsOfInterest/Horses" unique_id=1596719709 groups=["Savable"] instance=ExtResource("14_s2dh3")]
+transform = Transform3D(-0.9867752, 0, -0.16209468, 0, 1, 0, 0.16209468, 0, -0.9867752, -686.842, 43.795025, -499.21982)
+SaveId = "horse19"
+
 [node name="Spells" type="Node3D" parent="PointsOfInterest" unique_id=627992196]
 
 [node name="FireballSpell" parent="PointsOfInterest/Spells" unique_id=1250873675 instance=ExtResource("48_7s432")]
@@ -1165,11 +1169,9 @@ light_color = Color(0.049423575, 0.11703893, 0.32706, 1)
 light_energy = 6.0
 shadow_enabled = true
 
-[node name="AdventureCharacter" parent="." unique_id=590468899 node_paths=PackedStringArray("container", "pauseWindow", "_saves") instance=ExtResource("4_2klcf")]
+[node name="AdventureCharacter" parent="." unique_id=590468899 node_paths=PackedStringArray("container") instance=ExtResource("4_2klcf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.02108, 11.304167, -454.86435)
 container = NodePath("../PointsContainer")
-pauseWindow = NodePath("../CanvasLayer/Canvas/PauseMenu")
-_saves = NodePath("../CanvasLayer/Canvas/select_file")
 
 [node name="PointsContainer" type="Node3D" parent="." unique_id=1683784706]
 
@@ -2693,7 +2695,6 @@ metadata/_custom_type_script = "uid://bpulslght6n3w"
 
 [node name="WizardFightPOI3" parent="Fights" unique_id=1766287576 instance=ExtResource("20_o4st3")]
 transform = Transform3D(-0.6099473, 0, 0.79244196, 0, 1, 0, -0.79244196, 0, -0.6099473, -680.2528, 43.240017, -478.70523)
-AlwaysRecruit = true
 ComputerUnits = Array[Object]([SubResource("Stack_wiz3_a")])
 SaveId = "fight_wizard_3"
 
@@ -2710,22 +2711,22 @@ transform = Transform3D(1.0000001, -3.7252903e-09, 1.4901161e-08, 0, 2.0000002, 
 transform = Transform3D(1.0000005, -5.5879354e-09, 5.9604645e-08, -1.8626451e-09, 1.0000005, 2.3283064e-10, 0, 6.9849193e-10, 1, 5.422119, 0.74653435, 5.9229126)
 
 [node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_3(2)" index="2" unique_id=1294747214]
-transform = Transform3D(-0.70359474, 0.049576707, 0.7088703, 0.044469535, 0.9986805, -0.025706735, -0.7092091, 0.013435992, -0.70487064, 9.678162, -0.29071426, -13.384735)
+transform = Transform3D(-0.36375836, 0.025631148, 0.36648595, 0.02299074, 0.51631755, -0.013290384, -0.36666104, 0.006946412, -0.36441797, 9.678162, -0.29071426, -13.384735)
 
 [node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_3(2)" index="4" unique_id=462772970]
-transform = Transform3D(0.8305834, 0.0066818446, 0.5568545, 0.0026707333, 0.999869, -0.01598126, -0.5568882, 0.0147609785, 0.8304564, 11.753204, 0.41980362, -3.846466)
+transform = Transform3D(0.42941153, 0.0034545152, 0.28789377, 0.001380769, 0.51693213, -0.008262311, -0.28791118, 0.0076314243, 0.42934594, 11.753204, 0.41980362, -3.846466)
 
 [node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_3(2)" index="5" unique_id=932492625]
 transform = Transform3D(1.0000002, -3.7252903e-09, 2.9802322e-08, 0, 1.0000002, 0, 0, 4.656613e-10, 1, -0.86779785, -9.172037, -9.560181)
 
 [node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_3(2)" index="6" unique_id=80057487]
-transform = Transform3D(0.8403512, 0.0024545994, -0.5420371, 0.006358752, 0.99987656, 0.014386253, 0.5420053, -0.015536187, 0.8402314, -4.1016846, 0.13685131, -5.3370667)
+transform = Transform3D(0.43446153, 0.0012690291, -0.28023311, 0.0032874744, 0.51693606, 0.0074376934, 0.2802167, -0.008032206, 0.43439972, -4.1016846, 0.13685131, -5.3370667)
 
 [node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_3(2)" index="7" unique_id=1267255889]
 transform = Transform3D(1.0000001, -1.8626451e-09, 1.4901161e-08, 0, 1.0000001, 0, 0, 2.3283064e-10, 1, 2.9048767, -6.257456, 0.022521973)
 
 [node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_3(2)" index="8" unique_id=1526642559]
-transform = Transform3D(0.8603704, 0.0056896023, 0.509638, 0.0020186044, 0.99989206, -0.014570602, -0.5096658, 0.013564871, 0.8602657, 3.2886658, 0.07426071, 0.3451233)
+transform = Transform3D(0.44481143, 0.0029415234, 0.2634828, 0.0010436183, 0.5169441, -0.0075330017, -0.26349717, 0.0070130373, 0.44475734, 3.2886658, 0.07426071, 0.3451233)
 
 [node name="Highlight" parent="Fights/OrcFightPOI_3(2)" index="10" unique_id=80949497]
 transform = Transform3D(0.9999999, 9.313226e-09, 0, -3.7252903e-09, 1.0000001, -9.313226e-10, 0, 4.656613e-10, 0.99999994, 0.9154358, 1.9590282, -4.3602905)
@@ -2754,10 +2755,13 @@ SaveId = "fight_orc_3b"
 transform = Transform3D(1.0000006, -7.7222335e-09, 0, 1.626336e-08, 1.0000006, -3.4673067e-09, -8.940697e-08, 6.9145867e-10, 1.0000006, 4.452667, 0.6152153, 5.4293213)
 
 [node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_3" index="2" unique_id=1294747214]
-transform = Transform3D(1.0000006, -7.7222335e-09, 0, 1.626336e-08, 1.0000006, -3.4673067e-09, -8.940697e-08, 6.9145867e-10, 1.0000006, 8.81778, 1.2017326, -0.9680786)
+transform = Transform3D(0.517, -8.408153e-09, 4.6223377e-08, 8.408153e-09, 0.517, -3.574836e-10, -4.6223377e-08, 3.5748435e-10, 0.517, 8.81778, 1.2017326, -0.9680786)
+
+[node name="OrcPilgrimAnimationManager2" parent="Fights/OrcFightPOI_3" index="3" unique_id=195025782]
+transform = Transform3D(0.517, 0, -1.4901161e-08, -3.0210332e-09, 0.5170001, -1.7925968e-09, -1.4901161e-08, 0, 0.5170001, -0.051116943, 0.54714966, -0.020141602)
 
 [node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_3" index="4" unique_id=462772970]
-transform = Transform3D(1.0000002, 7.450581e-09, 0, 8.81278e-09, 1.0000002, 2.5798474e-10, -2.9802322e-08, 3.7252903e-09, 1.0000002, -4.12381, -0.29123306, 0.24829102)
+transform = Transform3D(0.517, -4.5562065e-09, 1.5407798e-08, 4.5562065e-09, 0.517, -1.9259747e-09, -1.5407798e-08, 1.9259747e-09, 0.517, -4.12381, -0.29123306, 0.24829102)
 
 [node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_3" index="5" unique_id=932492625]
 transform = Transform3D(1.0000001, 0, 0, 1.3621991e-09, 1.0000001, 2.579852e-10, -2.9802322e-08, 0, 1.0000001, 1.3208923, -14.1396675, -4.3638306)
@@ -2766,7 +2770,7 @@ transform = Transform3D(1.0000001, 0, 0, 1.3621991e-09, 1.0000001, 2.579852e-10,
 transform = Transform3D(1.0000001, 0, 0, 1.3621991e-09, 1.0000001, 2.579852e-10, -2.9802322e-08, 0, 1.0000001, -1.8223877, -16.985958, 0.62335205)
 
 [node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_3" index="7" unique_id=1267255889]
-transform = Transform3D(0.9886877, -0.14963135, -0.010410547, 0.14997865, 0.9852483, 0.08242394, -0.0020765066, -0.08305283, 0.9965439, 3.1116028, 0.583477, -3.788147)
+transform = Transform3D(0.51115125, -0.07735935, -0.0053821057, 0.07753892, 0.509373, 0.042613164, -0.0010735539, -0.04293829, 0.5152128, 3.1116028, 0.583477, -3.788147)
 
 [node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_3" index="8" unique_id=1526642559]
 transform = Transform3D(1.0000001, 0, 0, 1.3621991e-09, 1.0000001, 2.579852e-10, -2.9802322e-08, 0, 1.0000001, 9.895233, -42.403275, 1.5561523)
@@ -2786,7 +2790,6 @@ omni_range = 7.224954
 
 [node name="GhostFightPOI_4" parent="Fights" unique_id=177381057 instance=ExtResource("63_14ag1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -514.1456, 37.541878, -836.0322)
-CanRecruit = true
 ComputerStrategy = 2
 ComputerUnits = Array[Object]([SubResource("Stack_ghost4_a"), SubResource("Stack_ghost4_b"), SubResource("Stack_ghost4_c")])
 SaveId = "fight_ghost_4"
@@ -2829,7 +2832,6 @@ omni_range = 2.4534316
 
 [node name="GhostFightPOI_3" parent="Fights" unique_id=448983409 instance=ExtResource("63_14ag1")]
 transform = Transform3D(0.7571021, 0, 0.65329665, 0, 1, 0, -0.65329665, 0, 0.7571021, -441.637, 39.029602, -881.2743)
-CanRecruit = true
 ComputerStrategy = 1
 ComputerUnits = Array[Object]([SubResource("Stack_ghost3a_a"), SubResource("Stack_ghost3a_b"), SubResource("Stack_ghost3a_c")])
 SaveId = "fight_ghost_3a"
@@ -2844,14 +2846,12 @@ transform = Transform3D(0.3, 0, -2.9802322e-08, 0, 0.3, 0, 2.9802322e-08, 0, 0.3
 transform = Transform3D(0.3, 0, -2.9802322e-08, 0, 0.3, 0, 2.9802322e-08, 0, 0.3, 0.5104675, -5.5743446, 1.2779541)
 
 [node name="WizardFightPOI" parent="Fights" unique_id=1846563086 instance=ExtResource("20_o4st3")]
-transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -135.55576, 17.843723, -748.4114)
-AlwaysRecruit = true
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -135.55576, 17.87791, -748.4114)
 ComputerUnits = Array[Object]([SubResource("Stack_wiz1_a")])
 SaveId = "fight_wizard_1"
 
 [node name="WolfFightPOI_1" parent="Fights" unique_id=3425108 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("18_sp2wr")]
-transform = Transform3D(-0.93509644, 0, 0.35439333, 0, 1, 0, -0.35439333, 0, -0.93509644, -96.35902, 6.865777, -532.7197)
-CanRecruit = true
+transform = Transform3D(-0.93509644, 0, 0.35439333, 0, 1, 0, -0.35439333, 0, -0.93509644, -74.4694, 8.214998, -527.2882)
 ComputerUnits = Array[Object]([SubResource("Stack_wolf1_a"), SubResource("Stack_wolf1_b"), SubResource("Stack_wolf1_c")])
 FloatingTextScene = ExtResource("4_fq663")
 Camera = NodePath("../../SubViewport/PlayerCamera")
@@ -2862,16 +2862,19 @@ SaveId = "fight_wolf_1"
 transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, -4.4842224, 1.2947521, 0.61590576)
 
 [node name="WolfAnimationManager" parent="Fights/WolfFightPOI_1" index="2" unique_id=255804674]
-transform = Transform3D(0.35814622, 0, 0.32704175, 0, 0.485, 0, -0.32704175, 0, 0.35814622, -6.7651367, 0.034267426, 2.2187195)
+transform = Transform3D(0.3581462, 0, 0.32704175, 0, 0.485, 0, -0.32704175, 0, 0.3581462, -6.765167, 0.42275906, 2.218689)
 
 [node name="WolfAnimationManager2" parent="Fights/WolfFightPOI_1" index="3" unique_id=800470486]
-transform = Transform3D(0.42272568, 0, 0.23775606, 0, 0.485, 0, -0.23775606, 0, 0.42272568, -3.946106, 0.034267426, 0.40298462)
+transform = Transform3D(0.42272565, 0, 0.23775606, 0, 0.485, 0, -0.23775606, 0, 0.42272565, -4.053711, 0.037649155, 0.118896484)
 
 [node name="WolfAnimationManager3" parent="Fights/WolfFightPOI_1" index="4" unique_id=42042200]
-transform = Transform3D(0.46442923, 0, -0.13975155, 0, 0.485, 0, 0.13975155, 0, 0.46442923, 8.794525, 0.034267426, -3.0369873)
+transform = Transform3D(0.46442923, 0, -0.13975155, 0, 0.485, 0, 0.13975155, 0, 0.46442923, 8.794525, -0.7537079, -3.0369873)
+
+[node name="WolfAnimationManager4" parent="Fights/WolfFightPOI_1" index="5" unique_id=196020475]
+transform = Transform3D(0.48499998, 0, 1.4901161e-08, 0, 0.485, 0, -1.4901161e-08, 0, 0.48499998, -1.0062866, -0.21929646, -0.3343506)
 
 [node name="WolfAnimationManager5" parent="Fights/WolfFightPOI_1" index="6" unique_id=1436838103]
-transform = Transform3D(0.015963867, 0, 0.4847372, 0, 0.48500007, 0, -0.4847372, 0, 0.015963867, -12.505951, 0.034267426, 3.4583435)
+transform = Transform3D(0.015963897, 0, 0.4847372, 0, 0.48500007, 0, -0.4847372, 0, 0.015963897, -12.50592, 1.2679758, 3.4583435)
 
 [node name="OmniLight3D" parent="Fights/WolfFightPOI_1" index="7" unique_id=1736713150]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6289063, 1, 0.9963379)
@@ -2889,7 +2892,7 @@ distance_fade_enabled = true
 omni_range = 6.0
 
 [node name="OmniLight3D3" type="OmniLight3D" parent="Fights/WolfFightPOI_1" unique_id=1394934183]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.197327, 1, 4.6226807)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.197327, 1.2824898, 4.6226807)
 light_color = Color(0.74978, 0.74978, 0.74977994, 1)
 light_energy = 1.281
 distance_fade_enabled = true
@@ -2908,16 +2911,16 @@ ComputerUnits = Array[Object]([SubResource("Stack_orc2_a"), SubResource("Stack_o
 SaveId = "fight_orc_2"
 
 [node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_2" index="2" unique_id=1294747214]
-transform = Transform3D(0.89544183, 0, 0.44517845, 0, 1, 0, -0.44517845, 0, 0.89544183, 9.6377945, 0, -1.0134888)
+transform = Transform3D(0.46294343, 0, 0.2301573, 0, 0.517, 0, -0.2301573, 0, 0.46294343, 9.637787, -0.43270016, -1.0134277)
 
 [node name="OrcPilgrimAnimationManager2" parent="Fights/OrcFightPOI_2" index="3" unique_id=195025782]
-transform = Transform3D(-0.8478078, 0, -0.53030384, 0, 1, 0, 0.53030384, 0, -0.8478078, -0.20536804, 0, 2.347412)
+transform = Transform3D(-0.43831658, 0, -0.2741671, 0, 0.517, 0, 0.2741671, 0, -0.43831658, -0.20536804, -0.33233452, 2.347412)
 
 [node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_2" index="4" unique_id=462772970]
-transform = Transform3D(0.9329026, 0, -0.36012846, 0, 1, 0, 0.36012846, 0, 0.9329026, -2.254593, 0, -2.5100098)
+transform = Transform3D(0.4823107, 0, -0.18618646, 0, 0.517, 0, 0.18618646, 0, 0.4823107, -2.254593, 0.18403053, -2.5099487)
 
 [node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_2" index="5" unique_id=932492625]
-transform = Transform3D(0.36712092, 0, 0.9301732, 0, 1, 0, -0.9301732, 0, 0.36712092, -8.438835, 0, -0.269104)
+transform = Transform3D(0.18980153, 0, 0.48089957, 0, 0.517, 0, -0.48089957, 0, 0.18980153, -21.43071, 0.7761574, -1.4057007)
 
 [node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_2" index="6" unique_id=80057487]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4091644, -7.0912085, 6.1035156e-05)
@@ -2930,7 +2933,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.934021, -7.083748, 0)
 
 [node name="SpiderFightPOI_3" parent="Fights" unique_id=1508952852 instance=ExtResource("66_fvbyp")]
 transform = Transform3D(-0.96268517, 0, -0.27062392, 0, 1, 0, 0.27062392, 0, -0.96268517, -320.4894, 35.57411, -715.7498)
-CanRecruit = true
 ComputerStrategy = 1
 ComputerUnits = Array[Object]([SubResource("Stack_spider3_a"), SubResource("Stack_spider3_b"), SubResource("Stack_spider3_c")])
 SaveId = "fight_spider_3"
@@ -2991,7 +2993,6 @@ omni_range = 4.643657
 
 [node name="GhostFightPOI_3(2)" parent="Fights" unique_id=2139663452 instance=ExtResource("63_14ag1")]
 transform = Transform3D(-0.9752828, 0, 0.22096027, 0, 1, 0, -0.22096027, 0, -0.9752828, -618.62775, 29.144657, -834.78015)
-CanRecruit = true
 ComputerStrategy = 1
 ComputerUnits = Array[Object]([SubResource("Stack_ghost3b_a"), SubResource("Stack_ghost3b_b"), SubResource("Stack_ghost3b_c")])
 SaveId = "fight_ghost_3b"
@@ -3027,25 +3028,25 @@ ComputerUnits = Array[Object]([SubResource("Stack_orc4a_a"), SubResource("Stack_
 SaveId = "fight_orc_4a"
 
 [node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_4" index="2" unique_id=1294747214]
-transform = Transform3D(-0.95556176, -0.2691177, -0.12032137, -0.27130684, 0.962491, 0.0018866509, 0.115300536, 0.03444682, -0.9927332, -1.4920044, -0.6825104, -6.839752)
+transform = Transform3D(-0.49402547, -0.13913392, -0.062206227, -0.14026566, 0.4976079, 0.00097539823, 0.05961044, 0.01780903, -0.5132431, -1.4920044, -0.6825104, -6.839752)
 
 [node name="OrcPilgrimAnimationManager2" parent="Fights/OrcFightPOI_4" index="3" unique_id=195025782]
-transform = Transform3D(0.5011008, -0.2064701, 0.840397, 0.06286753, 0.97724, 0.2026042, -0.86310214, -0.048691526, 0.5026763, 0.878479, 1.7646408, 13.188965)
+transform = Transform3D(0.25906914, -0.10674513, 0.43448552, 0.03250252, 0.5052334, 0.10474642, -0.44622394, -0.025173482, 0.2598837, 0.878479, 1.7646408, 13.188965)
 
 [node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_4" index="4" unique_id=462772970]
-transform = Transform3D(0.9924448, -0.122689575, 0, 0.122689575, 0.9924448, 0, 0, 0, 1, -4.6574097, 1.2208862, 7.2148438)
+transform = Transform3D(0.5130941, -0.06343053, 0, 0.06343053, 0.5130941, 0, 0, 0, 0.517, -4.6574097, 1.2208862, 7.2148438)
 
 [node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_4" index="5" unique_id=932492625]
-transform = Transform3D(-0.9250111, 0.09661177, 0.3674512, 0.047437564, 0.98893, -0.14059544, -0.3769667, -0.11262137, -0.91935426, 1.7791748, -0.5346222, -4.603668)
+transform = Transform3D(-0.4782308, 0.04994827, 0.18997228, 0.024525225, 0.51127684, -0.07268785, -0.1948918, -0.05822525, -0.47530624, 1.7791748, -0.5346222, -4.603668)
 
 [node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_4" index="6" unique_id=80057487]
-transform = Transform3D(-0.039681405, -0.3055444, 0.95135033, -0.12267872, 0.94638675, 0.29883334, -0.99165267, -0.10485238, -0.07503781, -6.626587, 0.76418304, 1.6670227)
+transform = Transform3D(-0.020515278, -0.15796651, 0.4918483, -0.063424915, 0.48928216, 0.15449686, -0.5126845, -0.054208677, -0.038794525, -6.626587, 0.76418304, 1.6670227)
 
 [node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_4" index="7" unique_id=1267255889]
-transform = Transform3D(0.33732867, -0.27175415, 0.9013094, 0.021423146, 0.9593951, 0.28124973, -0.94114286, -0.07556472, 0.3294535, 2.7971802, 0.93891907, 4.4775085)
+transform = Transform3D(0.17439899, -0.14049694, 0.46597704, 0.011075769, 0.49600747, 0.14540614, -0.48657098, -0.03906698, 0.17032748, 2.7971802, 0.93891907, 4.4775085)
 
 [node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_4" index="8" unique_id=1526642559]
-transform = Transform3D(0.2935772, -0.21012247, 0.932556, -0.13401434, 0.95686233, 0.257788, -0.9464951, -0.20065656, 0.25275356, 5.8768616, 0.19141388, 0)
+transform = Transform3D(0.15177938, -0.10863332, 0.48213154, -0.0692854, 0.49469784, 0.13327642, -0.4893379, -0.10373944, 0.13067356, 5.8768616, 0.19141388, 0)
 
 [node name="OmniLight3D" parent="Fights/OrcFightPOI_4" index="9" unique_id=1171793999]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.15963745, 1.465683, -4.1479187)
@@ -3070,25 +3071,25 @@ ComputerUnits = Array[Object]([SubResource("Stack_orc4b_a"), SubResource("Stack_
 SaveId = "fight_orc_4b"
 
 [node name="OrcPilgrimAnimationManager" parent="Fights/OrcFightPOI_4(2)" index="2" unique_id=1294747214]
-transform = Transform3D(-0.30535385, 0, -0.9522391, 0, 1, 0, 0.9522391, 0, -0.30535385, -2.1098633, 0.77644444, -10.067139)
+transform = Transform3D(-0.15786791, 0, -0.49230757, 0, 0.517, 0, 0.49230757, 0, -0.15786791, -2.1098633, 0.77644444, -10.067139)
 
 [node name="OrcPilgrimAnimationManager2" parent="Fights/OrcFightPOI_4(2)" index="3" unique_id=195025782]
-transform = Transform3D(0.97171617, 0, -0.23615228, 0, 1, 0, 0.23615228, 0, 0.97171617, -6.5563354, 0.43929482, -1.0228271)
+transform = Transform3D(0.5023772, 0, -0.12209072, 0, 0.517, 0, 0.12209072, 0, 0.5023772, -6.5563354, 0.43929482, -1.0228271)
 
 [node name="OrcPilgrimAnimationManager3" parent="Fights/OrcFightPOI_4(2)" index="4" unique_id=462772970]
-transform = Transform3D(-0.97986025, 0, -0.19968493, 0, 1, 0, 0.19968493, 0, -0.97986025, -15.133636, 1.127964, -15.777649)
+transform = Transform3D(-0.50658774, 0, -0.103237115, 0, 0.517, 0, 0.103237115, 0, -0.50658774, -15.133636, 1.127964, -15.777649)
 
 [node name="OrcPilgrimAnimationManager4" parent="Fights/OrcFightPOI_4(2)" index="5" unique_id=932492625]
-transform = Transform3D(0.15798122, 0, 0.9874422, 0, 1, 0, -0.9874422, 0, 0.15798122, 13.88797, -0.5970669, -7.127472)
+transform = Transform3D(0.081676275, 0, 0.5105076, 0, 0.517, 0, -0.5105076, 0, 0.081676275, 13.88797, -0.5970669, -7.127472)
 
 [node name="OrcShamanAnimationManager" parent="Fights/OrcFightPOI_4(2)" index="6" unique_id=80057487]
-transform = Transform3D(-0.4468612, 0, 0.8946034, 0, 1, 0, -0.8946034, 0, -0.4468612, -7.17157, 0, -7.9331665)
+transform = Transform3D(-0.23102726, 0, 0.46250993, 0, 0.517, 0, -0.46250993, 0, -0.23102726, -7.17157, 0, -7.9331665)
 
 [node name="OrcWarriorAnimationManager" parent="Fights/OrcFightPOI_4(2)" index="7" unique_id=1267255889]
-transform = Transform3D(0.8811155, 0, -0.472902, 0, 1, 0, 0.472902, 0, 0.8811155, -5.4587708, 0, 7.7490845)
+transform = Transform3D(0.45553654, 0, -0.24449022, 0, 0.517, 0, 0.24449022, 0, 0.45553654, -5.4587708, 0, 7.7490845)
 
 [node name="OrcWarriorAnimationManager2" parent="Fights/OrcFightPOI_4(2)" index="8" unique_id=1526642559]
-transform = Transform3D(0.62396103, 0, 0.7814556, 0, 1, 0, -0.7814556, 0, 0.62396103, 10.281708, 0, 8.715698)
+transform = Transform3D(0.32258788, 0, 0.4040125, 0, 0.517, 0, -0.4040125, 0, 0.32258788, 10.281708, 0, 8.715698)
 
 [node name="OmniLight3D" parent="Fights/OrcFightPOI_4(2)" index="9" unique_id=1171793999]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3691826, 0)
@@ -3108,19 +3109,17 @@ SaveId = "fight_boss_wolf_4"
 
 [node name="WizardFightPOI2" parent="Fights" unique_id=1962140403 instance=ExtResource("20_o4st3")]
 transform = Transform3D(0.15813339, 0, 0.98741776, 0, 1, 0, -0.98741776, 0, 0.15813339, -637.99536, 7.9130325, -630.81537)
-AlwaysRecruit = true
 ComputerUnits = Array[Object]([SubResource("Stack_wiz2_a")])
 SaveId = "fight_wizard_2"
 
 [node name="SpiderFightPoi_4" parent="Fights" unique_id=593585271 instance=ExtResource("70_b7dnk")]
 transform = Transform3D(0.39750057, 0.14542508, -0.90600485, 0.06817518, 0.97995204, 0.18720566, 0.9150657, -0.13618141, 0.37961715, -643.91284, 17.321724, -553.7953)
-CanRecruit = true
 ComputerStrategy = 2
 ComputerUnits = Array[Object]([SubResource("Stack_swolf4_a"), SubResource("Stack_swolf4_b"), SubResource("Stack_swolf4_c"), SubResource("Stack_swolf4_d")])
 SaveId = "fight_spider_wolf_4"
 
 [node name="MelkorFightPOI_FINAL" parent="Fights" unique_id=942230349 instance=ExtResource("71_13p8c")]
-transform = Transform3D(-0.022126824, 0, 0.99975526, -0.10178269, 0.9948041, -0.002252679, -0.9945606, -0.10180763, -0.022011856, -784.541, 57.69672, -491.69095)
+transform = Transform3D(-0.03967879, -0.00022258598, 0.9992126, -0.08664096, 0.99623424, -0.003218607, -0.995449, -0.08670046, -0.039548658, -784.541, 58.100315, -485.82196)
 ComputerStrategy = 2
 ComputerUnits = Array[Object]([SubResource("Stack_melkor_a"), SubResource("Stack_melkor_b"), SubResource("Stack_melkor_c"), SubResource("Stack_melkor_d")])
 SaveId = "fight_melkor_final"
@@ -3128,15 +3127,26 @@ SaveId = "fight_melkor_final"
 [node name="Position" parent="Fights/MelkorFightPOI_FINAL" index="1" unique_id=731218837]
 transform = Transform3D(0.9476897, -0.0060747415, -0.31913462, -0.004629299, 0.9994518, -0.032771733, 0.3191588, 0.032534823, 0.9471426, -0.1666565, 0.6046753, 4.7281494)
 
+[node name="MelkorAnimationManager" parent="Fights/MelkorFightPOI_FINAL" index="2" unique_id=1640417007]
+transform = Transform3D(2.825, 5.5879333e-08, 4.6054588e-17, -5.5879333e-08, 2.825, 2.3283064e-09, -4.6735705e-24, -2.3283064e-09, 2.825, 0.014923096, 0.1977539, 0.12335205)
+
+[node name="Highlight" parent="Fights/MelkorFightPOI_FINAL" index="3" unique_id=332426876]
+transform = Transform3D(1.0000001, -2.9802322e-08, -7.450581e-09, 0, 1.0000002, 1.0477379e-08, 2.2351742e-08, 0, 0.9999999, 1.190155, 4.2474747, 1.5079956)
+light_color = Color(0.7460955, 0.6809395, 0.9175087, 1)
+light_energy = 5.0
+omni_range = 3.680442
+
+[node name="OmniLight3D2" parent="Fights/MelkorFightPOI_FINAL" index="4" unique_id=553719891]
+transform = Transform3D(1.0000001, -2.9802322e-08, 3.7252903e-09, 0, 1.0000002, 1.0477379e-08, 1.1175871e-08, 0, 0.9999999, -0.13510132, 2.162651, 1.097229)
+light_color = Color(0.9939566, 0.010330014, 0.99999994, 1)
+light_energy = 5.318
+omni_range = 15.4866495
+
 [node name="lesny_duch2" parent="Fights/MelkorFightPOI_FINAL" index="5" unique_id=669519904]
-transform = Transform3D(-0.18229076, -0.012056261, 0.2316241, 0.011007147, 0.29381958, 0.023956347, -0.23167634, 0.0234459, -0.18111144, -2.088501, -0.0090789795, -0.0021362305)
+transform = Transform3D(-0.41527998, 0.0014047171, 0.06277385, 0.0029890928, 0.4198611, 0.010378912, -0.062718384, 0.010709028, -0.41515267, -1.7814636, 0.92850494, 1.7225952)
 
 [node name="lesny_duch3" parent="Fights/MelkorFightPOI_FINAL" index="6" unique_id=673742092]
-transform = Transform3D(-0.22090228, -0.03451535, -0.19244698, -0.028066982, 0.2929575, -0.02032493, 0.1934926, 0.0030901027, -0.22265674, 2.5762024, 0.06272888, 0.013366699)
-
-[node name="horse_resource_poi" parent="." unique_id=1596719709 groups=["Savable"] instance=ExtResource("14_s2dh3")]
-transform = Transform3D(-0.9867752, 0, -0.16209468, 0, 1, 0, 0.16209468, 0, -0.9867752, -686.842, 43.795025, -499.21982)
-SaveId = "horse19"
+transform = Transform3D(-0.3968754, -0.062010627, -0.34575218, -0.050425436, 0.52633053, -0.03651596, 0.34763077, 0.005551733, -0.40002745, 2.6080627, 0.20310211, 0.0146484375)
 
 [node name="Finish" type="Area3D" parent="." unique_id=2063654543 node_paths=PackedStringArray("_Character")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.7, -873.48254, 23.692741, -724.8658)

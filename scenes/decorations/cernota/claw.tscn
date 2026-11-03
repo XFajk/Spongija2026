@@ -25,15 +25,17 @@ size = Vector2(1, 1000)
 
 [node name="Claw" unique_id=1680009021 instance=ExtResource("1_0yope")]
 
-[node name="claw" parent="." index="0" unique_id=450756233]
+[node name="claw" parent="." index="0" unique_id=914306772]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6746898, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1" unique_id=1427999321]
 transform = Transform3D(2.2658155, 0, 0, 0, 2.2658155, 0, 0, 0, 2.2658155, 0, 9.314832, 0)
+cast_shadow = 0
 mesh = SubResource("SphereMesh_u58m1")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="2" unique_id=1044360453]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 508.81265, 0)
+cast_shadow = 0
 mesh = SubResource("QuadMesh_eftk7")
 
 [node name="PulsingLight" type="OmniLight3D" parent="." index="3" unique_id=453128635]
