@@ -24,11 +24,11 @@ public partial class ViewportRect : TextureRect
 		return GlobalPosition + viewportPoint * Size / (Vector2)GameViewport.Size;
 	}
 
-	// The TextureRect only shows the viewport's image, so mouse events are passed on by hand,
+	// The TextureRect only shows the viewport's image, so mouse and trackpad gesture events are passed on by hand,
 	// rescaled from TextureRect pixels to SubViewport pixels (same as SubViewportContainer does).
 	private void ForwardInputToViewport(InputEvent @event)
 	{
-		if (@event is not InputEventMouse)
+		if (@event is not (InputEventMouse or InputEventGesture))
 			return;
 
 		if (GameViewport == null)
