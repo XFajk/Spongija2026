@@ -106,7 +106,9 @@ _shader_parameters = {
 show_vertex_grid = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yyxhd"]
-transparency = 4
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 cull_mode = 2
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_xdke8")
@@ -128,7 +130,9 @@ last_shadow_lod = 0
 lod0_range = 200.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80s2q"]
-transparency = 4
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 cull_mode = 2
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("2_ofm7x")
@@ -325,7 +329,9 @@ last_shadow_lod = 0
 lod0_range = 64.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lewcq"]
-transparency = 4
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 cull_mode = 2
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("23_mv1rp")
@@ -347,7 +353,9 @@ last_shadow_lod = 0
 lod0_range = 128.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bxgb7"]
-transparency = 4
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 cull_mode = 2
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("24_e3xjf")
@@ -369,7 +377,9 @@ last_shadow_lod = 0
 lod0_range = 128.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bhi3u"]
-transparency = 4
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 cull_mode = 2
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("25_0bmnx")

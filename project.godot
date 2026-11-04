@@ -105,3 +105,4 @@ interact={
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true
+mesh_lod/lod_change/threshold_pixels=32.0
