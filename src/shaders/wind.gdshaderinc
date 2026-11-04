@@ -23,5 +23,16 @@ vec3 wind_offset(mat4 model_matrix, float bend) {
 	float plant_flutter = sin(TIME * WIND_FREQUENCY + root_pos.x * 7.0 + root_pos.y * 13.0);
 
 	float sway = (gust + plant_flutter * WIND_FLUTTER) * bend * amount;
-	return (inverse(model_matrix) * vec4(WIND_DIRECTION, 0.0)).xyz * sway;
+
+	// World direction to model space. Same as inverse(model_matrix) for rotation and uniform scale
+	// (all Terrain3D instances are), but this runs per vertex and inverse() is expensive.
+	vec3 local_direction = transpose(mat3(model_matrix)) * WIND_DIRECTION / dot(model_matrix[0].xyz, model_matrix[0].xyz);
+	return local_direction * sway;
+}
+
+// Bend for meshes with their origin at the root: 0 there, 1 at the farthest vertex (radius).
+// Squared so they curve: the part near the root barely moves.
+float root_bend(vec3 vertex, float radius) {
+	float bend = clamp(length(vertex) / radius, 0.0, 1.0);
+	return bend * bend;
 }

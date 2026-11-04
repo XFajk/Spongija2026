@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="Unit" format=3 uid="uid://bewntdj3rvwjj"]
 
+[ext_resource type="AudioStream" uid="uid://uw6thcyhkjwe" path="res://assets/sounds/arrow_hit_randomized.tres" id="1_dl7oq"]
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="1_orc"]
 [ext_resource type="Script" uid="uid://dbehoqcrijunt" path="res://src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs" id="2_orc"]
+[ext_resource type="AudioStream" uid="uid://bwwtp2yvimjfc" path="res://assets/sounds/arrow_detached_randomized.tres" id="2_skyic"]
 [ext_resource type="Script" uid="uid://drpx4jp4c0xup" path="res://src/battle_system/abilities/specific/BasicLongRangeAttackAbility.cs" id="3_orc"]
 [ext_resource type="PackedScene" uid="uid://dvbj01wg7irdl" path="res://scenes/units/orc_archer.tscn" id="4_orc"]
 [ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="6_dl7oq"]
@@ -9,6 +11,8 @@
 
 [sub_resource type="Resource" id="Resource_ranged"]
 script = ExtResource("3_orc")
+LaunchSound = ExtResource("2_skyic")
+HitSound = ExtResource("1_dl7oq")
 metadata/_custom_type_script = "uid://drpx4jp4c0xup"
 
 [sub_resource type="Resource" id="Resource_melee"]
