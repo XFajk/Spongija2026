@@ -96,6 +96,10 @@ public partial class Arena : Node3D
 	// Side of one tile in meters.
 	public const float TileSize = 0.5f;
 
+	// The faint grid always on the board (SpawnGrid), as big as a small tile's mesh
+	private const string GridMaterial = "res://assets/battle_system/tiles/tile_grid.tres";
+	private const float GridSquareSize = 0.45f;
+
 	// Columns on the player's side where stacks can be arranged during the placement phase.
 	public const int PlacementColumns = 2;
 
@@ -241,7 +245,10 @@ public partial class Arena : Node3D
 			}
 		}
 
-		MovePreview = GD.Load<PackedScene>(DoubleTileScene).Instantiate<DoubleTile>();
+		if (!_evilScenery)
+			SpawnGrid();
+
+		MovePreview =GD.Load<PackedScene>(DoubleTileScene).Instantiate<DoubleTile>();
 		MovePreview.Name = "MovePreview";
 		MovePreview.ArenaRef = this;
 		MovePreview.RotationDegrees = new Vector3(-90, 0, 0);
@@ -276,17 +283,20 @@ public partial class Arena : Node3D
 
 	#region Scenery
 
+	// The hill and the ruins are showing
+	private bool _evilScenery = false;
+
 	// The hill and the ruins if either army has one of EvilArenaUnits, else the forest
 	private void ShowScenery()
 	{
 		IEnumerable<Stack> stacks = (PlayerArmy?.Stacks ?? []).Concat(ComputerArmy?.Stacks ?? []);
-		bool evil = stacks.Any(s => EvilArenaUnits.Contains(s.Unit));
+		_evilScenery = stacks.Any(s => EvilArenaUnits.Contains(s.Unit));
 		if (ForestScenery != null)
-			ForestScenery.Visible = !evil;
+			ForestScenery.Visible = !_evilScenery;
 		if (HillScenery != null)
-			HillScenery.Visible = evil;
+			HillScenery.Visible = _evilScenery;
 		if (EvilArenaDeco != null)
-			EvilArenaDeco.Visible = evil;
+			EvilArenaDeco.Visible = _evilScenery;
 	}
 
 	#endregion
@@ -520,6 +530,34 @@ public partial class Arena : Node3D
 	// Center of a stack's footprint with its anchor on the given tile; works for 1x1 and 2x2 stacks.
     public static Vector3 GridToWorld(Stack stack, Vector2I anchor) =>
         GridToWorld((Vector2)anchor + new Vector2(stack.Size, stack.Size) / 2f);
+
+	// A see-through square on every tile, always shown, so the player sees the grid. Only a mesh, not
+	// SmallTiles: without collision the camera's ray can't hover or click it.
+	private void SpawnGrid()
+	{
+		var squares = new MultiMesh
+		{
+			TransformFormat = MultiMesh.TransformFormatEnum.Transform3D,
+			Mesh = new QuadMesh
+			{
+				Size = new Vector2(GridSquareSize, GridSquareSize),
+				Orientation = PlaneMesh.OrientationEnum.Y,
+			},
+			InstanceCount = (int)(AreaWidth * AreaHeight),
+		};
+
+		for (int x = 0; x < AreaWidth; x++)
+			for (int y = 0; y < AreaHeight; y++)
+				squares.SetInstanceTransform(x * (int)AreaHeight + y, new Transform3D(Basis.Identity, GridToWorld(new Vector2I(x, y))));
+
+		AddChild(new MultiMeshInstance3D
+		{
+			Name = "Grid",
+			Multimesh = squares,
+			MaterialOverride = GD.Load<Material>(GridMaterial),
+			CastShadow = GeometryInstance3D.ShadowCastingSetting.Off,
+		});
+	}
 
     public SmallTile GetSmallTile(Vector2I pos)
     {
