@@ -34,6 +34,12 @@ public partial class MainMenu : Control
 			GD.PrintErr("SettingsButton not found in TitleMenu");
 		}
 
+		Button _creditsButton = GetNode<Button>("TitleMenu/PanelContainer/MarginContainer/VBoxContainer/CREDITS");
+		if (_creditsButton == null)
+		{
+			GD.PrintErr("CreditsButton not found in TitleMenu");
+		}
+
 		_quitButton = GetNode<Button>("TitleMenu/PanelContainer/MarginContainer/VBoxContainer/QUIT");
 		if (_quitButton == null)
 		{
@@ -73,10 +79,13 @@ public partial class MainMenu : Control
 		_playButton!.Pressed += OnPlayButtonPressed;
 		cancelSaveMenu!.Pressed += OnCancelSaveButtonPressed;
 		_settingsButton!.Pressed += OnSettingsButtonPressed;
+		_creditsButton!.Pressed += OpenCredits;
 		_quitButton!.Pressed += OnQuitButtonPressed;
 
 		_settingsBackButton!.Pressed += OnSettingsBackButtonPressed;
 		_quitBackButton!.Pressed += OnQuitBackButtonPressed;
+
+		Input.MouseMode = Input.MouseModeEnum.Visible;
 	}
 
 	public override void _Process(double delta)
@@ -120,5 +129,11 @@ public partial class MainMenu : Control
 	{
 		_titleMenu!.Show();
 		_quitMenu!.Hide();
+	}
+
+	private void OpenCredits()
+	{
+		Control menu = GD.Load<PackedScene>("uid://ccijx38gp0hk5").Instantiate<Control>();
+		GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToNode, menu);
 	}
 }

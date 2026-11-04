@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://ccijx38gp0hk5"]
+
+[ext_resource type="Script" uid="uid://wotlp0fm5q8d" path="res://src/ui/Credits.cs" id="1_2ckv8"]
+[ext_resource type="Texture2D" uid="uid://bxkjwj85cukbr" path="res://assets/pics/titulky.png" id="2_0ctdu"]
+
+[node name="Credits" type="Control" unique_id=1413892963]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2ckv8")
+
+[node name="Background" type="ColorRect" parent="." unique_id=571492965]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Viewport" type="Control" parent="." unique_id=582633808]
+clip_contents = true
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Credits" type="TextureRect" parent="Viewport" unique_id=1231474064]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 189.99998
+offset_top = 184.0
+offset_right = 190.0
+offset_bottom = 7864.0
+grow_horizontal = 2
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_0ctdu")
+expand_mode = 5
+
+[node name="Name" type="ColorRect" parent="Viewport" unique_id=1703099282]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -322.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Studio" type="ColorRect" parent="Viewport" unique_id=62757644]
+custom_minimum_size = Vector2(0, 350)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = 118.0
+offset_right = -22.0
+offset_bottom = 468.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
