@@ -1155,6 +1155,8 @@ MaxHeight = 40.0
 MouseSensitivity = 0.005
 MouseMovingSpeed = 20.0
 SmoothSpeed = 10.0
+TrackpadPanSpeed = 1.0
+TrackpadZoomSpeed = 40.0
 returnPanningButton = NodePath("../../CanvasLayer/Canvas/ReturnPanning")
 _cursorContainer = NodePath("../../CanvasLayer/Canvas")
 cantGo = ExtResource("8_jh32y")
@@ -1168,6 +1170,9 @@ transform = Transform3D(0.8660254, -0.3535534, 0.3535534, 0, 0.7071068, 0.707106
 light_color = Color(0.049423575, 0.11703893, 0.32706, 1)
 light_energy = 6.0
 shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.15
+directional_shadow_max_distance = 80.0
 
 [node name="AdventureCharacter" parent="." unique_id=590468899 node_paths=PackedStringArray("container") instance=ExtResource("4_2klcf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.02108, 11.304167, -454.86435)
@@ -2700,6 +2705,7 @@ SaveId = "fight_wizard_3"
 
 [node name="OrcFightPOI_3(2)" parent="Fights" unique_id=930582041 instance=ExtResource("65_f4upa")]
 transform = Transform3D(-0.12937899, 0, -0.9915953, 0.027591955, 0.9996128, -0.0036000768, 0.9912114, -0.027825829, -0.12932889, -274.9477, 3.642126, -359.26062)
+CanTrigger = false
 ComputerStrategy = 1
 ComputerUnits = Array[Object]([SubResource("Stack_orc3a_a"), SubResource("Stack_orc3a_b"), SubResource("Stack_orc3a_c"), SubResource("Stack_orc3a_d"), SubResource("Stack_orc3a_e")])
 SaveId = "fight_orc_3a"
@@ -2747,6 +2753,7 @@ omni_range = 7.224954
 
 [node name="OrcFightPOI_3" parent="Fights" unique_id=1468284967 instance=ExtResource("65_f4upa")]
 transform = Transform3D(-0.9260946, -0.09986585, -0.36383453, -0.09294989, 0.9950009, -0.036517195, 0.36566252, 0, -0.9307475, -509.3109, 4.264942, -547.06573)
+CanTrigger = false
 ComputerStrategy = 1
 ComputerUnits = Array[Object]([SubResource("Stack_orc3b_a"), SubResource("Stack_orc3b_b"), SubResource("Stack_orc3b_c"), SubResource("Stack_orc3b_d"), SubResource("Stack_orc3b_e")])
 SaveId = "fight_orc_3b"
@@ -2790,6 +2797,7 @@ omni_range = 7.224954
 
 [node name="GhostFightPOI_4" parent="Fights" unique_id=177381057 instance=ExtResource("63_14ag1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -514.1456, 37.541878, -836.0322)
+CanTrigger = false
 ComputerStrategy = 2
 ComputerUnits = Array[Object]([SubResource("Stack_ghost4_a"), SubResource("Stack_ghost4_b"), SubResource("Stack_ghost4_c")])
 SaveId = "fight_ghost_4"
@@ -2832,6 +2840,7 @@ omni_range = 2.4534316
 
 [node name="GhostFightPOI_3" parent="Fights" unique_id=448983409 instance=ExtResource("63_14ag1")]
 transform = Transform3D(0.7571021, 0, 0.65329665, 0, 1, 0, -0.65329665, 0, 0.7571021, -441.637, 39.029602, -881.2743)
+CanTrigger = false
 ComputerStrategy = 1
 ComputerUnits = Array[Object]([SubResource("Stack_ghost3a_a"), SubResource("Stack_ghost3a_b"), SubResource("Stack_ghost3a_c")])
 SaveId = "fight_ghost_3a"
@@ -2852,6 +2861,7 @@ SaveId = "fight_wizard_1"
 
 [node name="WolfFightPOI_1" parent="Fights" unique_id=3425108 node_paths=PackedStringArray("Camera", "Container") instance=ExtResource("18_sp2wr")]
 transform = Transform3D(-0.93509644, 0, 0.35439333, 0, 1, 0, -0.35439333, 0, -0.93509644, -74.4694, 8.214998, -527.2882)
+CanTrigger = false
 ComputerUnits = Array[Object]([SubResource("Stack_wolf1_a"), SubResource("Stack_wolf1_b"), SubResource("Stack_wolf1_c")])
 FloatingTextScene = ExtResource("4_fq663")
 Camera = NodePath("../../SubViewport/PlayerCamera")
@@ -2907,6 +2917,7 @@ omni_range = 6.0
 
 [node name="OrcFightPOI_2" parent="Fights" unique_id=862020828 instance=ExtResource("65_f4upa")]
 transform = Transform3D(0.9961949, 0, 0.087153405, 0, 1, 0, -0.087153405, 0, 0.9961949, -133.48764, 11.041119, -672.6398)
+CanTrigger = false
 ComputerUnits = Array[Object]([SubResource("Stack_orc2_a"), SubResource("Stack_orc2_b"), SubResource("Stack_orc2_c"), SubResource("Stack_orc2_d")])
 SaveId = "fight_orc_2"
 
@@ -2933,6 +2944,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.934021, -7.083748, 0)
 
 [node name="SpiderFightPOI_3" parent="Fights" unique_id=1508952852 instance=ExtResource("66_fvbyp")]
 transform = Transform3D(-0.96268517, 0, -0.27062392, 0, 1, 0, 0.27062392, 0, -0.96268517, -320.4894, 35.57411, -715.7498)
+CanTrigger = false
 ComputerStrategy = 1
 ComputerUnits = Array[Object]([SubResource("Stack_spider3_a"), SubResource("Stack_spider3_b"), SubResource("Stack_spider3_c")])
 SaveId = "fight_spider_3"
@@ -2945,6 +2957,7 @@ transform = Transform3D(0.3180853, 0, 0.23933071, 0, 0.3980672, 0, -0.23933071, 
 
 [node name="BossSpiderPOI_4" parent="Fights" unique_id=2119744132 instance=ExtResource("63_sp2wr")]
 transform = Transform3D(0.92402565, 0, -0.38233045, 0, 1, 0, 0.38233045, 0, 0.92402565, -408.7055, 33.290417, -813.428)
+CanTrigger = false
 ComputerStrategy = 2
 ComputerUnits = Array[Object]([SubResource("Stack_bspider4_a"), SubResource("Stack_bspider4_b"), SubResource("Stack_bspider4_c"), SubResource("Stack_bspider4_d")])
 SaveId = "fight_boss_spider_4"
@@ -2993,6 +3006,7 @@ omni_range = 4.643657
 
 [node name="GhostFightPOI_3(2)" parent="Fights" unique_id=2139663452 instance=ExtResource("63_14ag1")]
 transform = Transform3D(-0.9752828, 0, 0.22096027, 0, 1, 0, -0.22096027, 0, -0.9752828, -618.62775, 29.144657, -834.78015)
+CanTrigger = false
 ComputerStrategy = 1
 ComputerUnits = Array[Object]([SubResource("Stack_ghost3b_a"), SubResource("Stack_ghost3b_b"), SubResource("Stack_ghost3b_c")])
 SaveId = "fight_ghost_3b"
@@ -3023,6 +3037,7 @@ omni_range = 2.4534316
 
 [node name="OrcFightPOI_4" parent="Fights" unique_id=1366589732 instance=ExtResource("65_f4upa")]
 transform = Transform3D(0.95815355, 0.28625488, 0, -0.28625488, 0.95815355, 0, 0, 0, 1, -461.03848, 8.450515, -427.72278)
+CanTrigger = false
 ComputerStrategy = 2
 ComputerUnits = Array[Object]([SubResource("Stack_orc4a_a"), SubResource("Stack_orc4a_b"), SubResource("Stack_orc4a_c"), SubResource("Stack_orc4a_d"), SubResource("Stack_orc4a_e")])
 SaveId = "fight_orc_4a"
@@ -3066,6 +3081,7 @@ omni_range = 7.224954
 
 [node name="OrcFightPOI_4(2)" parent="Fights" unique_id=257481745 instance=ExtResource("65_f4upa")]
 transform = Transform3D(-0.15414125, 0, 0.98804885, 0, 1, 0, -0.98804885, 0, -0.15414125, -382.50702, 2.5379777, -458.00894)
+CanTrigger = false
 ComputerStrategy = 2
 ComputerUnits = Array[Object]([SubResource("Stack_orc4b_a"), SubResource("Stack_orc4b_b"), SubResource("Stack_orc4b_c"), SubResource("Stack_orc4b_d"), SubResource("Stack_orc4b_e")])
 SaveId = "fight_orc_4b"
@@ -3103,6 +3119,7 @@ omni_range = 16.616156
 
 [node name="BossWolfFightPOI_4" parent="Fights" unique_id=1451447242 instance=ExtResource("69_7ilj0")]
 transform = Transform3D(-0.24333127, 0, -0.9699432, 0, 1, 0, 0.9699432, 0, -0.24333127, -608.56177, 8.035038, -679.1773)
+CanTrigger = false
 ComputerStrategy = 2
 ComputerUnits = Array[Object]([SubResource("Stack_bwolf4_a"), SubResource("Stack_bwolf4_b"), SubResource("Stack_bwolf4_c"), SubResource("Stack_bwolf4_d"), SubResource("Stack_bwolf4_e")])
 SaveId = "fight_boss_wolf_4"
@@ -3114,12 +3131,14 @@ SaveId = "fight_wizard_2"
 
 [node name="SpiderFightPoi_4" parent="Fights" unique_id=593585271 instance=ExtResource("70_b7dnk")]
 transform = Transform3D(0.39750057, 0.14542508, -0.90600485, 0.06817518, 0.97995204, 0.18720566, 0.9150657, -0.13618141, 0.37961715, -643.91284, 17.321724, -553.7953)
+CanTrigger = false
 ComputerStrategy = 2
 ComputerUnits = Array[Object]([SubResource("Stack_swolf4_a"), SubResource("Stack_swolf4_b"), SubResource("Stack_swolf4_c"), SubResource("Stack_swolf4_d")])
 SaveId = "fight_spider_wolf_4"
 
 [node name="MelkorFightPOI_FINAL" parent="Fights" unique_id=942230349 instance=ExtResource("71_13p8c")]
 transform = Transform3D(-0.03967879, -0.00022258598, 0.9992126, -0.08664096, 0.99623424, -0.003218607, -0.995449, -0.08670046, -0.039548658, -784.541, 58.100315, -485.82196)
+CanTrigger = false
 ComputerStrategy = 2
 ComputerUnits = Array[Object]([SubResource("Stack_melkor_a"), SubResource("Stack_melkor_b"), SubResource("Stack_melkor_c"), SubResource("Stack_melkor_d")])
 SaveId = "fight_melkor_final"

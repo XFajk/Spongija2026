@@ -250,6 +250,8 @@ transform = Transform3D(0.8660254, -0.3535534, 0.3535534, 0, 0.7071068, 0.707106
 light_color = Color(0.14939836, 0.2750435, 0.66148, 1)
 light_energy = 6.0
 shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.15
 
 [node name="ViewportRect" parent="." unique_id=434109989 node_paths=PackedStringArray("GameViewport") instance=ExtResource("2_wl4x5")]
 GameViewport = NodePath("../SubViewport")
