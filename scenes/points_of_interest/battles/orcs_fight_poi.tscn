@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://dfqy1cw4npj7m"]
 
 [ext_resource type="Script" uid="uid://b5jive522rs6g" path="res://src/arena/FightPOI.cs" id="1_ep177"]
-[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 [ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="2_oru37"]
 [ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="3_lqn0j"]
 [ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="4_8ogkk"]
 [ext_resource type="PackedScene" uid="uid://bey7xaihuooh1" path="res://scenes/units/orc_pilgrim_animation_manager.tscn" id="5_8ogkk"]
 [ext_resource type="PackedScene" uid="uid://82bys8yr2f4s" path="res://scenes/units/orc_shaman_animation_manager.tscn" id="6_t0asu"]
 [ext_resource type="PackedScene" uid="uid://b2o3u7mn7sns6" path="res://scenes/units/orc_warrior_animation_manager.tscn" id="7_kogov"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 
 [sub_resource type="Resource" id="Resource_la2vj"]
 script = ExtResource("3_lqn0j")
@@ -24,10 +24,12 @@ metadata/_custom_type_script = "uid://fu32st3u88jr"
 [sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
 size = Vector3(9.952465, 2.6623535, 8.280899)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_t0asu"]
+
 [node name="OrcFightPOI" type="Area3D" unique_id=930582041 groups=["Savable"]]
 collision_layer = 9
 script = ExtResource("1_ep177")
-detectionDistance = 5.0
+CanTrigger = true
 ComputerUnits = Array[Object]([SubResource("Resource_la2vj"), SubResource("Resource_5cjpp")])
 SaveId = "fight_poi"
 stopDistance = 1.5
@@ -72,3 +74,9 @@ light_color = Color(0.5358856, 0.87671554, 0.14101568, 1)
 light_energy = 2.01
 distance_fade_enabled = true
 omni_range = 7.224954
+
+[node name="Trigger" type="Area3D" parent="." unique_id=1653372575]
+
+[node name="Detection" type="CollisionShape3D" parent="Trigger" unique_id=976397058]
+transform = Transform3D(8.888567, 0, 0, 0, 2.8736978, 0, 0, 0, 5.2985935, 0, 0.981, 0)
+shape = SubResource("BoxShape3D_t0asu")
