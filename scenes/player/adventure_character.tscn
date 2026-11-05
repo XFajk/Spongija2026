@@ -67,7 +67,7 @@ HeroDefense = 4
 script = ExtResource("12_yyw6n")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1110268851]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.917334, 0.35910785)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3738503, -0.14089215)
 light_color = Color(0.6692793, 0.66263413, 0.48104638, 1)
 light_energy = 2.099
-omni_range = 25.0
+omni_range = 31.5
