@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://ch16y2n442y74" path="res://assets/settings/settings.tres" id="4_8t0lc"]
 [ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="4_lgwnu"]
 [ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="6_rcqid"]
+[ext_resource type="Script" uid="uid://dgxys3vbibvpt" path="res://src/ui/BlackScreen.cs" id="10_flqon"]
 [ext_resource type="PackedScene" uid="uid://bp7h6wk0dp8i7" path="res://scenes/ui/select_file.tscn" id="12_flqon"]
 [ext_resource type="Script" uid="uid://bmusiccue8r4t" path="res://src/helpers/MusicCue.cs" id="13_mcue"]
 [ext_resource type="AudioStream" uid="uid://bk3kki2wd7r5n" path="res://assets/music/main_menu.ogg" id="14_music"]
@@ -165,10 +166,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = -19.0
-offset_right = 240.0
-offset_bottom = 149.0
+offset_left = -245.0
+offset_top = -84.0
+offset_right = 245.0
+offset_bottom = 296.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
@@ -208,8 +209,19 @@ theme_override_fonts/font = ExtResource("6_rcqid")
 theme_override_font_sizes/font_size = 40
 text = "SETTINGS"
 
-[node name="QUIT" type="Button" parent="TitleMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=604053133]
+[node name="CREDITS" type="Button" parent="TitleMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=1238262350]
 custom_minimum_size = Vector2(450, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("6_rcqid")
+theme_override_font_sizes/font_size = 40
+text = "CREDITS"
+
+[node name="QUIT" type="Button" parent="TitleMenu/PanelContainer/MarginContainer/VBoxContainer" unique_id=604053133]
+custom_minimum_size = Vector2(500, 70)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -376,6 +388,16 @@ offset_right = 245.0
 offset_bottom = 225.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="." unique_id=1410293627]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("10_flqon")
 
 [node name="MusicCue" type="Node" parent="." unique_id=1730515202]
 script = ExtResource("13_mcue")

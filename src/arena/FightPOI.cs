@@ -1,13 +1,14 @@
 using Godot;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 public partial class FightPOI : PointOfInterest
 {
 	[Export] public bool AlwaysRecruit;
 	[Export] public bool CanRecruit;
+	[Export] public bool CanTrigger;
 	[Export] public EnemyStrategy ComputerStrategy { get; set; } = EnemyStrategy.Wild;
-	[Export] public float detectionDistance;
 	bool outside = false;
 
 	[Export] public Godot.Collections.Array<StackResource>? ComputerUnits;
@@ -20,25 +21,38 @@ public partial class FightPOI : PointOfInterest
 
 	[Export]
 	public Control? Container { get; set; }
+	Area3D? trigger;
 
-	public override void _Process(double delta)
+	public override void _Ready()
 	{
-		if (base._destroyed)
-			return;
+		base._Ready();
 
-		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) <= detectionDistance && _character.poi != this && !accessed && outside && !AlwaysRecruit)
+		if (CanTrigger)
 		{
-			_character.ForceStop();
-			outside = false;
-			Access();
-		}
-
-		if (GlobalPosition.DistanceTo(_character!.GlobalPosition) > detectionDistance)
-		{
-			outside = true;
+			 trigger = GetNode<Area3D>("Trigger");
+			_ = InitializeTrigger();
 		}
 	}
 
+	async Task InitializeTrigger()
+	{
+		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+
+		outside = true;
+		foreach (Node3D body in trigger!.GetOverlappingBodies())
+		{
+			if (body is AdventureCharacter)
+			{
+				outside = false;
+				break;
+			}
+		}
+
+		trigger.BodyEntered += Trigger;
+		trigger.BodyExited += Exit;
+	}
 
 	public override void Access()
 	{
@@ -141,5 +155,31 @@ public partial class FightPOI : PointOfInterest
 	public void _Destroy()
 	{
 		base.Destroy();
+	}
+
+	void Trigger(Node3D _body)
+	{
+		if (base._destroyed)
+			return;
+
+		GD.Print(_body.Name);
+
+		if (_body is AdventureCharacter && _character!.poi != this && !accessed && outside && !AlwaysRecruit)
+		{
+			_character!.ForceStop();
+			Access();
+			outside = false;
+		}
+	}
+
+	void Exit(Node3D _body)
+	{
+		if (base._destroyed)
+			return;
+
+		if (_body is AdventureCharacter)
+		{
+			outside = true;
+		}
 	}
 }
