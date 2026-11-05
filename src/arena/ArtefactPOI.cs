@@ -4,7 +4,7 @@ using System;
 public partial class ArtefactPOI : PointOfInterest
 {
 	[Export] Artefact? Artefact;
-	[Export] public float RotationSpeed = 1.0f;
+	[Export] public float RotationSpeed = 2.0f;
 
 	[Export]
 	public PackedScene? FloatingTextScene { get; set; }
@@ -17,10 +17,12 @@ public partial class ArtefactPOI : PointOfInterest
 
 	public override void _Process(double delta)
 	{
-		_mesh!.GlobalRotate(Vector3.Up, RotationSpeed * (float)delta);
+		float angle = RotationSpeed * (float)delta;
+		_mesh!.GlobalRotate(Vector3.Up, angle);
 		if (!MeshOutlineHighlight)
 		{
-			_mesh!.GlobalRotate(Vector3.Up, RotationSpeed * (float)delta);
+			// Also while hidden, so it lines up with the mesh when it shows
+			highlight?.GlobalRotate(Vector3.Up, angle);
 		}
 	}
 

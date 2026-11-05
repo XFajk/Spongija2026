@@ -583,6 +583,7 @@ public partial class ArenaUserInterface : Control
 			// A disabled button keeps the normal icon even when hovered
 			button.UpdateIcon();
 			button.IsHeroSpell = _bookShowsHeroSpells;
+			button.HeroKnowledge = _bookShowsHeroSpells ? arena?.CurrentStack?.Hero?.Knowledge : null;
 			button.CantCastReason = spell != null ? GetCantCastReason(spell) : null;
 		}
 	}

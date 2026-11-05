@@ -15,11 +15,15 @@ run/main_scene="uid://dx28no73prvtv"
 config/features=PackedStringArray("4.7", "C#")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="uid://d16il68sll4kx"
 
 [audio]
 
 buses/default_bus_layout="uid://bhb877d0bytvl"
+
+[autoload]
+
+MouseModeReset="*res://src/helpers/MouseModeReset.cs"
 
 [display]
 
@@ -105,4 +109,5 @@ interact={
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 mesh_lod/lod_change/threshold_pixels=32.0

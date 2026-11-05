@@ -27,8 +27,8 @@ public partial class SpellTooltip : PanelContainer
 	}
 
 	// Instantiates the scene and shows the spell. cantCastReason is shown in red; null if it can be cast.
-	// The Knowledge line shows only for hero spells.
-	public static SpellTooltip? Create(SpellAbility spell, bool heroSpell, string? cantCastReason)
+	// The Knowledge line shows only for hero spells, with the hero's Knowledge if heroKnowledge isn't null.
+	public static SpellTooltip? Create(SpellAbility spell, bool heroSpell, uint? heroKnowledge, string? cantCastReason)
 	{
 		if (GD.Load<PackedScene>(Scene).Instantiate() is not SpellTooltip tooltip)
 		{
@@ -37,17 +37,18 @@ public partial class SpellTooltip : PanelContainer
 		}
 		// Godot adds it to the tree only after this returns, so the nodes are looked up here instead of in _Ready
 		tooltip.FindNodes();
-		tooltip.ShowSpell(spell, heroSpell, cantCastReason);
+		tooltip.ShowSpell(spell, heroSpell, heroKnowledge, cantCastReason);
 		return tooltip;
 	}
 
-	public void ShowSpell(SpellAbility spell, bool heroSpell, string? cantCastReason)
+	public void ShowSpell(SpellAbility spell, bool heroSpell, uint? heroKnowledge, string? cantCastReason)
 	{
 		_icon!.Texture = spell.Icon;
 		_icon.Visible = spell.Icon != null;
 		_nameLabel!.Text = spell.Name;
 		_costLabel!.Text = $"Mana cost: {spell.ManaCost}";
-		_knowledgeLabel!.Text = $"Knowledge needed: {spell.MinKnowledge}";
+		_knowledgeLabel!.Text = $"Knowledge needed: {spell.MinKnowledge}"
+			+ (heroKnowledge is uint knowledge ? $" (hero has {knowledge})" : "");
 		_knowledgeLabel.Visible = heroSpell;
 		_targetsLabel!.Text = "Targets: " + spell.Targets switch
 		{

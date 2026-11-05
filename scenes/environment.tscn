@@ -77,7 +77,6 @@ _shader_parameters = {
 &"private": null,
 &"region_blend": null
 }
-show_vertex_grid = true
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_ofm7x"]
 name = "grass"
@@ -86,6 +85,7 @@ height_offset = 0.5
 density = 10.0
 cast_shadows = 0
 material_override = ExtResource("1_xdke8")
+generated_faces = 1
 generated_size = Vector2(0.5, 0.5)
 last_lod = 0
 last_shadow_lod = 0
@@ -575,7 +575,6 @@ collision_layer = 12
 collision_mask = 0
 vertex_spacing = 0.25
 displacement_sharpness = 0.5
-show_vertex_grid = true
 top_level = true
 metadata/_edit_lock_ = true
 

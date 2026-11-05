@@ -24,8 +24,8 @@ font_size = 25
 outline_size = 5
 outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 
-[node name="end_fight_screen" type="Panel" unique_id=1677304227 node_paths=PackedStringArray("earnedContainer", "lostContainer", "statusLabel", "confirmButton")]
-custom_minimum_size = Vector2(500, 500)
+[node name="end_fight_screen" type="Panel" unique_id=1677304227 node_paths=PackedStringArray("earnedContainer", "statusLabel", "confirmButton")]
+custom_minimum_size = Vector2(500, 400)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -41,7 +41,6 @@ theme = ExtResource("1_llvio")
 script = ExtResource("2_u74b1")
 iconPrefab = ExtResource("3_gj6lw")
 earnedContainer = NodePath("KeepUnits")
-lostContainer = NodePath("LeaveUnits")
 statusLabel = NodePath("Status")
 confirmButton = NodePath("Button")
 
@@ -80,22 +79,7 @@ anchor_right = 1.0
 offset_top = 134.0
 offset_bottom = 184.0
 grow_horizontal = 2
-text = "You Lost"
-label_settings = SubResource("LabelSettings_8xue4")
-horizontal_alignment = 1
-autowrap_mode = 2
-clip_text = true
-text_overrun_behavior = 2
-
-[node name="Lost" type="Label" parent="." unique_id=1100847624]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 266.0
-offset_bottom = 316.0
-grow_horizontal = 2
-text = "Oponent Lost"
+text = "Who died in the fight"
 label_settings = SubResource("LabelSettings_8xue4")
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -126,22 +110,8 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -77.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="LeaveUnits" type="HBoxContainer" parent="." unique_id=1748379600]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -1.0
-offset_top = 60.0
-offset_right = -1.0
-offset_bottom = 135.0
+offset_top = -27.0
+offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1

@@ -9,9 +9,9 @@ public partial class EndFightScreen : Panel
 	// The FightPOI that started the battle (set by FightPOI.Access), removed from the map after a win
 	public static NodePath? TriggeringFightPOI;
 
-	// Units that died in the fight: the player's (shown in earnedContainer) and the opponent's (in lostContainer)
+	// The player's units that died in the fight, shown in earnedContainer. The opponent's aren't shown, as most
+	// enemy units have no icon.
 	public Godot.Collections.Array<StackResource> playerLostUnits = new Godot.Collections.Array<StackResource>();
-	public Godot.Collections.Array<StackResource> opponentLostUnits = new Godot.Collections.Array<StackResource>();
 
 	// After a win: how many of each of the player's stacks are left, in the order the stacks were made from the
 	// inventory's slots (BattleStarter), 0 for a stack that died. Written back to the inventory before saving.
@@ -23,7 +23,6 @@ public partial class EndFightScreen : Panel
 
 	[Export] public PackedScene? iconPrefab;
 	[Export] public Control? earnedContainer;
-	[Export] public Control? lostContainer;
 	[Export] public Label? statusLabel;
 	[Export] public Button? confirmButton;
 
@@ -50,25 +49,12 @@ public partial class EndFightScreen : Panel
 			_icon.QueueFree();
 		}
 
-		foreach(TextureRect _icon in lostContainer!.GetChildren())
-		{
-			_icon.QueueFree();
-		}
-
 		for (int i = 0; i < playerLostUnits.Count; i++)
 		{
 			TextureRect _prefab = iconPrefab!.Instantiate<TextureRect>();
 			_prefab.GetNode<TextureRect>("Icon").Texture = playerLostUnits[i].Unit!.texture;
 			_prefab.GetNode<Label>("Amount").Text = playerLostUnits[i].Quantity.ToString();
 			earnedContainer.AddChild(_prefab);
-		}
-
-		for (int i = 0; i < opponentLostUnits.Count; i++)
-		{
-			TextureRect _prefab = iconPrefab!.Instantiate<TextureRect>();
-			_prefab.GetNode<TextureRect>("Icon").Texture = opponentLostUnits[i].Unit!.texture;
-			_prefab.GetNode<Label>("Amount").Text = opponentLostUnits[i].Quantity.ToString();
-			lostContainer.AddChild(_prefab);
 		}
 	}
 

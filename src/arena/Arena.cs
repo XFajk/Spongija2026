@@ -112,10 +112,9 @@ public partial class Arena : Node3D
 	public Army? PlayerArmy { get; private set; }
 	public Army? ComputerArmy { get; private set; }
 
-	// Both sides' stacks as the battle began, in the armies' order: dead stacks are removed from the armies, but the
+	// The player's stacks as the battle began, in the army's order: dead stacks are removed from the army, but the
 	// end screen counts their losses too.
 	private List<Stack> _playerStartingStacks = [];
-	private List<Stack> _computerStartingStacks = [];
 
 	public Battle? Battle { get; private set; }
 
@@ -308,7 +307,6 @@ public partial class Arena : Node3D
 		PlayerArmy = playerArmy;
 		ComputerArmy = computerArmy;
 		_playerStartingStacks = [.. playerArmy.Stacks];
-		_computerStartingStacks = [.. computerArmy.Stacks];
 	}
 
 	// Setup the Scene to let the player place their units before the battle begins.
@@ -584,6 +582,7 @@ public partial class Arena : Node3D
             doubleTile.Enabled = false;
             doubleTile.IsMeleeAttackTile = false;
             doubleTile.Raised = false;
+            doubleTile.MeshHidden = false;
         }
     }
 
@@ -727,7 +726,7 @@ public partial class Arena : Node3D
 
 	#region End of battle
 
-	// The end screen over everything: the units each side lost. Its confirm button goes back to the adventure map.
+	// The end screen over everything: the units the player lost. Its confirm button goes back to the adventure map.
 	private void ShowEndFightScreen(bool won)
 	{
 		if (PlayerCamera != null)
@@ -735,7 +734,6 @@ public partial class Arena : Node3D
 
 		var screen = GD.Load<PackedScene>(EndFightScreenScene).Instantiate<EndFightScreen>();
 		AddLosses(screen.playerLostUnits, _playerStartingStacks);
-		AddLosses(screen.opponentLostUnits, _computerStartingStacks);
 		foreach (Stack stack in _playerStartingStacks)
 			screen.survivingQuantities.Add(stack.Quantity);
 		screen.heroMana = PlayerArmy?.Hero?.Mana;
@@ -778,6 +776,10 @@ public partial class Arena : Node3D
 	private void ShowTurnTargets(Battle battle, Stack stack, Reachability reachability)
 	{
 		ShowTiles(reachability.GetTiles());
+		// A 2x2 stack's moves overlap its own tiles, which shows its double tile. It stays on to reset the move preview
+		// when hovered, but looks like a 1x1 stack's own tile, which isn't a move and stays off.
+		if (stack.NodeRepresentation?.GroundTile is DoubleTile ownTile)
+			ownTile.MeshHidden = true;
 
 		// The tiles under every enemy the stack can melee turn red; hovering one picks where to attack it from
 		_meleeTargets.AddRange(battle.GetMeleeTargets(stack, reachability));
