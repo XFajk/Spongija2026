@@ -11,13 +11,25 @@ public partial class Credits : Control
 	public float PauseDuration { get; set; } = 1.0f;
 
 	[Export]
-	public float ScrollDuration { get; set; } = 20.0f;
+	public float ScrollDuration { get; set; } = 30.0f;
 
 	private Control? viewport;
 	private Control? creditsImage;
 
 	private ColorRect? maskName;
 	private ColorRect? maskStudio;
+
+	// Set once we head back to the menu. The awaits in _Ready check it, as this node is freed under them after a skip.
+	private bool _leaving;
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("ui_cancel"))
+		{
+			GetViewport().SetInputAsHandled();
+			ReturnToMenu();
+		}
+	}
 
 	public override async void _Ready()
 	{
@@ -34,19 +46,31 @@ public partial class Credits : Control
 		maskStudio.Modulate = Colors.White;
 
 		await Pause(PauseDuration);
+		if (_leaving) return;
 
 		await ShowPart(maskName);
+		if (_leaving) return;
 
 		await Pause(PauseDuration);
+		if (_leaving) return;
 
 		await ShowPart(maskStudio);
+		if (_leaving) return;
 
 		await Pause(PauseDuration);
-
+		if (_leaving) return;
 
 		await Scroll();
 
-	   	Control menu = GD.Load<PackedScene>("uid://1cwqotqa3spu").Instantiate<Control>();
+		ReturnToMenu();
+	}
+
+	private void ReturnToMenu()
+	{
+		if (_leaving) return;
+		_leaving = true;
+
+		Control menu = GD.Load<PackedScene>("uid://1cwqotqa3spu").Instantiate<Control>();
 		GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToNode, menu);
 	}
 
@@ -70,6 +94,7 @@ public partial class Credits : Control
 			GetTree(),
 			SceneTree.SignalName.ProcessFrame
 		);
+		if (_leaving) return;
 
 		float startY = creditsImage!.Position.Y;
 
