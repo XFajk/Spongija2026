@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://dvoyuaf15p54u"]
+
+[ext_resource type="Script" uid="uid://b5jive522rs6g" path="res://src/arena/FightPOI.cs" id="1_433m4"]
+[ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="2_q2bre"]
+[ext_resource type="Script" uid="uid://fu32st3u88jr" path="res://src/test/StackResource.cs" id="3_hf00e"]
+[ext_resource type="Resource" uid="uid://bgr46lxfl1n2m" path="res://assets/battle_system/units/wolf.tres" id="4_3irwy"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
+
+[sub_resource type="Resource" id="Resource_la2vj"]
+script = ExtResource("3_hf00e")
+Unit = ExtResource("2_q2bre")
+Quantity = 1
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="Resource" id="Resource_5cjpp"]
+script = ExtResource("3_hf00e")
+Unit = ExtResource("4_3irwy")
+Quantity = 1
+metadata/_custom_type_script = "uid://fu32st3u88jr"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2lpho"]
+albedo_color = Color(0.1620417, 0.31105772, 0.3087925, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gyjbk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jclro"]
+transparency = 1
+albedo_color = Color(0.74509805, 0.69411767, 0, 0.39215687)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4xvhx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_433m4"]
+
+[node name="FightPOI" type="Area3D" unique_id=930582041 groups=["Savable"]]
+collision_layer = 9
+script = ExtResource("1_433m4")
+CanTrigger = true
+ComputerUnits = Array[Object]([SubResource("Resource_la2vj"), SubResource("Resource_5cjpp")])
+SaveId = "fight_poi"
+stopDistance = 1.5
+cursorIcon = ExtResource("poi_icon")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=768320095]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_2lpho")
+mesh = SubResource("BoxMesh_gyjbk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=377279175]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_2klcf")
+
+[node name="Highlight" type="MeshInstance3D" parent="." unique_id=1838757475]
+transform = Transform3D(1.5, 0, 0, 0, 0.5, 0, 0, 0, 1.5, 0, -0.75, 0)
+material_override = SubResource("StandardMaterial3D_jclro")
+mesh = SubResource("BoxMesh_4xvhx")
+
+[node name="Position" type="Node3D" parent="." unique_id=731218837]
+
+[node name="Trigger" type="Area3D" parent="." unique_id=246556716]
+
+[node name="Detection" type="CollisionShape3D" parent="Trigger" unique_id=257529976]
+transform = Transform3D(8.888567, 0, 0, 0, 2.8736978, 0, 0, 0, 5.2985935, 0, 0.981, 0)
+shape = SubResource("BoxShape3D_433m4")

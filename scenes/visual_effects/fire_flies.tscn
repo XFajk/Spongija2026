@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://b48evc5lmrr26"]
+
+[sub_resource type="Curve" id="Curve_5bdl1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.50372213, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_5bdl1"]
+curve = SubResource("Curve_5bdl1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5bdl1"]
+emission_shape = 1
+emission_sphere_radius = 1.5
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -0.5000022
+tangential_accel_max = 0.49999776
+scale_min = 0.79999995
+scale_max = 1.1999999
+scale_curve = SubResource("CurveTexture_5bdl1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5bdl1"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_5bdl1"]
+material = SubResource("StandardMaterial3D_5bdl1")
+radius = 0.04
+height = 0.08
+radial_segments = 6
+rings = 3
+
+[node name="FireFlies" type="GPUParticles3D" unique_id=1800348512]
+amount = 12
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_5bdl1")
+draw_pass_1 = SubResource("SphereMesh_5bdl1")

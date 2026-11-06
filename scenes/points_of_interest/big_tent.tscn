@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://mwvl42up2ehw"]
+
+[ext_resource type="PackedScene" uid="uid://cuwq8gwo6tg0s" path="res://assets/terrain/models/camp/big_tent.glb" id="1_37mrh"]
+
+[node name="BigTent" unique_id=2107329745 instance=ExtResource("1_37mrh")]

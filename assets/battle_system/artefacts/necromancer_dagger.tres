@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="NecromancyArtefact" format=3 uid="uid://c0vftawr4xuyk"]
+
+[ext_resource type="Script" uid="uid://cnecroart5d2k" path="res://src/battle_system/artefacts/NecromancyArtefact.cs" id="1_oxedt"]
+[ext_resource type="Texture2D" uid="uid://bn0kuk06hgcex" path="res://assets/artefacts_icons/necromancer_dagger.png" id="1_x6jbj"]
+
+[resource]
+script = ExtResource("1_oxedt")
+Strength = 2
+Name = "Necromancer Dagger"
+Description = "A cold blade that drinks the last breath of the fallen. When the hero raises the dead, twice as many rise."
+Icon = ExtResource("1_x6jbj")
+metadata/_custom_type_script = "uid://cnecroart5d2k"

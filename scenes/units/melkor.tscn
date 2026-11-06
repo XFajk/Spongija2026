@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b1a520tcaed5g"]
+
+[ext_resource type="Script" uid="uid://3pe1f0cixbxg" path="res://src/battle_system/army/UnitNode.cs" id="1_2pbag"]
+[ext_resource type="PackedScene" uid="uid://cc4ldgbd8asqe" path="res://scenes/units/melkor_animation_manager.tscn" id="2_0a8s6"]
+[ext_resource type="Script" uid="uid://c1so6sg2p5nqy" path="res://src/interaction_system/Interactable.cs" id="3_nw45b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mes6x"]
+size = Vector3(0.44, 1.438, 0.26)
+
+[node name="Melkor" type="Area3D" unique_id=1618027882 node_paths=PackedStringArray("LaunchPoint")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_2pbag")
+MovementTime = 1.0
+LaunchPoint = NodePath("LaunchOf")
+
+[node name="MelkorAnimationManager" parent="." unique_id=1640417007 instance=ExtResource("2_0a8s6")]
+transform = Transform3D(-0.46022868, 0, -4.0234468e-08, 0, 0.46022868, 0, 4.0234468e-08, 0, -0.46022868, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=724123606]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7190307, 0)
+shape = SubResource("BoxShape3D_mes6x")
+
+[node name="Interactable" type="Node" parent="." unique_id=488255594]
+script = ExtResource("3_nw45b")
+metadata/_custom_type_script = "uid://c1so6sg2p5nqy"
+
+[node name="LaunchOf" type="Node3D" parent="." unique_id=1295011234]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07962838, 1.09326, -0.37908208)

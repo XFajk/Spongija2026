@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://d27vlxv52ybnw"]
+
+[ext_resource type="Script" uid="uid://n1bcf11f3unw" path="res://src/ui/Settings/TitleSettingsUI.cs" id="1_30nw6"]
+[ext_resource type="FontFile" uid="uid://bb5d0icyndn5y" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Black.ttf" id="1_888n2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y2y4e"]
+content_margin_left = 25.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_4betq"]
+font = ExtResource("1_888n2")
+font_size = 40
+
+[node name="Label" type="Label" unique_id=1499866345]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_y2y4e")
+text = "Title"
+label_settings = SubResource("LabelSettings_4betq")
+script = ExtResource("1_30nw6")

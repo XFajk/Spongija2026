@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Unit" format=3]
+
+[ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="1_orc"]
+[ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_orc"]
+[ext_resource type="Resource" uid="uid://6lki1oqmls1" path="res://assets/battle_system/abilities/spells/fire_ball_spell_for_units.tres" id="3_orc"]
+[ext_resource type="PackedScene" uid="uid://ddvvwop55trdo" path="res://scenes/units/orc_shaman.tscn" id="4_orc"]
+
+[resource]
+script = ExtResource("1_orc")
+Name = "Orc Shaman"
+Description = "Orcs who learned a little of their master's fire. Melkor gave them the words but not the wisdom, and they hurl it at the enemy with glee. They carry no weapon and can't strike back. Once their mana is spent, they're just orcs in robes."
+MaxHealth = 22
+Defense = 2
+SpeedTier = 4
+StartingMana = 40
+MaxMana = 40
+CanRetaliate = false
+Spells = Array[ExtResource("2_orc")]([ExtResource("3_orc")])
+Model = ExtResource("4_orc")
+metadata/_custom_type_script = "uid://cj3g6btx1kotr"

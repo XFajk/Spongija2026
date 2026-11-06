@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://ce5i5duugw3fw"]
+
+[ext_resource type="Theme" uid="uid://bjx58o26db5so" path="res://assets/ui_themes/fantasy.tres" id="1_llvio"]
+[ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="2_q5ovx"]
+[ext_resource type="Script" uid="uid://0vflvsyv7024" path="res://src/ui/EndFightScreen.cs" id="2_u74b1"]
+[ext_resource type="PackedScene" uid="uid://wv50hmqk27ef" path="res://scenes/ui/end_fight_unit.tscn" id="3_gj6lw"]
+[ext_resource type="FontFile" uid="uid://cotpgy3uit4mg" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Regular.ttf" id="3_u74b1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gj6lw"]
+font = ExtResource("2_q5ovx")
+font_size = 40
+outline_size = 13
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_em1s6"]
+font = ExtResource("3_u74b1")
+font_size = 30
+outline_size = 5
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8xue4"]
+font = ExtResource("3_u74b1")
+font_size = 25
+outline_size = 5
+outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
+
+[node name="end_fight_screen" type="Panel" unique_id=1677304227 node_paths=PackedStringArray("earnedContainer", "statusLabel", "confirmButton")]
+custom_minimum_size = Vector2(500, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_llvio")
+script = ExtResource("2_u74b1")
+iconPrefab = ExtResource("3_gj6lw")
+earnedContainer = NodePath("KeepUnits")
+statusLabel = NodePath("Status")
+confirmButton = NodePath("Button")
+
+[node name="Label" type="Label" parent="." unique_id=1465548690]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 17.0
+offset_bottom = 72.0
+grow_horizontal = 2
+text = "FIght EnDED"
+label_settings = SubResource("LabelSettings_gj6lw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Status" type="Label" parent="." unique_id=1117876899]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 83.0
+offset_bottom = 133.0
+grow_horizontal = 2
+text = "You won"
+label_settings = SubResource("LabelSettings_em1s6")
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="Keep" type="Label" parent="." unique_id=1905627343]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 134.0
+offset_bottom = 184.0
+grow_horizontal = 2
+text = "Who died in the fight"
+label_settings = SubResource("LabelSettings_8xue4")
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="Button" type="Button" parent="." unique_id=586536947]
+process_mode = 3
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -41.0
+offset_top = -102.0
+offset_right = 79.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset_ratio = Vector2(0.5, 1)
+theme = ExtResource("1_llvio")
+
+[node name="KeepUnits" type="HBoxContainer" parent="." unique_id=117096193]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -27.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1

@@ -1,0 +1,174 @@
+Názov tímu: Emberfog
+Názov hry: The Great Journey : Stories of Middle-Earth
+Vývojové prostredie a prostriedky: Godot 4.7 (.NET / C#), VS Code, Blender, git (GitHub)
+
+Engine a doplnky (addons):
+* Godot Engine
+Zdroj: https://godotengine.org/
+Licencia: MIT license
+* Terrain3D (terén lesa a bojových arén)
+Zdroj: https://github.com/TokisanGames/Terrain3D
+Autori: Cory Petkovsek, Roope Palmroos a prispievatelia
+Licencia: MIT license (addons/terrain_3d/LICENSE.txt)
+* GPUTrail
+Knižnica pre Godot umožňujúca jednoduché vytvorenie "trail" partiklov.
+Zdroj: https://github.com/celyk/GPUTrail
+Autor: celyk
+Licencia: MIT license (addons/GPUTrail/LICENSE)
+
+Modely:
+* Kôň (Low-Poly Horse)
+Zdroj: https://sketchfab.com/3d-models/low-poly-horse-d1ca14c1befe47c8a4686d2f64c82f45
+Autor: antemeossa
+Licencia: CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
+* Vlk (Low Poly Wolf)
+Zdroj: https://sketchfab.com/3d-models/low-poly-wolf-ca673585e3df4dbcb3bf95261a8af647
+Autor: Ezgarth
+Licencia: CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
+* Lebka (Skull Low Poly) - efekt nekromancie
+Zdroj: https://sketchfab.com/3d-models/skull-low-poly-1fc5f3e0c8764d08aa70e5c59f10d991
+Autor: Ryley Burnett
+Licencia: CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
+* Postava (Low-poly Male Base Mesh) - základ pre postavy
+Zdroj: https://sketchfab.com/3d-models/low-poly-male-base-mesh-7b9411ff0c624321baf4caac014bc0bd
+Autor: decodigo
+Licencia: CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
+* Ostatné modely a animácie
+Naša vlastná tvorba, použitý program: Blender
+
+Textúry:
+* Textúry terénu a ostatné textúry
+Zdroj: Poly Haven - https://polyhaven.com/textures
+Licencia: CC0 - https://polyhaven.com/license
+* Ikony, UI a ostatné obrázky
+Naša vlastná tvorba
+
+Fonty:
+* Cinzel Decorative
+Zdroj: https://fonts.google.com/specimen/Cinzel+Decorative
+Autor: Natanael Gama (Copyright (c) 2012, Reserved Font Name 'Cinzel')
+Licencia: SIL Open Font License 1.1 - https://openfontlicense.org
+(celý text licencie je priložený v assets/fonts/Cinzel_Decorative/OFL.txt)
+
+Hudba:
+* Hudba v hlavnom menu a na mape
+Naša vlastná tvorba
+
+Zvukové efekty:
+* Luk, meč, kroky po hline, ohnivá guľa
+(súbory "Bow Attack", "Bow Impact Hit", "Bow Take Out", "Sword Attack", "Sword Impact Hit",
+"Dirt Run", "Fireball", "Fireball Impact")
+Zdroj: Free Fantasy 200 SFX Pack - https://tommusic.itch.io/free-fantasy-200-sfx-pack
+Autor: TomMusic
+Licencia: Royalty-free, použiteľné aj komerčne, uvedenie autora nie je povinné;
+zvuky sa nesmú ďalej predávať ani distribuovať samostatne
+* Kniha kúziel, lesný duch, liečenie, pavúky, vlk
+Naša vlastná tvorba
+
+Zdrojové kódy:
+* Vlastné skripty v GDScripte (src/environment/Scatter.gd, RangedCollisions.gd, debug_freecam.gd)
+a shader src/shaders/vignette_ui_effect.gdshader
+Naša vlastná tvorba
+* Súbory vytvorené pomocou AI - viď sekciu "Použitie AI" nižšie
+* Zvyšok vlastný
+
+Použitie AI:
+Použitá AI: Claude (Anthropic), cez Claude Code
+Postup:
+AI používal jeden člen tímu, hlavne na bojový systém. Herný dizajn a architektúru sme
+navrhli sami: rozdelenie na pravidlá boja (Battle) a ich zobrazenie (Arena), schopnosti
+a efekty ako zdieľané Resource súbory, poradie ťahov, odvetu, správanie počítačového
+protivníka aj artefakty. Návrh sme spísali v súbore CLAUDE.md, ktorý AI dostávala pri
+každej úlohe ako zadanie. Pre jednotlivé časti sme v angličtine napísali špecifikáciu,
+ako má vyzerať ich API (triedy, metódy, čo ktorá vracia a kto ju volá), a AI ich podľa
+nej naprogramovala v C#. Slúžila teda najmä na rýchle prepísanie návrhu do kódu. Každú zmenu sme prezreli
+ako diff v editore, hru sme spúšťali a testovali v Godote, chyby sme hľadali sami a scény,
+modely, animácie a zvuky sme v editore zapájali ručne. Tesne pred odovzdaním sme AI
+používali aj na rýchle menšie úpravy a opravy (prechody medzi scénami, hudba, popisy
+artefaktov).
+
+Súbory napísané celé alebo takmer celé pomocou AI (podľa histórie gitu):
+* Bojový systém
+src/battle_system/Battle.cs
+src/battle_system/Reachability.cs
+src/battle_system/TurnOutput.cs
+src/battle_system/army/Army.cs
+src/battle_system/army/Hero.cs
+src/battle_system/army/Stack.cs
+src/battle_system/army/Unit.cs
+src/battle_system/army/UnitNode.cs
+src/battle_system/abilities/IAbility.cs
+src/battle_system/abilities/MeleeAttackAbility.cs
+src/battle_system/abilities/LongRangeAttackAbility.cs
+src/battle_system/abilities/SpellAbility.cs
+src/battle_system/abilities/SpellEstimate.cs
+src/battle_system/abilities/PassiveAbility.cs
+src/battle_system/abilities/RoundPassiveAbility.cs
+src/battle_system/abilities/TurnPassiveAbility.cs
+src/battle_system/abilities/specific/BasicMeleeAttackAbility.cs
+src/battle_system/abilities/specific/BasicLongRangeAttackAbility.cs
+src/battle_system/abilities/specific/SlowingMeleeAttackAbility.cs
+src/battle_system/abilities/specific/FireBallSpell.cs
+src/battle_system/abilities/specific/WebBallSpell.cs
+src/battle_system/abilities/specific/HealSpell.cs
+src/battle_system/abilities/specific/NecromancySpell.cs
+src/battle_system/abilities/specific/RangedImmunityPassive.cs
+src/battle_system/effects/IEffect.cs
+src/battle_system/effects/RoundEffect.cs
+src/battle_system/effects/TurnEffect.cs
+src/battle_system/effects/specific/SlowEffect.cs
+src/battle_system/projectiles/Projectile.cs
+src/battle_system/visual_effects/AbilityVisualEffect.cs
+src/battle_system/artefacts/StatArtefact.cs
+src/battle_system/artefacts/NecromancyArtefact.cs
+src/battle_system/ai/BattleAI.cs
+src/battle_system/ai/WildAI.cs
+src/battle_system/ai/GreedyAI.cs
+src/battle_system/ai/EnemyStrategy.cs
+* Aréna a kamera
+src/arena/Arena.cs
+src/arena/SmallTile.cs
+src/arena/DoubleTile.cs
+src/player/PlayerCamera.cs
+src/player/ArenaCamera.cs
+src/player/ViewportRect.cs
+src/interaction_system/Interactable.cs
+* Animácie
+src/animation_mangers/UnitAnimationManager.cs
+src/animation_system/constraints/CopyLocationRotationConstraint.cs
+src/animation_system/constraints/FlowTransformAndDampToConstraint.cs
+* Používateľské rozhranie
+src/ui/ArenaUserInterface.cs
+src/ui/StackLabel.cs
+src/ui/StackTooltip.cs
+src/ui/SpellButton.cs
+src/ui/SpellTooltip.cs
+src/ui/ArtefactTooltip.cs
+src/ui/SplashScreen.cs
+src/ui/custom_controls/PieBar.cs
+* Pomocné triedy, zvuk a hudba
+src/helpers/SceneTransitions.cs
+src/helpers/ScreenFade.cs
+src/helpers/Music.cs
+src/helpers/MusicCue.cs
+src/helpers/OneShotSound.cs
+src/helpers/SoundCue.cs
+src/helpers/NodeExtensions.cs
+src/environment/PulsingLight.cs
+* Testovanie
+src/test/BattleTest.cs
+src/test/StackResource.cs
+* Shadery
+src/shaders/ghost.gdshader
+src/shaders/mana_bar.gdshader
+src/shaders/white_outline.gdshader
+
+Súbory napísané nami, v ktorých AI urobila časť úprav:
+* väčšia časť pomocou AI: src/ui/EndFightScreen.cs, src/battle_system/artefacts/Artefact.cs
+* menšie úpravy pomocou AI (do tretiny súboru): src/ui/MainMenu.cs, src/ui/SettingsBuilder.cs,
+src/ui/Settings/DropdownSettingUI.cs, src/ui/Settings/ToggleSettingUI.cs, src/ui/Settings/SliderSettingUI.cs,
+src/resources/Setting.cs, src/resources/Dropdown.cs, src/resources/SettingsPageResource.cs,
+src/ui/ArtefactSlot.cs, src/ui/SpellDisplay.cs, src/ui/CharacterPanel.cs, src/player/Inventory.cs,
+src/player/AdventureCharacter.cs, src/battle_system/BattleStarter.cs, src/arena/FightPOI.cs
+
+Všetky ostatné .cs súbory sú naša vlastná tvorba.

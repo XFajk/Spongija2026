@@ -1,0 +1,102 @@
+[gd_resource type="Theme" format=3 uid="uid://bsblrvfn2nnnb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sqgop"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.37157533, 0, 0.0069563375, 0.73333335)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_05rxs"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c2nv0"]
+bg_color = Color(0.38882524, 0.03860822, 0.068823956, 1)
+
+[sub_resource type="DPITexture" id="DPITexture_c2nv0"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><rect width=\"14\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".75\" rx=\"2.333\"/><path fill=\"#1a1a1a\" d=\"m11.5 3.75-5.6 5.6-1.7-1.7-1.5 1.5 3.2 3.2 7.1-7.1z\"/></svg>
+"
+base_scale = 2.5
+
+[sub_resource type="DPITexture" id="DPITexture_sqgop"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><rect width=\"14\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" fill-opacity=\".5\" rx=\"2.333\"/></svg>
+"
+base_scale = 2.5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_brrvv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bgec1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lgbk2"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="DPITexture" id="DPITexture_05rxs"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".75\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\"/></svg>
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2y4e"]
+bg_color = Color(0.79012865, 0, 0.1454235, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brrvv"]
+bg_color = Color(0.79012865, 0, 0.1454235, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85h0w"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.4222709, 0, 0.024599843, 0.8745098)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bgec1"]
+bg_color = Color(0.35533425, 0.07014417, 0.07015758, 1)
+border_width_bottom = 7
+border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ss4do"]
+bg_color = Color(0.26515836, 0.042844743, 0.04317692, 1)
+border_width_bottom = 7
+border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1ivs"]
+bg_color = Color(0.26515836, 0.042844743, 0.04317692, 1)
+border_width_bottom = 7
+border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+Button/styles/hover = SubResource("StyleBoxFlat_sqgop")
+Button/styles/normal = SubResource("StyleBoxFlat_05rxs")
+Button/styles/pressed = SubResource("StyleBoxFlat_c2nv0")
+CheckBox/icons/checked = SubResource("DPITexture_c2nv0")
+CheckBox/icons/unchecked = SubResource("DPITexture_sqgop")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_brrvv")
+CheckBox/styles/normal = SubResource("StyleBoxEmpty_bgec1")
+CheckBox/styles/pressed = SubResource("StyleBoxFlat_lgbk2")
+CheckButton/icons/checked = SubResource("DPITexture_05rxs")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_y2y4e")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_brrvv")
+HSlider/styles/slider = SubResource("StyleBoxFlat_85h0w")
+OptionButton/styles/hover = SubResource("StyleBoxFlat_bgec1")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_ss4do")
+OptionButton/styles/pressed = SubResource("StyleBoxFlat_v1ivs")

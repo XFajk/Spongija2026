@@ -1,0 +1,58 @@
+[gd_scene format=4 uid="uid://d4fletw1suhqx"]
+
+[ext_resource type="Script" uid="uid://d6vhqgkd2emd" path="res://src/battle_system/visual_effects/AbilityVisualEffect.cs" id="1_6snxr"]
+
+[sub_resource type="Curve" id="Curve_68o1a"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gdhjq"]
+curve = SubResource("Curve_68o1a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mes6x"]
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.5, 0.5)
+use_rotation_3d = true
+rotation_3d_min = Vector3(90, -180, 0)
+rotation_3d_max = Vector3(90, 180, 0)
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = 0.99999774
+scale_min = 0.29999998
+scale_curve = SubResource("CurveTexture_gdhjq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6snxr"]
+resource_name = "SVGMat"
+cull_mode = 2
+emission_enabled = true
+emission = Color(0, 1, 0.10793519, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_68o1a"]
+resource_name = "musical_note_Curve"
+_surfaces = [{
+"aabb": AABB(-0.13483763, 0, -0.21063636, 0.23147553, 1e-05, 0.43379068),
+"attribute_data": PackedByteArray("VkD//2hQ//9Iav//RXT//308//82ev///YP//x7R//8BMP//RMf//9a////QiP//SI3//6u5//9ts///RpL//4Cs//8amP//8p7//9Gg//944////BT//2cf//+NDP//LAf///ju//9bA///7PX//2GA//+N+///"),
+"format": 34896613399,
+"index_count": 84,
+"index_data": PackedByteArray("AAABAAIAAAACAAMABAAAAAMABAADAAUABAAFAAYABwAEAAYACAAEAAcACQAHAAYACgAJAAYACgAGAAsACgALAAwADQAKAAwADgANAAwADgAMAA8AEAAOAA8AEAAPABEAEAARABIAEwAQABIACAAHABQAFQAIABQAFQAWAAgAFwAVABQAGAAXABQAGAAUABkAGgAYABkAGgAZABsAHAAaABsAHAAbAB0A"),
+"material": SubResource("StandardMaterial3D_6snxr"),
+"name": "SVGMat",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 30,
+"vertex_data": PackedByteArray("A4AAAF0A/7+KkAAAAAD/v5OQAAAcC/+/I5UAAAUY/78WgAAAQSr/vwWjAAD+J/+/WdwAAKdL/7+MkAAAakX/v4WAAACoxP+/cLoAACdO/7/O2gAAAl3/vzr0AAA1YP+/6f4AAJZx/7/57AAA9nD/v9r0AADgh/+///8AAJSG/79K7gAAM53/v7nwAACPpP+/r9oAAHm+/7/E1QAA57//v8KPAAAB2P+/DEAAAEHD/7++YAAAcMD/v3QWAABe0P+/AAAAALri/79ngQAAQOn/v2kBAAD17/+/sl8AAK/4/7/kEAAAwfv/v9czAAD///+/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3////9/")
+}]
+blend_shape_mode = 0
+
+[node name="HealEffect" type="Node3D" unique_id=630719721]
+script = ExtResource("1_6snxr")
+Duration = 1.5
+metadata/_custom_type_script = "uid://d6vhqgkd2emd"
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1989911481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_mes6x")
+draw_pass_1 = SubResource("ArrayMesh_68o1a")

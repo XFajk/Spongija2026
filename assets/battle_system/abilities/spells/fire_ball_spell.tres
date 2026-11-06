@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="FireBallSpell" format=3 uid="uid://ddfgaidqfhbat"]
+
+[ext_resource type="Texture2D" uid="uid://cgc3ud17jn31f" path="res://assets/ui/fireball.png" id="1_fyjep"]
+[ext_resource type="Texture2D" uid="uid://pej1hmqyk87g" path="res://assets/ui/fireball_color.png" id="1_h3oea"]
+[ext_resource type="Script" uid="uid://kaqcq55yms27" path="res://src/battle_system/abilities/specific/FireBallSpell.cs" id="1_mpr6r"]
+[ext_resource type="AudioStream" uid="uid://ct3ysob57py7m" path="res://assets/sounds/fireball_detached_randomized.tres" id="2_sound"]
+[ext_resource type="AudioStream" uid="uid://cce7cracqjj28" path="res://assets/sounds/fireball_hit_randomized.tres" id="3_sound"]
+[ext_resource type="PackedScene" uid="uid://8j6p0qticah3" path="res://scenes/projectiles/super_fire_ball_projectile.tscn" id="5_ck5jc"]
+
+[resource]
+script = ExtResource("1_mpr6r")
+Damage = 60
+DamagePerKnowledge = 20
+Projectile = ExtResource("5_ck5jc")
+ShootAngle = 10.0
+LaunchSound = ExtResource("2_sound")
+HitSound = ExtResource("3_sound")
+Name = "Super Fire Ball"
+Description = "Hurls a ball of fire at an enemy stack, dealing 60 damage plus 20 for every point of the hero's Knowledge. No armor can stop it."
+Icon = ExtResource("1_fyjep")
+HoveredIcon = ExtResource("1_h3oea")
+ManaCost = 20
+MinKnowledge = 6
+metadata/_custom_type_script = "uid://kaqcq55yms27"

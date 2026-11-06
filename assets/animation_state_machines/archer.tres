@@ -1,0 +1,55 @@
+[gd_resource type="AnimationNodeStateMachine" format=3 uid="uid://dd755jtqaxtaa"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b8nfb"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jka32"]
+animation = &"LongRangAttack_archer"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n6843"]
+animation = &"MeleeAttack_archer"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pn050"]
+animation = &"Run_pilgrim"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iwahs"]
+advance_mode = 2
+advance_expression = "IsRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wuhje"]
+advance_mode = 2
+advance_expression = "!IsRunning"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3bct1"]
+advance_mode = 2
+advance_expression = "RangedAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tkhon"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6o8qa"]
+advance_mode = 2
+advance_expression = "MeleeAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4frgk"]
+switch_mode = 2
+advance_mode = 2
+advance_expression = "
+"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7vrqf"]
+advance_mode = 2
+
+[resource]
+states/Idle/node = SubResource("AnimationNodeAnimation_b8nfb")
+states/Idle/position = Vector2(390.94, 100.00624)
+states/LongRangAttack_archer/node = SubResource("AnimationNodeAnimation_jka32")
+states/LongRangAttack_archer/position = Vector2(392.315, -36.98752)
+states/MeleeAttack_archer/node = SubResource("AnimationNodeAnimation_n6843")
+states/MeleeAttack_archer/position = Vector2(609.565, 99.69062)
+states/Run_pilgrim/node = SubResource("AnimationNodeAnimation_pn050")
+states/Run_pilgrim/position = Vector2(389.565, 232.01248)
+states/Start/position = Vector2(214.5, 101.375)
+transitions = ["Idle", "Run_pilgrim", SubResource("AnimationNodeStateMachineTransition_iwahs"), "Run_pilgrim", "Idle", SubResource("AnimationNodeStateMachineTransition_wuhje"), "Idle", "LongRangAttack_archer", SubResource("AnimationNodeStateMachineTransition_3bct1"), "LongRangAttack_archer", "Idle", SubResource("AnimationNodeStateMachineTransition_tkhon"), "Idle", "MeleeAttack_archer", SubResource("AnimationNodeStateMachineTransition_6o8qa"), "MeleeAttack_archer", "Idle", SubResource("AnimationNodeStateMachineTransition_4frgk"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_7vrqf")]
+graph_offset = Vector2(85.76999, -85.79992)

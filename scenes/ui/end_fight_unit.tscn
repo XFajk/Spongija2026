@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://wv50hmqk27ef"]
+
+[ext_resource type="Texture2D" uid="uid://bqoub3vguef5x" path="res://assets/pics/ramcek.png" id="1_ixy15"]
+[ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="2_sr1vm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gyjbk"]
+font = ExtResource("2_sr1vm")
+font_size = 20
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="EndFightUnit" type="TextureRect" unique_id=1292488235]
+custom_minimum_size = Vector2(75, 75)
+texture = ExtResource("1_ixy15")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1544717127]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="Amount" type="Label" parent="." unique_id=357152027]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -47.0
+offset_top = -40.0
+offset_right = -7.0
+offset_bottom = 2.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "20"
+label_settings = SubResource("LabelSettings_gyjbk")
+horizontal_alignment = 2
+vertical_alignment = 2

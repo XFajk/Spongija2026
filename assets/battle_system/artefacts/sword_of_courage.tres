@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StatArtefact" format=3 uid="uid://cy7b18dunqpbt"]
+
+[ext_resource type="Texture2D" uid="uid://dx7hp78abynlc" path="res://assets/artefacts_icons/sword.png" id="1_hxs57"]
+[ext_resource type="Script" uid="uid://cstatart7q1xa" path="res://src/battle_system/artefacts/StatArtefact.cs" id="1_pmngv"]
+
+[resource]
+script = ExtResource("1_pmngv")
+Strength = 3
+Name = "Sword of Courage"
+Description = "Raised high, it reminds every elf why they set out on the journey."
+Icon = ExtResource("1_hxs57")
+metadata/_custom_type_script = "uid://cstatart7q1xa"

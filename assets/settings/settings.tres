@@ -1,0 +1,121 @@
+[gd_resource type="Resource" script_class="SettingsPageResource" format=3 uid="uid://ch16y2n442y74"]
+
+[ext_resource type="Script" uid="uid://t6w8bg8dy7a1" path="res://src/resources/SettingsPageResource.cs" id="1_2iyqv"]
+[ext_resource type="Script" uid="uid://cf6w3m85b28c6" path="res://src/resources/Setting.cs" id="2_4advl"]
+[ext_resource type="PackedScene" uid="uid://d27vlxv52ybnw" path="res://scenes/ui/settings/title_setting.tscn" id="3_pnt32"]
+[ext_resource type="Script" uid="uid://c63oacn1bhp0n" path="res://src/resources/TitleSetting.cs" id="4_kk22c"]
+[ext_resource type="PackedScene" uid="uid://ps0nlivurnvy" path="res://scenes/ui/settings/toggle_setting.tscn" id="5_6moow"]
+[ext_resource type="Script" uid="uid://ckynlennwfn7v" path="res://src/resources/ToggleSetting.cs" id="6_7degv"]
+[ext_resource type="PackedScene" uid="uid://cs5hchmjglrwr" path="res://scenes/ui/settings/dropdown_setting.tscn" id="7_i4g78"]
+[ext_resource type="Script" uid="uid://j5vcvwh2jtdf" path="res://src/resources/Dropdown.cs" id="8_arehu"]
+[ext_resource type="PackedScene" uid="uid://bp8o1xh6bd1f1" path="res://scenes/ui/settings/slider_setting.tscn" id="9_8m4j5"]
+[ext_resource type="Script" uid="uid://kqcg47axafo5" path="res://src/resources/SliderSetting.cs" id="10_k8wv6"]
+[ext_resource type="PackedScene" uid="uid://dya15edu6f25v" path="res://scenes/ui/settings/title_text.tscn" id="11_4advl"]
+
+[sub_resource type="Resource" id="Resource_x5cif"]
+script = ExtResource("4_kk22c")
+name = "Display"
+SceneTemplate = ExtResource("3_pnt32")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[sub_resource type="Resource" id="Resource_4n641"]
+script = ExtResource("6_7degv")
+name = "Fullscreen"
+SceneTemplate = ExtResource("5_6moow")
+function = "Fullscreen"
+metadata/_custom_type_script = "uid://ckynlennwfn7v"
+
+[sub_resource type="Resource" id="Resource_e1ve6"]
+script = ExtResource("8_arehu")
+options = PackedStringArray("1920x1080", "1920x1200")
+name = "Resolution"
+SceneTemplate = ExtResource("7_i4g78")
+function = "Resolution"
+metadata/_custom_type_script = "uid://j5vcvwh2jtdf"
+
+[sub_resource type="Resource" id="Resource_ewpem"]
+script = ExtResource("6_7degv")
+name = "V-Sync"
+SceneTemplate = ExtResource("5_6moow")
+function = "Vsync"
+metadata/_custom_type_script = "uid://ckynlennwfn7v"
+
+[sub_resource type="Resource" id="Resource_l8ln2"]
+script = ExtResource("4_kk22c")
+name = "Volume"
+SceneTemplate = ExtResource("3_pnt32")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[sub_resource type="Resource" id="Resource_7sufx"]
+script = ExtResource("10_k8wv6")
+maxValue = 100.0
+step = 1.0
+name = "Master"
+SceneTemplate = ExtResource("9_8m4j5")
+function = "Master"
+metadata/_custom_type_script = "uid://kqcg47axafo5"
+
+[sub_resource type="Resource" id="Resource_ckw2i"]
+script = ExtResource("10_k8wv6")
+maxValue = 100.0
+step = 1.0
+name = "SFX"
+SceneTemplate = ExtResource("9_8m4j5")
+function = "Sfx"
+metadata/_custom_type_script = "uid://kqcg47axafo5"
+
+[sub_resource type="Resource" id="Resource_c5mx7"]
+script = ExtResource("10_k8wv6")
+maxValue = 100.0
+step = 1.0
+name = "Music"
+SceneTemplate = ExtResource("9_8m4j5")
+function = "Music"
+metadata/_custom_type_script = "uid://kqcg47axafo5"
+
+[sub_resource type="Resource" id="Resource_lpqf6"]
+script = ExtResource("4_kk22c")
+name = "Input"
+SceneTemplate = ExtResource("3_pnt32")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[sub_resource type="Resource" id="Resource_2iyqv"]
+script = ExtResource("4_kk22c")
+name = "- Left Click to Interact"
+SceneTemplate = ExtResource("11_4advl")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[sub_resource type="Resource" id="Resource_4advl"]
+script = ExtResource("4_kk22c")
+name = "- Right C. to Rotate"
+SceneTemplate = ExtResource("11_4advl")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[sub_resource type="Resource" id="Resource_pnt32"]
+script = ExtResource("4_kk22c")
+name = "- Move Camera with Middle B."
+SceneTemplate = ExtResource("11_4advl")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[sub_resource type="Resource" id="Resource_6moow"]
+script = ExtResource("4_kk22c")
+name = "- ZOOM with Mouse Wheel"
+SceneTemplate = ExtResource("11_4advl")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[sub_resource type="Resource" id="Resource_7degv"]
+script = ExtResource("4_kk22c")
+name = "- Escape to Pause"
+SceneTemplate = ExtResource("11_4advl")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[sub_resource type="Resource" id="Resource_i4g78"]
+script = ExtResource("4_kk22c")
+name = "- Space to Return Camera"
+SceneTemplate = ExtResource("11_4advl")
+metadata/_custom_type_script = "uid://c63oacn1bhp0n"
+
+[resource]
+script = ExtResource("1_2iyqv")
+settings = Array[ExtResource("2_4advl")]([SubResource("Resource_x5cif"), SubResource("Resource_4n641"), SubResource("Resource_e1ve6"), SubResource("Resource_ewpem"), SubResource("Resource_l8ln2"), SubResource("Resource_7sufx"), SubResource("Resource_ckw2i"), SubResource("Resource_c5mx7"), SubResource("Resource_lpqf6"), SubResource("Resource_2iyqv"), SubResource("Resource_4advl"), SubResource("Resource_pnt32"), SubResource("Resource_6moow"), SubResource("Resource_7degv"), SubResource("Resource_i4g78")])
+metadata/_custom_type_script = "uid://t6w8bg8dy7a1"

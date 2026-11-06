@@ -1,0 +1,62 @@
+using Godot;
+using System.Threading.Tasks;
+
+[GlobalClass]
+public abstract partial class SpellAbility : Resource, IAbility
+{
+    // Whose stacks the spell can be cast on, from the caster's side
+    public enum TargetSide
+    {
+        Enemies,
+        Allies,
+        Any,
+    }
+
+    [Export]
+    public string Name { get; set; } = "";
+
+    // Shown in the spell's tooltip in the spellbook
+    [Export(PropertyHint.MultilineText)]
+    public string Description { get; set; } = "";
+
+    [Export]
+    public TargetSide Targets { get; set; } = TargetSide.Enemies;
+
+    // Shown on the spell's button in the spellbook.
+    [Export]
+    public Texture2D? Icon { get; set; }
+
+    // Shown on the button while it's hovered, and as the cursor while picking the spell's target. Icon if not set.
+    [Export]
+    public Texture2D? HoveredIcon { get; set; }
+
+    public Texture2D? GetHoveredIcon() => HoveredIcon ?? Icon;
+
+    [Export]
+    public uint ManaCost { get; set; }
+
+    // Hero Knowledge needed to cast this spell as a hero spell.
+    [Export]
+    public uint MinKnowledge { get; set; }
+
+    // The spell the hero learns when a unit casting this one joins the army (Inventory.LearnSpellsOf), for spells
+    // tuned for units (e.g. a fire ball whose damage is per caster). Null: the hero learns this spell itself.
+    [Export]
+    public SpellAbility? HeroVersion { get; set; }
+
+    public SpellAbility GetHeroVersion() => HeroVersion ?? this;
+
+    public abstract Task Use(Stack user, Stack target, Arena arena);
+
+    // Cast by the hero instead of a unit: origin is where the hero stands (global, the arena's HeroSpellCastPosition),
+    // so effects can come from there. caster is the stack whose turn it is (for its side and its hero).
+    // By default it's cast like the stack's own spell.
+    public virtual Task UseFromHero(Stack caster, Vector3 origin, Stack target, Arena arena) => Use(caster, target, arena);
+
+    // What casting it on the target would do, without doing it, for the AI. Must compute the same amounts as Use:
+    // share one method between them (e.g. FireBallSpell.GetDamage) so they can't drift apart.
+    public abstract SpellEstimate Evaluate(Stack caster, Stack target, Battle battle);
+
+    // The same for a hero cast (UseFromHero); by default like the stack's own cast
+    public virtual SpellEstimate EvaluateFromHero(Stack caster, Stack target, Battle battle) => Evaluate(caster, target, battle);
+}

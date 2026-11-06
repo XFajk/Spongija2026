@@ -1,0 +1,10 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://bwwtp2yvimjfc"]
+
+[ext_resource type="AudioStream" uid="uid://bqhyiwl6w8nrj" path="res://assets/sounds/bow/Bow Attack 1.ogg" id="1_q4ado"]
+[ext_resource type="AudioStream" uid="uid://cf0lneu2wd5id" path="res://assets/sounds/bow/Bow Attack 2.ogg" id="2_5b7i1"]
+
+[resource]
+random_pitch = 1.0905077
+streams_count = 2
+stream_0/stream = ExtResource("1_q4ado")
+stream_1/stream = ExtResource("2_5b7i1")

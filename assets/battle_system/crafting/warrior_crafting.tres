@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CraftingUnit" format=3 uid="uid://cyv73832q5mrk"]
+
+[ext_resource type="Script" uid="uid://bfleqwxmysexk" path="res://src/battle_system/army/CraftingUnit.cs" id="1_8rctl"]
+[ext_resource type="Resource" uid="uid://vmbdbqx2frwv" path="res://assets/battle_system/units/warrior_quendi.tres" id="1_52ujb"]
+[ext_resource type="Resource" uid="uid://c8oxpgxg86v8r" path="res://assets/battle_system/units/pilgrim_quendi.tres" id="2_8rxs0"]
+
+[resource]
+script = ExtResource("1_8rctl")
+Unit = ExtResource("2_8rxs0")
+Resource = 2
+FinalUnit = ExtResource("1_52ujb")
+metadata/_custom_type_script = "uid://bfleqwxmysexk"

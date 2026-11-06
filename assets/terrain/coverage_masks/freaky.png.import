@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://c20vj8der6yq3"
+path="res://.godot/imported/freaky.png-b0e5e49e0e9be55b8a7d34e4523c839f.image"
+
+[deps]
+
+source_file="res://assets/terrain/coverage_masks/freaky.png"
+dest_files=["res://.godot/imported/freaky.png-b0e5e49e0e9be55b8a7d34e4523c839f.image"]
+
+[params]
+

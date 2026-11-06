@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WebBallSpell" format=3]
+
+[ext_resource type="Script" uid="uid://dms411lu6oxqm" path="res://src/battle_system/abilities/specific/WebBallSpell.cs" id="1_web"]
+[ext_resource type="Texture2D" uid="uid://b3pd54pr1eff3" path="res://assets/ui/cobweb_slow_color.png" id="2_hdubd"]
+[ext_resource type="PackedScene" uid="uid://bmu4cgreo3j2b" path="res://scenes/projectiles/ball_of_web.tscn" id="2_web"]
+[ext_resource type="Texture2D" uid="uid://c2itp2dsr8vpy" path="res://assets/ui/cobweb_slow.png" id="3_bv0lv"]
+[ext_resource type="Resource" path="res://assets/battle_system/effects/slow_effect.tres" id="3_web"]
+
+[resource]
+script = ExtResource("1_web")
+Effect = ExtResource("3_web")
+Damage = 300
+Projectile = ExtResource("2_web")
+Name = "Queen's Web"
+Description = "The Spider Queen spits a mass of web at an enemy stack. It deals 300 damage that no armor can stop and slows the stack."
+Icon = ExtResource("3_bv0lv")
+HoveredIcon = ExtResource("2_hdubd")
+ManaCost = 15
+metadata/_custom_type_script = "uid://dms411lu6oxqm"

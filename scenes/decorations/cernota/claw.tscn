@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://rp8qxudhfv8q"]
+
+[ext_resource type="PackedScene" uid="uid://mwypqss4nms0" path="res://assets/terrain/models/carnota/claw.glb" id="1_0yope"]
+[ext_resource type="Script" uid="uid://bpulslght6n3w" path="res://src/environment/PulsingLight.cs" id="2_488l1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ifp6o"]
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 26.75
+
+[sub_resource type="SphereMesh" id="SphereMesh_u58m1"]
+material = SubResource("StandardMaterial3D_ifp6o")
+radial_segments = 8
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3w5dj"]
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 8.0
+billboard_mode = 2
+
+[sub_resource type="QuadMesh" id="QuadMesh_eftk7"]
+material = SubResource("StandardMaterial3D_3w5dj")
+size = Vector2(1, 1000)
+
+[node name="Claw" unique_id=1680009021 instance=ExtResource("1_0yope")]
+
+[node name="claw" parent="." index="0" unique_id=914306772]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6746898, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1" unique_id=1427999321]
+transform = Transform3D(2.2658155, 0, 0, 0, 2.2658155, 0, 0, 0, 2.2658155, 0, 9.314832, 0)
+cast_shadow = 0
+mesh = SubResource("SphereMesh_u58m1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="2" unique_id=1044360453]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 508.81265, 0)
+cast_shadow = 0
+mesh = SubResource("QuadMesh_eftk7")
+
+[node name="PulsingLight" type="OmniLight3D" parent="." index="3" unique_id=453128635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.109633, 0)
+light_color = Color(0, 1, 0, 1)
+distance_fade_enabled = true
+omni_range = 12.724876
+script = ExtResource("2_488l1")
+metadata/_custom_type_script = "uid://bpulslght6n3w"

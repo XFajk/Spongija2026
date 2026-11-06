@@ -1,0 +1,8 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dhojggr3ext7f"]
+
+[ext_resource type="AudioStream" uid="uid://b6c6j04nan2qk" path="res://assets/sounds/wolf/wolf_attack.ogg" id="1_i3l2q"]
+
+[resource]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("1_i3l2q")

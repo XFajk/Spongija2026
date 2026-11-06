@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://c88bke3litvni"]
+
+[ext_resource type="Script" uid="uid://d6vhqgkd2emd" path="res://src/battle_system/visual_effects/AbilityVisualEffect.cs" id="1_os0m0"]
+[ext_resource type="ArrayMesh" uid="uid://bxuf8i6tjl7km" path="res://assets/projectiles_spell_and_effects_models/Skull_LoPoly.fbx" id="2_0kcjt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exroi"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.007
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8utch"]
+next_pass = SubResource("StandardMaterial3D_exroi")
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0.99652684, 0.8976809, 1)
+emission_enabled = true
+emission = Color(1, 0.25053632, 0, 1)
+emission_energy_multiplier = 3.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.007
+
+[sub_resource type="Curve" id="Curve_lbbjh"]
+_data = [Vector2(0, 0.27272725), 0.0, 0.0, 0, 0, Vector2(0.7182203, 1), 0.7041492, 0.7041492, 0, 0, Vector2(1, 0.24708623), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fkeho"]
+curve = SubResource("Curve_lbbjh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mes6x"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+use_rotation_3d = true
+rotation_3d_min = Vector3(-30, -180, -30)
+rotation_3d_max = Vector3(30, 180, 30)
+direction = Vector3(0, 1, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+tangential_accel_min = 2.9999976
+tangential_accel_max = 2.9999976
+damping_min = 1.0
+damping_max = 1.0
+scale_min = 2.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_fkeho")
+
+[node name="NecromancerEffect" type="Node3D" unique_id=1115478051]
+script = ExtResource("1_os0m0")
+Duration = 3.0
+metadata/_custom_type_script = "uid://d6vhqgkd2emd"
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=319096505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("StandardMaterial3D_8utch")
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_mes6x")
+draw_pass_1 = ExtResource("2_0kcjt")
