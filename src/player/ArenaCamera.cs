@@ -35,10 +35,9 @@ public partial class ArenaCamera : PlayerCamera
     {
         base._Ready();
 
-        // Terrain3D picks its LODs and foliage from where its camera is, and this camera renders in a SubViewport,
-        // where Terrain3D can't find it by itself. Every terrain, since the arena has one per scenery (forest, hill).
+        // Every terrain, since the arena has one per scenery (forest, hill).
         foreach (Node terrain in GetTree().GetNodesInGroup("Terrain"))
-            terrain.Call("set_camera", this);
+            AttachToTerrain(terrain);
     }
 
     public override void _Process(double delta)

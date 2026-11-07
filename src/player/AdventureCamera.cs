@@ -42,7 +42,7 @@ public partial class AdventureCamera : PlayerCamera
 
 		Godot.Collections.Array<Node> group = GetTree().GetNodesInGroup("Terrain");
 		Node terrain = group[0];
-		terrain.Call("set_camera", this);
+		AttachToTerrain(terrain);
 
 		map = GetWorld3D().NavigationMap;
 		_rotatingCenter = Agent!.GlobalPosition;

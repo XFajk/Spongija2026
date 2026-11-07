@@ -18,3 +18,4 @@ tonemap_mode = 2
 tonemap_exposure = 0.75
 sdfgi_use_occlusion = true
 glow_enabled = true
+glow_strength = 1.2

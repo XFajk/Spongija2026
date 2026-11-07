@@ -28,6 +28,17 @@ public partial class PlayerCamera : Camera3D
 		_ignoringClick = true;
 	}
 
+	// Terrain3D picks its LODs and foliage from where its camera is, and the game's cameras render in a SubViewport,
+	// where it can't find them by itself. Also stops Terrain3D's mouse picking (a 2x2 MouseViewport for its
+	// get_intersection, which the game never calls): the Mobile renderer errors on a viewport that small
+	// ("p_mipmap = 1 is out of bounds").
+	protected void AttachToTerrain(Node terrain)
+	{
+		terrain.Call("set_camera", this);
+		if (terrain.GetNodeOrNull<SubViewport>("MouseViewport") is SubViewport mouseViewport)
+			mouseViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Disabled;
+	}
+
 	public override void _Ready()
 	{
 		_interactionRayCast = new RayCast3D
