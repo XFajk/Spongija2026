@@ -188,9 +188,10 @@ public partial class AdventureCamera : PlayerCamera
 
 		Quaternion currentRotation = GlobalBasis.GetRotationQuaternion();
 
+		float rotationWeight = 1.0f - Mathf.Exp(-SmoothSpeed * 5.0f * (float)delta);
 		Quaternion smoothRotation = currentRotation.Slerp(
 			targetRotation,
-			(float)delta * SmoothSpeed * 5
+			rotationWeight
 		);
 
 		GlobalBasis = new Basis(smoothRotation);
