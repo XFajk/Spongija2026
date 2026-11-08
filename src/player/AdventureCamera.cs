@@ -63,9 +63,9 @@ public partial class AdventureCamera : PlayerCamera
 		base._Process(delta);
 		Debug.Assert(_interactionRayCast != null);
 
-		if (_ignoringClick && !Input.IsActionJustPressed("interact"))
+		if (_ignoringClick && !Input.IsActionPressed("interact"))
 			_ignoringClick = false;
-		bool interactPressed = Input.IsActionJustPressed("interact") && !_ignoringClick;
+		bool interactPressed = Input.IsActionPressed("interact") && !_ignoringClick;
 
 		if (_interactionRayCast.IsColliding())
 		{
