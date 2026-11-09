@@ -7,7 +7,7 @@ public enum MovementStyle
 {
     // Moves tile by tile, playing the model's run animation
     Walk = 0,
-    // Jumps tile by tile, no animation
+    // Casts, vanishes and reappears on the last tile inside the unit's TeleportEffect
     Teleport = 2,
 }
 
@@ -35,9 +35,22 @@ public partial class UnitNode : Area3D, IInteractable
     [Export]
     public MovementStyle MovementStyle { get; set; } = MovementStyle.Walk;
 
-    // Time it takes to complete one movement
+    // Time it takes to walk one tile (Walk only)
     [Export(PropertyHint.Range, "0.1,1")]
     public float MovementTime { get; set; } = 0.1f;
+
+    // Teleport only: the effect played on the destination (an AbilityVisualEffect scene), freed when it finishes.
+    // Without it the unit reappears at once.
+    [Export]
+    public PackedScene? TeleportEffect { get; set; }
+
+    // Teleport only: how far into TeleportEffect's Duration the unit reappears, 0 at once, 1 as it ends
+    [Export(PropertyHint.Range, "0,1")]
+    public float TeleportAppearAt { get; set; } = 0f;
+
+    // The TeleportEffect spawned by the last teleport, until it finishes (then null), so the cinematic camera
+    // can wait for it (Arena.AnimateMove)
+    public AbilityVisualEffect? ActiveTeleportEffect { get; private set; }
 
     // Where the unit's projectiles leave from (a hand, a bow): e.g. a Marker3D under a BoneAttachment3D, so it
     // follows the animation. Read at the attack's hit frame. If not set, abilities use their own height above the unit.
@@ -434,50 +447,121 @@ public partial class UnitNode : Area3D, IInteractable
             GroundTile.GlobalBasis = ArenaRef.GlobalBasis * Basis.FromEuler(new Vector3(-Mathf.Pi / 2, 0, 0));
     }
 
+    // Emits MovementCompleted when done, never before returning, so callers can await the signal after calling.
     public void MoveAlong(List<Vector2I> gridPath)
     {
-        var tween = CreateTween();
-        var delay = MovementTime;
-
-        StartMoveSound();
-        // Stopped when MovementCompleted is emitted, at the end of either style
-        tween.Finished += StopMoveSound;
+        if (gridPath.Count == 0)
+        {
+            CallDeferred(GodotObject.MethodName.EmitSignal, SignalName.MovementCompleted);
+            return;
+        }
 
         switch (MovementStyle)
         {
             case MovementStyle.Walk:
-                tween.SetParallel(false);
-                tween.TweenCallback(Callable.From(() => SetRunning(true)));
-                foreach (Vector2I point in gridPath)
-                {
-                    tween.TweenCallback(Callable.From(() => FaceTowards(point)));
-                    // Engine property name (snake_case), not the C# one
-                    tween.TweenProperty(this, "position", GridToLocal(point), delay);
-                }
-                tween.TweenCallback(Callable.From(() => SetRunning(false)));
-                tween.TweenCallback(Callable.From(FaceEnemySide));
-                tween.TweenCallback(Callable.From(() => EmitSignal(SignalName.MovementCompleted)));
+                WalkAlong(gridPath);
                 break;
             case MovementStyle.Teleport:
-                tween.SetParallel(false);
-                for (int i = 0; i < gridPath.Count; i++)
-                {
-                    Vector2I point = gridPath[i];
-                    Vector2I? nextPoint = i + 1 < gridPath.Count ? gridPath[i + 1] : null;
-
-                    tween.TweenCallback(Callable.From(() =>
-                    {
-                        if (nextPoint is Vector2I next)
-                        {
-                            FaceTowards(next);
-                        }
-                        Position = GridToLocal(point);
-                    })).SetDelay(delay);
-                }
-                tween.TweenCallback(Callable.From(FaceEnemySide));
-                tween.TweenCallback(Callable.From(() => EmitSignal(SignalName.MovementCompleted)));
+                TeleportTo(gridPath[^1]);
                 break;
         }
+    }
+
+    private void WalkAlong(List<Vector2I> gridPath)
+    {
+        var tween = CreateTween();
+        StartMoveSound();
+        tween.Finished += StopMoveSound;
+
+        tween.SetParallel(false);
+        tween.TweenCallback(Callable.From(() => SetRunning(true)));
+        foreach (Vector2I point in gridPath)
+        {
+            tween.TweenCallback(Callable.From(() => FaceTowards(point)));
+            // Engine property name (snake_case), not the C# one
+            tween.TweenProperty(this, "position", GridToLocal(point), MovementTime);
+        }
+        tween.TweenCallback(Callable.From(() => SetRunning(false)));
+        tween.TweenCallback(Callable.From(FaceEnemySide));
+        tween.TweenCallback(Callable.From(() => EmitSignal(SignalName.MovementCompleted)));
+    }
+
+    // Faces the destination and plays the spell cast, then vanishes; TeleportEffect plays on the destination and
+    // the unit reappears there TeleportAppearAt of the way through it. The path between is skipped.
+    private async void TeleportTo(Vector2I destination)
+    {
+        FaceTowards(destination);
+
+        // Completes at once for models without an animation manager
+        await PlaySpellCast().Finished;
+        if (!IsInstanceValid(this) || !IsInsideTree())
+            return;
+
+        StartMoveSound();
+        Visible = false;
+
+        Vector3 localTarget = GridToLocal(destination);
+        Vector3 globalTarget = ArenaRef != null ? ArenaRef.ToGlobal(localTarget) : localTarget;
+
+        AbilityVisualEffect? effect = TeleportEffect != null
+            ? AbilityVisualEffect.Spawn(SoundParent, TeleportEffect, globalTarget)
+            : null;
+        ActiveTeleportEffect = effect;
+        if (effect != null)
+        {
+            effect.Finished += () =>
+            {
+                if (IsInstanceValid(this) && ActiveTeleportEffect == effect)
+                    ActiveTeleportEffect = null;
+                FreeTeleportEffect(effect);
+            };
+
+            float appearDelay = effect.Duration * Mathf.Clamp(TeleportAppearAt, 0f, 1f);
+            if (appearDelay > 0f)
+            {
+                await ToSignal(GetTree().CreateTimer(appearDelay), SceneTreeTimer.SignalName.Timeout);
+                if (!IsInstanceValid(this) || !IsInsideTree())
+                    return;
+            }
+        }
+
+        Position = localTarget;
+        FaceEnemySide();
+        Visible = true;
+        StopMoveSound();
+        EmitSignal(SignalName.MovementCompleted);
+    }
+
+    // Stops the effect's particles emitting (the root, whose script hides its GPUParticles3D type from C#, and any
+    // child emitters) and frees it once the longest-lived of their last particles have faded
+    private static void FreeTeleportEffect(AbilityVisualEffect effect)
+    {
+        if (!IsInstanceValid(effect))
+            return;
+
+        if (!effect.IsInsideTree())
+        {
+            effect.QueueFree();
+            return;
+        }
+
+        var emitters = new List<Node>();
+        if (effect.IsClass("GPUParticles3D"))
+            emitters.Add(effect);
+        emitters.AddRange(effect.FindChildren("*", "GPUParticles3D", true, false));
+
+        float lifetime = 0f;
+        foreach (Node emitter in emitters)
+        {
+            emitter.Set(GpuParticles3D.PropertyName.Emitting, false);
+            lifetime = Mathf.Max(lifetime, (float)emitter.Get(GpuParticles3D.PropertyName.Lifetime).AsDouble());
+        }
+
+        effect.GetTree().CreateTimer(lifetime).Timeout += () =>
+        {
+            if (IsInstanceValid(effect))
+                effect.QueueFree();
+        };
     }
 
     #endregion

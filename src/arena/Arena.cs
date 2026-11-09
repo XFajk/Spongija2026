@@ -1318,9 +1318,22 @@ public partial class Arena : Node3D
     {
         HideTiles(stack.GetOccupiedTiles());
 
-        stack.NodeRepresentation!.MoveAlong(path);
+        UnitNode node = stack.NodeRepresentation!;
+        node.MoveAlong(path);
 
-        await ToSignal(stack.NodeRepresentation!, UnitNode.SignalName.MovementCompleted);
+        await ToSignal(node, UnitNode.SignalName.MovementCompleted);
+
+        // A teleport is instant, so the turn would go on before the camera (already heading for the unit's new
+        // place) got there. The shot stays on the destination until the teleport effect finishes, or without
+        // one for CinematicLeadIn, so the arrival is seen.
+        if (node.MovementStyle == MovementStyle.Teleport && _cinematicSubject == stack && PlayerCamera != null)
+        {
+            PlayerCamera.SetShotFocus(FollowNodes(node));
+            if (node.ActiveTeleportEffect is AbilityVisualEffect effect && IsInstanceValid(effect))
+                await ToSignal(effect, AbilityVisualEffect.SignalName.Finished);
+            else
+                await WaitCinematicLeadIn();
+        }
     }
 
     private async Task ExecuteAbility(Battle battle, PendingAbility pending, int wave, SortedDictionary<int, List<PendingAbility>> waves)
