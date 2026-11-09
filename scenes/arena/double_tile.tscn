@@ -13,8 +13,8 @@ size = Vector2(0.9, 0.9)
 [sub_resource type="QuadMesh" id="QuadMesh_olpmc"]
 size = Vector2(0.8, 0.8)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_uaor7"]
-data = PackedVector3Array(0.45, -0.45, 0, -0.45, -0.45, 0, 0.45, 0.45, 0, -0.45, -0.45, 0, -0.45, 0.45, 0, 0.45, 0.45, 0)
+[sub_resource type="BoxShape3D" id="BoxShape3D_0anxk"]
+size = Vector3(1, 1, 0.01)
 
 [node name="DoubleTile" type="Area3D" unique_id=1718173335]
 collision_layer = 8
@@ -33,7 +33,7 @@ material_override = ExtResource("6_move")
 mesh = SubResource("QuadMesh_olpmc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1028985974]
-shape = SubResource("ConcavePolygonShape3D_uaor7")
+shape = SubResource("BoxShape3D_0anxk")
 
 [node name="Interactable" type="Node" parent="." unique_id=1071128644]
 script = ExtResource("2_nwmd7")

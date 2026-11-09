@@ -16,7 +16,7 @@ rings = 8
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3w5dj"]
 emission_enabled = true
 emission = Color(0, 1, 0, 1)
-emission_energy_multiplier = 8.0
+emission_energy_multiplier = 16.0
 billboard_mode = 2
 
 [sub_resource type="QuadMesh" id="QuadMesh_eftk7"]
@@ -25,7 +25,7 @@ size = Vector2(1, 1000)
 
 [node name="Claw" unique_id=1680009021 instance=ExtResource("1_0yope")]
 
-[node name="claw" parent="." index="0" unique_id=914306772]
+[node name="claw" parent="." index="0" unique_id=823832898]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6746898, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1" unique_id=1427999321]

@@ -85,11 +85,11 @@ height_offset = 0.5
 density = 10.0
 cast_shadows = 0
 material_override = ExtResource("1_xdke8")
-generated_faces = 1
+generated_faces = 3
 generated_size = Vector2(0.5, 0.5)
 last_lod = 0
 last_shadow_lod = 0
-lod0_range = 64.0
+lod0_range = 128.0
 
 [sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_3am05"]
 id = 1
