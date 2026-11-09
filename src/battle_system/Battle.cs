@@ -60,11 +60,17 @@ public class Battle
     public void BuildRoundQueue()
     {
         RoundQueue.Clear();
-        RoundQueue.AddRange(AllStacks
-            .OrderByDescending(s => s.GetSpeedTier())
-            .ThenBy(s => s.GetDefense(includeHero: false))
-            .ThenBy(s => s.Quantity));
+        RoundQueue.AddRange(OrderForRound(AllStacks));
     }
+
+    // The order the next round would start in if it began now. A prediction for the turn queue's display:
+    // effects can still run out and stacks can still die before the round starts.
+    public List<Stack> PredictNextRound() => OrderForRound(AllStacks).ToList();
+
+    private static IEnumerable<Stack> OrderForRound(IEnumerable<Stack> stacks) => stacks
+        .OrderByDescending(s => s.GetSpeedTier())
+        .ThenBy(s => s.GetDefense(includeHero: false))
+        .ThenBy(s => s.Quantity);
 
     // The stack whose turn it is, or null when the round is over.
     public Stack? GetTurnInput()
@@ -78,6 +84,7 @@ public class Battle
         return stack;
     }
 
+    // A stack that has already waited this round can't wait again; it can only act or discard its turn.
     public bool CanWait(Stack stack) => !stack.Waited && !stack.IsDead;
 
     // Moves the stack's turn to the end of this round. Its turn was already taken off the queue by GetTurnInput.

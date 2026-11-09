@@ -80,6 +80,7 @@ public partial class UnitNode : Area3D, IInteractable
 
     private bool _isActive;
     private bool _hoverOutlined;
+    private bool _highlighted;
 
     // The visual effects of the effects on the stack (ShowEffect), children of this node so they follow the unit
     private readonly Dictionary<IEffect, AbilityVisualEffect> _effectVisuals = new();
@@ -311,12 +312,27 @@ public partial class UnitNode : Area3D, IInteractable
         RefreshOutline();
     }
 
+    // The hover outline, set by UI that points at the unit (the turn queue's icons). Its own flag, so the camera's
+    // hover and unhover don't clear it.
+    public bool IsHighlighted
+    {
+        get => _highlighted;
+        set
+        {
+            if (_highlighted == value)
+                return;
+            _highlighted = value;
+            RefreshOutline();
+        }
+    }
+
     // The hover outline wins over the active one, so hovering the active unit still shows it can be targeted
     private void RefreshOutline()
     {
-        bool enable = _hoverOutlined || _isActive;
-        Color color = _hoverOutlined ? (IsPlayerUnit ? Colors.White : Colors.Red) : ActiveOutlineColor;
-        float thickness = _hoverOutlined ? 0.025f : ActiveOutlineThickness;
+        bool hovered = _hoverOutlined || _highlighted;
+        bool enable = hovered || _isActive;
+        Color color = hovered ? (IsPlayerUnit ? Colors.White : Colors.Red) : ActiveOutlineColor;
+        float thickness = hovered ? 0.025f : ActiveOutlineThickness;
 
         foreach (var mesh in Meshes)
         {

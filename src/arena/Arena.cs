@@ -151,6 +151,12 @@ public partial class Arena : Node3D
 	// Created by SetupPlacementPhase.
 	private ArenaUserInterface? _userInterface;
 
+	// Tips at the placement phase and at the start of player turns (BattleTutorial). Created by SetupPlacementPhase.
+	private BattleTutorial? _tutorial;
+
+	// A stack has struck back in melee this battle, for the tutorial's tip about it
+	private bool _retaliationSeen;
+
 	// False while a hero spell plays in the middle of the turn, so no input is taken meanwhile
 	public bool IsPlayerTurn => CurrentStack?.Army == PlayerArmy && _playerTurn != null && !_castingHeroSpell;
 
@@ -341,11 +347,23 @@ public partial class Arena : Node3D
 		}
 		SpawnHeroModels();
 
+		_tutorial = BattleTutorial.Create(this);
+		ShowPlacementTips();
+
 		await ToSignal(this, SignalName.SetupPlacementPhaseCompleted);
 
 		await TransitionToBattle();
 
 		BeginBattle();
+	}
+
+	// Once the arena has faded in, so the popouts aren't under the black and the player sees the board behind them
+	private async void ShowPlacementTips()
+	{
+		if (FadeInDuration > 0)
+			await ToSignal(GetTree().CreateTimer(FadeInDuration), SceneTreeTimer.SignalName.Timeout);
+		if (_tutorial != null && IsInstanceValid(_tutorial) && IsInSetupPhase)
+			await _tutorial.OnPlacementPhase();
 	}
 
 	// Whether the stack can go with its anchor on the tile during the placement phase: its whole footprint
@@ -690,6 +708,9 @@ public partial class Arena : Node3D
 			}
 
 			CurrentStack = stack;
+			// Before the turn's input shows; the tree is paused while tips are open
+			if (battle.IsPlayerStack(stack) && _tutorial != null)
+				await _tutorial.OnPlayerTurn(battle, stack, _retaliationSeen);
 			Reachability reachability = battle.GetReachability(stack);
 			CurrentReachability = reachability;
 			TurnOutput output = battle.IsPlayerStack(stack)
@@ -765,7 +786,7 @@ public partial class Arena : Node3D
 	{
 		ShowTurnTargets(battle, stack, reachability);
 		_userInterface?.UpdateSpellButtons(stack);
-		_userInterface?.SetWaitEnabled(battle.CanWait(stack));
+		_userInterface?.SetWaitButton(enabled: true, discard: !battle.CanWait(stack));
 		// Size 2 hover: reachability.GetAnchorsCovering(hoveredTile) gives the valid 2x2 squares under the mouse.
 		// Clicks build a TurnOutput (MoveTo is an anchor) and call SubmitPlayerTurn.
 		_playerTurn = new TaskCompletionSource<TurnOutput>();
@@ -812,7 +833,7 @@ public partial class Arena : Node3D
 		_pickedSpell = null;
 		_spellTargets.Clear();
 		_userInterface?.UpdateSpellButtons(null);
-		_userInterface?.SetWaitEnabled(false);
+		_userInterface?.SetWaitButton(enabled: false, discard: false);
 		_userInterface?.SetCancelSpellVisible(false);
 	}
 
@@ -834,16 +855,16 @@ public partial class Arena : Node3D
 		_userInterface?.SetHoveredStack(GetFocusedStack());
 	}
 
-	// Shows under the hovered target what the action would do to it: units killed (or revived, by a spell).
-	// From the same amounts the abilities deal (GetDamage, SpellAbility.Evaluate), so it's what really happens.
-	// Retaliation isn't included.
+	// Shows under the hovered target what the action would do to it: units killed (or revived, by a spell) and the
+	// damage (or healing) it would take, so a hit that kills nothing still shows. From the same amounts the abilities
+	// deal (GetDamage, SpellAbility.Evaluate), so it's what really happens. Retaliation isn't included.
 	private void UpdateActionPreview()
 	{
 		if (_userInterface == null)
 			return;
 
 		Stack? target = null;
-		int killed = 0, revived = 0;
+		ActionPreview preview = ActionPreview.None;
 		if (IsPlayerTurn && CurrentStack is Stack stack && Battle is Battle battle)
 		{
 			if (IsPickingSpellTarget)
@@ -853,21 +874,21 @@ public partial class Arena : Node3D
 					SpellEstimate estimate = _pickedSpellIsHero
 						? spell.EvaluateFromHero(stack, hovered, battle)
 						: spell.Evaluate(stack, hovered, battle);
-					(target, killed, revived) = (hovered, estimate.UnitsKilled, estimate.Revives);
+					(target, preview) = (hovered, ActionPreview.From(estimate));
 				}
 			}
 			else if (_pickedMeleeAttack is { } picked && stack.Unit.MeleeAttack is MeleeAttackAbility melee)
 			{
 				target = picked.Target;
-				killed = (int)target.GetUnitsKilledBy(melee.GetDamage(stack, target));
+				preview = ActionPreview.From(SpellEstimate.ForDamage(melee.GetDamage(stack, target), target));
 			}
 			else if (GetFocusedRangedTarget() is Stack shot && stack.Unit.LongRangeAttack is LongRangeAttackAbility ranged)
 			{
 				target = shot;
-				killed = (int)shot.GetUnitsKilledBy(ranged.GetDamage(stack, shot));
+				preview = ActionPreview.From(SpellEstimate.ForDamage(ranged.GetDamage(stack, shot), shot));
 			}
 		}
-		_userInterface.SetActionPreview(target, killed, revived);
+		_userInterface.SetActionPreview(target, preview);
 	}
 
 	// Every frame on the player's turn: picks the attack position for the hovered melee target (red and raised),
@@ -1233,12 +1254,13 @@ public partial class Arena : Node3D
         turn?.TrySetResult(output);
     }
 
-    // The Wait button: the current stack takes its turn at the end of the round instead. Once per round.
+    // The Wait button: the current stack takes its turn at the end of the round instead. Once per round; a stack
+    // that has already waited discards its turn instead (an empty turn: it does nothing, and its turn ends).
     public bool TryWait()
     {
-        if (!IsPlayerTurn || Battle == null || CurrentStack == null || !Battle.CanWait(CurrentStack))
+        if (!IsPlayerTurn || Battle == null || CurrentStack == null || CurrentStack.IsDead)
             return false;
-        SubmitPlayerTurn(new TurnOutput { Wait = true });
+        SubmitPlayerTurn(Battle.CanWait(CurrentStack) ? new TurnOutput { Wait = true } : new TurnOutput());
         return true;
     }
 
@@ -1318,6 +1340,7 @@ public partial class Arena : Node3D
         if (pending.Ability is MeleeAttackAbility && !pending.IsRetaliation && battle.CanRetaliate(pending.Target))
         {
             pending.Target.Retaliated = true;
+            _retaliationSeen = true;
             AddToWave(waves, wave + 1, new PendingAbility(pending.Target, pending.Target.Unit.MeleeAttack!, pending.User, true));
         }
     }

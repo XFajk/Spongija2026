@@ -1,9 +1,14 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Tutorial : Node, ISavable
 {
-	[Export] public string SaveId { get; set; } = "adventure_tutorial";
+	// The battle tutorial (BattleTutorial) writes its shown tips into this entry of the save while the map isn't loaded
+	public const string DefaultSaveId = "adventure_tutorial";
+	public const string BattleTipsKey = "battleTips";
+
+	[Export] public string SaveId { get; set; } = DefaultSaveId;
 	[Export] public PopoutManager? PopoutManager;
 
 	public void ShowMovementPopout()
@@ -69,7 +74,8 @@ public partial class Tutorial : Node, ISavable
 			{ "inventoryExplained", TutorialChecklist.inventoryExplained },
 			{ "swappingExplained", TutorialChecklist.swappingExplained },
 			{ "magicExplained", TutorialChecklist.magicExplained },
-			{ "campExplained", TutorialChecklist.campExplained }
+			{ "campExplained", TutorialChecklist.campExplained },
+			{ BattleTipsKey, TutorialChecklist.BattleTipsToArray() }
 		};
 	}
 
@@ -81,6 +87,11 @@ public partial class Tutorial : Node, ISavable
 		TutorialChecklist.swappingExplained = (bool)data["swappingExplained"];
 		TutorialChecklist.magicExplained = (bool)data["magicExplained"];
 		TutorialChecklist.campExplained = (bool)data["campExplained"];
+		// Saves from before the battle tutorial have no tips
+		TutorialChecklist.battleTips.Clear();
+		if (data.ContainsKey(BattleTipsKey))
+			foreach (Variant tip in data[BattleTipsKey].AsGodotArray())
+				TutorialChecklist.battleTips.Add(tip.AsString());
 	}
 }
 
@@ -92,4 +103,26 @@ public static class TutorialChecklist
 	public static bool swappingExplained = false;
 	public static bool magicExplained = false;
 	public static bool campExplained = false;
+	// The ids of the battle tutorial's tips already shown (BattleTutorial)
+	public static readonly HashSet<string> battleTips = [];
+
+	// Nothing shown yet, for a new game
+	public static void Reset()
+	{
+		movementShown = false;
+		inventoryShown = false;
+		inventoryExplained = false;
+		swappingExplained = false;
+		magicExplained = false;
+		campExplained = false;
+		battleTips.Clear();
+	}
+
+	public static Godot.Collections.Array BattleTipsToArray()
+	{
+		var array = new Godot.Collections.Array();
+		foreach (string tip in battleTips)
+			array.Add(tip);
+		return array;
+	}
 }
