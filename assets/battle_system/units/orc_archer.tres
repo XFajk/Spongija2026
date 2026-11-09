@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dvbj01wg7irdl" path="res://scenes/units/orc_archer.tscn" id="4_orc"]
 [ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="6_dl7oq"]
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="7_skyic"]
+[ext_resource type="Texture2D" uid="uid://dkjn48nnu07eg" path="res://assets/units_icons/orc_archer.png" id="8_icon"]
 
 [sub_resource type="Resource" id="Resource_ranged"]
 script = ExtResource("3_orc")
@@ -23,6 +24,7 @@ metadata/_custom_type_script = "uid://dbehoqcrijunt"
 [resource]
 script = ExtResource("1_orc")
 Name = "Orc Archer"
+texture = ExtResource("8_icon")
 Description = "Orcs with black-fletched arrows and short bows of horn. They loose them from the back of the horde at anything that moves. Their aim is poor and their hides are thin, but their arrows are many. Like elven archers, they're useless with a knife and won't strike back up close."
 MaxHealth = 30
 Strength = 6

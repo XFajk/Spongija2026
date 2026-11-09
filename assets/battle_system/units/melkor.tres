@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="2_gycr8"]
 [ext_resource type="Script" uid="uid://cj3g6btx1kotr" path="res://src/battle_system/army/Unit.cs" id="3_srmyx"]
 [ext_resource type="Resource" uid="uid://fmqe8vji5py1" path="res://assets/battle_system/abilities/spells/melkors_fire_ball.tres" id="5_emm48"]
+[ext_resource type="Texture2D" uid="uid://drrrr277vrtq4" path="res://assets/units_icons/melkor.png" id="6_icon"]
 
 [sub_resource type="Resource" id="Resource_xre7n"]
 script = ExtResource("1_hvtls")
@@ -14,6 +15,7 @@ metadata/_custom_type_script = "uid://dbehoqcrijunt"
 [resource]
 script = ExtResource("3_srmyx")
 Name = "Melkor"
+texture = ExtResource("6_icon")
 Description = "The Dark Enemy himself, mightiest of the Valar and the first to turn against them. He walks the ruins of his stronghold on Shadow Hill in a shape of night, and every horror of the forest answers to him. His blows break shields, and his fire burns through any armor. Only the bravest host should climb the hill, and only it can win back the great horn of Oromë."
 MaxHealth = 5000
 Strength = 500

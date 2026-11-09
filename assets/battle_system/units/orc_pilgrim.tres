@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="3_2kxxo"]
 [ext_resource type="PackedScene" uid="uid://dmlr2ag72kaa1" path="res://scenes/units/orc_pilgrim.tscn" id="3_orc"]
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="4_acis0"]
+[ext_resource type="Texture2D" uid="uid://cgl4kmpmq6uur" path="res://assets/units_icons/orc_pilgrim.png" id="5_icon"]
 
 [sub_resource type="Resource" id="Resource_melee"]
 script = ExtResource("2_orc")
@@ -13,6 +14,7 @@ metadata/_custom_type_script = "uid://dbehoqcrijunt"
 [resource]
 script = ExtResource("1_orc")
 Name = "Orc Thrall"
+texture = ExtResource("5_icon")
 Description = "Quendi who were taken in the dark before Oromë came, and twisted in Melkor's pits into something cruel and hateful. Thralls are the lowest of his orcs, driven to battle with whips and pitchforks. They are tougher and meaner than the pilgrims they once were, but no braver: they come in hordes because alone they would run."
 MaxHealth = 25
 Strength = 4
