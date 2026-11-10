@@ -9,7 +9,6 @@ public partial class AdventureCamera : PlayerCamera
 
 	[Export] public float Distance = 6.0f;
 	[Export] public float Height = 3.0f;
-	[Export] public float FollowHeight;
 	[Export] public float MinHeight;
 	[Export] public float MaxHeight;
 	[Export] public float MouseSensitivity = 0.005f;
@@ -64,9 +63,9 @@ public partial class AdventureCamera : PlayerCamera
 		base._Process(delta);
 		Debug.Assert(_interactionRayCast != null);
 
-		if (_ignoringClick && !Input.IsActionJustPressed("interact"))
+		if (_ignoringClick && !Input.IsActionPressed("interact"))
 			_ignoringClick = false;
-		bool interactPressed = Input.IsActionJustPressed("interact") && !_ignoringClick;
+		bool interactPressed = Input.IsActionPressed("interact") && !_ignoringClick;
 
 		if (_interactionRayCast.IsColliding())
 		{
@@ -126,11 +125,6 @@ public partial class AdventureCamera : PlayerCamera
 		else
 		{
 			_rotatingCenter = Agent!.GlobalPosition;
-			Height = Mathf.Lerp(
-				Height,
-				FollowHeight,
-				(float)delta * SmoothSpeed
-			);
 			returnPanningButton?.Hide();
 		}
 
@@ -194,9 +188,10 @@ public partial class AdventureCamera : PlayerCamera
 
 		Quaternion currentRotation = GlobalBasis.GetRotationQuaternion();
 
+		float rotationWeight = 1.0f - Mathf.Exp(-SmoothSpeed * 5.0f * (float)delta);
 		Quaternion smoothRotation = currentRotation.Slerp(
 			targetRotation,
-			(float)delta * SmoothSpeed * 5
+			rotationWeight
 		);
 
 		GlobalBasis = new Basis(smoothRotation);
@@ -242,18 +237,15 @@ public partial class AdventureCamera : PlayerCamera
 			ZoomBy((1f - pinch.Factor) * TrackpadZoomSpeed);
 		}
 
-		if (_panningChanged)
+		if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
 		{
-			if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
+			if (mouseEvent.ButtonIndex == MouseButton.WheelDown)
 			{
-				if (mouseEvent.ButtonIndex == MouseButton.WheelDown)
-				{
-					ZoomBy(1f);
-				}
-				else if (mouseEvent.ButtonIndex == MouseButton.WheelUp)
-				{
-					ZoomBy(-1f);
-				}
+				ZoomBy(1f);
+			}
+			else if (mouseEvent.ButtonIndex == MouseButton.WheelUp)
+			{
+				ZoomBy(-1f);
 			}
 		}
 	}

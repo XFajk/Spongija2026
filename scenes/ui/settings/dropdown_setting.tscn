@@ -9,6 +9,7 @@ font = ExtResource("2_qm4ax")
 font_size = 30
 
 [node name="DropdownSetting" type="HBoxContainer" unique_id=1475537741 node_paths=PackedStringArray("_label", "_optionButton")]
+process_mode = 3
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_sbvat")

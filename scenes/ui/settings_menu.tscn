@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://nenrf0mhay8b"]
+
+[ext_resource type="Script" uid="uid://cjev6goupr6st" path="res://src/ui/SettingsBuilder.cs" id="1_x3vyp"]
+[ext_resource type="Resource" uid="uid://ch16y2n442y74" path="res://assets/settings/settings.tres" id="2_0b1cv"]
+[ext_resource type="FontFile" uid="uid://crhj7jxup0f0g" path="res://assets/fonts/Cinzel_Decorative/CinzelDecorative-Bold.ttf" id="3_yu862"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lgwnu"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1109196, 0.0067062946, 0.008779497, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.66604537, 0.08673792, 0.11216498, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jk1qb"]
+bg_color = Color(0.26515836, 0.042844743, 0.04317692, 1)
+border_width_bottom = 7
+border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5dd4i"]
+bg_color = Color(0.26515836, 0.042844743, 0.04317692, 1)
+border_width_top = 7
+border_color = Color(0.53333336, 0.28627452, 0.047058824, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_flqon"]
+bg_color = Color(0.35533425, 0.07014417, 0.07015758, 1)
+border_width_bottom = 7
+border_color = Color(0.48523486, 0.057208225, 0.04872971, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="SettingsMenu" type="Control" unique_id=1949721524 node_paths=PackedStringArray("Container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x3vyp")
+settings = ExtResource("2_0b1cv")
+Container = NodePath("Background/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer")
+
+[node name="Background" type="Panel" parent="." unique_id=738559898]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 560.0
+offset_top = 305.0
+offset_right = -560.0
+offset_bottom = -175.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_lgwnu")
+
+[node name="MarginContainer" type="MarginContainer" parent="Background" unique_id=356926353]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/MarginContainer" unique_id=1703769421]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/ScrollContainer" unique_id=1522570655]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer/ScrollContainer/MarginContainer" unique_id=2108391439]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="Back" type="Button" parent="Background" unique_id=1402263412]
+process_mode = 3
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = 6.0
+offset_right = 300.0
+offset_bottom = 69.0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("3_yu862")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_jk1qb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5dd4i")
+theme_override_styles/hover = SubResource("StyleBoxFlat_flqon")
+text = "Back"

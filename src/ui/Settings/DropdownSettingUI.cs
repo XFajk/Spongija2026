@@ -23,4 +23,16 @@ public partial class DropdownSettingUI : HBoxContainer
 		string selected = _optionButton!.GetItemText((int)index);
 		GD.Print($"{_label!.Text} -> {selected}");
 	}
+
+	public void Activate()
+	{
+		_optionButton!.Disabled = false;
+		_label!.AddThemeColorOverride("font_color", new Color(1, 1, 1, 1));
+	}
+
+	public void Deactivate()
+	{
+		_optionButton!.Disabled = true;
+		_label!.AddThemeColorOverride("font_color", new Color(1, 1, 1, 0.6f));
+	}
 }
