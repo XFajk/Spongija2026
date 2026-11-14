@@ -254,9 +254,17 @@ public partial class ArenaUserInterface : Control
 	public override void _ExitTree()
 	{
 		// Never leave the game with the mouse hidden
+		HideCursors();
+	}
+
+	// Back to the normal mouse, and no stack tooltip: for the pause menu, which freezes them otherwise. Arena shows
+	// the cursors again every frame while they apply.
+	public void HideCursors()
+	{
 		HideMeleeCursor();
 		HideRangedCursor();
 		HideSpellCursor();
+		SetHoveredStack(null);
 	}
 
 	// Replaces the mouse cursor with the sword: the mouse is hidden where it is (it still moves and hovers),
