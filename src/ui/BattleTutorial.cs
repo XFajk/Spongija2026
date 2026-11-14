@@ -3,27 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// The battle's tutorial: short popouts (scenes/ui/popout.tscn, as on the map) that react to what happens, each shown
-// once. Arena asks at the placement phase and at the start of every player turn, while it waits for the player
-// anyway; the tips whose condition holds and that haven't been shown pause the tree until they're closed.
-// Shown tips are kept in TutorialChecklist.battleTips and, in a battle from the map, written into the save slot right
-// away (SaveManager.PatchSave), since a lost battle reloads the save made before it.
+// The battle's tutorial, through a PopoutManager as on the map, reacting to what happens. Two kinds of tips:
+// - popouts, which pause the tree until closed: Arena asks at the start of every player turn, while it waits for the
+//   player anyway, and the tips whose condition holds and that haven't been shown open
+// - hints, text at the top of the screen that pauses nothing and ignores the mouse, shown while the player tries what
+//   they explain (placing the stacks, moving, looking at a stack's stats) until Arena reports it done
+// Each tip is shown once: a popout counts when it opens, a hint once the player has done it. Shown tips are kept in
+// TutorialChecklist.battleTips and, in a battle from the map, written into the save slot right away
+// (SaveManager.PatchSave), since a lost battle reloads the save made before it.
 // Made by Arena, on its own CanvasLayer above the battle's interface.
-public partial class BattleTutorial : Control
+public partial class BattleTutorial : Node
 {
-	private const string PopoutScene = "uid://3me630kro538";
-
-	[Export]
-	public Vector2 PopoutSize { get; set; } = new(700, 600);
-
-	[Export]
-	public int TextFontSize { get; set; } = 21;
+	private const string PlacementHint = "battle_placement";
+	private const string TurnHint = "battle_turn";
+	private const string StatsHint = "battle_stats_hover";
 
 	private readonly record struct Tip(string Id, string Title, string Text);
 
-	// The popouts open now, the last one on top; each button closes the top one
-	private readonly List<Control> _popouts = [];
-	private TaskCompletionSource? _closed;
+	// Seconds between one hint going and the next showing, so the first fades out before the next fades in
+	[Export]
+	public float HintGap { get; set; } = 0.4f;
+
+	private PopoutManager? _popouts;
+	// One hint shows at a time; the others wait in order
+	private (Tip Tip, Control Node)? _currentHint;
+	private readonly List<Tip> _queuedHints = [];
 
 	// Player turns so far this battle, to spread the tips over the first turns
 	private int _playerTurns;
@@ -34,49 +38,54 @@ public partial class BattleTutorial : Control
 		parent.AddChild(layer);
 		var tutorial = new BattleTutorial { Name = "BattleTutorial" };
 		layer.AddChild(tutorial);
+		tutorial._popouts = PopoutManager.Create(layer);
 		return tutorial;
 	}
 
 	public override void _Ready()
 	{
-		// It runs while it pauses the tree
+		// It runs while its popouts pause the tree
 		ProcessMode = ProcessModeEnum.Always;
-		SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-		MouseFilter = MouseFilterEnum.Ignore;
-	}
-
-	public override void _ExitTree()
-	{
-		// Never leave the tree paused behind
-		if (_popouts.Count > 0)
-			GetTree().Paused = false;
 	}
 
 	#region Tips
 
-	// Before the battle, while the player arranges the stacks
-	public Task OnPlacementPhase() => ShowTips(
-	[
-		new Tip("battle_placement", "Before the Battle",
-			"Drag your stacks to arrange them in the first two columns. Each stack is one slot of your army. "
-			+ "Press Start the Battle when you're ready."),
-	]);
+	// Before the battle, while the player arranges the stacks; until OnPlacementFinished
+	public void OnPlacementPhase() => ShowHint(new(PlacementHint, "Before the Battle",
+		"Drag your stacks to arrange them in the first two columns. Each stack is one slot of your army. "
+		+ "Press Start the Battle when you're ready."));
+
+	// Start Battle was pressed
+	public void OnPlacementFinished() => CompleteHint(PlacementHint);
+
+	// The player decided a turn (moved, attacked, cast, waited)
+	public void OnPlayerTurnSubmitted() => CompleteHint(TurnHint);
+
+	// A stack's tooltip showed. Before its hint did, the player has found it alone and doesn't need it.
+	public void OnStackStatsSeen() => CompleteHint(StatsHint);
+
+	// The battle ended: no hint stays over the end screen. Hints not done yet show again next battle.
+	public void HideHints()
+	{
+		_popouts?.HideAllHints();
+		_currentHint = null;
+		_queuedHints.Clear();
+	}
 
 	// At the start of a player stack's turn, before its input shows. retaliationSeen: a stack has struck back in melee
 	// during this battle.
 	public async Task OnPlayerTurn(Battle battle, Stack stack, bool retaliationSeen)
 	{
 		_playerTurns++;
-		var tips = new List<Tip>
-		{
-			new("battle_turn", "Your Turn",
-				"The stack outlined in gold acts now. Click a green tile to move there, or an enemy on a red tile to "
-				+ "attack it. The turn order runs along the bottom: hover a square to find its stack."),
-			new("battle_stats_hover", "Know Your Enemy",
-				"Rest the mouse on any stack, yours or the enemy's, to see its stats: its top unit's health, "
-				+ "Strength, Defense, Speed, and whether it can shoot or cast. A stat shown as 7 + 3 is the unit's "
-				+ "own value plus what the hero and effects add."),
-		};
+		ShowHint(new(TurnHint, "Your Turn",
+			"The stack outlined in gold acts now. Click a green tile to move there, or an enemy on a red tile to "
+			+ "attack it. The turn order runs along the bottom: hover a square to find its stack."));
+		ShowHint(new(StatsHint, "Know Your Enemy",
+			"Rest the mouse on any stack, yours or the enemy's, to see its stats: its top unit's health, "
+			+ "Strength, Defense, Speed, and whether it can shoot or cast. A stat shown as 7 + 3 is the unit's "
+			+ "own value plus what the hero and effects add."));
+
+		var tips = new List<Tip>();
 
 		// Spread over the first turns rather than all at once
 		if (_playerTurns >= 2)
@@ -146,68 +155,68 @@ public partial class BattleTutorial : Control
 
 	#endregion
 
-	#region Popouts
+	#region Popouts and hints
 
-	// Shows the tips not shown yet, the first on top, and completes when the last is closed
+	// Shows the tips not shown yet as popouts, the first on top, and completes when the last is closed
 	private async Task ShowTips(List<Tip> tips)
 	{
 		List<Tip> fresh = tips.Where(t => !TutorialChecklist.battleTips.Contains(t.Id)).ToList();
-		if (fresh.Count == 0 || !IsInsideTree())
+		if (fresh.Count == 0 || !IsInsideTree() || _popouts == null)
 			return;
 
-		foreach (Tip tip in fresh)
-			TutorialChecklist.battleTips.Add(tip.Id);
+		MarkShown(fresh.Select(t => t.Id));
+		// Reversed, so the first tip ends up on top and is read first
+		for (int i = fresh.Count - 1; i >= 0; i--)
+			_popouts.SpawnPopout(fresh[i].Title, fresh[i].Text);
+		await _popouts.WaitUntilClosed();
+	}
+
+	// Shows the tip as a hint, or queues it behind the one showing, unless it's been done before or is already there
+	private void ShowHint(Tip tip)
+	{
+		if (_popouts == null || TutorialChecklist.battleTips.Contains(tip.Id)
+			|| _currentHint?.Tip.Id == tip.Id || _queuedHints.Any(t => t.Id == tip.Id))
+			return;
+		if (_currentHint != null)
+		{
+			_queuedHints.Add(tip);
+			return;
+		}
+		_currentHint = (tip, _popouts.ShowHint(tip.Title, tip.Text));
+	}
+
+	// The player did what the hint explains: it goes (the next queued one showing after HintGap), or leaves the queue,
+	// and won't show again. Doing it before the hint shows counts too.
+	private async void CompleteHint(string id)
+	{
+		if (TutorialChecklist.battleTips.Contains(id))
+			return;
+		MarkShown([id]);
+		_queuedHints.RemoveAll(t => t.Id == id);
+		if (_currentHint?.Tip.Id != id)
+			return;
+
+		_popouts?.HideHint(_currentHint.Value.Node);
+		_currentHint = null;
+		if (_queuedHints.Count == 0)
+			return;
+		await ToSignal(GetTree().CreateTimer(HintGap, processAlways: false), SceneTreeTimer.SignalName.Timeout);
+		// Another hint may have shown meanwhile, or the battle ended and cleared the queue
+		if (_currentHint != null || _queuedHints.Count == 0 || !IsInsideTree())
+			return;
+		Tip next = _queuedHints[0];
+		_queuedHints.RemoveAt(0);
+		ShowHint(next);
+	}
+
+	private static void MarkShown(IEnumerable<string> ids)
+	{
+		foreach (string id in ids)
+			TutorialChecklist.battleTips.Add(id);
 		// Only for a battle from the map; battle_test.tscn mustn't change a save
 		if (EndFightScreen.TriggeringFightPOI != null)
 			SaveManager.PatchSave(CurrentSave.CurrentSaveIndex, Tutorial.DefaultSaveId, Tutorial.BattleTipsKey,
 				TutorialChecklist.BattleTipsToArray());
-
-		_closed ??= new TaskCompletionSource();
-		// Reversed, so the first tip ends up on top and is read first
-		for (int i = fresh.Count - 1; i >= 0; i--)
-			SpawnPopout(fresh[i]);
-		await _closed.Task;
-	}
-
-	private void SpawnPopout(Tip tip)
-	{
-		if (GD.Load<PackedScene>(PopoutScene).Instantiate() is not Control popout)
-			return;
-		// The scene is sized for the map's short tips: bigger, with a smaller font, so these aren't cut off
-		popout.CustomMinimumSize = PopoutSize;
-		AddChild(popout);
-		popout.SetAnchorsPreset(LayoutPreset.Center);
-		popout.GetNode<Label>("Label").Text = tip.Title;
-		Label text = popout.GetNode<Label>("Text");
-		text.Text = tip.Text;
-		if (text.LabelSettings?.Duplicate() is LabelSettings settings)
-		{
-			settings.FontSize = TextFontSize;
-			text.LabelSettings = settings;
-		}
-		popout.GetNode<Button>("Button").Pressed += CloseTopPopout;
-		_popouts.Add(popout);
-
-		// Blocks the battle behind the popouts; a custom cursor (sword, arrow) may have hidden the mouse
-		MouseFilter = MouseFilterEnum.Stop;
-		Input.MouseMode = Input.MouseModeEnum.Visible;
-		GetTree().Paused = true;
-	}
-
-	private void CloseTopPopout()
-	{
-		if (_popouts.Count == 0)
-			return;
-		_popouts[^1].QueueFree();
-		_popouts.RemoveAt(_popouts.Count - 1);
-		if (_popouts.Count > 0)
-			return;
-
-		GetTree().Paused = false;
-		MouseFilter = MouseFilterEnum.Ignore;
-		TaskCompletionSource? closed = _closed;
-		_closed = null;
-		closed?.TrySetResult();
 	}
 
 	#endregion

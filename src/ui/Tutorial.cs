@@ -13,14 +13,14 @@ public partial class Tutorial : Node, ISavable
 
 	public void ShowMovementPopout()
 	{
-		PopoutManager?.SpawnPopout("Camera", "Rotate camera with right button and move it with middle button. Then reset position with space button.");
-		PopoutManager?.SpawnPopout("Movement", "Move by clicking on the ground. You can also click on different Points of Interest");
+		PopoutManager?.SpawnPopout("Camera", "Rotate camera with right button and move it with middle button. Then reset position with space button.", "rotate", "camera_move");
+		PopoutManager?.SpawnPopout("Movement", "Move by clicking on the ground. You can also click on different Points of Interest", "move");
 		TutorialChecklist.movementShown = true;
 	}
 
 	public void ShowInventory()
 	{
-		PopoutManager?.SpawnPopout("Inventory", "Open your inventory by clicking on your character. Close it with the close button or by clicking next on your screen");
+		PopoutManager?.SpawnPopout("Inventory", "Open your inventory by clicking on your character. Close it with the close button or by clicking next on your screen", "inventory");
 		TutorialChecklist.inventoryShown = true;
 	}
 

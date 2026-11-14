@@ -349,25 +349,26 @@ public partial class Arena : Node3D
 		SpawnHeroModels();
 
 		_tutorial = BattleTutorial.Create(this);
+		arenaUI.StackTooltipShown += _tutorial.OnStackStatsSeen;
 		ShowPlacementTips();
 
 		await ToSignal(this, SignalName.SetupPlacementPhaseCompleted);
 		if (_gaveUp)
 			return;
+		_tutorial?.OnPlacementFinished();
 
 		await TransitionToBattle();
 
 		BeginBattle();
 	}
 
-	// Once the arena has faded in, so the popouts aren't under the black and the player sees the board behind them
+	// Once the arena has faded in, so the hint isn't under the black; it stays until Start Battle
 	private async void ShowPlacementTips()
 	{
-		// Not processAlways: a tip mustn't open over the pause menu, as closing it unpauses the tree
 		if (FadeInDuration > 0)
 			await ToSignal(GetTree().CreateTimer(FadeInDuration, processAlways: false), SceneTreeTimer.SignalName.Timeout);
 		if (_tutorial != null && IsInstanceValid(_tutorial) && IsInSetupPhase && !IsBattleFinished)
-			await _tutorial.OnPlacementPhase();
+			_tutorial.OnPlacementPhase();
 	}
 
 	// Whether the stack can go with its anchor on the tile during the placement phase: its whole footprint
@@ -767,6 +768,8 @@ public partial class Arena : Node3D
 		IsBattleFinished = true;
 		if (PlayerCamera != null)
 			PlayerCamera.InteractionEnabled = false;
+		// The tutorial's layer is above the end screen's
+		_tutorial?.HideHints();
 
 		var screen = GD.Load<PackedScene>(EndFightScreenScene).Instantiate<EndFightScreen>();
 		AddLosses(screen.playerLostUnits, _playerStartingStacks);
@@ -1313,6 +1316,9 @@ public partial class Arena : Node3D
     {
         TaskCompletionSource<TurnOutput>? turn = _playerTurn;
         _playerTurn = null;
+        // Giving up ends the turn too, but isn't the player learning to move
+        if (turn != null && !_gaveUp)
+            _tutorial?.OnPlayerTurnSubmitted();
         turn?.TrySetResult(output);
     }
 

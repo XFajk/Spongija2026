@@ -117,6 +117,9 @@ public partial class ArenaUserInterface : Control
 
 	private StackTooltip? _stackTooltip;
 	private Stack? _hoveredStack;
+
+	// The stack tooltip appeared (for the battle tutorial)
+	public event System.Action? StackTooltipShown;
 	private double _hoverTime;
 
 	// Called when the node enters the scene tree for the first time.
@@ -511,6 +514,8 @@ public partial class ArenaUserInterface : Control
 		if (_hoverTime < StackTooltipDelay)
 			return;
 
+		if (!_stackTooltip.Visible)
+			StackTooltipShown?.Invoke();
 		if (!_stackTooltip.Visible || _stackTooltip.Stack != _hoveredStack)
 			_stackTooltip.ShowStack(_hoveredStack);
 		else

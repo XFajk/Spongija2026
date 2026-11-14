@@ -17,7 +17,7 @@ outline_size = 7
 outline_color = Color(0.056291588, 0.056291603, 0.056291595, 1)
 
 [node name="Popout" type="Panel" unique_id=1677304227]
-custom_minimum_size = Vector2(400, 500)
+custom_minimum_size = Vector2(540, 620)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -33,31 +33,55 @@ theme = ExtResource("1_m1k1p")
 
 [node name="Label" type="Label" parent="." unique_id=984977792]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = -1
+anchor_top = 0.027
 anchor_right = 1.0
-offset_top = 8.0
-offset_bottom = 76.0
+anchor_bottom = 0.137
 grow_horizontal = 2
 text = "TutORIAL"
 label_settings = SubResource("LabelSettings_s4c8q")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Text" type="Label" parent="." unique_id=92059024]
+[node name="Scroll" type="ScrollContainer" parent="." unique_id=1730245914]
+process_mode = 3
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.067
+anchor_left = 0.1
 anchor_top = 0.2
-anchor_right = 0.925
+anchor_right = 0.9
 anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="Text" type="Label" parent="Scroll" unique_id=92059024]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Move by clicking on the ground. You can also click on different Point of Interest"
 label_settings = SubResource("LabelSettings_4xvhx")
 horizontal_alignment = 1
 autowrap_mode = 2
-clip_text = true
-text_overrun_behavior = 2
+
+[node name="Animation" type="Control" parent="." unique_id=1447602815]
+visible = false
+clip_contents = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -360.0
+offset_top = 125.0
+offset_right = 360.0
+offset_bottom = 530.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Animation" unique_id=1083940651]
+process_mode = 3
+position = Vector2(360, 202.5)
+scale = Vector2(1.125, 1.125)
 
 [node name="Button" type="Button" parent="." unique_id=1900542050]
 process_mode = 3
