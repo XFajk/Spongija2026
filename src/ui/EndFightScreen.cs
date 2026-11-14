@@ -42,6 +42,13 @@ public partial class EndFightScreen : Panel
 		statusLabel!.Text = won ? "You won" : "You lost";
 	}
 
+	// A loss the player chose in the arena's pause menu
+	public void SetGaveUp()
+	{
+		SetWon(false);
+		statusLabel!.Text = "You gave up";
+	}
+
 	public void Setup()
 	{
 		foreach(TextureRect _icon in earnedContainer!.GetChildren())

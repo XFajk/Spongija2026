@@ -218,6 +218,7 @@ public partial class Arena : Node3D
 		// The armies are set before the arena enters the tree (SceneTransitions.EnterArena)
 		ShowScenery();
 		_ = ScreenFade.FadeIn(GetTree(), FadeInDuration);
+		ArenaPauseMenu.Create(this);
 
 		var smallTile = GD.Load<PackedScene>(SmallTileScene);
 
@@ -351,6 +352,8 @@ public partial class Arena : Node3D
 		ShowPlacementTips();
 
 		await ToSignal(this, SignalName.SetupPlacementPhaseCompleted);
+		if (_gaveUp)
+			return;
 
 		await TransitionToBattle();
 
@@ -360,9 +363,10 @@ public partial class Arena : Node3D
 	// Once the arena has faded in, so the popouts aren't under the black and the player sees the board behind them
 	private async void ShowPlacementTips()
 	{
+		// Not processAlways: a tip mustn't open over the pause menu, as closing it unpauses the tree
 		if (FadeInDuration > 0)
-			await ToSignal(GetTree().CreateTimer(FadeInDuration), SceneTreeTimer.SignalName.Timeout);
-		if (_tutorial != null && IsInstanceValid(_tutorial) && IsInSetupPhase)
+			await ToSignal(GetTree().CreateTimer(FadeInDuration, processAlways: false), SceneTreeTimer.SignalName.Timeout);
+		if (_tutorial != null && IsInstanceValid(_tutorial) && IsInSetupPhase && !IsBattleFinished)
 			await _tutorial.OnPlacementPhase();
 	}
 
@@ -695,7 +699,7 @@ public partial class Arena : Node3D
 
     private async Task RunBattle(Battle battle)
     {
-        while (!battle.IsOver)
+        while (!battle.IsOver && !_gaveUp)
         {
 			// Wait a frame per turn, so turns that finish instantly (like a skipped AI turn) can't freeze the game.
 			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
@@ -717,6 +721,8 @@ public partial class Arena : Node3D
 				? await GetPlayerTurn(battle, stack, reachability)
 				: await GetComputerTurn(battle, stack, reachability);
 			ClearTurnInput();
+			if (_gaveUp)
+				break;
 
 			// A waiting stack's turn comes again at the end of the round, so its turn doesn't end now
 			// (turn passives and effects run once, after the turn it really takes)
@@ -738,6 +744,14 @@ public partial class Arena : Node3D
 		}
 
 		CurrentStack = null;
+		// GiveUp has shown the end screen already; the turn that was playing has finished behind it
+		if (_gaveUp)
+		{
+			// EndCinematic turned the input back on
+			if (PlayerCamera != null)
+				PlayerCamera.InteractionEnabled = false;
+			return;
+		}
 		battle.EndBattle();
 		BattleEnded?.Invoke(battle.Winner);
 		ShowEndFightScreen(battle.Winner == PlayerArmy);
@@ -748,8 +762,9 @@ public partial class Arena : Node3D
 	#region End of battle
 
 	// The end screen over everything: the units the player lost. Its confirm button goes back to the adventure map.
-	private void ShowEndFightScreen(bool won)
+	private void ShowEndFightScreen(bool won, bool gaveUp = false)
 	{
+		IsBattleFinished = true;
 		if (PlayerCamera != null)
 			PlayerCamera.InteractionEnabled = false;
 
@@ -764,8 +779,47 @@ public partial class Arena : Node3D
 		AddChild(layer);
 		layer.AddChild(screen);
 		screen.SetWon(won);
+		if (gaveUp)
+			screen.SetGaveUp();
 		screen.Setup();
 		screen.Show();
+	}
+
+	#endregion
+
+	#region Pause menu
+
+	// The end screen is up (won, lost or given up); the pause menu doesn't open any more
+	public bool IsBattleFinished { get; private set; }
+
+	// The player gave up in the pause menu; RunBattle stops after the turn that is playing
+	private bool _gaveUp;
+
+	// Before the pause menu pauses the tree: the custom cursors and the stack tooltip would stay frozen on screen,
+	// with the mouse hidden. They come back by themselves once the battle runs again.
+	public void PrepareForPause()
+	{
+		_userInterface?.HideCursors();
+	}
+
+	// The pause menu's Give Up: the battle is lost right away, as if the army had been beaten (the map loads the save
+	// made before the battle). A pending player turn ends without an action; a turn that is playing finishes behind
+	// the end screen, and nothing runs after it.
+	public void GiveUp()
+	{
+		if (IsBattleFinished)
+			return;
+		_gaveUp = true;
+		GetTree().Paused = false;
+
+		ClearTurnInput();
+		if (_userInterface != null)
+		{
+			_userInterface.HideCursors();
+			_userInterface.Visible = false;
+		}
+		ShowEndFightScreen(won: false, gaveUp: true);
+		SubmitPlayerTurn(new TurnOutput());
 	}
 
 	// One entry per stack that lost units, with how many it lost
@@ -1221,6 +1275,14 @@ public partial class Arena : Node3D
 			await EndCinematic();
 		_castingHeroSpell = false;
 
+		// Given up mid-cast: the turn has ended already
+		if (_gaveUp)
+		{
+			if (PlayerCamera != null)
+				PlayerCamera.InteractionEnabled = false;
+			return;
+		}
+
 		if (battle.IsOver || stack.IsDead)
 		{
 			SubmitPlayerTurn(new TurnOutput());
@@ -1268,7 +1330,7 @@ public partial class Arena : Node3D
     private async Task<TurnOutput> GetComputerTurn(Battle battle, Stack stack, Reachability reachability)
     {
         if (ComputerTurnDelay > 0)
-            await ToSignal(GetTree().CreateTimer(ComputerTurnDelay), SceneTreeTimer.SignalName.Timeout);
+            await ToSignal(GetTree().CreateTimer(ComputerTurnDelay, processAlways: false), SceneTreeTimer.SignalName.Timeout);
         return _computerAI?.DecideTurn(stack, reachability) ?? new TurnOutput();
     }
 
@@ -1519,7 +1581,7 @@ public partial class Arena : Node3D
     private async Task WaitCinematicLeadIn()
     {
         if (CinematicLeadIn > 0)
-            await ToSignal(GetTree().CreateTimer(CinematicLeadIn), SceneTreeTimer.SignalName.Timeout);
+            await ToSignal(GetTree().CreateTimer(CinematicLeadIn, processAlways: false), SceneTreeTimer.SignalName.Timeout);
     }
 
     // Back to the board overview, then input on again

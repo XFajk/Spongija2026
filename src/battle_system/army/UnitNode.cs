@@ -519,7 +519,7 @@ public partial class UnitNode : Area3D, IInteractable
             float appearDelay = effect.Duration * Mathf.Clamp(TeleportAppearAt, 0f, 1f);
             if (appearDelay > 0f)
             {
-                await ToSignal(GetTree().CreateTimer(appearDelay), SceneTreeTimer.SignalName.Timeout);
+                await ToSignal(GetTree().CreateTimer(appearDelay, processAlways: false), SceneTreeTimer.SignalName.Timeout);
                 if (!IsInstanceValid(this) || !IsInsideTree())
                     return;
             }
@@ -557,7 +557,7 @@ public partial class UnitNode : Area3D, IInteractable
             lifetime = Mathf.Max(lifetime, (float)emitter.Get(GpuParticles3D.PropertyName.Lifetime).AsDouble());
         }
 
-        effect.GetTree().CreateTimer(lifetime).Timeout += () =>
+        effect.GetTree().CreateTimer(lifetime, processAlways: false).Timeout += () =>
         {
             if (IsInstanceValid(effect))
                 effect.QueueFree();
