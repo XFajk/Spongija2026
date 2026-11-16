@@ -1,14 +1,8 @@
 [gd_scene format=4 uid="uid://bbca8on0i7dje"]
 
 [ext_resource type="Script" uid="uid://bfumahficj3wt" path="res://src/arena/SpellPOI.cs" id="1_mfaqe"]
-[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 [ext_resource type="PackedScene" uid="uid://ck6iumkck1gpp" path="res://scenes/ui/floating_text.tscn" id="2_gw1sw"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyjbk"]
-transparency = 1
-albedo_color = Color(0.54509807, 0.5568628, 0, 0.8509804)
-
-[sub_resource type="BoxMesh" id="BoxMesh_iopsf"]
+[ext_resource type="Texture2D" uid="uid://brubtaoo4m2ak" path="res://assets/cursors/poiIcon.png" id="poi_icon"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2klcf"]
 size = Vector3(1, 0.5578003, 1)
@@ -189,19 +183,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_3mkv4")
 
-[node name="spell_poi" type="Area3D" unique_id=1250873675 node_paths=PackedStringArray("_mesh") groups=["Savable"]]
+[node name="spell_poi" type="Area3D" unique_id=1250873675 groups=["Savable"]]
 collision_layer = 9
 script = ExtResource("1_mfaqe")
 FloatingTextScene = ExtResource("2_gw1sw")
 stopDistance = 1.5
 cursorIcon = ExtResource("poi_icon")
-_mesh = NodePath("")
 
-[node name="Highlight" type="MeshInstance3D" parent="." unique_id=38608875]
-transform = Transform3D(1.2, 0, 0, 0, 0.5, 0, 0, 0, 1.2, 0, 0.278, 0)
+[node name="Highlight" type="OmniLight3D" parent="." unique_id=322401768]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0382266, 0)
 visible = false
-material_overlay = SubResource("StandardMaterial3D_gyjbk")
-mesh = SubResource("BoxMesh_iopsf")
+light_energy = 2.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=581070797]
 transform = Transform3D(1.1565427, 0, 0, 0, 2, 0, 0, 0, 1.0576551, 0, 0.5101782, 0)

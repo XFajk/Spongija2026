@@ -24,8 +24,9 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 	public Inventory? inventory;
 	public bool canMove;
 	public bool movingToPoint;
-	[Export] PauseMenu? pauseWindow;
-	[Export] SaveBrowser? _saves;
+	private PauseMenu? pauseWindow;
+	private SaveBrowser? _saves;
+	private SettingsBuilder? _settings;
 	[Export] UnitAnimationManager? animationManager;
 
 	public override void _Ready()
@@ -38,7 +39,10 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 		inventoryPanel = GetNode<CharacterPanel>("/root/Map/CanvasLayer/Canvas/Character");
 		Button inventoryButtonClose = GetNode<Button>("/root/Map/CanvasLayer/Canvas/Character/Categories/Close");
 		inventoryButtonClose.Pressed += HidePanel;
-		Button resumeButton = GetNode<Button>("/root/Map/CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer/Back");
+		// Looked up here, not exported: map.tscn lost those links twice when it was saved
+		pauseWindow = GetNode<PauseMenu>("/root/Map/CanvasLayer/Canvas/PauseMenu");
+		_saves = GetNode<SaveBrowser>("/root/Map/CanvasLayer/Canvas/select_file");
+		Button resumeButton =GetNode<Button>("/root/Map/CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer/Back");
 		resumeButton.Pressed += Resume;
 
 		Button saveButton = GetNode<Button>("/root/Map/CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer/Save");
@@ -52,6 +56,12 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 
 		Button cancelSave = GetNode<Button>("/root/Map/CanvasLayer/Canvas/select_file/CancelSaveMenu");
 		cancelSave.Pressed += CancelSaveMenu;
+
+		_settings = GetNode<SettingsBuilder>("/root/Map/CanvasLayer/Canvas/SettingsMenu");
+		Button _settingsButton = GetNode<Button>("/root/Map/CanvasLayer/Canvas/PauseMenu/MarginContainer/VBoxContainer/Settings");
+		Button _settingsButtonBack = GetNode<Button>("/root/Map/CanvasLayer/Canvas/SettingsMenu/Background/Back");
+		_settingsButton.Pressed += OpenSettings;
+		_settingsButtonBack.Pressed += CloseSettings;
 
 		canMove = true;
 		inventory = GetNode<Inventory>("Inventory");
@@ -352,6 +362,18 @@ public partial class AdventureCharacter : CharacterBody3D, IInteractable, ISavab
 	public void Resume()
 	{
 		pauseWindow!.Hide();
+		GetTree().Paused = false;
+	}
+
+	public void OpenSettings()
+	{
+		pauseWindow!.Hide();
+		_settings!.Show();
+	}
+
+	public void CloseSettings()
+	{
+		_settings!.Hide();
 		GetTree().Paused = false;
 	}
 

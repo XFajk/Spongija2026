@@ -51,7 +51,27 @@ public partial class DoubleTile : Area3D, IInteractable
 			_innerMaterial ??= inner.MaterialOverride;
 			outer.MaterialOverride = value ? MeleeOuterMaterial : _outerMaterial;
 			inner.MaterialOverride = value ? MeleeInnerMaterial : _innerMaterial;
+			UpdateMeshVisible();
 		}
+	}
+
+	private bool _meshHidden = false;
+
+	// Hides the tile's look but keeps its collision, so it can still be hovered. For the acting stack's own tile,
+	// which isn't a move, like a 1x1 stack's. Still shows while red: the picked attack position can be right here.
+	public bool MeshHidden
+	{
+		get => _meshHidden;
+		set
+		{
+			_meshHidden = value;
+			UpdateMeshVisible();
+		}
+	}
+
+	private void UpdateMeshVisible()
+	{
+		GetNode<MeshInstance3D>("SmallTileMesh").Visible = !_meshHidden || _isMeleeAttackTile;
 	}
 
 	// The focused look: the inner square lifted. Also used for the picked melee attack position.

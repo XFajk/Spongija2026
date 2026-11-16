@@ -25,13 +25,14 @@ public partial class SpellButton : Button
 		}
 	}
 
-	// For the tooltip: whether it's a hero spell (shows the Knowledge needed), and why it can't be cast now
-	// (null if it can). Set by the spellbook when it fills the button.
+	// For the tooltip: whether it's a hero spell (shows the Knowledge needed), the hero's Knowledge (null if there's
+	// no hero to ask), and why it can't be cast now (null if it can). Set by the spellbook when it fills the button.
 	public bool IsHeroSpell { get; set; }
+	public uint? HeroKnowledge { get; set; }
 	public string? CantCastReason { get; set; }
 
 	public override GodotObject? _MakeCustomTooltip(string forText) =>
-		_spell != null ? SpellTooltip.Create(_spell, IsHeroSpell, CantCastReason) : null;
+		_spell != null ? SpellTooltip.Create(_spell, IsHeroSpell, HeroKnowledge, CantCastReason) : null;
 
 	public override void _Ready()
 	{

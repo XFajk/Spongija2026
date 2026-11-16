@@ -22,11 +22,22 @@ public partial class ArenaUserInterface : Control
 	// UI elements for the battle interface
 	private TextureButton? _useUnitSpellButton;
 	private TextureButton? _waitButton;
+	private Label? _waitLabel;
+
+	// The Wait button's label: WaitText, or DiscardTurnText for a stack that has already waited this round
+	[Export]
+	public string WaitText { get; set; } = "Wait a Turn";
+
+	[Export]
+	public string DiscardTurnText { get; set; } = "Discard Turn";
 
 	private TextureButton? _useHeroSpellButton;
 
 	// Shown while the target of a picked spell is being chosen
 	private Button? _cancelSpellButton;
+
+	// The round's turn order along the bottom (TurnQueue)
+	private TurnQueue? _turnQueue;
 
 	// UI elements for the spellbook
 	private Control? _bookInterface;
@@ -106,6 +117,9 @@ public partial class ArenaUserInterface : Control
 
 	private StackTooltip? _stackTooltip;
 	private Stack? _hoveredStack;
+
+	// The stack tooltip appeared (for the battle tutorial)
+	public event System.Action? StackTooltipShown;
 	private double _hoverTime;
 
 	// Called when the node enters the scene tree for the first time.
@@ -160,12 +174,17 @@ public partial class ArenaUserInterface : Control
 
 		_waitButton = GetNode<TextureButton>("BattleInterface/BattleActions/UnitActions/Wait");
 		_waitButton!.Pressed += OnWaitButtonPressed;
+		_waitLabel = _waitButton.GetNodeOrNull<Label>("Label");
 
 		_useHeroSpellButton = GetNode<TextureButton>("BattleInterface/BattleActions/UseHeroSpell");
 		_useHeroSpellButton!.Pressed += OnUseHeroSpellButtonPressed;
 
 		_cancelSpellButton = GetNode<Button>("BattleInterface/CancelSpell");
 		_cancelSpellButton.Pressed += OnCancelSpellButtonPressed;
+
+		// Bottom center of the battle interface, under the Cancel Spell button
+		_turnQueue = new TurnQueue { Name = "TurnQueue", Arena = arena };
+		_battleInterface.AddChild(_turnQueue);
 
 		_bookInterface = GetNode<Control>("BookInterface");
 		// Clicks on the book (also between buttons and while it animates) mustn't reach the battle behind it
@@ -197,7 +216,7 @@ public partial class ArenaUserInterface : Control
 
 		// Until Arena enables them at the start of a player turn
 		UpdateSpellButtons(null);
-		SetWaitEnabled(false);
+		SetWaitButton(enabled: false, discard: false);
 
 		if (arena is not Arena a)
 		{
@@ -232,14 +251,23 @@ public partial class ArenaUserInterface : Control
 
 		UpdateStackLabels();
 		UpdateStackTooltip(delta);
+		_turnQueue?.Refresh();
 	}
 
 	public override void _ExitTree()
 	{
 		// Never leave the game with the mouse hidden
+		HideCursors();
+	}
+
+	// Back to the normal mouse, and no stack tooltip: for the pause menu, which freezes them otherwise. Arena shows
+	// the cursors again every frame while they apply.
+	public void HideCursors()
+	{
 		HideMeleeCursor();
 		HideRangedCursor();
 		HideSpellCursor();
+		SetHoveredStack(null);
 	}
 
 	// Replaces the mouse cursor with the sword: the mouse is hidden where it is (it still moves and hovers),
@@ -375,11 +403,15 @@ public partial class ArenaUserInterface : Control
 		arena?.TryWait();
 	}
 
-	// Enabled on a player turn whose stack hasn't waited this round yet
-	public void SetWaitEnabled(bool enabled)
+	// Enabled on every player turn. A stack that has already waited this round can't wait again, so then the button
+	// discards its turn instead, and its label says so.
+	public void SetWaitButton(bool enabled, bool discard)
 	{
-		if (_waitButton != null)
-			SetButtonDisabled(_waitButton, !enabled);
+		if (_waitButton == null)
+			return;
+		SetButtonDisabled(_waitButton, !enabled);
+		if (_waitLabel != null)
+			_waitLabel.Text = discard ? DiscardTurnText : WaitText;
 	}
 
 	// The hero's spells unlocked by Knowledge; the ones it can't cast now (mana, already cast this round) are disabled
@@ -412,14 +444,14 @@ public partial class ArenaUserInterface : Control
 
 	// Called by Arena every frame: what the hovered attack or spell would do to the stack (null for none), shown
 	// under its tag. The stack previewed before is cleared.
-	public void SetActionPreview(Stack? stack, int unitsKilled, int unitsRevived)
+	public void SetActionPreview(Stack? stack, ActionPreview preview)
 	{
 		if (_previewedStack != stack && _previewedStack != null
 			&& _stackLabels.TryGetValue(_previewedStack, out StackLabel? previous))
-			previous.ShowPreview(0, 0);
+			previous.ShowPreview(ActionPreview.None);
 		_previewedStack = stack;
 		if (stack != null && _stackLabels.TryGetValue(stack, out StackLabel? label))
-			label.ShowPreview(unitsKilled, unitsRevived);
+			label.ShowPreview(preview);
 	}
 
 	// Called by Arena when the stack dies
@@ -482,6 +514,8 @@ public partial class ArenaUserInterface : Control
 		if (_hoverTime < StackTooltipDelay)
 			return;
 
+		if (!_stackTooltip.Visible)
+			StackTooltipShown?.Invoke();
 		if (!_stackTooltip.Visible || _stackTooltip.Stack != _hoveredStack)
 			_stackTooltip.ShowStack(_hoveredStack);
 		else
@@ -583,6 +617,7 @@ public partial class ArenaUserInterface : Control
 			// A disabled button keeps the normal icon even when hovered
 			button.UpdateIcon();
 			button.IsHeroSpell = _bookShowsHeroSpells;
+			button.HeroKnowledge = _bookShowsHeroSpells ? arena?.CurrentStack?.Hero?.Knowledge : null;
 			button.CantCastReason = spell != null ? GetCantCastReason(spell) : null;
 		}
 	}

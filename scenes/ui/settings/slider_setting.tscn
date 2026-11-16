@@ -9,6 +9,7 @@ font = ExtResource("2_pn087")
 font_size = 30
 
 [node name="SliderSetting" type="HBoxContainer" unique_id=455427442 node_paths=PackedStringArray("_label", "_slider", "_valueLabel")]
+process_mode = 3
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_ijv46")

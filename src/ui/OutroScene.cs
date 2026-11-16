@@ -25,7 +25,7 @@ public partial class OutroScene : Control
 			Error error = DirAccess.RemoveAbsolute(path);
 		}
 
-		Control menu = GD.Load<PackedScene>("uid://1cwqotqa3spu").Instantiate<Control>();
+		Control menu = GD.Load<PackedScene>("uid://ccijx38gp0hk5").Instantiate<Control>();
 		GetTree().CallDeferred(SceneTree.MethodName.ChangeSceneToNode, menu);
 	}
 }

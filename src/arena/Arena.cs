@@ -96,6 +96,10 @@ public partial class Arena : Node3D
 	// Side of one tile in meters.
 	public const float TileSize = 0.5f;
 
+	// The faint grid always on the board (SpawnGrid), as big as a small tile's mesh
+	private const string GridMaterial = "res://assets/battle_system/tiles/tile_grid.tres";
+	private const float GridSquareSize = 0.45f;
+
 	// Columns on the player's side where stacks can be arranged during the placement phase.
 	public const int PlacementColumns = 2;
 
@@ -108,10 +112,9 @@ public partial class Arena : Node3D
 	public Army? PlayerArmy { get; private set; }
 	public Army? ComputerArmy { get; private set; }
 
-	// Both sides' stacks as the battle began, in the armies' order: dead stacks are removed from the armies, but the
+	// The player's stacks as the battle began, in the army's order: dead stacks are removed from the army, but the
 	// end screen counts their losses too.
 	private List<Stack> _playerStartingStacks = [];
-	private List<Stack> _computerStartingStacks = [];
 
 	public Battle? Battle { get; private set; }
 
@@ -147,6 +150,12 @@ public partial class Arena : Node3D
 
 	// Created by SetupPlacementPhase.
 	private ArenaUserInterface? _userInterface;
+
+	// Tips at the placement phase and at the start of player turns (BattleTutorial). Created by SetupPlacementPhase.
+	private BattleTutorial? _tutorial;
+
+	// A stack has struck back in melee this battle, for the tutorial's tip about it
+	private bool _retaliationSeen;
 
 	// False while a hero spell plays in the middle of the turn, so no input is taken meanwhile
 	public bool IsPlayerTurn => CurrentStack?.Army == PlayerArmy && _playerTurn != null && !_castingHeroSpell;
@@ -209,6 +218,7 @@ public partial class Arena : Node3D
 		// The armies are set before the arena enters the tree (SceneTransitions.EnterArena)
 		ShowScenery();
 		_ = ScreenFade.FadeIn(GetTree(), FadeInDuration);
+		ArenaPauseMenu.Create(this);
 
 		var smallTile = GD.Load<PackedScene>(SmallTileScene);
 
@@ -241,7 +251,10 @@ public partial class Arena : Node3D
 			}
 		}
 
-		MovePreview = GD.Load<PackedScene>(DoubleTileScene).Instantiate<DoubleTile>();
+		if (!_evilScenery)
+			SpawnGrid();
+
+		MovePreview =GD.Load<PackedScene>(DoubleTileScene).Instantiate<DoubleTile>();
 		MovePreview.Name = "MovePreview";
 		MovePreview.ArenaRef = this;
 		MovePreview.RotationDegrees = new Vector3(-90, 0, 0);
@@ -276,17 +289,20 @@ public partial class Arena : Node3D
 
 	#region Scenery
 
+	// The hill and the ruins are showing
+	private bool _evilScenery = false;
+
 	// The hill and the ruins if either army has one of EvilArenaUnits, else the forest
 	private void ShowScenery()
 	{
 		IEnumerable<Stack> stacks = (PlayerArmy?.Stacks ?? []).Concat(ComputerArmy?.Stacks ?? []);
-		bool evil = stacks.Any(s => EvilArenaUnits.Contains(s.Unit));
+		_evilScenery = stacks.Any(s => EvilArenaUnits.Contains(s.Unit));
 		if (ForestScenery != null)
-			ForestScenery.Visible = !evil;
+			ForestScenery.Visible = !_evilScenery;
 		if (HillScenery != null)
-			HillScenery.Visible = evil;
+			HillScenery.Visible = _evilScenery;
 		if (EvilArenaDeco != null)
-			EvilArenaDeco.Visible = evil;
+			EvilArenaDeco.Visible = _evilScenery;
 	}
 
 	#endregion
@@ -298,7 +314,6 @@ public partial class Arena : Node3D
 		PlayerArmy = playerArmy;
 		ComputerArmy = computerArmy;
 		_playerStartingStacks = [.. playerArmy.Stacks];
-		_computerStartingStacks = [.. computerArmy.Stacks];
 	}
 
 	// Setup the Scene to let the player place their units before the battle begins.
@@ -333,11 +348,27 @@ public partial class Arena : Node3D
 		}
 		SpawnHeroModels();
 
+		_tutorial = BattleTutorial.Create(this);
+		arenaUI.StackTooltipShown += _tutorial.OnStackStatsSeen;
+		ShowPlacementTips();
+
 		await ToSignal(this, SignalName.SetupPlacementPhaseCompleted);
+		if (_gaveUp)
+			return;
+		_tutorial?.OnPlacementFinished();
 
 		await TransitionToBattle();
 
 		BeginBattle();
+	}
+
+	// Once the arena has faded in, so the hint isn't under the black; it stays until Start Battle
+	private async void ShowPlacementTips()
+	{
+		if (FadeInDuration > 0)
+			await ToSignal(GetTree().CreateTimer(FadeInDuration, processAlways: false), SceneTreeTimer.SignalName.Timeout);
+		if (_tutorial != null && IsInstanceValid(_tutorial) && IsInSetupPhase && !IsBattleFinished)
+			_tutorial.OnPlacementPhase();
 	}
 
 	// Whether the stack can go with its anchor on the tile during the placement phase: its whole footprint
@@ -521,6 +552,34 @@ public partial class Arena : Node3D
     public static Vector3 GridToWorld(Stack stack, Vector2I anchor) =>
         GridToWorld((Vector2)anchor + new Vector2(stack.Size, stack.Size) / 2f);
 
+	// A see-through square on every tile, always shown, so the player sees the grid. Only a mesh, not
+	// SmallTiles: without collision the camera's ray can't hover or click it.
+	private void SpawnGrid()
+	{
+		var squares = new MultiMesh
+		{
+			TransformFormat = MultiMesh.TransformFormatEnum.Transform3D,
+			Mesh = new QuadMesh
+			{
+				Size = new Vector2(GridSquareSize, GridSquareSize),
+				Orientation = PlaneMesh.OrientationEnum.Y,
+			},
+			InstanceCount = (int)(AreaWidth * AreaHeight),
+		};
+
+		for (int x = 0; x < AreaWidth; x++)
+			for (int y = 0; y < AreaHeight; y++)
+				squares.SetInstanceTransform(x * (int)AreaHeight + y, new Transform3D(Basis.Identity, GridToWorld(new Vector2I(x, y))));
+
+		AddChild(new MultiMeshInstance3D
+		{
+			Name = "Grid",
+			Multimesh = squares,
+			MaterialOverride = GD.Load<Material>(GridMaterial),
+			CastShadow = GeometryInstance3D.ShadowCastingSetting.Off,
+		});
+	}
+
     public SmallTile GetSmallTile(Vector2I pos)
     {
         if (pos.X < 0 || pos.Y < 0 || pos.X >= AreaWidth || pos.Y >= AreaHeight)
@@ -546,6 +605,7 @@ public partial class Arena : Node3D
             doubleTile.Enabled = false;
             doubleTile.IsMeleeAttackTile = false;
             doubleTile.Raised = false;
+            doubleTile.MeshHidden = false;
         }
     }
 
@@ -640,7 +700,7 @@ public partial class Arena : Node3D
 
     private async Task RunBattle(Battle battle)
     {
-        while (!battle.IsOver)
+        while (!battle.IsOver && !_gaveUp)
         {
 			// Wait a frame per turn, so turns that finish instantly (like a skipped AI turn) can't freeze the game.
 			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
@@ -653,12 +713,17 @@ public partial class Arena : Node3D
 			}
 
 			CurrentStack = stack;
+			// Before the turn's input shows; the tree is paused while tips are open
+			if (battle.IsPlayerStack(stack) && _tutorial != null)
+				await _tutorial.OnPlayerTurn(battle, stack, _retaliationSeen);
 			Reachability reachability = battle.GetReachability(stack);
 			CurrentReachability = reachability;
 			TurnOutput output = battle.IsPlayerStack(stack)
 				? await GetPlayerTurn(battle, stack, reachability)
 				: await GetComputerTurn(battle, stack, reachability);
 			ClearTurnInput();
+			if (_gaveUp)
+				break;
 
 			// A waiting stack's turn comes again at the end of the round, so its turn doesn't end now
 			// (turn passives and effects run once, after the turn it really takes)
@@ -680,6 +745,14 @@ public partial class Arena : Node3D
 		}
 
 		CurrentStack = null;
+		// GiveUp has shown the end screen already; the turn that was playing has finished behind it
+		if (_gaveUp)
+		{
+			// EndCinematic turned the input back on
+			if (PlayerCamera != null)
+				PlayerCamera.InteractionEnabled = false;
+			return;
+		}
 		battle.EndBattle();
 		BattleEnded?.Invoke(battle.Winner);
 		ShowEndFightScreen(battle.Winner == PlayerArmy);
@@ -689,15 +762,17 @@ public partial class Arena : Node3D
 
 	#region End of battle
 
-	// The end screen over everything: the units each side lost. Its confirm button goes back to the adventure map.
-	private void ShowEndFightScreen(bool won)
+	// The end screen over everything: the units the player lost. Its confirm button goes back to the adventure map.
+	private void ShowEndFightScreen(bool won, bool gaveUp = false)
 	{
+		IsBattleFinished = true;
 		if (PlayerCamera != null)
 			PlayerCamera.InteractionEnabled = false;
+		// The tutorial's layer is above the end screen's
+		_tutorial?.HideHints();
 
 		var screen = GD.Load<PackedScene>(EndFightScreenScene).Instantiate<EndFightScreen>();
 		AddLosses(screen.playerLostUnits, _playerStartingStacks);
-		AddLosses(screen.opponentLostUnits, _computerStartingStacks);
 		foreach (Stack stack in _playerStartingStacks)
 			screen.survivingQuantities.Add(stack.Quantity);
 		screen.heroMana = PlayerArmy?.Hero?.Mana;
@@ -707,8 +782,47 @@ public partial class Arena : Node3D
 		AddChild(layer);
 		layer.AddChild(screen);
 		screen.SetWon(won);
+		if (gaveUp)
+			screen.SetGaveUp();
 		screen.Setup();
 		screen.Show();
+	}
+
+	#endregion
+
+	#region Pause menu
+
+	// The end screen is up (won, lost or given up); the pause menu doesn't open any more
+	public bool IsBattleFinished { get; private set; }
+
+	// The player gave up in the pause menu; RunBattle stops after the turn that is playing
+	private bool _gaveUp;
+
+	// Before the pause menu pauses the tree: the custom cursors and the stack tooltip would stay frozen on screen,
+	// with the mouse hidden. They come back by themselves once the battle runs again.
+	public void PrepareForPause()
+	{
+		_userInterface?.HideCursors();
+	}
+
+	// The pause menu's Give Up: the battle is lost right away, as if the army had been beaten (the map loads the save
+	// made before the battle). A pending player turn ends without an action; a turn that is playing finishes behind
+	// the end screen, and nothing runs after it.
+	public void GiveUp()
+	{
+		if (IsBattleFinished)
+			return;
+		_gaveUp = true;
+		GetTree().Paused = false;
+
+		ClearTurnInput();
+		if (_userInterface != null)
+		{
+			_userInterface.HideCursors();
+			_userInterface.Visible = false;
+		}
+		ShowEndFightScreen(won: false, gaveUp: true);
+		SubmitPlayerTurn(new TurnOutput());
 	}
 
 	// One entry per stack that lost units, with how many it lost
@@ -729,7 +843,7 @@ public partial class Arena : Node3D
 	{
 		ShowTurnTargets(battle, stack, reachability);
 		_userInterface?.UpdateSpellButtons(stack);
-		_userInterface?.SetWaitEnabled(battle.CanWait(stack));
+		_userInterface?.SetWaitButton(enabled: true, discard: !battle.CanWait(stack));
 		// Size 2 hover: reachability.GetAnchorsCovering(hoveredTile) gives the valid 2x2 squares under the mouse.
 		// Clicks build a TurnOutput (MoveTo is an anchor) and call SubmitPlayerTurn.
 		_playerTurn = new TaskCompletionSource<TurnOutput>();
@@ -740,6 +854,10 @@ public partial class Arena : Node3D
 	private void ShowTurnTargets(Battle battle, Stack stack, Reachability reachability)
 	{
 		ShowTiles(reachability.GetTiles());
+		// A 2x2 stack's moves overlap its own tiles, which shows its double tile. It stays on to reset the move preview
+		// when hovered, but looks like a 1x1 stack's own tile, which isn't a move and stays off.
+		if (stack.NodeRepresentation?.GroundTile is DoubleTile ownTile)
+			ownTile.MeshHidden = true;
 
 		// The tiles under every enemy the stack can melee turn red; hovering one picks where to attack it from
 		_meleeTargets.AddRange(battle.GetMeleeTargets(stack, reachability));
@@ -772,7 +890,7 @@ public partial class Arena : Node3D
 		_pickedSpell = null;
 		_spellTargets.Clear();
 		_userInterface?.UpdateSpellButtons(null);
-		_userInterface?.SetWaitEnabled(false);
+		_userInterface?.SetWaitButton(enabled: false, discard: false);
 		_userInterface?.SetCancelSpellVisible(false);
 	}
 
@@ -794,16 +912,16 @@ public partial class Arena : Node3D
 		_userInterface?.SetHoveredStack(GetFocusedStack());
 	}
 
-	// Shows under the hovered target what the action would do to it: units killed (or revived, by a spell).
-	// From the same amounts the abilities deal (GetDamage, SpellAbility.Evaluate), so it's what really happens.
-	// Retaliation isn't included.
+	// Shows under the hovered target what the action would do to it: units killed (or revived, by a spell) and the
+	// damage (or healing) it would take, so a hit that kills nothing still shows. From the same amounts the abilities
+	// deal (GetDamage, SpellAbility.Evaluate), so it's what really happens. Retaliation isn't included.
 	private void UpdateActionPreview()
 	{
 		if (_userInterface == null)
 			return;
 
 		Stack? target = null;
-		int killed = 0, revived = 0;
+		ActionPreview preview = ActionPreview.None;
 		if (IsPlayerTurn && CurrentStack is Stack stack && Battle is Battle battle)
 		{
 			if (IsPickingSpellTarget)
@@ -813,21 +931,21 @@ public partial class Arena : Node3D
 					SpellEstimate estimate = _pickedSpellIsHero
 						? spell.EvaluateFromHero(stack, hovered, battle)
 						: spell.Evaluate(stack, hovered, battle);
-					(target, killed, revived) = (hovered, estimate.UnitsKilled, estimate.Revives);
+					(target, preview) = (hovered, ActionPreview.From(estimate));
 				}
 			}
 			else if (_pickedMeleeAttack is { } picked && stack.Unit.MeleeAttack is MeleeAttackAbility melee)
 			{
 				target = picked.Target;
-				killed = (int)target.GetUnitsKilledBy(melee.GetDamage(stack, target));
+				preview = ActionPreview.From(SpellEstimate.ForDamage(melee.GetDamage(stack, target), target));
 			}
 			else if (GetFocusedRangedTarget() is Stack shot && stack.Unit.LongRangeAttack is LongRangeAttackAbility ranged)
 			{
 				target = shot;
-				killed = (int)shot.GetUnitsKilledBy(ranged.GetDamage(stack, shot));
+				preview = ActionPreview.From(SpellEstimate.ForDamage(ranged.GetDamage(stack, shot), shot));
 			}
 		}
-		_userInterface.SetActionPreview(target, killed, revived);
+		_userInterface.SetActionPreview(target, preview);
 	}
 
 	// Every frame on the player's turn: picks the attack position for the hovered melee target (red and raised),
@@ -1160,6 +1278,14 @@ public partial class Arena : Node3D
 			await EndCinematic();
 		_castingHeroSpell = false;
 
+		// Given up mid-cast: the turn has ended already
+		if (_gaveUp)
+		{
+			if (PlayerCamera != null)
+				PlayerCamera.InteractionEnabled = false;
+			return;
+		}
+
 		if (battle.IsOver || stack.IsDead)
 		{
 			SubmitPlayerTurn(new TurnOutput());
@@ -1190,15 +1316,19 @@ public partial class Arena : Node3D
     {
         TaskCompletionSource<TurnOutput>? turn = _playerTurn;
         _playerTurn = null;
+        // Giving up ends the turn too, but isn't the player learning to move
+        if (turn != null && !_gaveUp)
+            _tutorial?.OnPlayerTurnSubmitted();
         turn?.TrySetResult(output);
     }
 
-    // The Wait button: the current stack takes its turn at the end of the round instead. Once per round.
+    // The Wait button: the current stack takes its turn at the end of the round instead. Once per round; a stack
+    // that has already waited discards its turn instead (an empty turn: it does nothing, and its turn ends).
     public bool TryWait()
     {
-        if (!IsPlayerTurn || Battle == null || CurrentStack == null || !Battle.CanWait(CurrentStack))
+        if (!IsPlayerTurn || Battle == null || CurrentStack == null || CurrentStack.IsDead)
             return false;
-        SubmitPlayerTurn(new TurnOutput { Wait = true });
+        SubmitPlayerTurn(Battle.CanWait(CurrentStack) ? new TurnOutput { Wait = true } : new TurnOutput());
         return true;
     }
 
@@ -1206,7 +1336,7 @@ public partial class Arena : Node3D
     private async Task<TurnOutput> GetComputerTurn(Battle battle, Stack stack, Reachability reachability)
     {
         if (ComputerTurnDelay > 0)
-            await ToSignal(GetTree().CreateTimer(ComputerTurnDelay), SceneTreeTimer.SignalName.Timeout);
+            await ToSignal(GetTree().CreateTimer(ComputerTurnDelay, processAlways: false), SceneTreeTimer.SignalName.Timeout);
         return _computerAI?.DecideTurn(stack, reachability) ?? new TurnOutput();
     }
 
@@ -1256,9 +1386,22 @@ public partial class Arena : Node3D
     {
         HideTiles(stack.GetOccupiedTiles());
 
-        stack.NodeRepresentation!.MoveAlong(path);
+        UnitNode node = stack.NodeRepresentation!;
+        node.MoveAlong(path);
 
-        await ToSignal(stack.NodeRepresentation!, UnitNode.SignalName.MovementCompleted);
+        await ToSignal(node, UnitNode.SignalName.MovementCompleted);
+
+        // A teleport is instant, so the turn would go on before the camera (already heading for the unit's new
+        // place) got there. The shot stays on the destination until the teleport effect finishes, or without
+        // one for CinematicLeadIn, so the arrival is seen.
+        if (node.MovementStyle == MovementStyle.Teleport && _cinematicSubject == stack && PlayerCamera != null)
+        {
+            PlayerCamera.SetShotFocus(FollowNodes(node));
+            if (node.ActiveTeleportEffect is AbilityVisualEffect effect && IsInstanceValid(effect))
+                await ToSignal(effect, AbilityVisualEffect.SignalName.Finished);
+            else
+                await WaitCinematicLeadIn();
+        }
     }
 
     private async Task ExecuteAbility(Battle battle, PendingAbility pending, int wave, SortedDictionary<int, List<PendingAbility>> waves)
@@ -1278,6 +1421,7 @@ public partial class Arena : Node3D
         if (pending.Ability is MeleeAttackAbility && !pending.IsRetaliation && battle.CanRetaliate(pending.Target))
         {
             pending.Target.Retaliated = true;
+            _retaliationSeen = true;
             AddToWave(waves, wave + 1, new PendingAbility(pending.Target, pending.Target.Unit.MeleeAttack!, pending.User, true));
         }
     }
@@ -1443,7 +1587,7 @@ public partial class Arena : Node3D
     private async Task WaitCinematicLeadIn()
     {
         if (CinematicLeadIn > 0)
-            await ToSignal(GetTree().CreateTimer(CinematicLeadIn), SceneTreeTimer.SignalName.Timeout);
+            await ToSignal(GetTree().CreateTimer(CinematicLeadIn, processAlways: false), SceneTreeTimer.SignalName.Timeout);
     }
 
     // Back to the board overview, then input on again

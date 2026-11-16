@@ -11,6 +11,7 @@ font = ExtResource("2_5r54p")
 font_size = 30
 
 [node name="ToggleSetting" type="HBoxContainer" unique_id=1495270588 node_paths=PackedStringArray("_label", "_checkBox")]
+process_mode = 3
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_12xqk")

@@ -1,21 +1,26 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Tutorial : Node, ISavable
 {
-	[Export] public string SaveId { get; set; } = "adventure_tutorial";
+	// The battle tutorial (BattleTutorial) writes its shown tips into this entry of the save while the map isn't loaded
+	public const string DefaultSaveId = "adventure_tutorial";
+	public const string BattleTipsKey = "battleTips";
+
+	[Export] public string SaveId { get; set; } = DefaultSaveId;
 	[Export] public PopoutManager? PopoutManager;
 
 	public void ShowMovementPopout()
 	{
-		PopoutManager?.SpawnPopout("Camera", "Rotate camera with right button and move it with middle button. Then reset position with space button.");
-		PopoutManager?.SpawnPopout("Movement", "Move by clicking on the ground. You can also click on different Points of Interest");
+		PopoutManager?.SpawnPopout("Camera", "Rotate camera with right button and move it with middle button. Then reset position with space button.", "rotate", "camera_move");
+		PopoutManager?.SpawnPopout("Movement", "Move by clicking on the ground. You can also click on different Points of Interest", "move");
 		TutorialChecklist.movementShown = true;
 	}
 
 	public void ShowInventory()
 	{
-		PopoutManager?.SpawnPopout("Inventory", "Open your inventory by clicking on your character. Close it with the close button or by clicking next on your screen");
+		PopoutManager?.SpawnPopout("Inventory", "Open your inventory by clicking on your character. Close it with the close button or by clicking next on your screen", "inventory");
 		TutorialChecklist.inventoryShown = true;
 	}
 
@@ -69,7 +74,8 @@ public partial class Tutorial : Node, ISavable
 			{ "inventoryExplained", TutorialChecklist.inventoryExplained },
 			{ "swappingExplained", TutorialChecklist.swappingExplained },
 			{ "magicExplained", TutorialChecklist.magicExplained },
-			{ "campExplained", TutorialChecklist.campExplained }
+			{ "campExplained", TutorialChecklist.campExplained },
+			{ BattleTipsKey, TutorialChecklist.BattleTipsToArray() }
 		};
 	}
 
@@ -81,6 +87,11 @@ public partial class Tutorial : Node, ISavable
 		TutorialChecklist.swappingExplained = (bool)data["swappingExplained"];
 		TutorialChecklist.magicExplained = (bool)data["magicExplained"];
 		TutorialChecklist.campExplained = (bool)data["campExplained"];
+		// Saves from before the battle tutorial have no tips
+		TutorialChecklist.battleTips.Clear();
+		if (data.ContainsKey(BattleTipsKey))
+			foreach (Variant tip in data[BattleTipsKey].AsGodotArray())
+				TutorialChecklist.battleTips.Add(tip.AsString());
 	}
 }
 
@@ -92,4 +103,26 @@ public static class TutorialChecklist
 	public static bool swappingExplained = false;
 	public static bool magicExplained = false;
 	public static bool campExplained = false;
+	// The ids of the battle tutorial's tips already shown (BattleTutorial)
+	public static readonly HashSet<string> battleTips = [];
+
+	// Nothing shown yet, for a new game
+	public static void Reset()
+	{
+		movementShown = false;
+		inventoryShown = false;
+		inventoryExplained = false;
+		swappingExplained = false;
+		magicExplained = false;
+		campExplained = false;
+		battleTips.Clear();
+	}
+
+	public static Godot.Collections.Array BattleTipsToArray()
+	{
+		var array = new Godot.Collections.Array();
+		foreach (string tip in battleTips)
+			array.Add(tip);
+		return array;
+	}
 }

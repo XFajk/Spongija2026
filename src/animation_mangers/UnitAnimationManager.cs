@@ -102,6 +102,9 @@ public partial class UnitAnimationManager : Node3D
 				await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 				if (!IsInstanceValid(this))
 					return;
+				// The tree still emits ProcessFrame while paused (the arena's pause menu), but the animation stands still
+				if (!CanProcess())
+					continue;
 				waited += GetProcessDeltaTime();
 				if (IsOneShotState(playback.GetCurrentNode()))
 					state = playback.GetCurrentNode();
@@ -120,6 +123,8 @@ public partial class UnitAnimationManager : Node3D
 				await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 				if (!IsInstanceValid(this))
 					return;
+				if (!CanProcess())
+					continue;
 				waited += GetProcessDeltaTime();
 			}
 		}

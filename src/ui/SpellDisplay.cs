@@ -115,6 +115,8 @@ public partial class SpellDisplay : Control
 	private void FillSpellButtons()
 	{
 		int first = _bookPage * _spellButtons.Count;
+		// With the equipped artefacts. Unlike the battle's book, this one lists spells the hero can't use yet too.
+		uint knowledge = inventory!.CreateHero().Knowledge;
 		for (int i = 0; i < _spellButtons.Count; i++)
 		{
 			SpellButton button = _spellButtons[i];
@@ -122,6 +124,9 @@ public partial class SpellDisplay : Control
 			button.Spell = spell;
 			button.Visible = spell != null;
 			button.UpdateIcon();
+			button.IsHeroSpell = true;
+			button.HeroKnowledge = knowledge;
+			button.CantCastReason = spell != null && knowledge < spell.MinKnowledge ? "Not enough Knowledge" : null;
 		}
 	}
 

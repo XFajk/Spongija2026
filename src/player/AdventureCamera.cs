@@ -9,12 +9,15 @@ public partial class AdventureCamera : PlayerCamera
 
 	[Export] public float Distance = 6.0f;
 	[Export] public float Height = 3.0f;
-	[Export] public float FollowHeight;
 	[Export] public float MinHeight;
 	[Export] public float MaxHeight;
 	[Export] public float MouseSensitivity = 0.005f;
 	[Export] public float MouseMovingSpeed = 0.5f;
 	[Export] public float SmoothSpeed = 10.0f;
+	// Meters per unit of a two-finger swipe's delta; negative flips the direction
+	[Export] public float TrackpadPanSpeed = 1.0f;
+	// Meters of height per unit of pinch (a pinch's factor minus 1)
+	[Export] public float TrackpadZoomSpeed = 40.0f;
 	[Export] Label? returnPanningButton;
 
 	private float _yaw = 0.0f;
@@ -38,7 +41,7 @@ public partial class AdventureCamera : PlayerCamera
 
 		Godot.Collections.Array<Node> group = GetTree().GetNodesInGroup("Terrain");
 		Node terrain = group[0];
-		terrain.Call("set_camera", this);
+		AttachToTerrain(terrain);
 
 		map = GetWorld3D().NavigationMap;
 		_rotatingCenter = Agent!.GlobalPosition;
@@ -60,9 +63,9 @@ public partial class AdventureCamera : PlayerCamera
 		base._Process(delta);
 		Debug.Assert(_interactionRayCast != null);
 
-		if (_ignoringClick && !Input.IsActionJustPressed("interact"))
+		if (_ignoringClick && !Input.IsActionPressed("interact"))
 			_ignoringClick = false;
-		bool interactPressed = Input.IsActionJustPressed("interact") && !_ignoringClick;
+		bool interactPressed = Input.IsActionPressed("interact") && !_ignoringClick;
 
 		if (_interactionRayCast.IsColliding())
 		{
@@ -122,11 +125,6 @@ public partial class AdventureCamera : PlayerCamera
 		else
 		{
 			_rotatingCenter = Agent!.GlobalPosition;
-			Height = Mathf.Lerp(
-				Height,
-				FollowHeight,
-				(float)delta * SmoothSpeed
-			);
 			returnPanningButton?.Hide();
 		}
 
@@ -190,9 +188,10 @@ public partial class AdventureCamera : PlayerCamera
 
 		Quaternion currentRotation = GlobalBasis.GetRotationQuaternion();
 
+		float rotationWeight = 1.0f - Mathf.Exp(-SmoothSpeed * 5.0f * (float)delta);
 		Quaternion smoothRotation = currentRotation.Slerp(
 			targetRotation,
-			(float)delta * SmoothSpeed * 5
+			rotationWeight
 		);
 
 		GlobalBasis = new Basis(smoothRotation);
@@ -220,38 +219,57 @@ public partial class AdventureCamera : PlayerCamera
 
 		if (@event is InputEventMouseMotion motion && _panning)
 		{
-			_panningChanged = true;
-			Vector3 forward = GlobalTransform.Basis.Z;
-			forward.Y = 0;
-			forward = forward.Normalized();
-
-			Vector3 right = GlobalTransform.Basis.X;
-			right.Y = 0;
-			right = right.Normalized();
-
-			_rotatingCenter += right * -motion.Relative.X * MouseSensitivity * MouseMovingSpeed;
-			_rotatingCenter += forward * -motion.Relative.Y * MouseSensitivity * MouseMovingSpeed;
-
-			Position += right * -motion.Relative.X * MouseSensitivity * MouseMovingSpeed;
-			Position += forward * -motion.Relative.Y * MouseSensitivity * MouseMovingSpeed;
+			PanBy(motion.Relative * MouseSensitivity * MouseMovingSpeed);
 		}
 
-		if (_panningChanged)
+		// A two-finger swipe. Pressing the trackpad with two fingers is a right click, so the orbit above;
+		// macOS can send swipes during that drag too, so they're skipped then
+		if (@event is InputEventPanGesture swipe && Agent!.canMove && !_rotating)
 		{
-			if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
-			{
-				if (mouseEvent.ButtonIndex == MouseButton.WheelDown)
-				{
-					Height += 1f;
-				}
-				else if (mouseEvent.ButtonIndex == MouseButton.WheelUp)
-				{
-					Height -= 1f;
-				}
+			PanBy(-swipe.Delta * TrackpadPanSpeed);
+		}
 
-				Height = Mathf.Clamp(Height, MinHeight, MaxHeight);
+		// A pinch. Height only stays changed in the panned view, so a pinch enters it,
+		// or it would do nothing until the first swipe
+		if (@event is InputEventMagnifyGesture pinch && Agent!.canMove)
+		{
+			_panningChanged = true;
+			ZoomBy((1f - pinch.Factor) * TrackpadZoomSpeed);
+		}
+
+		if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
+		{
+			if (mouseEvent.ButtonIndex == MouseButton.WheelDown)
+			{
+				ZoomBy(1f);
+			}
+			else if (mouseEvent.ButtonIndex == MouseButton.WheelUp)
+			{
+				ZoomBy(-1f);
 			}
 		}
+	}
+
+	// Moves the view against the given offset in meters (X along the screen, Y into it), like dragging the ground
+	void PanBy(Vector2 offset)
+	{
+		_panningChanged = true;
+		Vector3 forward = GlobalTransform.Basis.Z;
+		forward.Y = 0;
+		forward = forward.Normalized();
+
+		Vector3 right = GlobalTransform.Basis.X;
+		right.Y = 0;
+		right = right.Normalized();
+
+		Vector3 move = right * -offset.X + forward * -offset.Y;
+		_rotatingCenter += move;
+		Position += move;
+	}
+
+	void ZoomBy(float height)
+	{
+		Height = Mathf.Clamp(Height + height, MinHeight, MaxHeight);
 	}
 
 	public bool IsOnNavMesh(Vector3 pos)

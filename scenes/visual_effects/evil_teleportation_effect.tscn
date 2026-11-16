@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://d27dj1opdp35y"]
+
+[ext_resource type="Script" uid="uid://d6vhqgkd2emd" path="res://src/battle_system/visual_effects/AbilityVisualEffect.cs" id="1_xrse7"]
+
+[sub_resource type="Curve" id="Curve_koeba"]
+_data = [Vector2(0, 0.99640286), 0.0, 0.0, 0, 0, Vector2(0.67857146, 0.74100715), -0.93931806, -0.93931806, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gdhjq"]
+curve = SubResource("Curve_koeba")
+
+[sub_resource type="Curve" id="Curve_r07bd"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.6980519, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_r07bd"]
+curve = SubResource("Curve_r07bd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xrse7"]
+emission_shape_scale = Vector3(0.3, 0.17, 0.3)
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 2, 0)
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = 9.999997
+tangential_accel_curve = SubResource("CurveTexture_r07bd")
+damping_max = 1.0
+scale_min = 0.19999999
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_gdhjq")
+hue_variation_min = -1.0
+hue_variation_max = 0.99999994
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5lxne"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.17446256, 0.17446256, 1)
+grow = true
+grow_amount = 0.005
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dc8rs"]
+next_pass = SubResource("StandardMaterial3D_5lxne")
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0.26414585, 1, 1)
+emission_enabled = true
+emission = Color(1, 0, 0.8214245, 1)
+emission_energy_multiplier = 6.0
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.005
+
+[sub_resource type="SphereMesh" id="SphereMesh_5lxne"]
+material = SubResource("StandardMaterial3D_dc8rs")
+radius = 0.025
+height = 0.05
+radial_segments = 8
+rings = 6
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mr121"]
+emission_shape_scale = Vector3(0.3, 0.17, 0.3)
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 2, 0)
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = 9.999997
+tangential_accel_curve = SubResource("CurveTexture_r07bd")
+damping_max = 1.0
+scale_min = 0.19999999
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_gdhjq")
+hue_variation_min = -1.0
+hue_variation_max = 0.99999994
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mr121"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0, 0, 1)
+emission = Color(1, 0, 0.8214245, 1)
+emission_energy_multiplier = 6.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_dnb21"]
+material = SubResource("StandardMaterial3D_mr121")
+radius = 0.05
+height = 0.1
+radial_segments = 8
+rings = 6
+
+[node name="EvilTeleportationEffect" type="GPUParticles3D" unique_id=470426492]
+amount = 30
+lifetime = 0.6
+trail_lifetime = 4.25
+process_material = SubResource("ParticleProcessMaterial_xrse7")
+draw_pass_1 = SubResource("SphereMesh_5lxne")
+script = ExtResource("1_xrse7")
+
+[node name="EvilTeleportationSubEffect" type="GPUParticles3D" parent="." unique_id=1217276483]
+amount = 10
+lifetime = 0.5
+trail_lifetime = 4.25
+process_material = SubResource("ParticleProcessMaterial_mr121")
+draw_pass_1 = SubResource("SphereMesh_dnb21")

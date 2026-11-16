@@ -28,6 +28,7 @@ Defense = 5
 SpeedTier = 5
 StartingMana = 30
 MaxMana = 30
+Size = 2
 MeleeAttack = SubResource("Resource_melee")
 Spells = Array[ExtResource("4_ghost")]([ExtResource("6_ghost")])
 Passives = Array[ExtResource("5_ghost")]([SubResource("Resource_immune")])

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bs301ou6e73rc" path="res://scenes/units/orc_warrior.tscn" id="3_orc"]
 [ext_resource type="Script" uid="uid://b3kpcm0in77a0" path="res://src/battle_system/abilities/PassiveAbility.cs" id="3_vrekw"]
 [ext_resource type="Script" uid="uid://cfma45rbvjaso" path="res://src/battle_system/abilities/SpellAbility.cs" id="4_bnn5t"]
+[ext_resource type="Texture2D" uid="uid://cj8lehmbbmpcq" path="res://assets/units_icons/orc_warrior.png" id="5_icon"]
 
 [sub_resource type="Resource" id="Resource_melee"]
 script = ExtResource("2_orc")
@@ -13,6 +14,7 @@ metadata/_custom_type_script = "uid://dbehoqcrijunt"
 [resource]
 script = ExtResource("1_orc")
 Name = "Orc Warrior"
+texture = ExtResource("5_icon")
 Description = "Melkor's soldiers, clad in black iron hammered in the forges under the mountains. They hit harder than an elven warrior and take a beating well, but their armor is crude, and a well-placed blade finds the gaps. They give back every blow they take."
 MaxHealth = 55
 Strength = 10

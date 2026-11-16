@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" uid="uid://cuk3liblnm7e6" path="res://src/shaders/grass.gdshader" id="1_shader"]
+[ext_resource type="Texture2D" uid="uid://bkfslrgo5pe00" path="res://assets/terrain/foliage/plant_2.png" id="2_albedo"]
+[ext_resource type="Texture2D" path="res://assets/terrain/foliage/wind_noise.tres" id="3_noise"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_shader")
+shader_parameter/albedo_texture = ExtResource("2_albedo")
+shader_parameter/alpha_threshold = 0.5
+shader_parameter/backlight = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/ground_offset = 0.0
+shader_parameter/fade_start = 96.0
+shader_parameter/fade_end = 128.0
+shader_parameter/wind_noise = ExtResource("3_noise")
+shader_parameter/amount = 0.5
